@@ -1,0 +1,96 @@
+body {
+	margin: 0;
+	padding: 0;
+	font: 15px Verdana, sans-serif;
+	line-height: 1.8em;
+	color: black;
+	background: white;
+}
+
+#container {
+	width: 58em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+}
+
+#main {
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+h2 {
+  font-size: 1.8em;
+  font-weight: normal;
+  line-height: 1.4em;
+  border-bottom: 1px dotted #ddd;
+  padding-bottom: 0.3em;
+  margin-bottom: -0.3em;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: normal;
+	border-bottom: 1px dotted #ddd;
+
+}
+
+h1, .post {
+  padding-bottom: 8px;
+	margin-bottom: 32px;
+}
+
+.meta {
+  font-size: 0.9em;
+  color: #777;
+  border-top: 1px dotted #ddd;
+  padding-top: 0.5em;
+  margin-top: -0.3em;
+}
+
+.content a {
+  color: #B18801;
+  text-decoration: none;
+  border-bottom: 1px dotted #B18801;
+  
+  #background: #E1BB01;
+}
+
+.content a:hover {
+  border-bottom: 1px solid #B18801;
+}
+
+.tags a {
+  color: #449100;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  text-decoration: none;
+  -moz-border-radius: 0.3em;
+  -webkit-border-radius: 0.3em;
+  background: #CCE1aa;
+}
+
+.tags a:hover {
+  background: #CCC;
+  color: #444;
+}
+
+.tags a:active {
+  background:  #444;
+  color: #ccc;
+}
+
+pre {
+  font: 0.9em Monaco, monospace;
+  line-height: 1.4em;
+  display: block;
+  color: white;
+  background: black;
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  padding: 0.6em;
+}
+		
