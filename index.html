@@ -3,19 +3,5 @@ layout: default
 title: tomafro.net
 ---
 {% for post in site.posts %}
-<div class="post">
-  <div class="content">
-    <h2>
-      {{ post.title }}
-    </h2>
-    {{ post.content }}
-  </div>
-  <div class="meta">
-    <span class="tags">
-      {% for tag in post.tags %}
-        <a href="/tags/{{ tag }}">{{ tag }}</a>
-      {% endfor %}
-    </span>
-  </div>
-</div>
+{% include post-div.html %}
 {% endfor %}

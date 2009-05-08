@@ -1,18 +1,4 @@
 ---
 layout: default
 ---
-<div class="post">
-  <div class="content">
-    <h2>
-      {{ page.title }}
-    </h2>
-    {{ content }}
-  </div>
-  <div class="meta">
-    <span class="tags">
-      {% for tag in page.tags %}
-        <a href="/tags/{{ tag }}">{{ tag }}</a>
-      {% endfor %}
-    </span>
-  </div>
-</div>
+{% include post-div.html %}

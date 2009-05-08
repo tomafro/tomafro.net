@@ -41,6 +41,16 @@ h1, .post {
 	margin-bottom: 32px;
 }
 
+.post .title a {
+  color: black;
+  text-decoration: none;
+  border: none;
+}
+
+.post .title a:hover {
+  border: none;
+}
+
 .meta {
   font-size: 0.9em;
   color: #777;
