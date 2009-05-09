@@ -17,7 +17,8 @@ task :build do
 layout: default
 title: tomafro.net
 ---
-{% for post in site.categories.#{tag} %}
+{% for page in site.categories.#{tag} %}
+{% assign body = page.content %}
 {% include post-div.html %}
 {% endfor %}
 }        

@@ -2,6 +2,7 @@
 layout: default
 title: tomafro.net
 ---
-{% for post in site.categories.filter %}
+{% for page in site.categories.filter %}
+{% assign body = page.content %}
 {% include post-div.html %}
 {% endfor %}
