@@ -6,8 +6,9 @@
     {{ body }}
   </div>
   <div class="meta">
+  Tom Ward ‧ {{ page.date | date: "%e %b %Y"}}
   {% for tag in page.categories %}
-  <span class="tags"><a href="/tags/{{tag}}/">{{tag}}</a></span>
+  ‧ <span class="tags"><a href="/tags/{{tag}}/">{{tag}}</a></span>
   {% endfor %}
   </div>
 </div>
