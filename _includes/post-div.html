@@ -1,16 +1,13 @@
 <div class="post">
   <div class="content">
     <h2 class="title">
-      {% if post %}
-      <a href="{{ post.url }}">{{ post.title }}</a>
-      {% else %}
       <a href="{{ page.url }}">{{ page.title }}</a>
-      {% endif %}
     </h2>
-    {% if post %}
-    {{ post.content }}
-    {% else %}
-    {{ content }}
-    {% endif %}
+    {{ body }}
+  </div>
+  <div class="meta">
+  {% for tag in page.categories %}
+  <span class="tags"><a href="/tags/{{tag}}/">{{tag}}</a></span>
+  {% endfor %}
   </div>
 </div>
