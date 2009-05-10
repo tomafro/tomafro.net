@@ -45,6 +45,9 @@ h1, .post {
   color: black;
   text-decoration: none;
   border: none;
+  padding: 0;
+  margin: 0;
+  background: white;
 }
 
 .post .title a:hover {
@@ -53,28 +56,28 @@ h1, .post {
 
 .meta {
   font-size: 0.9em;
-  color: #777;
+  color: #aaa;
   border-top: 1px dotted #ddd;
-  border-bottom: 1px dotted #ddd;;
-  padding-top: 0.4em;
-  padding-bottom: 0.4em;
+  border-bottom: 1px dotted #ddd;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
   margin-top: -0.5em;
 }
 
 .meta a {
-  color: #777;
+  color: #aaa;
   text-decoration: none;
   border-bottom: 1px dotted;
 }
 
 .content a {
-  color: #B18801;
+  color: #D1A801;
   text-decoration: none;
-  border-bottom: 1px dotted #B18801;
+  border-bottom: 1px dotted #D1A801;
 }
 
 .content a:hover {
-  border-bottom: 1px solid #B18801;
+  border-bottom: 1px solid;
 }
 
 .tags a {
