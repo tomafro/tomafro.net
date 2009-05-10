@@ -61,6 +61,12 @@ h1, .post {
   margin-top: -0.5em;
 }
 
+.meta a {
+  color: #777;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
 .content a {
   color: #B18801;
   text-decoration: none;
