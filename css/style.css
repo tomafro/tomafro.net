@@ -54,11 +54,25 @@ h1, .post {
   border: none;
 }
 
+#header {
+  color: #aaa;
+  margin-top: -1em;
+  padding-bottom: 1em;
+}
+
+#header a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+#header a:hover {
+  color: #449100;
+}
+
 .meta {
   font-size: 0.9em;
   color: #aaa;
   border-top: 1px dotted #ddd;
-  border-bottom: 1px dotted #ddd;
   padding-top: 0.1em;
   padding-bottom: 0.1em;
   margin-top: -0.5em;
