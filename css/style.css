@@ -89,6 +89,7 @@ h1, .post {
   -moz-border-radius: 0.3em;
   -webkit-border-radius: 0.3em;
   background: #CCE1aa;
+  border: none;
 }
 
 .tags a:hover {
