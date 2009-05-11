@@ -55,23 +55,24 @@ h1, .post {
 }
 
 #header {
-  color: #aaa;
+  color: #999;
   margin-top: -1em;
   padding-bottom: 1em;
 }
 
 #header a {
-  color: #aaa;
+  color: #999;
   text-decoration: none;
 }
 
 #header a:hover {
-  color: #449100;
+  color: #004491;
+  border-bottom: 1px solid #004491;
 }
 
 .meta {
   font-size: 0.9em;
-  color: #aaa;
+  color: #999;
   border-top: 1px dotted #ddd;
   padding-top: 0.1em;
   padding-bottom: 0.1em;
@@ -85,9 +86,9 @@ h1, .post {
 }
 
 .content a {
-  color: #D1A801;
+  color: #004491;
   text-decoration: none;
-  border-bottom: 1px dotted #D1A801;
+  border-bottom: 1px dotted #004491;
 }
 
 .content a:hover {
@@ -133,6 +134,7 @@ pre {
 }
 
 .meta .date a:hover {
-  color: #449100;
+  color: #004491;
+  border-bottom: 1px solid #004491;
 }
 		
