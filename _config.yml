@@ -4,7 +4,7 @@ lsi:         false
 server_port: 4000
 pygments:    true
 markdown:    maruku
-permalink:   /:year/:month/:day/:title
+permalink:   /:year/:month/:title
 maruku:
   use_tex:    false
   use_divs:   false
