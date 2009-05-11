@@ -50,8 +50,8 @@ title: tomafro.net
   end
   
   by_year_and_month = site.posts.inject({}) do |result, post|
-    result[[post.date.year.to_s, post.date.month.to_s]] ||= []
-    result[[post.date.year.to_s, post.date.month.to_s]] << post
+    result[[post.date.year.to_s, post.date.strftime("%m")]] ||= []
+    result[[post.date.year.to_s, post.date.strftime("%m")]] << post
     result
   end
   

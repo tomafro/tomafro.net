@@ -127,4 +127,12 @@ pre {
   -webkit-border-radius: 0.5em;
   padding: 0.6em;
 }
+
+.meta .date a {
+  border: none;
+}
+
+.meta .date a:hover {
+  color: #449100;
+}
 		

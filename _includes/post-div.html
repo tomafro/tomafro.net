@@ -6,9 +6,13 @@
     {{ body }}
   </div>
   <div class="meta">
-  <span class="author">Tom Ward</span> &middot; <span class="date">{{ page.date | date: "%e"}} {{ page.date | date: "%B"}} {{ page.date | date: "%Y"}}</span>
+  <span class="author">Tom Ward</span> &middot; <span class="date">{{ page.date | date: "%e"}} 
+    <a href="/{{ page.date | date: "%Y" }}/{{ page.date | date: "%m" }}">{{ page.date | date: "%B"}}</a> 
+    <a href="/{{ page.date | date: "%Y" }}">{{ page.date | date: "%Y"}}</a></span>
+  <span class="tags">
   {% for tag in page.categories %}
-  &middot; <span class="tags"><a href="/tags/{{tag}}/">{{tag}}</a></span>
+  &middot; <a href="/tags/{{tag}}/">{{tag}}</a> 
   {% endfor %}
+  </span>
   </div>
 </div>

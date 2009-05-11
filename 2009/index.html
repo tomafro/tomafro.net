@@ -1,0 +1,11 @@
+---
+layout: default
+title: tomafro.net
+---
+{% for page in site.posts %}
+{% capture year %}{{ page.date | date: "%Y"}}{% endcapture %}
+{% if year == '2009' %}
+{% assign body = page.content %}
+{% include post-div.html %}
+{% endif %}
+{% endfor %}
