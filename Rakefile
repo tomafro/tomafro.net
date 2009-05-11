@@ -37,7 +37,7 @@ title: tomafro.net
     File.open "#{year}/index.html", "w" do |f|
       f.puts %{---
 layout: default
-title: tomafro.net
+title: posts from #{year}
 ---
 {% for page in site.posts %}
 {% capture year %}{{ page.date | date: "%Y"}}{% endcapture %}
@@ -60,7 +60,7 @@ title: tomafro.net
     File.open "#{year_and_month.first}/#{year_and_month.last}/index.html", "w" do |f|
       f.puts %{---
 layout: default
-title: tomafro.net
+title: posts from #{year_and_month.last} #{year_and_month.first} 
 ---
 {% for page in site.posts %}
 {% capture year %}{{ page.date | date: "%Y"}}{% endcapture %}
