@@ -1,0 +1,8 @@
+---
+layout: default
+title: tomafro.net
+---
+{% for page in site.categories.cucumber %}
+{% assign body = page.content %}
+{% include post-div.html %}
+{% endfor %}
