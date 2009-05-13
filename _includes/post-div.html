@@ -1,10 +1,15 @@
+{% if page.post-type %}
+<div class="{{ page.post-type }}">
+{% else %}
 <div class="post">
+{% endif %}
   <div class="content">
     <h2 class="title">
       <a href="{{ page.url }}">{{ page.title }}</a>
     </h2>
     {{ body }}
   </div>
+  {% unless page.hide_meta %}
   <div class="meta">
   <span class="author">Tom Ward</span> &middot; <span class="date">{{ page.date | date: "%e"}} 
     <a href="/{{ page.date | date: "%Y" }}/{{ page.date | date: "%m" }}">{{ page.date | date: "%B"}}</a> 
@@ -15,4 +20,5 @@
   {% endfor %}
   </span>
   </div>
+  {% endunless %}
 </div>
