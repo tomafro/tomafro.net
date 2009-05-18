@@ -1,0 +1,6 @@
+<VirtualHost *>
+  ServerName tomafro.net
+  DocumentRoot /var/sites/tomafro.net
+  Options MultiViews
+  ErrorDocument 404 /404.html
+</VirtualHost>

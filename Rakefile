@@ -11,8 +11,7 @@ task :build do
     FileUtils.mkdir_p "tags"
   
     tags.each do |tag|
-      FileUtils.mkdir_p "tags/#{tag}"
-      File.open "tags/#{tag}/index.html", "w" do |f|
+      File.open "tags/#{tag}.html", "w" do |f|
         f.puts %{---
 layout: default
 title: tomafro.net
@@ -55,8 +54,10 @@ title: posts from #{year}
     result
   end
   
+  
   by_year_and_month.keys.each do |year_and_month|
     FileUtils.mkdir_p "#{year_and_month.first}/#{year_and_month.last}"
+    
     File.open "#{year_and_month.first}/#{year_and_month.last}/index.html", "w" do |f|
       f.puts %{---
 layout: default

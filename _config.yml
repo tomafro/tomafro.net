@@ -5,7 +5,7 @@ server_port: 4000
 pygments:    true
 markdown:    maruku
 permalink:   /:year/:month/:title
-exclude: [CNAME, Rakefile]
+exclude: [config, CNAME, Rakefile, Capfile, _site.tar.gz, tomafro.net]
 maruku:
   use_tex:    false
   use_divs:   false
