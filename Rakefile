@@ -75,6 +75,4 @@ title: posts from #{year_and_month.last} #{year_and_month.first}
   end
   
   `jekyll --no-auto`
-  
-  FileUtils.cp("_site/404.html", "404.html")
 end
