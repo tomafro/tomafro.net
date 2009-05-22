@@ -3,3 +3,4 @@ _site.*
 .DS_Store
 tags
 20*
+!_posts/*
