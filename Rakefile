@@ -6,6 +6,9 @@ task :build do
   options = Jekyll.configuration({})
   site = Jekyll::Site.new(options)
   site.read_posts('')
+  
+  `rm -rf tags`
+  
   tags = site.categories.keys
   if tags.size > 0
     FileUtils.mkdir_p "tags"
@@ -24,6 +27,8 @@ title: tomafro.net
       end
     end
   end
+  
+  `rm -rf 20*`
   
   by_year = site.posts.inject({}) do |by_year, post|
     by_year[post.date.year.to_s] ||= []

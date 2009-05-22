@@ -1,6 +1,6 @@
 ---
 layout: post
-title: I Thought We Were Going to Kew Gardens
+title: I thought we were going to Kew Gardens
 categories: [the-smiths, music, youtube]
 ---
 <p class="video">
