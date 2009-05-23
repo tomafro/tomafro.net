@@ -16,7 +16,7 @@
     <a href="/{{ page.date | date: "%Y" }}">{{ page.date | date: "%Y"}}</a></span>
   <span class="tags">
   {% for tag in page.categories %}
-  &middot; <a href="/tags/{{tag}}">{{tag}}</a> 
+  &middot; <a href="/tags/{{tag}}" rel="tag">{{tag}}</a> 
   {% endfor %}
   </span>
   </div>
