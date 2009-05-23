@@ -27,4 +27,4 @@ module Rack
 end
 {% endhighlight %}
 
-I suggest you add it to a colleagues app late on a Friday afternoon, and see how long it takes to drive them to insanity.
+I suggest you add it to a colleague's app late on a Friday afternoon, and see how long it takes to drive them to insanity.
