@@ -13,21 +13,30 @@ body {
 	margin-right: auto;
 }
 
-#header {
+.menubar {
   color: #aaa;
   line-height: 1.3em;
-  margin-bottom: 3em;
   margin-top: 0;
   padding-top: 0;
 }
 
-#header a {
+.menubar a {
   color: #aaa;
   text-decoration: none;
 }
 
-#header a:hover {
+.menubar a:hover {
   color: #004491;
+}
+
+#header {
+  margin-bottom: 3em;
+  padding-top: 0.3em;
+}
+
+#footer {
+  margin-top: 3em;
+  padding-bottom: 0.3em;
 }
 
 

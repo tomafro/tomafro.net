@@ -11,11 +11,14 @@
 <body>
   
   <div id="container">
-    <div id="header">
-    <a class="name" href="/">tomafro.net</a> &middot; <a href="/about/">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    <div id="header" class="menubar">
+      {% include menubar.html %}
     </div>
     <div id="main">
       {{ content }}
+    </div>
+    <div id="footer" class="menubar">
+      {% include menubar.html %}
     </div>
   </div>
   {% include google-analytics.html %}
