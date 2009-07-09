@@ -1,3 +1,4 @@
+gem 'mojombo-jekyll', '0.5.2'
 require 'jekyll'
 require 'set'
 require 'fileutils'
