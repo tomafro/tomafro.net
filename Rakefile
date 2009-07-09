@@ -1,4 +1,4 @@
-gem 'mojombo-jekyll', '0.5.2'
+gem 'tomafro-jekyll', '0.5.2.1'
 require 'jekyll'
 require 'set'
 require 'fileutils'
