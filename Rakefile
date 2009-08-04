@@ -1,4 +1,4 @@
-gem 'tomafro-jekyll', '0.5.2.1'
+gem 'mojombo-jekyll', '0.5.3'
 require 'jekyll'
 require 'set'
 require 'fileutils'
@@ -16,6 +16,7 @@ task :build do
   
     tags.each do |tag|
       File.open "tags/#{tag}.html", "w" do |f|
+        puts "Generating #{f.path}"
         f.puts %{---
 layout: default
 title: tomafro.net
@@ -38,8 +39,8 @@ title: tomafro.net
   end
   
   by_year.keys.each do |year|
-    FileUtils.mkdir_p year
-    File.open "#{year}/index.html", "w" do |f|
+    File.open "#{year}.html", "w" do |f|
+      puts "Generating #{f.path}"
       f.puts %{---
 layout: default
 title: posts from #{year}
@@ -62,23 +63,27 @@ title: posts from #{year}
   
   
   by_year_and_month.keys.each do |year_and_month|
-    FileUtils.mkdir_p "#{year_and_month.first}/#{year_and_month.last}"
+    FileUtils.mkdir_p "#{year_and_month.first}"
     
-    File.open "#{year_and_month.first}/#{year_and_month.last}/index.html", "w" do |f|
+    File.open "#{year_and_month.first}/#{year_and_month.last}.html", "w" do |f|
+      puts "Generating #{f.path}"
       f.puts %{---
 layout: default
 title: posts from #{year_and_month.last} #{year_and_month.first} 
 ---
 {% for page in site.posts %}
-{% capture year %}{{ page.date | date: "%Y"}}{% endcapture %}
-{% capture month %}{{ page.date | date: "%m"}}{% endcapture %}
-{% if year == '#{year_and_month.first}' & month = '#{year_and_month.last}'%}
-{% assign body = page.content %}
-{% include post-div.html %}
-{% endif %}
+  {% capture year %}{{ page.date | date: "%Y"}}{% endcapture %}
+  {% capture month %}{{ page.date | date: "%m"}}{% endcapture %}
+  {% if year == '#{year_and_month.first}' %}
+    {% if month == '#{year_and_month.last}' %}
+      {% assign body = page.content %}
+      {% include post-div.html %}
+    {% endif %}
+  {% endif %}
 {% endfor %}}
     end
   end
   
+  `rm -rf _site`
   `jekyll --no-auto`
 end
