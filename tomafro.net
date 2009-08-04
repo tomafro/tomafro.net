@@ -5,4 +5,7 @@
   ErrorDocument 404 /404.html
   CustomLog /var/log/apache2/tomafro.net-access.log combined
   ErrorLog /var/log/apache2/tomafro.net-error.log
+  
+  RewriteEngine on
+  RewriteRule ^(\/[^.]+)$ $1.html [L]
 </VirtualHost>
