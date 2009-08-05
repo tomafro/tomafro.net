@@ -64,12 +64,12 @@ title: posts from #{year}
   
   by_year_and_month.keys.each do |year_and_month|
     FileUtils.mkdir_p "#{year_and_month.first}"
-    
+    month_name = Date.new(2008, year_and_month.last.to_i, 1).strftime("%B")
     File.open "#{year_and_month.first}/#{year_and_month.last}.html", "w" do |f|
       puts "Generating #{f.path}"
       f.puts %{---
 layout: default
-title: posts from #{year_and_month.last} #{year_and_month.first} 
+title: Posts from #{month_name} #{year_and_month.first} 
 ---
 {% for page in site.posts %}
   {% capture year %}{{ page.date | date: "%Y"}}{% endcapture %}
