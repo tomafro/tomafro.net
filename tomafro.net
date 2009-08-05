@@ -7,5 +7,6 @@
   ErrorLog /var/log/apache2/tomafro.net-error.log
   
   RewriteEngine on
+  RewriteRule ^(\/.+)\/$ $1 [R]
   RewriteRule ^(\/[^.]+)$ $1.html [L]
 </VirtualHost>
