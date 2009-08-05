@@ -1,4 +1,4 @@
-gem 'mojombo-jekyll', '0.5.3'
+gem 'tomafro-jekyll', '0.5.3.1'
 require 'jekyll'
 require 'set'
 require 'fileutils'
@@ -85,5 +85,12 @@ title: posts from #{year_and_month.last} #{year_and_month.first}
   end
   
   `rm -rf _site`
-  `jekyll --no-auto`
+  
+  options = Jekyll.configuration('auto' => false)
+  source      = options['source']
+  destination = options['destination']
+  site = Jekyll::Site.new(options)
+  puts "Building site: #{source} -> #{destination}"
+  site.process
+  puts "Successfully generated site: #{source} -> #{destination}"
 end
