@@ -3,7 +3,7 @@ layout: post
 title: Kernel specific ZSH dotfiles
 categories: [zsh, osx, linux, tip]
 ---
-I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use [a github repository](http://github.com/tomafro/houseshare) to share this configuration between these machines.
+I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use [a github repository](http://github.com/tomafro/dotfiles) to share this configuration between these machines.
 
 This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is `ls` which takes different arguments on both systems; the default `ls` alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?
 
