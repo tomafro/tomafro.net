@@ -7,6 +7,7 @@
   ErrorLog /var/log/apache2/tomafro.net-error.log
   
   RewriteEngine on
+  RewriteRule /rss /atom.xml [R]
   RewriteRule ^(\/.+)\/$ $1 [R]
   RewriteRule ^(\/[^.]+)$ $1.html [L]
 </VirtualHost>
