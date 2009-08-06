@@ -5,16 +5,16 @@ layout: nil
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
   <url> 
     <loc>http://tomafro.net/</loc>
-    <changefreq>always</changefreq> 
+    <changefreq>daily</changefreq> 
     <priority>1</priority> 
   </url>
   <url>
     <loc>http://tomafro.net/about/</loc>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
   </url> 
-  {% for page in site.posts %}<url>
+{% for page in site.posts %}  <url>
     <loc>http://tomafro.net{{ page.url }}</loc>
     <lastmod>{{ page.date | date: "%Y-%m-%d" }}</lastmod>
-    <changefreq>never</changefreq>
-  </url>{% endfor %} 
-</urlset>
+    <changefreq>monthly</changefreq>
+  </url>
+{% endfor %}</urlset>
