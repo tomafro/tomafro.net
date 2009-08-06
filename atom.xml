@@ -3,7 +3,6 @@ layout: nil
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- 
  <title>tomafro.net</title>
  <link href="http://blog.tomafro.net/atom.xml" rel="self"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
@@ -12,7 +11,6 @@ layout: nil
    <name>Tom Ward</name>
    <email>tom@popdog.net</email>
  </author>
- 
  {% for post in site.posts %}
  <entry>
    <title>{{ post.title }}</title>
