@@ -2,8 +2,51 @@ gem 'tomafro-jekyll', '0.5.3.1'
 require 'jekyll'
 require 'set'
 require 'fileutils'
+require 'hpricot'
+require 'date'
 
-task :build do
+
+
+task :update_stats do  
+  unless ENV["ANALYTICS_PASSWORD"]
+    puts "No ANALYTICS_PASSWORD supplied so skipping stats update"
+  else
+  
+    googleAuth = `curl https://www.google.com/accounts/ClientLogin -s \
+      -d Email=tom@popdog.net \
+      -d Passwd=#{ENV["ANALYTICS_PASSWORD"]} \
+      -d accountType=GOOGLE \
+      -d source=curl-accountFeed-v1 \
+      -d service=analytics \
+      | awk /Auth=.*/`.strip
+
+
+    feedUri="https://www.google.com/analytics/feeds/data?start-date=2009-06-01&end-date=#{(Date.today + 1).to_s}&metrics=ga:timeOnSite&max-results=5&ids=ga:17589533&prettyprint=true"
+
+    xml = `curl "#{feedUri}" -s --header "Authorization: GoogleLogin #{googleAuth}"`
+
+    begin
+      doc = Hpricot(xml)
+      seconds = doc.at("//dxp:metric[@name='ga:timeOnSite']")['value']
+      minutes = seconds.to_f / 60
+      days = seconds.to_f / 60 / 60 / 24
+
+      puts "Updating stats to show #{minutes} minutes, #{days} days"
+  
+      config = YAML.load_file("_config.yml")
+      config["days"] = ("%10.1f" % days)
+      config["minutes"] = ("%10.1f" % minutes)
+      File.open("_config.yml", "w") do |out|
+        YAML.dump(config, out)
+      end
+    rescue Object => e
+      puts "Stats could not be updated:"
+      p e
+    end
+  end
+end
+
+task :build => :update_stats do
   options = Jekyll.configuration({})
   site = Jekyll::Site.new(options)
   site.read_posts('')
@@ -19,7 +62,8 @@ task :build do
         puts "Generating #{f.path}"
         f.puts %{---
 layout: default
-title: tomafro.net
+title: Posts tagged #{tag}
+robots: noindex
 ---
 {% for page in site.categories.#{tag} %}
 {% assign body = page.content %}
@@ -44,6 +88,7 @@ title: tomafro.net
       f.puts %{---
 layout: default
 title: posts from #{year}
+robots: noindex
 ---
 {% for page in site.posts %}
 {% capture year %}{{ page.date | date: "%Y"}}{% endcapture %}
@@ -69,7 +114,8 @@ title: posts from #{year}
       puts "Generating #{f.path}"
       f.puts %{---
 layout: default
-title: Posts from #{month_name} #{year_and_month.first} 
+title: Posts from #{month_name} #{year_and_month.first}
+robots: noindex 
 ---
 {% for page in site.posts %}
   {% capture year %}{{ page.date | date: "%Y"}}{% endcapture %}
