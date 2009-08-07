@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>tomafro.net &middot; {{ page.title }}</title>
+  <title>{{ page.title }} &middot; tomafro.net</title>{% if page.description %}
+  <meta name="description" content="{{ page.description }}">{% endif %}{% if page.robots %}
+  <meta name="robots" content="{{ page.robots }}">{% endif %}
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
