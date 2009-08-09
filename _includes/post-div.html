@@ -1,24 +1,12 @@
-{% if page.post-type %}
-<div class="{{ page.post-type }}">
-{% else %}
-<div class="post">
-{% endif %}
+{% if page.post-type %}<div class="{{ page.post-type }}">{% else %}<div class="post">{% endif %}
   <div class="content">
-    <h2 class="title">
-      <a href="{{ page.url }}">{{ page.title }}</a>
-    </h2>
+    <h2 class="title"><a href="{{ page.url }}">{{ page.title }}</a></h2>
     {{ body }}
-  </div>
-  {% unless page.hide_meta %}
+  </div>{% unless page.hide_meta %}
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; <span class="date">{{ page.date | date: "%e" | ordinalize }} 
     <a href="/{{ page.date | date: "%Y" }}/{{ page.date | date: "%m" }}">{{ page.date | date: "%B"}}</a> 
     <a href="/{{ page.date | date: "%Y" }}">{{ page.date | date: "%Y"}}</a></span>
-  <span class="tags">
-  {% for tag in page.categories %}
-  &middot; <a href="/tags/{{tag}}" rel="tag">{{tag}}</a> 
-  {% endfor %}
-  </span>
-  </div>
-  {% endunless %}
+  <span class="tags">{% for tag in page.categories %}&middot; <a href="/tags/{{tag}}" rel="tag">{{tag}}</a>{% endfor %}</span>
+  </div>{% endunless %}
 </div>
