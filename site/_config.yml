@@ -1,5 +1,6 @@
 --- 
 permalink: /:year/:month/:title
+pretty_style: html_extension
 maruku: 
   png_dir: images/latex
   png_url: /images/latex
