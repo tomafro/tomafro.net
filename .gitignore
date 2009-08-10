@@ -1,5 +1,8 @@
 _site
 _site.*
+build
+site/tags
+site/20*
 .DS_Store
 tags
 20*
