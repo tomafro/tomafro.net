@@ -1,15 +1,14 @@
 --- 
 permalink: /:year/:month/:title
-pretty_style: html_extension
 maruku: 
   png_dir: images/latex
   png_url: /images/latex
   use_tex: false
   use_divs: false
 lsi: false
-minutes: "     747.1"
+minutes: "     805.5"
 destination: ./_site
-days: "       0.5"
+days: "       0.6"
 markdown: maruku
 exclude: 
 - config
@@ -19,5 +18,6 @@ exclude:
 - _site.tar.gz
 - tomafro.net
 pygments: true
+pretty_style: html_extension
 auto: true
 server_port: 4000
