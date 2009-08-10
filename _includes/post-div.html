@@ -7,6 +7,6 @@
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; <span class="date">{{ page.date | date: "%e" | ordinalize }} 
     <a href="/{{ page.date | date: "%Y" }}/{{ page.date | date: "%m" }}">{{ page.date | date: "%B"}}</a> 
     <a href="/{{ page.date | date: "%Y" }}">{{ page.date | date: "%Y"}}</a></span>
-  <span class="tags">{% for tag in page.categories %}&middot; <a href="/tags/{{tag}}" rel="tag">{{tag}}</a>{% endfor %}</span>
+  <span class="tags">{% for tag in page.categories %} &middot; <a href="/tags/{{tag}}" rel="tag">{{tag}}</a>{% endfor %}</span>
   </div>{% endunless %}
 </div>
