@@ -26,6 +26,7 @@ namespace :jekyll do
     gem 'tomafro-jekyll', '0.5.3.6'
     require 'jekyll'
     require 'tomafro/jekyll/tags/post'
+    require 'tomafro/jekyll/tags/related'
     @options = Jekyll.configuration('auto' => false, 'source' => 'site', 'destination' => DESTINATION)
     @site = Jekyll::Site.new(@options)
     @site.read_posts('')
@@ -87,6 +88,7 @@ end
 
 task :publish => ['update_stats', 'build:all', 'render'] do
   `cap publish`
+  `curl http://rubycorner.com/ping/xmlrpc/aaf9d1cc0ecf5723fd2610063cfa60d82528cd6d`
 end
 
 task :update_stats do  

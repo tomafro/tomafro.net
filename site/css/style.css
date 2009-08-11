@@ -94,13 +94,14 @@ code {
   text-decoration: none;
 }
 
-.content a {
+.content a, .related a {
   color: #004491;
   text-decoration: none;
+  border-bottom: 1px dotted #ccc;
 }
 
-.content a:hover {
-  border-bottom: 2px solid;
+.content a:hover, .related a:hover {
+  border-bottom: 1px solid;
 }
 
 .title a {
@@ -171,3 +172,20 @@ pre {
   border-bottom: 1px solid #004491;
 }
 		
+.related {
+  padding-top: 1em;
+  color: #aaa;
+  font-size: 0.9em;
+  line-height: 1.7em;
+}
+
+.related h3 {
+  font-size: 1.2em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.related p {
+  margin-top: 0.4em;
+}
