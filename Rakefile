@@ -21,6 +21,15 @@ def generate_index(posts, file, options = {})
   file.puts(output)
 end
 
+def globs(source)
+  Dir.chdir(source) do
+    dirs = Dir['*'].select { |x| File.directory?(x) }
+    dirs -= ['_site']
+    dirs = dirs.map { |x| "#{x}/**/*" }
+    dirs += ['*']
+  end
+end
+
 namespace :jekyll do
   task :initialize do
     gem 'tomafro-jekyll', '0.5.3.6'
@@ -30,6 +39,29 @@ namespace :jekyll do
     @options = Jekyll.configuration('auto' => false, 'source' => 'site', 'destination' => DESTINATION)
     @site = Jekyll::Site.new(@options)
     @site.read_posts('')
+  end
+end
+
+namespace :render do
+  task :auto => ['render'] do
+    require 'directory_watcher'
+
+    puts "Auto-regenerating enabled: #{'site'} -> #{DESTINATION}"
+
+    dw = DirectoryWatcher.new('site')
+    dw.interval = 1
+    dw.glob = globs('site')
+
+    dw.add_observer do |*args|
+      t = Time.now.strftime("%Y-%m-%d %H:%M:%S")
+      puts "[#{t}] regeneration: #{args.size} files changed"
+      Rake::Task['build:all'].invoke
+      @site.process
+    end
+
+    dw.start
+    
+    loop { sleep 500 }
   end
 end
 
@@ -88,7 +120,8 @@ end
 
 task :publish => ['update_stats', 'build:all', 'render'] do
   `cap publish`
-  `curl http://rubycorner.com/ping/xmlrpc/aaf9d1cc0ecf5723fd2610063cfa60d82528cd6d`
+  `curl "http://rubycorner.com/ping/xmlrpc/aaf9d1cc0ecf5723fd2610063cfa60d82528cd6d"`
+  `curl "http://www.google.com/webmasters/tools/ping?sitemap=http%3A%2F%2Ftomafro.net%2Fsitemap.xml"`
 end
 
 task :update_stats do  
