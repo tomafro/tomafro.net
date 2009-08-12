@@ -13,11 +13,15 @@ layout: nil
  </author>
  {% for post in site.posts limit:10 %}
  <entry>
-   <title>{{ post.title }}</title>
-   <link href="http://tomafro.net{{ post.url }}"/>
-   <updated>{{ post.date | date_to_xmlschema }}</updated>
    <id>http://tomafro.net{{ post.id }}</id>
+   <link href="http://tomafro.net{{ post.url }}"/>
+   <title>{{ post.title }}</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
    <content type="html">{{ post.content | xml_escape }}</content>{% for tag in post.categories %}
+   <updated>{{ post.date | date_to_xmlschema }}</updated>
    <category scheme="http://tomafro.net/tags/" term="{{ tag }}" label="{{ tag }}" />{% endfor %}
  </entry>
  {% endfor %}
