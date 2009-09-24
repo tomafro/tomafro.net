@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Adam Sanderson's open_gem
-categories: [ruby, gems, tip, gem-open]
+categories: [ruby, gem, tip, gem-open]
 ---
 The latest version of [rubygems](http://rubygems.org/) (1.3.2) now has an interface to add commands.  Making great use of this feature, [Adam Sanderson](http://endofline.wordpress.com/) has written [open\_gem](http://github.com/adamsanderson/open_gem), a simple but amazingly useful tool.
 

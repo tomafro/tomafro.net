@@ -3,7 +3,7 @@ layout: post
 title: About Tom Ward
 hide_meta: true
 ---
-I'm a London based freelance software developer, passionate about building the and improving the web.  These days I mainly use [Ruby On Rails](http://rubyonrails.org), which I find far more productive than the alternatives.  You can see some of the code I've written [on github](http://github.com/tomafro), or some of my [contributions to rails here](http://contributors.rubyonrails.org/contributors/tom-ward/commits).  
+I'm a London based freelance software developer, passionate about building and improving the web.  I mainly use [Ruby On Rails](http://rubyonrails.org) as a platform, though I have a background in J2EE.  You can see some of the code I've written [on github](http://github.com/tomafro), or some of my [contributions to rails here](http://contributors.rubyonrails.org/contributors/tom-ward/commits).  
 
 If you're interested in hiring me (or want to contact me for any other reason) my email is <a href="mailto:tom@popdog.net">tom@popdog.net</a>.
 

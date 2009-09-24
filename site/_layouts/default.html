@@ -5,6 +5,8 @@
   <title>{{ page.title }} &middot; tomafro.net</title>{% if page.description %}
   <meta name="description" content="{{ page.description }}"/>{% endif %}{% if page.robots %}
   <meta name="robots" content="{{ page.robots }}"/>{% endif %}
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
@@ -20,6 +22,6 @@
       {{ content }}
     </div>
   </div>
-  {% include google-analytics.html %}
+  {% unless page.hide_analytics %}{% include google-analytics.html %}{% endunless %}
 </body>	
 </html>

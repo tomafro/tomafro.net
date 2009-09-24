@@ -6,9 +6,9 @@ maruku:
   use_tex: false
   use_divs: false
 lsi: false
-minutes: "     805.5"
+minutes: "    3430.5"
 destination: ./_site
-days: "       0.6"
+days: "       2.4"
 markdown: maruku
 exclude: 
 - config

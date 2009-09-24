@@ -89,18 +89,13 @@ code {
   margin-top: -0.6em;
 }
 
-.meta a {
-  color: #999;
-  text-decoration: none;
-}
-
-.content a, .related a {
+.meta a, .content a, .related a {
   color: #004491;
   text-decoration: none;
-  border-bottom: 1px dotted #ccc;
+  border-bottom: 1px dotted #d3dfee;
 }
 
-.content a:hover, .related a:hover {
+.meta a:hover, .content a:hover, .related a:hover {
   border-bottom: 1px solid;
 }
 
@@ -115,34 +110,6 @@ code {
 
 .title a:hover {
   border: none;
-}
-
-
-.tags a {
-  color: #449100;
-  margin-left: -0.1em;
-  margin-right: -0.1em;
-  padding-left: 0.4em;
-  padding-right: 0.4em;
-  padding-top: 0.1em;
-  padding-bottom: 0.1em;
-  text-decoration: none;
-  -moz-border-radius: 0.3em;
-  -webkit-border-radius: 0.3em;
-  background: #CCE1aa;
-  border: 1px solid #BCD19a;
-}
-
-.tags a:hover {
-  background: #CCC;
-  color: #444;
-  border: 1px solid #bbb;
-}
-
-.tags a:active {
-  background:  #444;
-  color: #ccc;
-  border: 1px solid #333;
 }
 
 .video {
@@ -161,15 +128,6 @@ pre {
   -moz-border-radius: 0.3em;
   -webkit-border-radius: 0.3em;
   padding: 0.6em;
-}
-
-.meta .date a {
-  border: none;
-}
-
-.meta .date a:hover {
-  color: #004491;
-  border-bottom: 1px solid #004491;
 }
 		
 .related {

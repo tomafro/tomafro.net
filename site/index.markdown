@@ -1,7 +1,7 @@
 ---
 layout: default
-title: recent posts
-description: "Tom Ward's web development blog"
+title: "Tom Ward's blog"
+description: "Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"
 ---
 {% for page in site.posts limit:5 %}
 {% assign body = page.content %}
