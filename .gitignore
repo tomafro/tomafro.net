@@ -6,5 +6,5 @@ site/20*
 .DS_Store
 tags
 20*
-!_posts/*
+!site/_posts/*
 tomafro.net.tar.gz

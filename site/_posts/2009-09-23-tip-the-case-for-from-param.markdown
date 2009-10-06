@@ -43,4 +43,6 @@ class User < ActiveRecord::Base
 end
 {% endhighlight %}
 
-I've been doing this for years, but it's hardly a new principle, to provide a `from` method for every `to` method.  There's [even an old ticket on trac](http://dev.rubyonrails.org/ticket/11505) asking for it, but it's been considered too trivial to add.  I disagree - for me the value comes from having the method from the start, not when you need it - but luckily it's easy to add to my own projects. 
+I've been doing this for years, but it's hardly a new principle, to provide a `from` method for every `to` method.  There's [even an old ticket on trac](http://dev.rubyonrails.org/ticket/11505) asking for it, but it's been considered too trivial to add.  
+
+I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects. 
