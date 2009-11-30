@@ -1,14 +1,14 @@
 body {
 	margin: 0;
 	padding: 0;
-	font: 15px Verdana, sans-serif;
-	line-height: 1.8em;
+	font: 18px  "ff-dagny-web-pro-1","ff-dagny-web-pro-2";
+	line-height: 1.7em;
 	color: black;
 	background: white;
 }
 
 #container {
-	width: 54em;
+	width: 42em;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -39,11 +39,11 @@ body {
   padding-bottom: 0.3em;
 }
 
-
 h2 {
-  font-size: 1.6em;
-  font-weight: normal;
-  line-height: 1.4em;
+  font-size: 1.8em;
+  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2";
+  font-weight: 100;
+  line-height: 1.2em;
   border-bottom: 1px solid #eee;
   padding-bottom: 0.2em;
   margin-bottom: -0.3em;
@@ -72,16 +72,33 @@ h1, .post, .link-post {
 }
 
 code {
+  font-size: 0.9em;
   background: #f0f0f0;
   padding-left: 0.2em;
   padding-right: 0.2em;
   border: 1px solid #e0e0e0;
-   -moz-border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
   -webkit-border-radius: 0.2em;
 }
 
+.highlight {
+  background: yellow;
+  margin-top: -0.3em;
+}
+
+.osx-shortcut {
+	background: #f0f0f0;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  border: 1px solid #e0e0e0;
+  -moz-border-radius: 0.2em;
+  -webkit-border-radius: 0.2em;	
+}
+
 .meta {
-  font-size: 0.8em;
+  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2";
+  font-size: 0.9em;
+  font-weight: bold;
   color: #999;
   border-top: 1px solid #eee;
   padding-top: 0.1em;
@@ -95,8 +112,13 @@ code {
   border-bottom: 1px dotted #d3dfee;
 }
 
+.meta a {
+  font-weight: normal;
+  
+}
+
 .meta a:hover, .content a:hover, .related a:hover {
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #d3dfee;
 }
 
 .title a {
@@ -120,7 +142,7 @@ code {
 }
 
 pre {
-  font: 0.9em Monaco, monospace;
+  font: 0.7em Monaco, monospace;
   line-height: 1.4em;
   display: block;
   color: white;
@@ -133,6 +155,7 @@ pre {
 .related {
   padding-top: 1em;
   color: #aaa;
+  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2";
   font-size: 0.9em;
   line-height: 1.7em;
 }
@@ -146,4 +169,8 @@ pre {
 
 .related p {
   margin-top: 0.4em;
+}
+
+.content p {
+  margin-bottom: 1.3em;
 }

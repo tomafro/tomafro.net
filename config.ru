@@ -1,7 +1,7 @@
 module Tomafro
   class Server
     def call(env)
-      path = File.join("build", env["REQUEST_PATH"])
+      path = File.join("build", env["PATH_INFO"])
       path = path + "index.html" if path[/\/\Z/]
       path = path + ".html" unless path[/[^\/]+\..*\Z/]
       if File.exist?(path)

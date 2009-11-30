@@ -5,7 +5,7 @@ categories: [zsh, completion, gem, gem-open]
 ---
 I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.
 
-Here's my first semi-successful attempt.  It provides command completion for `gem` (including installed commands) and gem name completion for specific gem commands (currently just `open` and `update`).
+Here's my first semi-successful attempt.  It provides command completion for `gem` (including installed commands) and gem name completion for specific gem commands (`update`, and `open` from [Adam Sanderson](http://tomafro.net/2009/05/adam-sandersons-open-gem)).
 
 So typing `gem <tab>` gives a list of possible commands, whilst `gem open <tab>` will complete with the names of the currently installed gems.
 
