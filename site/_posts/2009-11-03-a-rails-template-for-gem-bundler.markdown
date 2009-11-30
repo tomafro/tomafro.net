@@ -30,7 +30,8 @@ Just having bundler installed is no good without any way to run it; a script is 
 {% highlight ruby %}
 file 'script/bundle', %{
 #!/usr/bin/env ruby
-$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "gems/bundler/lib"))
+path = File.expand_path(File.join(File.dirname(__FILE__), "..", "gems/bundler/lib"))
+$LOAD_PATH.unshift path
 require 'rubygems'
 require 'rubygems/command'
 require 'bundler'
@@ -59,7 +60,7 @@ gem 'ruby-debug', :except => 'production'
 
 Most of the files bundler will place in the `gem` path can be regenerated; they shouldn't be added to the project repository.  The only things that should be added are the `.gem` files themselves, and the local copy of bundler.  All the rest should be ignored:
 
-{% highlight ruby %}  
+{% highlight ruby %}
 append_file '.gitignore', %{
 gems/*
 !gems/cache
@@ -99,4 +100,4 @@ end
 }
 {% endhighlight %}
 
-And that's it.  The project is now fully bundled.  More gems can be added to the `Gemfile` and pulled into the project with `script\bundle`.
+And that's it.  The project is now fully bundled.  More gems can be added to the `Gemfile` and pulled into the project with `script/bundle`.

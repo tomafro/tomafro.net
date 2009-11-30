@@ -3,12 +3,13 @@ permalink: /:year/:month/:title
 maruku: 
   png_dir: images/latex
   png_url: /images/latex
-  use_divs: false
   use_tex: false
-minutes: "    5865.9"
+  use_divs: false
 lsi: false
-days: "       4.1"
+minutes: "    5986.6"
 destination: ./_site
+days: "       4.2"
+markdown: maruku
 exclude: 
 - config
 - CNAME
@@ -16,8 +17,7 @@ exclude:
 - Capfile
 - _site.tar.gz
 - tomafro.net
-markdown: maruku
 pygments: true
-auto: true
 pretty_style: html_extension
+auto: true
 server_port: 4000
