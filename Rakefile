@@ -119,7 +119,7 @@ namespace :build do
 end
 
 task :publish => ['update_stats', 'build:all', 'render'] do
-  `cap publish`
+  puts `rsync -ave ssh build/* tomafro.net:/var/sites/tomafro.net`
   `curl "http://rubycorner.com/ping/xmlrpc/aaf9d1cc0ecf5723fd2610063cfa60d82528cd6d"`
   `curl "http://www.google.com/webmasters/tools/ping?sitemap=http%3A%2F%2Ftomafro.net%2Fsitemap.xml"`
 end
