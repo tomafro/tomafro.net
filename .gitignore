@@ -4,7 +4,7 @@ build
 site/tags
 site/20*
 .DS_Store
-tags
+/tags
 20*
 !site/_posts/*
 tomafro.net.tar.gz
