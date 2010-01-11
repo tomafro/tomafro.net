@@ -13,12 +13,25 @@
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net{{ page.url }}"/>
-  
+  {% unless page.hide_analytics %}
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  {% endunless %}
   <meta name="viewport" content="width=850" />
   <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
 </head>
-<body>
-  
+<body>  
   <div id="container">
     <div id="header" class="menubar">
       {% include menubar.html %}
@@ -27,6 +40,5 @@
       {{ content }}
     </div>
   </div>
-  {% unless page.hide_analytics %}{% include google-analytics.html %}{% endunless %}
 </body>	
 </html>
