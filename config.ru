@@ -1,13 +1,13 @@
 module Tomafro
   class Server
     def call(env)
-      path = File.join("build", env["PATH_INFO"])
+      path = ::File.join("build", env["PATH_INFO"])
       path = path + "index.html" if path[/\/\Z/]
       path = path + ".html" unless path[/[^\/]+\..*\Z/]
-      if File.exist?(path)
-        [200, {"Content-Type" => content_type_for(path)}, File.read(path)]
+      if ::File.exist?(path)
+        [200, {"Content-Type" => content_type_for(path)}, [::File.read(path)]]
       else
-        [400, {"Content-Type" => "text/html"}, File.read("build/404.html")]
+        [400, {"Content-Type" => "text/html"}, [::File.read("build/404.html")]]
       end
     end
     
