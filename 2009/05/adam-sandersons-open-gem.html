@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Adam Sanderson's open_gem &middot; tomafro.net</title>
+  <title> &middot; tomafro.net</title>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net/2009/05/adam-sandersons-open-gem"/>
+  <link rel="canonical" href="http://tomafro.net"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -35,40 +35,59 @@
       <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
     </div>
     <div id="main">
-      
-<div class="post">
+      <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a></h2>
-    <p>The latest version of <a href='http://rubygems.org/'>rubygems</a> (1.3.2) now has an interface to add commands. Making great use of this feature, <a href='http://endofline.wordpress.com/'>Adam Sanderson</a> has written <a href='http://github.com/adamsanderson/open_gem'>open_gem</a>, a simple but amazingly useful tool.</p>
+    <p>The latest version of <a href="http://rubygems.org/">rubygems</a> (1.3.2) now has an interface to add commands.  Making great use of this feature, <a href="http://endofline.wordpress.com/">Adam Sanderson</a> has written <a href="http://github.com/adamsanderson/open_gem">open_gem</a>, a simple but amazingly useful tool.</p>
 
 <p>You use it like this:</p>
-<div class='highlight'><pre><span class='nv'>$ </span>gem open activerecord
+
+<div class="highlight"><pre><span class="nv">$ </span>gem open activerecord
 </pre>
 </div>
-<p>This opens the activerecord gem in your favourite editor (taken from either <code>$GEM_OPEN_EDITOR</code> or <code>$EDITOR</code> environment variables). If there are multiple versions of the gem installed, it will show a menu, letting you choose which version you require.</p>
-<div class='highlight'><pre><span class='nv'>$ </span>gem open activerecord
+
+
+<p>This opens the activerecord gem in your favourite editor (taken from either <code>$GEM_OPEN_EDITOR</code> or <code>$EDITOR</code> environment variables).  If there are multiple versions of the gem installed, it will show a menu, letting you choose which version you require.</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>gem open activerecord
 Open which gem?
  1. activerecord 2.1.0
  2. activerecord 2.3.2
 &gt; 
 </pre>
 </div>
+
+
 <p>open_gem itself is a gem, and can be installed with:</p>
-<div class='highlight'><pre><span class='nv'>$ </span>gem install open_gem
+
+<div class="highlight"><pre><span class="nv">$ </span>gem install open_gem
 </pre>
 </div>
+
+
 <p>To get it working, you need to have <code>$EDITOR</code> set to something sensible:</p>
-<div class='highlight'><pre><span class='nv'>$ </span><span class='nb'>export </span><span class='nv'>EDITOR</span><span class='o'>=</span>mate
+
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">EDITOR</span><span class="o">=</span>mate
 </pre>
 </div>
-<p>If you&#8217;re running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let&#8217;s you use TextMate as the editor for git commit messages and much more. However, the <code>-w</code> flag doesn&#8217;t work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
-<div class='highlight'><pre><span class='nv'>$ </span><span class='nb'>export </span><span class='nv'>GEM_OPEN_EDITOR</span><span class='o'>=</span>mate
+
+
+<p>If you're running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let's you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn't work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
+
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">GEM_OPEN_EDITOR</span><span class="o">=</span>mate
 </pre>
 </div>
-<p>You should now be good to go. If you want to see how it works, just use it on itself!</p>
-<div class='highlight'><pre><span class='nv'>$ </span>gem open open_gem
+
+
+<p>You should now be good to go.  If you want to see how it works, just use it on itself!</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>gem open open_gem
 </pre>
 </div>
+
+
+
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -76,10 +95,7 @@ Open which gem?
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
   </div>
 </div>
-<div class="related">
-<h3>More Posts</h3>
-<p><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a> &middot; <a href="/2009/05/using-rack-middleware-for-good-and-evil">Using Rack Middleware for good and evil</a> &middot; <a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a> &middot; <a href="/2009/06/pimp-my-script-console">Pimp my script/console</a> &middot; <a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a> &middot; <a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a> &middot; <a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a> &middot; <a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a> &middot; <a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a> &middot; <a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a> &middot; <a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a> &middot; <a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a> &middot; <a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a> &middot; <a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a> &middot; <a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></p>
-</div>
+
     </div>
   </div>
 </body>	

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>dscl - the easy way to add hosts on OS X &middot; tomafro.net</title>
+  <title> &middot; tomafro.net</title>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net/2009/07/dscl-the-easy-way-to-add-hosts-on-osx"/>
+  <link rel="canonical" href="http://tomafro.net"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -35,63 +35,81 @@
       <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
     </div>
     <div id="main">
-      
-<div class="post">
+      <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/07/dscl-the-easy-way-to-add-hosts-on-osx">dscl - the easy way to add hosts on OS X</a></h2>
-    <p>As a web developer, I often want several host names pointing at my local machine whilst developing and testing applications. I may want to use Apache virtual hosts to serve multiple apps at once, or use subdomains to distinguish different accounts within a single application.</p>
+    <p>As a web developer, I often want several host names pointing at my local machine whilst developing and testing applications.  I may want to use Apache virtual hosts to serve multiple apps at once, or use subdomains to distinguish different accounts within a single application.</p>
 
 <p>Previously, to set these host names up, I would manually edit <code>/etc/hosts</code>, adding entries like:</p>
-<div class='highlight'><pre>127.0.0.1      twitter-killer.localhost
+
+<div class="highlight"><pre>127.0.0.1      twitter-killer.localhost
 127.0.0.1      my-url-shortener-is-better-than-yours.localhost
 127.0.0.1      yet-another-half-baked-idea.localhost
 </pre>
 </div>
-<p>This worked well on one level, but on another it just seemed wrong. It&#8217;s very manual, prone to error and pretty hard to script. Recently though, thanks to a hint from Chris Parsons, I&#8217;ve found another way: using <code>dscl</code>.</p>
 
-<p><code>dscl</code>, or Directory Service command line utility to give it its full name, has many uses. For a web developer, the most relevant is probably the ability to add, list and create local directory entries under <code>/Local/Defaults/Hosts</code> in the directory (not the file system). These act like lines in <code>/etc/hosts</code> but can be manipulated easily from the command line.</p>
+
+<p>This worked well on one level, but on another it just seemed wrong.  It's very manual, prone to error and pretty hard to script.  Recently though, thanks to a hint from Chris Parsons, I've found another way: using <code>dscl</code>.</p>
+
+<p><code>dscl</code>, or Directory Service command line utility to give it its full name, has many uses.  For a web developer, the most relevant is probably the ability to add, list and create local directory entries under <code>/Local/Defaults/Hosts</code> in the directory (not the file system).  These act like lines in <code>/etc/hosts</code> but can be manipulated easily from the command line.</p>
 
 <p>To add an entry (easily the most interesting command) use:</p>
-<div class='highlight'><pre>sudo dscl localhost -create /Local/Default/Hosts/twitter-killer.localhost IPAddress 127.0.0.1
+
+<div class="highlight"><pre>sudo dscl localhost -create /Local/Default/Hosts/twitter-killer.localhost IPAddress 127.0.0.1
 </pre>
 </div>
+
+
 <p>Once entries have been added, listing them is just as simple:</p>
-<div class='highlight'><pre>sudo dscl localhost -list /Local/Default/Hosts IPAddress
+
+<div class="highlight"><pre>sudo dscl localhost -list /Local/Default/Hosts IPAddress
 </pre>
 </div>
+
+
 <p>This produces a list in the form:</p>
-<div class='highlight'><pre>twitter-killer.localhost                         127.0.0.1      
+
+<div class="highlight"><pre>twitter-killer.localhost                         127.0.0.1      
 my-url-shortener-is-better-than-yours.localhost  127.0.0.1      
 yet-another-half-baked-idea.localhost            127.0.0.1      
 </pre>
 </div>
-<p>Finally, you can remove entries with:</p>
-<div class='highlight'><pre>sudo dscl localhost -delete /Local/Default/Hosts/twitter-killer.localhost
-</pre>
-</div>
-<p>Once you&#8217;ve mastered these commands, the possibilities are endless. Here&#8217;s a rake task to add all subdomains used in a project:</p>
-<div class='highlight'><pre><span class='k'>class</span> <span class='nc'>Application</span>
-  <span class='k'>def</span> <span class='nc'>self</span><span class='o'>.</span><span class='nf'>subdomains</span>
-    <span class='no'>Client</span><span class='o'>.</span><span class='n'>all</span><span class='o'>.</span><span class='n'>collect</span> <span class='p'>{</span><span class='o'>|</span><span class='n'>client</span><span class='o'>|</span> <span class='n'>client</span><span class='o'>.</span><span class='n'>subdomain</span> <span class='p'>}</span>
-  <span class='k'>end</span>
-<span class='k'>end</span>
 
-<span class='n'>namespace</span> <span class='ss'>:subdomains</span> <span class='k'>do</span>
-  <span class='n'>task</span> <span class='ss'>:add</span> <span class='k'>do</span>
-    <span class='no'>Application</span><span class='o'>.</span><span class='n'>subdomains</span><span class='o'>.</span><span class='n'>each</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>subdomain</span><span class='o'>|</span>
-      <span class='sb'>`sudo dscl localhost -create /Local/Default/Hosts/</span><span class='si'>#{</span><span class='n'>subdomain</span><span class='si'>}</span><span class='sb'>.app.localhost IPAddress 127.0.0.1`</span>
-    <span class='k'>end</span>
-  <span class='k'>end</span>
-  
-  <span class='n'>task</span> <span class='ss'>:remove</span> <span class='k'>do</span>
-    <span class='no'>Application</span><span class='o'>.</span><span class='n'>subdomains</span><span class='o'>.</span><span class='n'>each</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>subdomain</span><span class='o'>|</span>
-      <span class='sb'>`sudo dscl localhost -delete /Local/Default/Hosts/</span><span class='si'>#{</span><span class='n'>subdomain</span><span class='si'>}</span><span class='sb'>.app.localhost`</span>
-    <span class='k'>end</span>
-  <span class='k'>end</span>
-<span class='k'>end</span>
+
+<p>Finally, you can remove entries with:</p>
+
+<div class="highlight"><pre>sudo dscl localhost -delete /Local/Default/Hosts/twitter-killer.localhost
 </pre>
 </div>
-<p>Or if you&#8217;re using <a href='http://www.modrails.com/'>passenger</a> for development, you can use a tool like <a href='http://github.com/lazyatom/hostess/tree/master'>James Adam&#8217;s hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
+
+
+<p>Once you've mastered these commands, the possibilities are endless.  Here's a rake task to add all subdomains used in a project:</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Application</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">subdomains</span>
+    <span class="no">Client</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span><span class="o">|</span><span class="n">client</span><span class="o">|</span> <span class="n">client</span><span class="o">.</span><span class="n">subdomain</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">namespace</span> <span class="ss">:subdomains</span> <span class="k">do</span>
+  <span class="n">task</span> <span class="ss">:add</span> <span class="k">do</span>
+    <span class="no">Application</span><span class="o">.</span><span class="n">subdomains</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">subdomain</span><span class="o">|</span>
+      <span class="sb">`sudo dscl localhost -create /Local/Default/Hosts/</span><span class="si">#{</span><span class="n">subdomain</span><span class="si">}</span><span class="sb">.app.localhost IPAddress 127.0.0.1`</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  
+  <span class="n">task</span> <span class="ss">:remove</span> <span class="k">do</span>
+    <span class="no">Application</span><span class="o">.</span><span class="n">subdomains</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">subdomain</span><span class="o">|</span>
+      <span class="sb">`sudo dscl localhost -delete /Local/Default/Hosts/</span><span class="si">#{</span><span class="n">subdomain</span><span class="si">}</span><span class="sb">.app.localhost`</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Or if you're using <a href="http://www.modrails.com/">passenger</a> for development, you can use a tool like <a href="http://github.com/lazyatom/hostess/tree/master">James Adam's hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -99,10 +117,7 @@ yet-another-half-baked-idea.localhost            127.0.0.1
   <span class="tags"> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/dscl" rel="tag">dscl</a> &middot; <a href="/tags/development" rel="tag">development</a> &middot; <a href="/tags/shell" rel="tag">shell</a> &middot; <a href="/tags/reminder" rel="tag">reminder</a></span>
   </div>
 </div>
-<div class="related">
-<h3>More Posts</h3>
-<p><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a> &middot; <a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a> &middot; <a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a> &middot; <a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a> &middot; <a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a> &middot; <a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a> &middot; <a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a> &middot; <a href="/2009/05/imitation-is-the-sincerest-form-of-flattery">If imitation is the sincerest form of flattery...</a></p>
-</div>
+
     </div>
   </div>
 </body>	

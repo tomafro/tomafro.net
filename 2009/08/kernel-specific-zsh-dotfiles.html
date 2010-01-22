@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Kernel specific ZSH dotfiles &middot; tomafro.net</title>
+  <title> &middot; tomafro.net</title>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net/2009/08/kernel-specific-zsh-dotfiles"/>
+  <link rel="canonical" href="http://tomafro.net"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -35,28 +35,32 @@
       <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
     </div>
     <div id="main">
-      
-<div class="post">
+      <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h2>
-    <p>I work on a number of different machines, OS X based for development and Linux based for hosting. I&#8217;ve added various aliases and other commands to my shell, and use <a href='http://github.com/tomafro/dotfiles'>a github repository</a> to share this configuration between these machines.</p>
+    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
 
-<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences. One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn&#8217;t work on Linux. So how can we accommodate these differences, without removing all the shared configuration?</p>
+<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
-<p>The answer is really simple. Create kernel specific configuration files, and use a case statement to load the correct one. The main obstacle was finding a way to distinguish between each kernel. In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.<br/>
+</p>
 
-<p>Here&#8217;s the code:</p>
-<div class='highlight'><pre><span class='k'>case</span> <span class='nv'>$system_name</span> in
-  Darwin*<span class='o'>)</span>
-    <span class='nb'>source</span> ~/.houseshare/zsh/kernel/darwin.zsh
+<p>Here's the code:</p>
+
+<div class="highlight"><pre><span class="k">case</span> <span class="nv">$system_name</span> in
+  Darwin*<span class="o">)</span>
+    <span class="nb">source</span> ~/.houseshare/zsh/kernel/darwin.zsh
     ;;
-  *<span class='o'>)</span>
-    <span class='nb'>source</span> ~/.houseshare/zsh/kernel/linux.zsh
+  *<span class="o">)</span>
+    <span class="nb">source</span> ~/.houseshare/zsh/kernel/linux.zsh
     ;;;
-<span class='k'>esac</span>
+<span class="k">esac</span>
 </pre>
 </div>
+
+
 <p>As I said, simple.</p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -64,10 +68,7 @@
   <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
   </div>
 </div>
-<div class="related">
-<h3>More Posts</h3>
-<p><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a> &middot; <a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a> &middot; <a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a> &middot; <a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a> &middot; <a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a> &middot; <a href="/2009/07/dscl-the-easy-way-to-add-hosts-on-osx">dscl - the easy way to add hosts on OS X</a> &middot; <a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a> &middot; <a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a> &middot; <a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a> &middot; <a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a> &middot; <a href="/2009/06/pimp-my-script-console">Pimp my script/console</a> &middot; <a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></p>
-</div>
+
     </div>
   </div>
 </body>	

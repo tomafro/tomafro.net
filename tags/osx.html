@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Posts tagged with osx &middot; tomafro.net</title>
-  <meta name="robots" content="noindex"/>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -11,7 +10,7 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net"/>
+  <link rel="canonical" href="http://tomafro.net/tags/osx"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -36,99 +35,107 @@
       <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
     </div>
     <div id="main">
-      <div class="post">
+      
+<div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h2>
-    <p>Whilst playing around with the very exciting <a href='http://macruby.org'>macruby</a> last weekend, I thought I&#8217;d try building a web page screenshot grabber, based on <a href='http://www.bencurtis.com/?p=128'>Ben Curtis&#8217; code</a>. The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
-<div class='highlight'><pre><span class='n'>framework</span> <span class='s1'>&#39;Cocoa&#39;</span>
-<span class='n'>framework</span> <span class='s1'>&#39;WebKit&#39;</span>
+    <p>Whilst playing around with the very exciting <a href="http://macruby.org">macruby</a> last weekend, I thought I'd try building a web page screenshot grabber, based on <a href="http://www.bencurtis.com/?p=128">Ben Curtis' code</a>.  The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
 
-<span class='k'>class</span> <span class='nc'>Snapper</span>
-  <span class='kp'>attr_accessor</span> <span class='ss'>:options</span><span class='p'>,</span> <span class='ss'>:view</span><span class='p'>,</span> <span class='ss'>:window</span>
-  
-  <span class='k'>def</span> <span class='nf'>initialize</span><span class='p'>(</span><span class='n'>options</span> <span class='o'>=</span> <span class='p'>{})</span>
-    <span class='vi'>@options</span> <span class='o'>=</span> <span class='n'>options</span>
-    <span class='n'>initialize_view</span>
-  <span class='k'>end</span>
-  
-  <span class='k'>def</span> <span class='nf'>save</span><span class='p'>(</span><span class='n'>url</span><span class='p'>,</span> <span class='n'>file</span><span class='p'>)</span>
-    <span class='n'>view</span><span class='o'>.</span><span class='n'>setFrameLoadDelegate</span><span class='p'>(</span><span class='nb'>self</span><span class='p'>)</span>
-    <span class='c1'># Tell the webView what URL to load.</span>
-    <span class='n'>frame</span> <span class='o'>=</span> <span class='n'>view</span><span class='o'>.</span><span class='n'>mainFrame</span>
-    <span class='n'>req</span> <span class='o'>=</span> <span class='no'>NSURLRequest</span><span class='o'>.</span><span class='n'>requestWithURL</span><span class='p'>(</span><span class='no'>NSURL</span><span class='o'>.</span><span class='n'>URLWithString</span><span class='p'>(</span><span class='n'>url</span><span class='p'>))</span>
-		<span class='n'>frame</span><span class='o'>.</span><span class='n'>loadRequest</span> <span class='n'>req</span>
-    
-    <span class='k'>while</span> <span class='n'>view</span><span class='o'>.</span><span class='n'>isLoading</span>  <span class='o'>&amp;&amp;</span> <span class='o'>!</span><span class='n'>timed_out?</span>
-      <span class='no'>NSRunLoop</span><span class='o'>.</span><span class='n'>currentRunLoop</span><span class='o'>.</span><span class='n'>runUntilDate</span> <span class='no'>NSDate</span><span class='o'>.</span><span class='n'>date</span>
-    <span class='k'>end</span>
-    
-    <span class='k'>if</span> <span class='vi'>@failedLoading</span>
-      <span class='nb'>puts</span> <span class='s2'>&quot;Failed to load page at: </span><span class='si'>#{</span><span class='n'>url</span><span class='si'>}</span><span class='s2'>&quot;</span>
-    <span class='k'>else</span>
-      <span class='n'>docView</span> <span class='o'>=</span> <span class='n'>view</span><span class='o'>.</span><span class='n'>mainFrame</span><span class='o'>.</span><span class='n'>frameView</span><span class='o'>.</span><span class='n'>documentView</span>
-      <span class='n'>docView</span><span class='o'>.</span><span class='n'>window</span><span class='o'>.</span><span class='n'>setContentSize</span><span class='p'>(</span><span class='n'>docView</span><span class='o'>.</span><span class='n'>bounds</span><span class='o'>.</span><span class='n'>size</span><span class='p'>)</span>
-      <span class='n'>docView</span><span class='o'>.</span><span class='n'>setFrame</span><span class='p'>(</span><span class='n'>view</span><span class='o'>.</span><span class='n'>bounds</span><span class='p'>)</span>
-    
-      <span class='n'>docView</span><span class='o'>.</span><span class='n'>setNeedsDisplay</span><span class='p'>(</span><span class='kp'>true</span><span class='p'>)</span>
-      <span class='n'>docView</span><span class='o'>.</span><span class='n'>displayIfNeeded</span>
-      <span class='n'>docView</span><span class='o'>.</span><span class='n'>lockFocus</span>
-    
-      <span class='n'>bitmap</span> <span class='o'>=</span> <span class='no'>NSBitmapImageRep</span><span class='o'>.</span><span class='n'>alloc</span><span class='o'>.</span><span class='n'>initWithFocusedViewRect</span><span class='p'>(</span><span class='n'>docView</span><span class='o'>.</span><span class='n'>bounds</span><span class='p'>)</span>
-      <span class='n'>docView</span><span class='o'>.</span><span class='n'>unlockFocus</span>
+<div class="highlight"><pre><span class="n">framework</span> <span class="s1">&#39;Cocoa&#39;</span>
+<span class="n">framework</span> <span class="s1">&#39;WebKit&#39;</span>
 
-      <span class='c1'># Write the bitmap to a file as a PNG</span>
-      <span class='n'>representation</span> <span class='o'>=</span> <span class='n'>bitmap</span><span class='o'>.</span><span class='n'>representationUsingType</span><span class='p'>(</span><span class='no'>NSPNGFileType</span><span class='p'>,</span> <span class='n'>properties</span><span class='ss'>:nil</span><span class='p'>)</span>
-      <span class='n'>representation</span><span class='o'>.</span><span class='n'>writeToFile</span><span class='p'>(</span><span class='n'>file</span><span class='p'>,</span> <span class='n'>atomically</span><span class='ss'>:true</span><span class='p'>)</span>
-      <span class='n'>bitmap</span><span class='o'>.</span><span class='n'>release</span>
-    <span class='k'>end</span>
-  <span class='k'>end</span>
+<span class="k">class</span> <span class="nc">Snapper</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:options</span><span class="p">,</span> <span class="ss">:view</span><span class="p">,</span> <span class="ss">:window</span>
   
-  <span class='kp'>private</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="vi">@options</span> <span class="o">=</span> <span class="n">options</span>
+    <span class="n">initialize_view</span>
+  <span class="k">end</span>
   
-  <span class='k'>def</span> <span class='nf'>webView</span><span class='p'>(</span><span class='n'>view</span><span class='p'>,</span> <span class='n'>didFailLoadWithError</span><span class='ss'>:error</span><span class='p'>,</span> <span class='n'>forFrame</span><span class='ss'>:frame</span><span class='p'>)</span>
-    <span class='vi'>@failedLoading</span> <span class='o'>=</span> <span class='kp'>true</span>
-  <span class='k'>end</span>
-  
-  <span class='k'>def</span> <span class='nf'>webView</span><span class='p'>(</span><span class='n'>view</span><span class='p'>,</span> <span class='n'>didFailProvisionalLoadWithError</span><span class='ss'>:error</span><span class='p'>,</span> <span class='n'>forFrame</span><span class='ss'>:frame</span><span class='p'>)</span>
-    <span class='vi'>@failedLoading</span> <span class='o'>=</span> <span class='kp'>true</span>
-  <span class='k'>end</span>
-  
-  <span class='k'>def</span> <span class='nf'>initialize_view</span>
-    <span class='no'>NSApplication</span><span class='o'>.</span><span class='n'>sharedApplication</span>    
+  <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setFrameLoadDelegate</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+    <span class="c1"># Tell the webView what URL to load.</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="no">NSURLRequest</span><span class="o">.</span><span class="n">requestWithURL</span><span class="p">(</span><span class="no">NSURL</span><span class="o">.</span><span class="n">URLWithString</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">loadRequest</span> <span class="n">req</span>
     
-    <span class='nb'>self</span><span class='o'>.</span><span class='n'>view</span> <span class='o'>=</span> <span class='no'>WebView</span><span class='o'>.</span><span class='n'>alloc</span><span class='o'>.</span><span class='n'>initWithFrame</span><span class='p'>(</span><span class='o'>[</span><span class='mi'>0</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>,</span> <span class='mi'>1024</span><span class='p'>,</span> <span class='mi'>600</span><span class='o'>]</span><span class='p'>)</span>
-    <span class='nb'>self</span><span class='o'>.</span><span class='n'>window</span> <span class='o'>=</span> <span class='no'>NSWindow</span><span class='o'>.</span><span class='n'>alloc</span><span class='o'>.</span><span class='n'>initWithContentRect</span><span class='p'>(</span><span class='o'>[</span><span class='mi'>0</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>,</span> <span class='mi'>1024</span><span class='p'>,</span> <span class='mi'>600</span><span class='o'>]</span><span class='p'>,</span>
-      <span class='n'>styleMask</span><span class='ss'>:NSBorderlessWindowMask</span><span class='p'>,</span> <span class='n'>backing</span><span class='ss'>:NSBackingStoreBuffered</span><span class='p'>,</span> <span class='n'>defer</span><span class='ss'>:false</span><span class='p'>)</span>
+    <span class="k">while</span> <span class="n">view</span><span class="o">.</span><span class="n">isLoading</span>  <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">timed_out?</span>
+      <span class="no">NSRunLoop</span><span class="o">.</span><span class="n">currentRunLoop</span><span class="o">.</span><span class="n">runUntilDate</span> <span class="no">NSDate</span><span class="o">.</span><span class="n">date</span>
+    <span class="k">end</span>
+    
+    <span class="k">if</span> <span class="vi">@failedLoading</span>
+      <span class="nb">puts</span> <span class="s2">&quot;Failed to load page at: </span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span>
+      <span class="n">docView</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span><span class="o">.</span><span class="n">frameView</span><span class="o">.</span><span class="n">documentView</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setContentSize</span><span class="p">(</span><span class="n">docView</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">setFrame</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+    
+      <span class="n">docView</span><span class="o">.</span><span class="n">setNeedsDisplay</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">displayIfNeeded</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">lockFocus</span>
+    
+      <span class="n">bitmap</span> <span class="o">=</span> <span class="no">NSBitmapImageRep</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithFocusedViewRect</span><span class="p">(</span><span class="n">docView</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">unlockFocus</span>
+
+      <span class="c1"># Write the bitmap to a file as a PNG</span>
+      <span class="n">representation</span> <span class="o">=</span> <span class="n">bitmap</span><span class="o">.</span><span class="n">representationUsingType</span><span class="p">(</span><span class="no">NSPNGFileType</span><span class="p">,</span> <span class="n">properties</span><span class="ss">:nil</span><span class="p">)</span>
+      <span class="n">representation</span><span class="o">.</span><span class="n">writeToFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">atomically</span><span class="ss">:true</span><span class="p">)</span>
+      <span class="n">bitmap</span><span class="o">.</span><span class="n">release</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  
+  <span class="kp">private</span>
+  
+  <span class="k">def</span> <span class="nf">webView</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">didFailLoadWithError</span><span class="ss">:error</span><span class="p">,</span> <span class="n">forFrame</span><span class="ss">:frame</span><span class="p">)</span>
+    <span class="vi">@failedLoading</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">webView</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">didFailProvisionalLoadWithError</span><span class="ss">:error</span><span class="p">,</span> <span class="n">forFrame</span><span class="ss">:frame</span><span class="p">)</span>
+    <span class="vi">@failedLoading</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">initialize_view</span>
+    <span class="no">NSApplication</span><span class="o">.</span><span class="n">sharedApplication</span>    
+    
+    <span class="nb">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="no">WebView</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithFrame</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">600</span><span class="o">]</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="no">NSWindow</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithContentRect</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">600</span><span class="o">]</span><span class="p">,</span>
+      <span class="n">styleMask</span><span class="ss">:NSBorderlessWindowMask</span><span class="p">,</span> <span class="n">backing</span><span class="ss">:NSBackingStoreBuffered</span><span class="p">,</span> <span class="n">defer</span><span class="ss">:false</span><span class="p">)</span>
       
-    <span class='n'>window</span><span class='o'>.</span><span class='n'>setContentView</span><span class='p'>(</span><span class='n'>view</span><span class='p'>)</span>    
-    <span class='c1'># Use the screen stylesheet, rather than the print one.</span>
-    <span class='n'>view</span><span class='o'>.</span><span class='n'>setMediaStyle</span><span class='p'>(</span><span class='s1'>&#39;screen&#39;</span><span class='p'>)</span>
-    <span class='c1'># Set the user agent to Safari, to ensure we get back the exactly the same content as </span>
-    <span class='c1'># if we browsed directly to the page</span>
-    <span class='n'>view</span><span class='o'>.</span><span class='n'>setCustomUserAgent</span> <span class='s1'>&#39;Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-us)&#39;</span> <span class='o'>+</span>
-        <span class='s1'>&#39;AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10&#39;</span>
-    <span class='c1'># Make sure we don&#39;t save any of the prefs that we change.</span>
-    <span class='n'>view</span><span class='o'>.</span><span class='n'>preferences</span><span class='o'>.</span><span class='n'>setAutosaves</span><span class='p'>(</span><span class='kp'>false</span><span class='p'>)</span>
-    <span class='c1'># Set some useful options.</span>
-    <span class='n'>view</span><span class='o'>.</span><span class='n'>preferences</span><span class='o'>.</span><span class='n'>setShouldPrintBackgrounds</span><span class='p'>(</span><span class='kp'>true</span><span class='p'>)</span>
-    <span class='n'>view</span><span class='o'>.</span><span class='n'>preferences</span><span class='o'>.</span><span class='n'>setJavaScriptCanOpenWindowsAutomatically</span><span class='p'>(</span><span class='kp'>false</span><span class='p'>)</span>
-    <span class='n'>view</span><span class='o'>.</span><span class='n'>preferences</span><span class='o'>.</span><span class='n'>setAllowsAnimatedImages</span><span class='p'>(</span><span class='kp'>false</span><span class='p'>)</span>
-    <span class='c1'># Make sure we don&#39;t get a scroll bar.</span>
-    <span class='n'>view</span><span class='o'>.</span><span class='n'>mainFrame</span><span class='o'>.</span><span class='n'>frameView</span><span class='o'>.</span><span class='n'>setAllowsScrolling</span><span class='p'>(</span><span class='kp'>false</span><span class='p'>)</span>
-  <span class='k'>end</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">setContentView</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>    
+    <span class="c1"># Use the screen stylesheet, rather than the print one.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setMediaStyle</span><span class="p">(</span><span class="s1">&#39;screen&#39;</span><span class="p">)</span>
+    <span class="c1"># Set the user agent to Safari, to ensure we get back the exactly the same content as </span>
+    <span class="c1"># if we browsed directly to the page</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setCustomUserAgent</span> <span class="s1">&#39;Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-us)&#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10&#39;</span>
+    <span class="c1"># Make sure we don&#39;t save any of the prefs that we change.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setAutosaves</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="c1"># Set some useful options.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setShouldPrintBackgrounds</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setJavaScriptCanOpenWindowsAutomatically</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setAllowsAnimatedImages</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="c1"># Make sure we don&#39;t get a scroll bar.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span><span class="o">.</span><span class="n">frameView</span><span class="o">.</span><span class="n">setAllowsScrolling</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+  <span class="k">end</span>
   
-  <span class='k'>def</span> <span class='nf'>timed_out?</span>
-    <span class='vi'>@start</span> <span class='o'>||=</span> <span class='no'>Time</span><span class='o'>.</span><span class='n'>now</span>
-    <span class='p'>(</span><span class='no'>Time</span><span class='o'>.</span><span class='n'>now</span><span class='o'>.</span><span class='n'>to_i</span> <span class='o'>-</span> <span class='vi'>@start</span><span class='o'>.</span><span class='n'>to_i</span><span class='p'>)</span> <span class='o'>&gt;</span> <span class='p'>(</span><span class='n'>options</span><span class='o'>[</span><span class='ss'>:timeout</span><span class='o'>]</span> <span class='o'>||</span> <span class='mi'>30</span><span class='p'>)</span>
-  <span class='k'>end</span>
-<span class='k'>end</span>
+  <span class="k">def</span> <span class="nf">timed_out?</span>
+    <span class="vi">@start</span> <span class="o">||=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+    <span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span> <span class="o">-</span> <span class="vi">@start</span><span class="o">.</span><span class="n">to_i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">options</span><span class="o">[</span><span class="ss">:timeout</span><span class="o">]</span> <span class="o">||</span> <span class="mi">30</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </pre>
 </div>
+
+
 <p>To use:</p>
-<div class='highlight'><pre><span class='n'>macruby</span> <span class='o'>-</span><span class='n'>r</span> <span class='n'>snapper</span><span class='o'>.</span><span class='n'>rb</span> <span class='o'>-</span><span class='n'>e</span> <span class='s2'>&quot;Snapper.new.save(&#39;http://tomafro.net&#39;, &#39;tomafro.net.png&#39;)&quot;</span>
+
+<div class="highlight"><pre><span class="n">macruby</span> <span class="o">-</span><span class="n">r</span> <span class="n">snapper</span><span class="o">.</span><span class="n">rb</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;Snapper.new.save(&#39;http://tomafro.net&#39;, &#39;tomafro.net.png&#39;)&quot;</span>
 </pre>
 </div>
+
+
 <p>The next step is to add some command line options, then try compilation and deployment with <code>macrubyc</code> and <code>macruby_deploy</code></p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -136,18 +143,21 @@
   <span class="tags"> &middot; <a href="/tags/macruby" rel="tag">macruby</a> &middot; <a href="/tags/screenshots" rel="tag">screenshots</a> &middot; <a href="/tags/web" rel="tag">web</a> &middot; <a href="/tags/osx" rel="tag">osx</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></h2>
     <p>In the Terminal run:</p>
 
-<p><div class='highlight'><pre>defaults write NSGlobalDomain NSUserKeyEquivalents <span class='s1'>&#39;{&quot;Zoom&quot; = &quot;@^Z&quot;; &quot;Zoom Window&quot; = &quot;@^Z&quot;; }&#39;</span>
+<div class="highlight"><pre>defaults write NSGlobalDomain NSUserKeyEquivalents <span class="s1">&#39;{&quot;Zoom&quot; = &quot;@^Z&quot;; &quot;Zoom Window&quot; = &quot;@^Z&quot;; }&#39;</span>
 </pre>
-</div></p>
+</div>
+
 
 <p>Quit and relaunch your applications, and <span class='osx-shortcut'>⌃⌘Z</span> should zoom and unzoom.</p>
 
-<p>Stolen from <a href='http://www.macosxhints.com/article.php?story=20051227001809626'>macoshints.com</a>, posted here for my own benefit.</p>
+<p>Stolen from <a href="http://www.macosxhints.com/article.php?story=20051227001809626">macoshints.com</a>, posted here for my own benefit.</p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -155,25 +165,32 @@
   <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/keyboard" rel="tag">keyboard</a> &middot; <a href="/tags/shortcut" rel="tag">shortcut</a> &middot; <a href="/tags/zoom" rel="tag">zoom</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
-    <p>Another simple shell function, this time just for OS X.</p>
+    <p>Another simple shell function, this time just for OS X.<br/>
+</p>
 
-<p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory. For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
-<div class='highlight'><pre>tab <span class='o'>()</span> <span class='o'>{</span>
-  osascript 2&gt;/dev/null <span class='s'>&lt;&lt;EOF</span>
-<span class='s'>    tell application &quot;System Events&quot;</span>
-<span class='s'>      tell process &quot;Terminal&quot; to keystroke &quot;t&quot; using command down</span>
-<span class='s'>  	end</span>
-<span class='s'>  	tell application &quot;Terminal&quot;</span>
-<span class='s'>      activate</span>
-<span class='s'>      do script with command &quot;cd $PWD; $*&quot; in window 1</span>
-<span class='s'>    end tell</span>
-<span class='s'>  EOF</span>
-<span class='o'>}</span>
+<p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
+
+<div class="highlight"><pre>tab <span class="o">()</span> <span class="o">{</span>
+  osascript 2&gt;/dev/null <span class="s">&lt;&lt;EOF</span>
+<span class="s">    tell application &quot;System Events&quot;</span>
+<span class="s">      tell process &quot;Terminal&quot; to keystroke &quot;t&quot; using command down</span>
+<span class="s">    end</span>
+<span class="s">    tell application &quot;Terminal&quot;</span>
+<span class="s">      activate</span>
+<span class="s">      do script with command &quot;cd $PWD; $*&quot; in window 1</span>
+<span class="s">    end tell</span>
+<span class="s">  EOF</span>
+<span class="o">}</span>
 </pre>
 </div>
+
+
+
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -181,19 +198,25 @@
   <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h2>
-    <p>Since adding this to <a href='http://github.com/tomafro/dotfiles/tree/master/zsh'>my zsh configuration</a>, I&#8217;m finding I use it all the time:</p>
-<div class='highlight'><pre><span class='c'># Change directory and open TextMate in a single command</span>
-<span class='c'># Usage: tm ~/Projects/sites/tomafro.net</span>
+    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
 
-tm<span class='o'>()</span> <span class='o'>{</span>
-  <span class='nb'>cd</span> <span class='nv'>$1</span>
-  mate <span class='nv'>$1</span>
-<span class='o'>}</span>
+<div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
+<span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
+
+tm<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">cd</span> <span class="nv">$1</span>
+  mate <span class="nv">$1</span>
+<span class="o">}</span>
 </pre>
 </div>
+
+
+
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -201,27 +224,33 @@ tm<span class='o'>()</span> <span class='o'>{</span>
   <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/textmate" rel="tag">textmate</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h2>
-    <p>I work on a number of different machines, OS X based for development and Linux based for hosting. I&#8217;ve added various aliases and other commands to my shell, and use <a href='http://github.com/tomafro/dotfiles'>a github repository</a> to share this configuration between these machines.</p>
+    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
 
-<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences. One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn&#8217;t work on Linux. So how can we accommodate these differences, without removing all the shared configuration?</p>
+<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
-<p>The answer is really simple. Create kernel specific configuration files, and use a case statement to load the correct one. The main obstacle was finding a way to distinguish between each kernel. In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.<br/>
+</p>
 
-<p>Here&#8217;s the code:</p>
-<div class='highlight'><pre><span class='k'>case</span> <span class='nv'>$system_name</span> in
-  Darwin*<span class='o'>)</span>
-    <span class='nb'>source</span> ~/.houseshare/zsh/kernel/darwin.zsh
+<p>Here's the code:</p>
+
+<div class="highlight"><pre><span class="k">case</span> <span class="nv">$system_name</span> in
+  Darwin*<span class="o">)</span>
+    <span class="nb">source</span> ~/.houseshare/zsh/kernel/darwin.zsh
     ;;
-  *<span class='o'>)</span>
-    <span class='nb'>source</span> ~/.houseshare/zsh/kernel/linux.zsh
+  *<span class="o">)</span>
+    <span class="nb">source</span> ~/.houseshare/zsh/kernel/linux.zsh
     ;;;
-<span class='k'>esac</span>
+<span class="k">esac</span>
 </pre>
 </div>
+
+
 <p>As I said, simple.</p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -229,62 +258,82 @@ tm<span class='o'>()</span> <span class='o'>{</span>
   <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/07/dscl-the-easy-way-to-add-hosts-on-osx">dscl - the easy way to add hosts on OS X</a></h2>
-    <p>As a web developer, I often want several host names pointing at my local machine whilst developing and testing applications. I may want to use Apache virtual hosts to serve multiple apps at once, or use subdomains to distinguish different accounts within a single application.</p>
+    <p>As a web developer, I often want several host names pointing at my local machine whilst developing and testing applications.  I may want to use Apache virtual hosts to serve multiple apps at once, or use subdomains to distinguish different accounts within a single application.</p>
 
 <p>Previously, to set these host names up, I would manually edit <code>/etc/hosts</code>, adding entries like:</p>
-<div class='highlight'><pre>127.0.0.1      twitter-killer.localhost
+
+<div class="highlight"><pre>127.0.0.1      twitter-killer.localhost
 127.0.0.1      my-url-shortener-is-better-than-yours.localhost
 127.0.0.1      yet-another-half-baked-idea.localhost
 </pre>
 </div>
-<p>This worked well on one level, but on another it just seemed wrong. It&#8217;s very manual, prone to error and pretty hard to script. Recently though, thanks to a hint from Chris Parsons, I&#8217;ve found another way: using <code>dscl</code>.</p>
 
-<p><code>dscl</code>, or Directory Service command line utility to give it its full name, has many uses. For a web developer, the most relevant is probably the ability to add, list and create local directory entries under <code>/Local/Defaults/Hosts</code> in the directory (not the file system). These act like lines in <code>/etc/hosts</code> but can be manipulated easily from the command line.</p>
+
+<p>This worked well on one level, but on another it just seemed wrong.  It's very manual, prone to error and pretty hard to script.  Recently though, thanks to a hint from Chris Parsons, I've found another way: using <code>dscl</code>.</p>
+
+<p><code>dscl</code>, or Directory Service command line utility to give it its full name, has many uses.  For a web developer, the most relevant is probably the ability to add, list and create local directory entries under <code>/Local/Defaults/Hosts</code> in the directory (not the file system).  These act like lines in <code>/etc/hosts</code> but can be manipulated easily from the command line.</p>
 
 <p>To add an entry (easily the most interesting command) use:</p>
-<div class='highlight'><pre>sudo dscl localhost -create /Local/Default/Hosts/twitter-killer.localhost IPAddress 127.0.0.1
+
+<div class="highlight"><pre>sudo dscl localhost -create /Local/Default/Hosts/twitter-killer.localhost IPAddress 127.0.0.1
 </pre>
 </div>
+
+
 <p>Once entries have been added, listing them is just as simple:</p>
-<div class='highlight'><pre>sudo dscl localhost -list /Local/Default/Hosts IPAddress
+
+<div class="highlight"><pre>sudo dscl localhost -list /Local/Default/Hosts IPAddress
 </pre>
 </div>
+
+
 <p>This produces a list in the form:</p>
-<div class='highlight'><pre>twitter-killer.localhost                         127.0.0.1      
+
+<div class="highlight"><pre>twitter-killer.localhost                         127.0.0.1      
 my-url-shortener-is-better-than-yours.localhost  127.0.0.1      
 yet-another-half-baked-idea.localhost            127.0.0.1      
 </pre>
 </div>
-<p>Finally, you can remove entries with:</p>
-<div class='highlight'><pre>sudo dscl localhost -delete /Local/Default/Hosts/twitter-killer.localhost
-</pre>
-</div>
-<p>Once you&#8217;ve mastered these commands, the possibilities are endless. Here&#8217;s a rake task to add all subdomains used in a project:</p>
-<div class='highlight'><pre><span class='k'>class</span> <span class='nc'>Application</span>
-  <span class='k'>def</span> <span class='nc'>self</span><span class='o'>.</span><span class='nf'>subdomains</span>
-    <span class='no'>Client</span><span class='o'>.</span><span class='n'>all</span><span class='o'>.</span><span class='n'>collect</span> <span class='p'>{</span><span class='o'>|</span><span class='n'>client</span><span class='o'>|</span> <span class='n'>client</span><span class='o'>.</span><span class='n'>subdomain</span> <span class='p'>}</span>
-  <span class='k'>end</span>
-<span class='k'>end</span>
 
-<span class='n'>namespace</span> <span class='ss'>:subdomains</span> <span class='k'>do</span>
-  <span class='n'>task</span> <span class='ss'>:add</span> <span class='k'>do</span>
-    <span class='no'>Application</span><span class='o'>.</span><span class='n'>subdomains</span><span class='o'>.</span><span class='n'>each</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>subdomain</span><span class='o'>|</span>
-      <span class='sb'>`sudo dscl localhost -create /Local/Default/Hosts/</span><span class='si'>#{</span><span class='n'>subdomain</span><span class='si'>}</span><span class='sb'>.app.localhost IPAddress 127.0.0.1`</span>
-    <span class='k'>end</span>
-  <span class='k'>end</span>
-  
-  <span class='n'>task</span> <span class='ss'>:remove</span> <span class='k'>do</span>
-    <span class='no'>Application</span><span class='o'>.</span><span class='n'>subdomains</span><span class='o'>.</span><span class='n'>each</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>subdomain</span><span class='o'>|</span>
-      <span class='sb'>`sudo dscl localhost -delete /Local/Default/Hosts/</span><span class='si'>#{</span><span class='n'>subdomain</span><span class='si'>}</span><span class='sb'>.app.localhost`</span>
-    <span class='k'>end</span>
-  <span class='k'>end</span>
-<span class='k'>end</span>
+
+<p>Finally, you can remove entries with:</p>
+
+<div class="highlight"><pre>sudo dscl localhost -delete /Local/Default/Hosts/twitter-killer.localhost
 </pre>
 </div>
-<p>Or if you&#8217;re using <a href='http://www.modrails.com/'>passenger</a> for development, you can use a tool like <a href='http://github.com/lazyatom/hostess/tree/master'>James Adam&#8217;s hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
+
+
+<p>Once you've mastered these commands, the possibilities are endless.  Here's a rake task to add all subdomains used in a project:</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Application</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">subdomains</span>
+    <span class="no">Client</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span><span class="o">|</span><span class="n">client</span><span class="o">|</span> <span class="n">client</span><span class="o">.</span><span class="n">subdomain</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">namespace</span> <span class="ss">:subdomains</span> <span class="k">do</span>
+  <span class="n">task</span> <span class="ss">:add</span> <span class="k">do</span>
+    <span class="no">Application</span><span class="o">.</span><span class="n">subdomains</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">subdomain</span><span class="o">|</span>
+      <span class="sb">`sudo dscl localhost -create /Local/Default/Hosts/</span><span class="si">#{</span><span class="n">subdomain</span><span class="si">}</span><span class="sb">.app.localhost IPAddress 127.0.0.1`</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  
+  <span class="n">task</span> <span class="ss">:remove</span> <span class="k">do</span>
+    <span class="no">Application</span><span class="o">.</span><span class="n">subdomains</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">subdomain</span><span class="o">|</span>
+      <span class="sb">`sudo dscl localhost -delete /Local/Default/Hosts/</span><span class="si">#{</span><span class="n">subdomain</span><span class="si">}</span><span class="sb">.app.localhost`</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Or if you're using <a href="http://www.modrails.com/">passenger</a> for development, you can use a tool like <a href="http://github.com/lazyatom/hostess/tree/master">James Adam's hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -292,6 +341,7 @@ yet-another-half-baked-idea.localhost            127.0.0.1
   <span class="tags"> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/dscl" rel="tag">dscl</a> &middot; <a href="/tags/development" rel="tag">development</a> &middot; <a href="/tags/shell" rel="tag">shell</a> &middot; <a href="/tags/reminder" rel="tag">reminder</a></span>
   </div>
 </div>
+
 
     </div>
   </div>

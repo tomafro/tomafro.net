@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Posts tagged with tiny &middot; tomafro.net</title>
-  <meta name="robots" content="noindex"/>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -11,7 +10,7 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net"/>
+  <link rel="canonical" href="http://tomafro.net/tags/tiny"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -36,18 +35,21 @@
       <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
     </div>
     <div id="main">
-      <div class="post">
+      
+<div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></h2>
     <p>In the Terminal run:</p>
 
-<p><div class='highlight'><pre>defaults write NSGlobalDomain NSUserKeyEquivalents <span class='s1'>&#39;{&quot;Zoom&quot; = &quot;@^Z&quot;; &quot;Zoom Window&quot; = &quot;@^Z&quot;; }&#39;</span>
+<div class="highlight"><pre>defaults write NSGlobalDomain NSUserKeyEquivalents <span class="s1">&#39;{&quot;Zoom&quot; = &quot;@^Z&quot;; &quot;Zoom Window&quot; = &quot;@^Z&quot;; }&#39;</span>
 </pre>
-</div></p>
+</div>
+
 
 <p>Quit and relaunch your applications, and <span class='osx-shortcut'>⌃⌘Z</span> should zoom and unzoom.</p>
 
-<p>Stolen from <a href='http://www.macosxhints.com/article.php?story=20051227001809626'>macoshints.com</a>, posted here for my own benefit.</p>
+<p>Stolen from <a href="http://www.macosxhints.com/article.php?story=20051227001809626">macoshints.com</a>, posted here for my own benefit.</p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -55,26 +57,34 @@
   <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/keyboard" rel="tag">keyboard</a> &middot; <a href="/tags/shortcut" rel="tag">shortcut</a> &middot; <a href="/tags/zoom" rel="tag">zoom</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h2>
-    <p>This one is just so simple, I can&#8217;t believe I didn&#8217;t know about it earlier.</p>
+    <p>This one is just so simple, I can't believe I didn't know about it earlier.</p>
 
 <p>First, setup the cdpath or CDPATH variable:</p>
-<div class='highlight'><pre><span class='nv'>cdpath</span><span class='o'>=(</span>~ ~/Projects/apps ~/Projects/tools ~/Projects/plugins ~/Projects/sites<span class='o'>)</span>
+
+<div class="highlight"><pre><span class="nv">cdpath</span><span class="o">=(</span>~ ~/Projects/apps ~/Projects/tools ~/Projects/plugins ~/Projects/sites<span class="o">)</span>
 </pre>
 </div>
+
+
 <p>Now, changing directory in the shell becomes a whole world easier:</p>
-<div class='highlight'><pre><span class='s1'>tomw@fellini:~<span class='nv'>$ </span></span><span class='nb'>cd </span>super-secret-app
+
+<div class='highlight'><pre><span class="s1">tomw@fellini:~<span class='nv'>$ </span></span><span class='nb'>cd </span>super-secret-app
 ~/Projects/apps/super-secret-app
-<span class='s1'>tomw@fellini:~/Projects/apps/super-secret-app<span class='nv'>$ </span></span><span class='nb'>cd </span>Documents
+<span class="s1">tomw@fellini:~/Projects/apps/super-secret-app<span class='nv'>$ </span></span><span class='nb'>cd </span>Documents
 ~/Documents
-<span class='s1'>tomw@fellini:~/Documents<span class='nv'>$ </span></span><span class='nb'>cd </span>tomafro.net
+<span class="s1">tomw@fellini:~/Documents<span class='nv'>$ </span></span><span class='nb'>cd </span>tomafro.net
 ~/Projects/sites/tomafro.net
-<span class='s1'>tomw@fellini:~/Projects/sites/tomafro.net <span class='err'>$</span></span>
+<span class="s1">tomw@fellini:~/Projects/sites/tomafro.net <span class='err'>$</span></span>
 </pre>
 </div>
-<p>I&#8217;ve already added this to <a href='http://github.com/tomafro/dotfiles'>my dotfiles</a>.</p>
+
+
+<p>I've already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -82,25 +92,32 @@
   <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a> &middot; <a href="/tags/cdpath" rel="tag">cdpath</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
-    <p>Another simple shell function, this time just for OS X.</p>
+    <p>Another simple shell function, this time just for OS X.<br/>
+</p>
 
-<p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory. For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
-<div class='highlight'><pre>tab <span class='o'>()</span> <span class='o'>{</span>
-  osascript 2&gt;/dev/null <span class='s'>&lt;&lt;EOF</span>
-<span class='s'>    tell application &quot;System Events&quot;</span>
-<span class='s'>      tell process &quot;Terminal&quot; to keystroke &quot;t&quot; using command down</span>
-<span class='s'>  	end</span>
-<span class='s'>  	tell application &quot;Terminal&quot;</span>
-<span class='s'>      activate</span>
-<span class='s'>      do script with command &quot;cd $PWD; $*&quot; in window 1</span>
-<span class='s'>    end tell</span>
-<span class='s'>  EOF</span>
-<span class='o'>}</span>
+<p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
+
+<div class="highlight"><pre>tab <span class="o">()</span> <span class="o">{</span>
+  osascript 2&gt;/dev/null <span class="s">&lt;&lt;EOF</span>
+<span class="s">    tell application &quot;System Events&quot;</span>
+<span class="s">      tell process &quot;Terminal&quot; to keystroke &quot;t&quot; using command down</span>
+<span class="s">    end</span>
+<span class="s">    tell application &quot;Terminal&quot;</span>
+<span class="s">      activate</span>
+<span class="s">      do script with command &quot;cd $PWD; $*&quot; in window 1</span>
+<span class="s">    end tell</span>
+<span class="s">  EOF</span>
+<span class="o">}</span>
 </pre>
 </div>
+
+
+
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -108,19 +125,25 @@
   <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h2>
-    <p>Before my next post on database indexes, here&#8217;s a useful little function from the <a href='http://peepcode.com/products/advanced-command-line'>Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
-<div class='highlight'><pre><span class='c'># Create and move to a directory in a single command</span>
-<span class='c'># Usage: take ~/Projects/tools/awesometer</span>
+    <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
 
-take<span class='o'>()</span> <span class='o'>{</span>
-  mkdir -p <span class='nv'>$1</span>
-  <span class='nb'>cd</span> <span class='nv'>$1</span>
-<span class='o'>}</span>
+<div class="highlight"><pre><span class="c"># Create and move to a directory in a single command</span>
+<span class="c"># Usage: take ~/Projects/tools/awesometer</span>
+
+take<span class="o">()</span> <span class="o">{</span>
+  mkdir -p <span class="nv">$1</span>
+  <span class="nb">cd</span> <span class="nv">$1</span>
+<span class="o">}</span>
 </pre>
 </div>
+
+
+
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -128,19 +151,25 @@ take<span class='o'>()</span> <span class='o'>{</span>
   <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/peepcode" rel="tag">peepcode</a></span>
   </div>
 </div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h2>
-    <p>Since adding this to <a href='http://github.com/tomafro/dotfiles/tree/master/zsh'>my zsh configuration</a>, I&#8217;m finding I use it all the time:</p>
-<div class='highlight'><pre><span class='c'># Change directory and open TextMate in a single command</span>
-<span class='c'># Usage: tm ~/Projects/sites/tomafro.net</span>
+    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
 
-tm<span class='o'>()</span> <span class='o'>{</span>
-  <span class='nb'>cd</span> <span class='nv'>$1</span>
-  mate <span class='nv'>$1</span>
-<span class='o'>}</span>
+<div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
+<span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
+
+tm<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">cd</span> <span class="nv">$1</span>
+  mate <span class="nv">$1</span>
+<span class="o">}</span>
 </pre>
 </div>
+
+
+
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -148,6 +177,7 @@ tm<span class='o'>()</span> <span class='o'>{</span>
   <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/textmate" rel="tag">textmate</a></span>
   </div>
 </div>
+
 
     </div>
   </div>

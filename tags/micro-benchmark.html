@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Posts tagged with micro-benchmark &middot; tomafro.net</title>
-  <meta name="robots" content="noindex"/>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -11,7 +10,7 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net"/>
+  <link rel="canonical" href="http://tomafro.net/tags/micro-benchmark"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -36,34 +35,47 @@
       <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
     </div>
     <div id="main">
-      <div class="post">
+      
+<div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h2>
-    <p>Yesterday <a href='http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return'>Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby. I agree 100% with Pratik, I can&#8217;t stand them either.</p>
+    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.<br/>
+</p>
 
-<p>In one of the comments, Chris Wanstrath posted <a href='http://gist.github.com/160718'>this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit. It seemed crazy to me, so I thought I&#8217;d investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
+<p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I'd investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
 
-<h3 id='ruby_187_20080811_patchlevel_72'>ruby 1.8.7 (2008-08-11 patchlevel 72)</h3>
+<h3>ruby 1.8.7 (2008-08-11 patchlevel 72)</h3>
+
 <pre>
                user     system      total        real
 explicit   3.420000   0.020000   3.440000 (  3.478501)
 implicit   2.220000   0.000000   2.220000 (  2.236413)
 </pre>
-<h3 id='jruby_116_ruby_186_patchlevel_114'>jruby 1.1.6 (ruby 1.8.6 patchlevel 114)</h3>
+
+
+<h3>jruby 1.1.6 (ruby 1.8.6 patchlevel 114)</h3>
+
 <pre>
                user     system      total        real
 explicit   2.611000   0.000000   2.611000 (  2.611001)
 implicit   2.541000   0.000000   2.541000 (  2.541385)
 </pre>
-<h3 id='ruby_191p0_20090130_revision_21907'>ruby 1.9.1p0 (2009-01-30 revision 21907)</h3>
+
+
+<h3>ruby 1.9.1p0 (2009-01-30 revision 21907)</h3>
+
 <pre>
                user     system      total        real
 explicit   1.580000   0.010000   1.590000 (  1.614273)
 implicit   1.520000   0.000000   1.520000 (  1.537492)
 </pre>
-<p>So neither jruby nor ruby 1.9 incur this penalty.</p>
 
-<p>Is this good news or not? If, like me, you consider explicit returns a code smell, I guess it doesn&#8217;t matter either way.</p>
+
+<p>So neither jruby nor ruby 1.9 incur this penalty.<br/>
+</p>
+
+<p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn't matter either way.</p>
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -71,6 +83,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/micro-benchmark" rel="tag">micro-benchmark</a> &middot; <a href="/tags/return" rel="tag">return</a></span>
   </div>
 </div>
+
 
     </div>
   </div>

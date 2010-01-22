@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Building rails gems from the 2-3-stable branch &middot; tomafro.net</title>
+  <title> &middot; tomafro.net</title>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net/2009/11/building-gems-from-a-rails-branch"/>
+  <link rel="canonical" href="http://tomafro.net"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -35,44 +35,54 @@
       <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
     </div>
     <div id="main">
-      
-<div class="post">
+      <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
-    <p>For the latest application I&#8217;ve been working on, I wanted to use <a href='http://github.com/NZKoz/rails_xss/'>Michael Koziarski&#8217;s rails_xss plugin</a>, to turn default escaping on in my erb templates. I&#8217;m also using <a href='http://github.com/wycats/bundler/'>wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+    <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
 <p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
 
-<p>The solution was obvious: build my own gems, and get bundler to use them. Luckily, rails makes this an easy process.</p>
+<p>The solution was obvious: build my own gems, and get bundler to use them.  Luckily, rails makes this an easy process.</p>
 
 <p>First, clone rails from github, and change to the 2-3-stable branch:</p>
-<div class='highlight'><pre>git clone git://github.com/rails/rails.git
-<span class='nb'>cd </span>rails
+
+<div class="highlight"><pre>git clone git://github.com/rails/rails.git
+<span class="nb">cd </span>rails
 git co -b 2-3-stable origin/2-3-stable
 </pre>
 </div>
-<p>Next, we need to build the gems. Rails currently doesn&#8217;t seem to have a Raketask to build all its constituent projects (though I&#8217;m planning a patch to include one), so you have to build each one in turn:</p>
-<div class='highlight'><pre><span class='nb'>cd </span>actionmailer
-rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
-<span class='nb'>cd</span> ../actionpack
-rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
-<span class='nb'>cd</span> ../activerecord
-rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
-<span class='nb'>cd</span> ../activeresource
-rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
-<span class='nb'>cd</span> ../activesupport
-rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
-<span class='nb'>cd</span> ../railties
-rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
-<span class='nb'>cd</span> ..
-</pre>
-</div>
-<p>The key is the <code>PKG_BUILD</code> variable. It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1. If I decided to update my gems, I&#8217;d use PKG_BUILD=2, then 3 and so on.</p>
 
-<p>Finally, once all these gems are built, it&#8217;s simply a case of finding them and using them. For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails &#8216;2.3.4.1&#8217;. The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
-<div class='highlight'><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
+
+<p>Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:</p>
+
+<div class="highlight"><pre><span class="nb">cd </span>actionmailer
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../actionpack
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activerecord
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activeresource
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activesupport
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../railties
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ..
 </pre>
 </div>
+
+
+<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.</p>
+
+<p>Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+
+<div class="highlight"><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
+</pre>
+</div>
+
+
+
+
   </div>
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
@@ -80,10 +90,7 @@ rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
   </div>
 </div>
-<div class="related">
-<h3>More Posts</h3>
-<p><a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a> &middot; <a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a> &middot; <a href="/2009/05/using-rack-middleware-for-good-and-evil">Using Rack Middleware for good and evil</a> &middot; <a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a> &middot; <a href="/2009/06/pimp-my-script-console">Pimp my script/console</a> &middot; <a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a> &middot; <a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a> &middot; <a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a> &middot; <a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a> &middot; <a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a> &middot; <a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a> &middot; <a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></p>
-</div>
+
     </div>
   </div>
 </body>	
