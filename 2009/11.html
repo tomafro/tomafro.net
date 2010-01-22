@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Posts from November 2009 &middot; tomafro.net</title>
+  <meta name="robots" content="noindex"/>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+  <meta name="viewport" content="width=850" />
+  <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
+</head>
+<body>  
+  <div id="container">
+    <div id="header" class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </div>
+    <div id="main">
+      <div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h2>
+    <p>Whilst playing around with the very exciting <a href='http://macruby.org'>macruby</a> last weekend, I thought I&#8217;d try building a web page screenshot grabber, based on <a href='http://www.bencurtis.com/?p=128'>Ben Curtis&#8217; code</a>. The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
+<div class='highlight'><pre><span class='n'>framework</span> <span class='s1'>&#39;Cocoa&#39;</span>
+<span class='n'>framework</span> <span class='s1'>&#39;WebKit&#39;</span>
+
+<span class='k'>class</span> <span class='nc'>Snapper</span>
+  <span class='kp'>attr_accessor</span> <span class='ss'>:options</span><span class='p'>,</span> <span class='ss'>:view</span><span class='p'>,</span> <span class='ss'>:window</span>
+  
+  <span class='k'>def</span> <span class='nf'>initialize</span><span class='p'>(</span><span class='n'>options</span> <span class='o'>=</span> <span class='p'>{})</span>
+    <span class='vi'>@options</span> <span class='o'>=</span> <span class='n'>options</span>
+    <span class='n'>initialize_view</span>
+  <span class='k'>end</span>
+  
+  <span class='k'>def</span> <span class='nf'>save</span><span class='p'>(</span><span class='n'>url</span><span class='p'>,</span> <span class='n'>file</span><span class='p'>)</span>
+    <span class='n'>view</span><span class='o'>.</span><span class='n'>setFrameLoadDelegate</span><span class='p'>(</span><span class='nb'>self</span><span class='p'>)</span>
+    <span class='c1'># Tell the webView what URL to load.</span>
+    <span class='n'>frame</span> <span class='o'>=</span> <span class='n'>view</span><span class='o'>.</span><span class='n'>mainFrame</span>
+    <span class='n'>req</span> <span class='o'>=</span> <span class='no'>NSURLRequest</span><span class='o'>.</span><span class='n'>requestWithURL</span><span class='p'>(</span><span class='no'>NSURL</span><span class='o'>.</span><span class='n'>URLWithString</span><span class='p'>(</span><span class='n'>url</span><span class='p'>))</span>
+		<span class='n'>frame</span><span class='o'>.</span><span class='n'>loadRequest</span> <span class='n'>req</span>
+    
+    <span class='k'>while</span> <span class='n'>view</span><span class='o'>.</span><span class='n'>isLoading</span>  <span class='o'>&amp;&amp;</span> <span class='o'>!</span><span class='n'>timed_out?</span>
+      <span class='no'>NSRunLoop</span><span class='o'>.</span><span class='n'>currentRunLoop</span><span class='o'>.</span><span class='n'>runUntilDate</span> <span class='no'>NSDate</span><span class='o'>.</span><span class='n'>date</span>
+    <span class='k'>end</span>
+    
+    <span class='k'>if</span> <span class='vi'>@failedLoading</span>
+      <span class='nb'>puts</span> <span class='s2'>&quot;Failed to load page at: </span><span class='si'>#{</span><span class='n'>url</span><span class='si'>}</span><span class='s2'>&quot;</span>
+    <span class='k'>else</span>
+      <span class='n'>docView</span> <span class='o'>=</span> <span class='n'>view</span><span class='o'>.</span><span class='n'>mainFrame</span><span class='o'>.</span><span class='n'>frameView</span><span class='o'>.</span><span class='n'>documentView</span>
+      <span class='n'>docView</span><span class='o'>.</span><span class='n'>window</span><span class='o'>.</span><span class='n'>setContentSize</span><span class='p'>(</span><span class='n'>docView</span><span class='o'>.</span><span class='n'>bounds</span><span class='o'>.</span><span class='n'>size</span><span class='p'>)</span>
+      <span class='n'>docView</span><span class='o'>.</span><span class='n'>setFrame</span><span class='p'>(</span><span class='n'>view</span><span class='o'>.</span><span class='n'>bounds</span><span class='p'>)</span>
+    
+      <span class='n'>docView</span><span class='o'>.</span><span class='n'>setNeedsDisplay</span><span class='p'>(</span><span class='kp'>true</span><span class='p'>)</span>
+      <span class='n'>docView</span><span class='o'>.</span><span class='n'>displayIfNeeded</span>
+      <span class='n'>docView</span><span class='o'>.</span><span class='n'>lockFocus</span>
+    
+      <span class='n'>bitmap</span> <span class='o'>=</span> <span class='no'>NSBitmapImageRep</span><span class='o'>.</span><span class='n'>alloc</span><span class='o'>.</span><span class='n'>initWithFocusedViewRect</span><span class='p'>(</span><span class='n'>docView</span><span class='o'>.</span><span class='n'>bounds</span><span class='p'>)</span>
+      <span class='n'>docView</span><span class='o'>.</span><span class='n'>unlockFocus</span>
+
+      <span class='c1'># Write the bitmap to a file as a PNG</span>
+      <span class='n'>representation</span> <span class='o'>=</span> <span class='n'>bitmap</span><span class='o'>.</span><span class='n'>representationUsingType</span><span class='p'>(</span><span class='no'>NSPNGFileType</span><span class='p'>,</span> <span class='n'>properties</span><span class='ss'>:nil</span><span class='p'>)</span>
+      <span class='n'>representation</span><span class='o'>.</span><span class='n'>writeToFile</span><span class='p'>(</span><span class='n'>file</span><span class='p'>,</span> <span class='n'>atomically</span><span class='ss'>:true</span><span class='p'>)</span>
+      <span class='n'>bitmap</span><span class='o'>.</span><span class='n'>release</span>
+    <span class='k'>end</span>
+  <span class='k'>end</span>
+  
+  <span class='kp'>private</span>
+  
+  <span class='k'>def</span> <span class='nf'>webView</span><span class='p'>(</span><span class='n'>view</span><span class='p'>,</span> <span class='n'>didFailLoadWithError</span><span class='ss'>:error</span><span class='p'>,</span> <span class='n'>forFrame</span><span class='ss'>:frame</span><span class='p'>)</span>
+    <span class='vi'>@failedLoading</span> <span class='o'>=</span> <span class='kp'>true</span>
+  <span class='k'>end</span>
+  
+  <span class='k'>def</span> <span class='nf'>webView</span><span class='p'>(</span><span class='n'>view</span><span class='p'>,</span> <span class='n'>didFailProvisionalLoadWithError</span><span class='ss'>:error</span><span class='p'>,</span> <span class='n'>forFrame</span><span class='ss'>:frame</span><span class='p'>)</span>
+    <span class='vi'>@failedLoading</span> <span class='o'>=</span> <span class='kp'>true</span>
+  <span class='k'>end</span>
+  
+  <span class='k'>def</span> <span class='nf'>initialize_view</span>
+    <span class='no'>NSApplication</span><span class='o'>.</span><span class='n'>sharedApplication</span>    
+    
+    <span class='nb'>self</span><span class='o'>.</span><span class='n'>view</span> <span class='o'>=</span> <span class='no'>WebView</span><span class='o'>.</span><span class='n'>alloc</span><span class='o'>.</span><span class='n'>initWithFrame</span><span class='p'>(</span><span class='o'>[</span><span class='mi'>0</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>,</span> <span class='mi'>1024</span><span class='p'>,</span> <span class='mi'>600</span><span class='o'>]</span><span class='p'>)</span>
+    <span class='nb'>self</span><span class='o'>.</span><span class='n'>window</span> <span class='o'>=</span> <span class='no'>NSWindow</span><span class='o'>.</span><span class='n'>alloc</span><span class='o'>.</span><span class='n'>initWithContentRect</span><span class='p'>(</span><span class='o'>[</span><span class='mi'>0</span><span class='p'>,</span> <span class='mi'>0</span><span class='p'>,</span> <span class='mi'>1024</span><span class='p'>,</span> <span class='mi'>600</span><span class='o'>]</span><span class='p'>,</span>
+      <span class='n'>styleMask</span><span class='ss'>:NSBorderlessWindowMask</span><span class='p'>,</span> <span class='n'>backing</span><span class='ss'>:NSBackingStoreBuffered</span><span class='p'>,</span> <span class='n'>defer</span><span class='ss'>:false</span><span class='p'>)</span>
+      
+    <span class='n'>window</span><span class='o'>.</span><span class='n'>setContentView</span><span class='p'>(</span><span class='n'>view</span><span class='p'>)</span>    
+    <span class='c1'># Use the screen stylesheet, rather than the print one.</span>
+    <span class='n'>view</span><span class='o'>.</span><span class='n'>setMediaStyle</span><span class='p'>(</span><span class='s1'>&#39;screen&#39;</span><span class='p'>)</span>
+    <span class='c1'># Set the user agent to Safari, to ensure we get back the exactly the same content as </span>
+    <span class='c1'># if we browsed directly to the page</span>
+    <span class='n'>view</span><span class='o'>.</span><span class='n'>setCustomUserAgent</span> <span class='s1'>&#39;Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-us)&#39;</span> <span class='o'>+</span>
+        <span class='s1'>&#39;AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10&#39;</span>
+    <span class='c1'># Make sure we don&#39;t save any of the prefs that we change.</span>
+    <span class='n'>view</span><span class='o'>.</span><span class='n'>preferences</span><span class='o'>.</span><span class='n'>setAutosaves</span><span class='p'>(</span><span class='kp'>false</span><span class='p'>)</span>
+    <span class='c1'># Set some useful options.</span>
+    <span class='n'>view</span><span class='o'>.</span><span class='n'>preferences</span><span class='o'>.</span><span class='n'>setShouldPrintBackgrounds</span><span class='p'>(</span><span class='kp'>true</span><span class='p'>)</span>
+    <span class='n'>view</span><span class='o'>.</span><span class='n'>preferences</span><span class='o'>.</span><span class='n'>setJavaScriptCanOpenWindowsAutomatically</span><span class='p'>(</span><span class='kp'>false</span><span class='p'>)</span>
+    <span class='n'>view</span><span class='o'>.</span><span class='n'>preferences</span><span class='o'>.</span><span class='n'>setAllowsAnimatedImages</span><span class='p'>(</span><span class='kp'>false</span><span class='p'>)</span>
+    <span class='c1'># Make sure we don&#39;t get a scroll bar.</span>
+    <span class='n'>view</span><span class='o'>.</span><span class='n'>mainFrame</span><span class='o'>.</span><span class='n'>frameView</span><span class='o'>.</span><span class='n'>setAllowsScrolling</span><span class='p'>(</span><span class='kp'>false</span><span class='p'>)</span>
+  <span class='k'>end</span>
+  
+  <span class='k'>def</span> <span class='nf'>timed_out?</span>
+    <span class='vi'>@start</span> <span class='o'>||=</span> <span class='no'>Time</span><span class='o'>.</span><span class='n'>now</span>
+    <span class='p'>(</span><span class='no'>Time</span><span class='o'>.</span><span class='n'>now</span><span class='o'>.</span><span class='n'>to_i</span> <span class='o'>-</span> <span class='vi'>@start</span><span class='o'>.</span><span class='n'>to_i</span><span class='p'>)</span> <span class='o'>&gt;</span> <span class='p'>(</span><span class='n'>options</span><span class='o'>[</span><span class='ss'>:timeout</span><span class='o'>]</span> <span class='o'>||</span> <span class='mi'>30</span><span class='p'>)</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>To use:</p>
+<div class='highlight'><pre><span class='n'>macruby</span> <span class='o'>-</span><span class='n'>r</span> <span class='n'>snapper</span><span class='o'>.</span><span class='n'>rb</span> <span class='o'>-</span><span class='n'>e</span> <span class='s2'>&quot;Snapper.new.save(&#39;http://tomafro.net&#39;, &#39;tomafro.net.png&#39;)&quot;</span>
+</pre>
+</div>
+<p>The next step is to add some command line options, then try compilation and deployment with <code>macrubyc</code> and <code>macruby_deploy</code></p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11">30th November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/macruby" rel="tag">macruby</a> &middot; <a href="/tags/screenshots" rel="tag">screenshots</a> &middot; <a href="/tags/web" rel="tag">web</a> &middot; <a href="/tags/osx" rel="tag">osx</a></span>
+  </div>
+</div>
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></h2>
+    <p>In the Terminal run:</p>
+
+<p><div class='highlight'><pre>defaults write NSGlobalDomain NSUserKeyEquivalents <span class='s1'>&#39;{&quot;Zoom&quot; = &quot;@^Z&quot;; &quot;Zoom Window&quot; = &quot;@^Z&quot;; }&#39;</span>
+</pre>
+</div></p>
+
+<p>Quit and relaunch your applications, and <span class='osx-shortcut'>⌃⌘Z</span> should zoom and unzoom.</p>
+
+<p>Stolen from <a href='http://www.macosxhints.com/article.php?story=20051227001809626'>macoshints.com</a>, posted here for my own benefit.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11"> 6th November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/keyboard" rel="tag">keyboard</a> &middot; <a href="/tags/shortcut" rel="tag">shortcut</a> &middot; <a href="/tags/zoom" rel="tag">zoom</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a></span>
+  </div>
+</div>
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
+    <p>For the latest application I&#8217;ve been working on, I wanted to use <a href='http://github.com/NZKoz/rails_xss/'>Michael Koziarski&#8217;s rails_xss plugin</a>, to turn default escaping on in my erb templates. I&#8217;m also using <a href='http://github.com/wycats/bundler/'>wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+
+<p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
+
+<p>The solution was obvious: build my own gems, and get bundler to use them. Luckily, rails makes this an easy process.</p>
+
+<p>First, clone rails from github, and change to the 2-3-stable branch:</p>
+<div class='highlight'><pre>git clone git://github.com/rails/rails.git
+<span class='nb'>cd </span>rails
+git co -b 2-3-stable origin/2-3-stable
+</pre>
+</div>
+<p>Next, we need to build the gems. Rails currently doesn&#8217;t seem to have a Raketask to build all its constituent projects (though I&#8217;m planning a patch to include one), so you have to build each one in turn:</p>
+<div class='highlight'><pre><span class='nb'>cd </span>actionmailer
+rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
+<span class='nb'>cd</span> ../actionpack
+rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
+<span class='nb'>cd</span> ../activerecord
+rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
+<span class='nb'>cd</span> ../activeresource
+rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
+<span class='nb'>cd</span> ../activesupport
+rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
+<span class='nb'>cd</span> ../railties
+rake gem <span class='nv'>PKG_BUILD</span><span class='o'>=</span>1
+<span class='nb'>cd</span> ..
+</pre>
+</div>
+<p>The key is the <code>PKG_BUILD</code> variable. It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1. If I decided to update my gems, I&#8217;d use PKG_BUILD=2, then 3 and so on.</p>
+
+<p>Finally, once all these gems are built, it&#8217;s simply a case of finding them and using them. For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails &#8216;2.3.4.1&#8217;. The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+<div class='highlight'><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
+</pre>
+</div>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11"> 5th November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
+  </div>
+</div>
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h2>
+    <p>Following Nick Quaranto&#8217;s article <a href='http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/'>&#8216;Gem Bundler is the Future&#8217;</a>, I was inspired to try out <a href='http://github.com/wycats/bundler'>bundler</a> on my latest rails project. Previously, I&#8217;ve found rails&#8217; own gem management a massive headache. In contrast, using bundler has been a pleasure.</p>
+
+<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I&#8217;ve made a rails template to do the hard work.</p>
+
+<p>Give it a try by running the following. You should be up and running in a couple of minutes:</p>
+<div class='highlight'><pre>rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb &lt;project&gt;
+</pre>
+</div>
+<p>That will give you a bundled project, ready for you to add your own gems. Here&#8217;s what each step of the template actually does:</p>
+
+<p>Gem bundler is itself a gem. It can&#8217;t be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
+<div class='highlight'><pre><span class='n'>inside</span> <span class='s1'>&#39;gems/bundler&#39;</span> <span class='k'>do</span>  
+  <span class='n'>run</span> <span class='s1'>&#39;git init&#39;</span>
+  <span class='n'>run</span> <span class='s1'>&#39;git pull --depth 1 git://github.com/wycats/bundler.git&#39;</span> 
+  <span class='n'>run</span> <span class='s1'>&#39;rm -rf .git .gitignore&#39;</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>Just having bundler installed is no good without any way to run it; a script is needed. Once this is installed the local bundler can be run with <code>script/bundle &lt;options&gt;</code>:</p>
+<div class='highlight'><pre><span class='n'>file</span> <span class='s1'>&#39;script/bundle&#39;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>#!/usr/bin/env ruby</span>
+<span class='sx'>path = File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems/bundler/lib&quot;))</span>
+<span class='sx'>$LOAD_PATH.unshift path</span>
+<span class='sx'>require &#39;rubygems&#39;</span>
+<span class='sx'>require &#39;rubygems/command&#39;</span>
+<span class='sx'>require &#39;bundler&#39;</span>
+<span class='sx'>require &#39;bundler/commands/bundle_command&#39;</span>
+<span class='sx'>Gem::Commands::BundleCommand.new.invoke(*ARGV)</span>
+<span class='sx'>}</span><span class='o'>.</span><span class='n'>strip</span>
+
+<span class='n'>run</span> <span class='s1'>&#39;chmod +x script/bundle&#39;</span>
+</pre>
+</div>
+<p>Bundler uses Gemfiles to declare which gems are required in each environment. This simple <code>Gemfile</code> includes rails in all environments, and ruby-debug in all environments other than production:</p>
+<div class='highlight'><pre><span class='n'>file</span> <span class='s1'>&#39;Gemfile&#39;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>clear_sources</span>
+<span class='sx'>source &#39;http://gemcutter.org&#39;</span>
+
+<span class='sx'>disable_system_gems</span>
+
+<span class='sx'>bundle_path &#39;gems&#39;</span>
+
+<span class='sx'>gem &#39;rails&#39;, &#39;</span><span class='si'>#{</span><span class='no'>Rails</span><span class='o'>::</span><span class='no'>VERSION</span><span class='o'>::</span><span class='no'>STRING</span><span class='si'>}</span><span class='sx'>&#39;</span>
+<span class='sx'>gem &#39;ruby-debug&#39;, :except =&gt; &#39;production&#39;</span>
+<span class='sx'>}</span><span class='o'>.</span><span class='n'>strip</span>
+</pre>
+</div>
+<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn&#8217;t be added to the project repository. The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler. All the rest should be ignored:</p>
+<div class='highlight'><pre><span class='n'>append_file</span> <span class='s1'>&#39;.gitignore&#39;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>gems/*</span>
+<span class='sx'>!gems/cache</span>
+<span class='sx'>!gems/bundler}</span>
+</pre>
+</div>
+<p>The bundle script needs to be run for the first time:</p>
+<div class='highlight'><pre><span class='n'>run</span> <span class='s1'>&#39;script/bundle&#39;</span>
+</pre>
+</div>
+<p>Finally rails needs to be modified to ensure the bundler environment is loaded. This is done it two parts. First, a preinitializer is added to load the bundler&#8217;s environment file before anything else:</p>
+<div class='highlight'><pre><span class='n'>append_file</span> <span class='s1'>&#39;/config/preinitializer.rb&#39;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>require File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems&quot;, &quot;environment&quot;))</span>
+<span class='sx'>}</span>
+</pre>
+</div>
+<p>Second, rails initialization process is hijacked to require the correct bundler environment:</p>
+<div class='highlight'><pre><span class='n'>gsub_file</span> <span class='s1'>&#39;config/environment.rb&#39;</span><span class='p'>,</span> <span class='s2'>&quot;require File.join(File.dirname(__FILE__), &#39;boot&#39;)&quot;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>require File.join(File.dirname(__FILE__), &#39;boot&#39;)</span>
+
+<span class='sx'># Hijack rails initializer to load the bundler gem environment before loading the rails environment.</span>
+
+<span class='sx'>Rails::Initializer.module_eval do</span>
+<span class='sx'>  alias load_environment_without_bundler load_environment</span>
+<span class='sx'>  </span>
+<span class='sx'>  def load_environment</span>
+<span class='sx'>    Bundler.require_env configuration.environment</span>
+<span class='sx'>    load_environment_without_bundler</span>
+<span class='sx'>  end</span>
+<span class='sx'>end</span>
+<span class='sx'>}</span>
+</pre>
+</div>
+<p>And that&#8217;s it. The project is now fully bundled. More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11"> 3rd November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
+  </div>
+</div>
+
+    </div>
+  </div>
+</body>	
+</html>

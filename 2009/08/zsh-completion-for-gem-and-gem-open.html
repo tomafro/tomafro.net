@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>ZSH Completion for gem and gem open &middot; tomafro.net</title>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net/2009/08/zsh-completion-for-gem-and-gem-open"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+  <meta name="viewport" content="width=850" />
+  <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
+</head>
+<body>  
+  <div id="container">
+    <div id="header" class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </div>
+    <div id="main">
+      
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h2>
+    <p>I&#8217;ve been trying to get my head around the ZSH completion system. It&#8217;s not easy, but I&#8217;m slowly making progress.</p>
+
+<p>Here&#8217;s my first semi-successful attempt. It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href='http://tomafro.net/2009/05/adam-sandersons-open-gem'>Adam Sanderson</a>).</p>
+
+<p>So typing <code>gem &lt;tab&gt;</code> gives a list of possible commands, whilst <code>gem open &lt;tab&gt;</code> will complete with the names of the currently installed gems.</p>
+<div class='highlight'><pre><span class='c'>#compdef gem</span>
+
+_gem_commands <span class='o'>()</span> <span class='o'>{</span>
+  <span class='k'>if</span> <span class='o'>[[</span> -z <span class='nv'>$gem_commands</span> <span class='o'>]]</span> ; <span class='k'>then</span>
+<span class='k'>    </span><span class='nv'>gem_commands</span><span class='o'>=</span><span class='k'>$(</span>gem <span class='nb'>help </span>commands | grep <span class='s1'>&#39;^    [a-z]&#39;</span> | cut -d <span class='s2'>&quot; &quot;</span> -f 5<span class='k'>)</span>
+  <span class='k'>fi</span>
+  
+  <span class='c'># This seems unnecessary, but if I try to set gem_commands to an array, it falls over.</span>
+ 
+  <span class='nb'>typeset</span> -a gem_command_array
+  <span class='nv'>gem_command_array</span><span class='o'>=(</span><span class='k'>$(</span><span class='nb'>echo</span> <span class='nv'>$gem_commands</span><span class='k'>)</span><span class='o'>)</span>
+  compadd <span class='nv'>$gem_command_array</span>
+<span class='o'>}</span>
+ 
+_installed_gems <span class='o'>()</span> <span class='o'>{</span>
+  <span class='k'>if</span> <span class='o'>[[</span> -z <span class='nv'>$installed_gems</span> <span class='o'>]]</span> ; <span class='k'>then</span>
+<span class='k'>    </span><span class='nv'>installed_gems</span><span class='o'>=(</span><span class='k'>$(</span>gem list | grep <span class='s1'>&#39;^[A-Za-z]&#39;</span> | cut -d <span class='s2'>&quot; &quot;</span> -f 1<span class='k'>)</span><span class='o'>)</span>
+  <span class='k'>fi</span>
+<span class='k'>  </span>
+<span class='k'>  </span><span class='nb'>typeset</span> -a installed_gem_array
+  <span class='nv'>installed_gem_array</span><span class='o'>=(</span><span class='k'>$(</span><span class='nb'>echo</span> <span class='nv'>$installed_gems</span><span class='k'>)</span><span class='o'>)</span>
+  compadd <span class='nv'>$installed_gem_array</span>
+<span class='o'>}</span>
+ 
+<span class='k'>if</span> <span class='o'>((</span> <span class='nv'>CURRENT</span> <span class='o'>==</span> 2 <span class='o'>))</span>; <span class='k'>then</span>
+<span class='k'>  </span>_gem_commands
+<span class='k'>else</span>
+<span class='k'>  if</span> <span class='o'>[[</span> <span class='nv'>$words</span><span class='o'>[</span>2<span class='o'>]</span> <span class='o'>==</span> open <span class='o'>||</span> <span class='nv'>$words</span><span class='o'>[</span>2<span class='o'>]</span> <span class='o'>==</span> update <span class='o'>]]</span> ; <span class='k'>then</span>
+<span class='k'>    </span>_installed_gems
+  <span class='k'>fi</span>
+<span class='k'>fi</span>
+</pre>
+</div>
+<p>As it&#8217;s a first attempt, it&#8217;s a long way from perfect. I&#8217;ve <a href='http://gist.github.com/167309'>put it on gist</a>, for other people to play with, and I&#8217;d appreciate any advice or improvements. Specifically I&#8217;d like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>. I&#8217;d also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
+
+<p>Please fork the gist, or <a href='http://twitter.com/tomafro'>tweet me</a> with your suggestions.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">14th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/completion" rel="tag">completion</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
+  </div>
+</div>
+<div class="related">
+<h3>More Posts</h3>
+<p><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a> &middot; <a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a> &middot; <a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a> &middot; <a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a> &middot; <a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a> &middot; <a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a> &middot; <a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a> &middot; <a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></p>
+</div>
+    </div>
+  </div>
+</body>	
+</html>

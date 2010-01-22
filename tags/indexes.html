@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Posts tagged with indexes &middot; tomafro.net</title>
+  <meta name="robots" content="noindex"/>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+  <meta name="viewport" content="width=850" />
+  <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
+</head>
+<body>  
+  <div id="container">
+    <div id="header" class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </div>
+    <div id="main">
+      <div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h2>
+    <p>Run this code in a rails console to list foreign keys which aren&#8217;t indexed.</p>
+<div class='highlight'><pre><span class='n'>c</span> <span class='o'>=</span> <span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span><span class='o'>.</span><span class='n'>connection</span>
+<span class='n'>c</span><span class='o'>.</span><span class='n'>tables</span><span class='o'>.</span><span class='n'>collect</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>t</span><span class='o'>|</span>  
+  <span class='n'>columns</span> <span class='o'>=</span> <span class='n'>c</span><span class='o'>.</span><span class='n'>columns</span><span class='p'>(</span><span class='n'>t</span><span class='p'>)</span><span class='o'>.</span><span class='n'>collect</span><span class='p'>(</span><span class='o'>&amp;</span><span class='ss'>:name</span><span class='p'>)</span><span class='o'>.</span><span class='n'>select</span> <span class='p'>{</span><span class='o'>|</span><span class='n'>x</span><span class='o'>|</span> <span class='n'>x</span><span class='o'>.</span><span class='n'>ends_with?</span><span class='p'>(</span><span class='s2'>&quot;_id&quot;</span> <span class='o'>||</span> <span class='n'>x</span><span class='o'>.</span><span class='n'>ends_with</span><span class='p'>(</span><span class='s2'>&quot;_type&quot;</span><span class='p'>))}</span>
+  <span class='n'>indexed_columns</span> <span class='o'>=</span> <span class='n'>c</span><span class='o'>.</span><span class='n'>indexes</span><span class='p'>(</span><span class='n'>t</span><span class='p'>)</span><span class='o'>.</span><span class='n'>collect</span><span class='p'>(</span><span class='o'>&amp;</span><span class='ss'>:columns</span><span class='p'>)</span><span class='o'>.</span><span class='n'>flatten</span><span class='o'>.</span><span class='n'>uniq</span>
+  <span class='n'>unindexed</span> <span class='o'>=</span> <span class='n'>columns</span> <span class='o'>-</span> <span class='n'>indexed_columns</span>
+  <span class='k'>unless</span> <span class='n'>unindexed</span><span class='o'>.</span><span class='n'>empty?</span>
+    <span class='nb'>puts</span> <span class='s2'>&quot;</span><span class='si'>#{</span><span class='n'>t</span><span class='si'>}</span><span class='s2'>: </span><span class='si'>#{</span><span class='n'>unindexed</span><span class='o'>.</span><span class='n'>join</span><span class='p'>(</span><span class='s2'>&quot;, &quot;</span><span class='p'>)</span><span class='si'>}</span><span class='s2'>&quot;</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>This list will look something like this:</p>
+<div class='highlight'><pre>attachments: parent_id, asset_id
+domain_names: organisation_id
+event_memberships: user_id, event_id
+events: editor_id
+group_actions: user_id, group_id
+groups: user_id
+icons: parent_id
+invitations: sender_id
+legacy_actions: item_upon_id
+news_items: author_id
+organisations: midas_id
+pages: author_id
+pending_event_memberships: invitation_id, event_id
+resources: user_id, resourceable_id
+subscriptions: subscribable_id, user_id
+taggings: tag_id, taggable_id, user_id
+</pre>
+</div>
+<p>For each column in the list, ask yourself why you don&#8217;t need an index.</p>
+
+<p><em>Update:</em> Andrew Coleman has <a href='http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes'>added output in migration format</a>. If you want to play around with it further, <a href='http://gist.github.com/191181'>here&#8217;s the original code on gist</a>.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/09">22nd September 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/code" rel="tag">code</a></span>
+  </div>
+</div>
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a></h2>
+    <p><a href='http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations'>The first part in this series of posts</a> looked at adding indexes to foreign keys, to improve the performance when navigating rails associations. But many queries involve data other than just foreign keys. With the judicious use of indexes, we can improve these too.</p>
+
+<p>Let&#8217;s take the <code>conversations</code> table used in the first article, and add a column to hold the language, and some timestamps. Here&#8217;s the full schema:</p>
+<div class='highlight'><pre><span class='n'>create_table</span> <span class='n'>conversations</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>table</span><span class='o'>|</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>string</span>   <span class='ss'>:subject</span><span class='p'>,</span> <span class='ss'>:null</span> <span class='o'>=&gt;</span> <span class='kp'>false</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>integer</span>  <span class='ss'>:user_id</span><span class='p'>,</span> <span class='ss'>:null</span> <span class='o'>=&gt;</span> <span class='kp'>false</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>integer</span>  <span class='ss'>:subject_id</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>string</span>   <span class='ss'>:subject_type</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>string</span>   <span class='ss'>:language_code</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>datetime</span> <span class='ss'>:created_at</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>datetime</span> <span class='ss'>:updated_at</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>We want to split conversations by their languages, so we&#8217;ll add a <code>named_scope</code> to the Conversation class:</p>
+<div class='highlight'><pre><span class='k'>class</span> <span class='nc'>Conversation</span>
+  <span class='n'>belongs_to</span> <span class='ss'>:user</span>
+  <span class='n'>belongs_to</span> <span class='ss'>:subject</span><span class='p'>,</span> <span class='ss'>:polymorphic</span> <span class='o'>=&gt;</span> <span class='kp'>true</span>
+  
+  <span class='n'>named_scope</span> <span class='ss'>:in_language</span><span class='p'>,</span> <span class='nb'>lambda</span> <span class='p'>{</span><span class='o'>|</span><span class='n'>language</span><span class='o'>|</span> 
+    <span class='p'>{</span> <span class='ss'>:conditions</span> <span class='o'>=&gt;</span> <span class='p'>{</span><span class='ss'>:language_code</span> <span class='o'>=&gt;</span> <span class='n'>language</span><span class='p'>}}</span>
+  <span class='p'>}</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>Using <code>Conversation.in_language &#39;en&#39;</code> will now get us all conversations in English. Like we did for foreign keys, we can see how long the query takes and read the explain plan.</p>
+<pre>mysql> SELECT * FROM conversations WHERE language_code = 'en';
+90791 rows in set (3.94 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
++-------------+------+---------------+---------+-------+---------+-------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra       |
++-------------+------+---------------+---------+-------+---------+-------------+
+| SIMPLE      | ref  | NULL          | NULL    | NULL  | 1000111 | Using where | 
++-------------+------+---------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+</pre>
+<p>Adding an index to the <code>language_code</code> column should improve the query performance, so let&#8217;s do that and see the effect on our query:</p>
+<pre>mysql> SELECT * FROM conversations WHERE language_code = 'en';
+90791 rows in set (3.02 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
++-------------+------+---------------+---------+-------+---------+-------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra       |
++-------------+------+---------------+---------+-------+---------+-------------+
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where | 
++-------------+------+---------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+</pre>
+<p>So the query now uses the index, and the time taken has gone from almost 4 seconds to just over 3. That&#8217;s not nearly as big a performance gain as before, but why? The answer is in the number of rows returned: 90791. The index helps the database find the relevant rows quickly. However, it still has to read those rows, and reading over 90,000 rows will always take a significant amount of time.</p>
+
+<p>In a real app we&#8217;re unlikely to want to read all these rows at once, so let&#8217;s do another quick comparison limiting the query to the first 100 rows:</p>
+<pre>Without the index:  
+
+mysql> SELECT * FROM conversations WHERE language_code = 'en' LIMIT 100;
+100 rows in set (1.32 sec)
+
+And with the index:
+
+mysql> SELECT * FROM conversations WHERE language_code = 'en' LIMIT 100;
+100 rows in set (0.01 sec)
+</pre>
+<p>Much better.</p>
+
+<h3 id='choosing_between_indexes'>Choosing between indexes</h3>
+
+<p>We&#8217;ve seen that by using an index and limiting the number of results we can quickly get the &#8216;first&#8217; 100 English conversations. But in this case &#8216;first&#8217; doesn&#8217;t really mean anything. When no order clause is specified, MySQL may appear to order its results by id, but this is just a coincidence and shouldn&#8217;t be relied on. Let&#8217;s instead order our results by <code>created_at</code> to get the 100 most recent conversations.</p>
+<pre>mysql> SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
+100 rows in set (4.42 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra                       |
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort | 
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+1 row in set (0.00 sec)
+</pre>
+<p>Even though this query uses our index and only returns 100 rows, it has still taken almost 4.5 seconds! The reason for this terrible performance is hinted in the extra information in the explain plan: <code>using filesort</code>. The database is reading all rows that match the condition (all 90791 of them), then using a filesort to order them before returning the first 100.</p>
+
+<p>If we add an index on <code>created_at</code> and do the query again we get:</p>
+<pre>mysql> SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
+100 rows in set (4.39 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra                       |
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort | 
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+1 row in set (0.00 sec)
+</pre>
+<p>It&#8217;s pretty much exactly the same - still almost 4.5 seconds. This is because MySQL can only use one index per table in a query. It has to choose between the index on <code>language_code</code> and the one on <code>created_at</code>, and in this case chooses the language code index. We can force it to use our other index for comparison:</p>
+<pre>mysql> SELECT * FROM conversations 
+       USE INDEX(created_ix) WHERE language_code = 'en' 
+       ORDER BY created_at DESC LIMIT 100;
+100 rows in set (0.02 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations 
+       USE INDEX(created_ix) WHERE language_code = 'en' 
+       ORDER BY created_at DESC LIMIT 100;
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra                       |
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| SIMPLE      | ref  | created_ix    | 8       | const | 9903411 | Using where                 | 
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+1 row in set (0.00 sec)
+</pre>
+<p>Using a trick stolen from <a href='http://m.onkey.org/2009/8/6/use-index-with-active-record-finders'>Pratik Naik (in the comments of his article)</a> we can force the use of a particular index in rails with a special named scope, and perform our query:</p>
+<div class='highlight'><pre><span class='no'>Conversation</span><span class='o'>.</span><span class='n'>named_scope</span> <span class='ss'>:use_index</span><span class='p'>,</span> <span class='nb'>lambda</span> <span class='p'>{</span><span class='o'>|</span><span class='n'>index</span><span class='o'>|</span> 
+  <span class='p'>{</span><span class='ss'>:from</span> <span class='o'>=&gt;</span> <span class='s2'>&quot;</span><span class='si'>#{</span><span class='n'>quoted_table_name</span><span class='si'>}</span><span class='s2'> USE INDEX(</span><span class='si'>#{</span><span class='n'>index</span><span class='si'>}</span><span class='s2'>)&quot;</span><span class='p'>}</span>
+<span class='p'>}</span>
+
+<span class='no'>Conversation</span><span class='o'>.</span><span class='n'>in_language</span><span class='p'>(</span><span class='s1'>&#39;en&#39;</span><span class='p'>)</span><span class='o'>.</span><span class='n'>use_index</span><span class='p'>(</span><span class='s1'>&#39;created_ix&#39;</span><span class='p'>)</span><span class='o'>.</span><span class='n'>all</span><span class='p'>(</span><span class='ss'>:order</span> <span class='o'>=&gt;</span> <span class='s1'>&#39;created_at desc&#39;</span><span class='p'>)</span>
+</pre>
+</div>
+<p>But there is also another way - using indexing multiple columns.</p>
+
+<h3 id='using_compound_indexes'>Using compound indexes</h3>
+
+<p>A compound index indexes across two or more columns. When defining a compound index, the order of the columns is significant, as the database reduces the set of candidate rows by comparing the columns in turn. So an index created with <code>add_index :conversations, [language_code, created_at]</code> will compare <code>created_at</code> first, then <code>language_code</code>.</p>
+
+<p>Because of this, we need to take some care in choosing the order of our columns. In general, the rule is to specify the most selective column first. That is, the column with the most unique values. So for our query, we&#8217;ll add the following:</p>
+<div class='highlight'><pre><span class='n'>add_index</span> <span class='ss'>:conversations</span><span class='p'>,</span> <span class='o'>[</span><span class='n'>created_at</span><span class='p'>,</span> <span class='n'>language_code</span><span class='o'>]</span>
+</pre>
+</div>
+<p>If we explain the query without forcing the index we find it is still efficient:</p>
+<pre>mysql> EXPLAIN SELECT * FROM conversations 
+       WHERE language_code = 'en' 
+       ORDER BY created_at DESC LIMIT 100;
++-------------+------+----------------+---------+-------+---------+-----------------------------+
+| select_type | type | key            | key_len | ref   | rows    | Extra                       |
++-------------+------+----------------+---------+-------+---------+-----------------------------+
+| SIMPLE      | ref  | lang_and_ca_ix |      48 | const |  640231 | Using where                 | 
++-------------+------+----------------+---------+-------+---------+-----------------------------+
+1 row in set (0.00 sec)
+</pre>
+<h3 id='a_technique_for_choosing_index_column_order'>A technique for choosing index column order</h3>
+
+<p>Sometimes it&#8217;s hard to know which order your columns should be in an index, but there&#8217;s an easy way to get a rough idea. Rewrite the query, removing all conditions, and selecting <code>count(distinct column_to_index)</code> for each column. So for our query, we&#8217;d do the following:</p>
+<pre>mysql> SELECT count(distinct language_code), count(distinct created_at)
+       FROM conversations;
++-------------------------------+----------------------------+
+| count(distinct language_code) | count(distinct created_at) |
++-------------------------------+----------------------------+
+|                            21 |                     584089 | 
++-------------------------------+----------------------------+
+1 row in set (1.90 sec)
+</pre>
+<p>From this it&#8217;s clear that there are more distinct created_at values, so we probably want to index this column first. Note though that I said probably. When deciding on indexes, there are no hard and fast rules. Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.</p>
+
+<p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">18th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
+  </div>
+</div>
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h2>
+    <p>Many rails developers are great at building applications but have limited experience in database design. As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.</p>
+
+<p>To try and improve this I&#8217;ve planned a series of posts on indexes, targetted at rails developers. In this first post I&#8217;ll <a href='/2009/08/using-indexes-in-rails-index-your-associations'>introduce indexes and how to index your associations</a>, then I&#8217;ll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
+
+<h3 id='a_brief_overview_of_database_indexes'>A brief overview of database indexes</h3>
+
+<p><a href='http://en.wikipedia.org/wiki/Index_(database)'>Wikipedia states that</a> &#8216;a database index is a data structure that improves the speed of operations on a database table&#8217;. Unfortunately, this improvement comes at a cost.</p>
+
+<p>For every index on a table, there is a penalty both when inserting and updating rows. Indexes also take up space on disk and in memory, which can affect the efficiency of queries. Finally, having too many indexes can cause databases to choose between them poorly, actually harming performance rather than improving it.</p>
+
+<p>So while indexing is important, we shouldn&#8217;t just throw indexes at our slow queries: we need to choose carefully how to index our data.</p>
+
+<h3 id='indexing_simple_associations'>Indexing simple associations</h3>
+
+<p>By far the most common performance problem I&#8217;ve encountered in rails projects is a lack of indexes on foreign keys. There&#8217;s no real excuse for this - not indexing foreign keys can cripple your app.</p>
+
+<p>Take the following schema:</p>
+<div class='highlight'><pre><span class='n'>create_table</span> <span class='n'>users</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>table</span><span class='o'>|</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>string</span> <span class='ss'>:login</span>
+<span class='k'>end</span>
+
+<span class='n'>create_table</span> <span class='n'>conversations</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>table</span><span class='o'>|</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>string</span>  <span class='ss'>:subject</span><span class='p'>,</span> <span class='ss'>:null</span> <span class='o'>=&gt;</span> <span class='kp'>false</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>integer</span> <span class='ss'>:user_id</span><span class='p'>,</span> <span class='ss'>:null</span> <span class='o'>=&gt;</span> <span class='kp'>false</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>We can use this to map a one-to-many relationship between users and conversations, where <code>user_id</code> as the foreign key.</p>
+
+<p>Here are the models to do that:</p>
+<div class='highlight'><pre><span class='k'>class</span> <span class='nc'>User</span> <span class='o'>&lt;</span> <span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span>
+  <span class='n'>has_many</span> <span class='ss'>:conversations</span>
+<span class='k'>end</span>
+
+<span class='k'>class</span> <span class='nc'>Conversation</span> <span class='o'>&lt;</span> <span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span>
+  <span class='n'>belongs_to</span> <span class='ss'>:user</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>With these models, to find all conversations for a particular user we&#8217;d use <code>user.conversations</code>, which in turns uses sql like this:</p>
+<div class='highlight'><pre><span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>FROM</span> <span class='n'>conversations</span> <span class='k'>WHERE</span> <span class='n'>user_id</span> <span class='o'>=</span> <span class='mi'>41</span><span class='p'>;</span>
+</pre>
+</div>
+<p>I can run this query on a test database which I&#8217;ve randomly populated with 1,000,000 rows, to see how long it takes. Note, I&#8217;ve cut out the actual results as they are unimportant:</p>
+<pre>
+mysql> SELECT * FROM conversations WHERE user_id = 41;
+12 rows in set (1.42 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
++-------------+------+---------------+---------+-------+---------+-------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra       |
++-------------+------+---------------+---------+-------+---------+-------------+
+| SIMPLE      | ALL  | NULL          | NULL    | NULL  | 1001111 | Using where | 
++-------------+------+---------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+</pre>
+<p>Although the query is simple, it took 1.42 seconds. The <code>key</code> column show the key or index that MySQL decided to use, in this case <code>NULL</code> as there are no indexes. The <code>rows</code> column is also relevant. It shows that MySQL will need to look at around 1,000,000 rows; that&#8217;s a lot of data being loaded and compared.</p>
+
+<h3 id='what_a_difference_just_an_index_makes'>What a difference just an index makes</h3>
+
+<p>If we then add an index on <code>user_id</code>:</p>
+<div class='highlight'><pre><span class='n'>add_index</span> <span class='ss'>:conversations</span><span class='p'>,</span> <span class='ss'>:user_id</span><span class='p'>,</span> <span class='ss'>:name</span> <span class='o'>=&gt;</span> <span class='s1'>&#39;user_id_ix&#39;</span>
+</pre>
+</div>
+<p>And do the same select:</p>
+<pre>
+mysql> SELECT * FROM conversations WHERE user_id = 41;
+12 rows in set (0.01 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
++-------------+------+---------------+---------+-------+---------+-------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra       |
++-------------+------+---------------+---------+-------+---------+-------------+
+| SIMPLE      | ref  | used_id_ix    | 5       | const |  108    | Using where | 
++-------------+------+---------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+</pre>
+<p>The difference is remarkable. From over 1.4 seconds to about 1 hundredth. Unless you have a cast-iron reason not to, index your foreign keys.</p>
+
+<h3 id='indexing_polymorphic_associations'>Indexing polymorphic associations</h3>
+
+<p>So for simple associations, we can add an index on the foreign_key column. For polymorphic associations the foreign key is made up of two columns, one for the <code>id</code> and one for the <code>type</code>. Let&#8217;s add another association to our models to illustrate this.</p>
+<div class='highlight'><pre><span class='n'>add_column</span> <span class='ss'>:conversations</span><span class='p'>,</span> <span class='ss'>:subject_id</span><span class='p'>,</span> <span class='ss'>:integer</span>
+<span class='n'>add_column</span> <span class='ss'>:conversations</span><span class='p'>,</span> <span class='ss'>:subject_type</span><span class='p'>,</span> <span class='ss'>:string</span>
+
+<span class='n'>create_table</span> <span class='ss'>:artworks</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>table</span><span class='o'>|</span>
+  <span class='n'>table</span><span class='o'>.</span><span class='n'>string</span> <span class='ss'>:title</span>
+<span class='k'>end</span>
+
+<span class='k'>class</span> <span class='nc'>Artwork</span> <span class='o'>&lt;</span> <span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span>
+  <span class='n'>has_one</span> <span class='ss'>:conversation</span><span class='p'>,</span> <span class='ss'>:as</span> <span class='o'>=&gt;</span> <span class='ss'>:subject</span>
+<span class='k'>end</span>
+
+<span class='k'>class</span> <span class='nc'>Conversation</span> <span class='o'>&lt;</span> <span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span>
+  <span class='n'>belongs_to</span> <span class='ss'>:subject</span><span class='p'>,</span> <span class='ss'>:polymorphic</span> <span class='o'>=&gt;</span> <span class='kp'>true</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>Here we&#8217;ve added an association between Artwork and Conversation, where an artwork can be the subject of a conversation. From an artwork, we can find the related conversation (if any) with <code>artwork.conversation</code> which will use the following SQL:</p>
+<div class='highlight'><pre><span class='k'>SELECT</span> <span class='o'>*</span> <span class='k'>FROM</span> <span class='n'>conversations</span> <span class='k'>WHERE</span> <span class='n'>subject_id</span> <span class='o'>=</span> <span class='mi'>196</span> <span class='k'>and</span> <span class='n'>subject_type</span> <span class='o'>=</span> <span class='s1'>&#39;Artwork&#39;</span><span class='p'>;</span>
+</pre>
+</div>
+<p>Again the query takes around 1.4 seconds without any indexes. Now though, we have a choice on what to index. We can index either <code>subject_type</code> on its own, <code>subject_id</code> on its own, or both together.</p>
+
+<p>Let&#8217;s try each in turn, and measure the performance.</p>
+
+<p>First, an index on just <code>subject_type</code>:</p>
+<pre>  
+mysql> SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork';
+12 rows in set (0.31 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork'
++-------------+------+---------------+---------+-------+---------+-------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra       |
++-------------+------+---------------+---------+-------+---------+-------------+
+| SIMPLE      | ref  | sub_type_ix   | 5       | const | 89511   | Using where | 
++-------------+------+---------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+</pre>
+<p>An index on just <code>subject_id</code>:</p>
+<pre>  
+mysql> SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork';
+12 rows in set (0.01 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork'
++-------------+------+---------------+---------+-------+---------+-------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra       |
++-------------+------+---------------+---------+-------+---------+-------------+
+| SIMPLE      | ref  | sub_id_ix     | 5       | const | 204     | Using where | 
++-------------+------+---------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+</pre>
+<p>An index on <code>subject_id, subject_type</code>:</p>
+<pre>
+mysql> SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork';
+12 rows in set (0.01 sec)
+
+mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork'
++-------------+------+--------------------+---------+-------+---------+-------------+
+| select_type | type | key                | key_len | ref   | rows    | Extra       |
++-------------+------+--------------------+---------+-------+---------+-------------+
+| SIMPLE      | ref  | sub_id_and_type_ix | 5       | const | 5       | Using where | 
++-------------+------+--------------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+</pre>
+<p>So <code>subject_type</code> compared ~90,000 rows in 0.31 seconds, <code>subject_id</code> compared ~200 rows in 0.01 seconds and <code>subject_id, subject_type</code> compared 4 rows also in 0.01 seconds. We should add an index to <code>subject_id, subject_type</code> as so:</p>
+<div class='highlight'><pre><span class='n'>add_index</span> <span class='ss'>:conversations</span><span class='p'>,</span> <span class='o'>[</span><span class='ss'>:subject_id</span><span class='p'>,</span> <span class='ss'>:subject_type</span><span class='o'>]</span>
+</pre>
+</div>
+<h3 id='wrapping_up'>Wrapping up</h3>
+
+<p>This should give a basic overview of indexes and the performance improvements they can give. Hopefully I&#8217;ve shown that <strong>foreign_keys should always be indexed</strong>, and how to index them. The next article (which I hope to publish later this week) will explain more about how to reason about indexes, and how to identify additional indexes (beyond those on foreign keys) to add.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">11th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
+  </div>
+</div>
+
+    </div>
+  </div>
+</body>	
+</html>

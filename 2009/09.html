@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Posts from September 2009 &middot; tomafro.net</title>
+  <meta name="robots" content="noindex"/>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+  <meta name="viewport" content="width=850" />
+  <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
+</head>
+<body>  
+  <div id="container">
+    <div id="header" class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </div>
+    <div id="main">
+      <div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h2>
+    <p>There&#8217;s one small method I add to every new rails project I work on:</p>
+<div class='highlight'><pre><span class='k'>module</span> <span class='nn'>Tomafro::FromParam</span>
+  <span class='k'>def</span> <span class='nf'>from_param</span><span class='p'>(</span><span class='n'>param</span><span class='p'>)</span>
+    <span class='nb'>self</span><span class='o'>.</span><span class='n'>first</span> <span class='ss'>:conditions</span> <span class='o'>=&gt;</span> <span class='p'>{</span> <span class='n'>primary_key</span> <span class='o'>=&gt;</span> <span class='n'>param</span> <span class='p'>}</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+
+<span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span><span class='o'>.</span><span class='n'>extend</span><span class='p'>(</span><span class='no'>Tomafro</span><span class='o'>::</span><span class='no'>FromParam</span><span class='p'>)</span>
+</pre>
+</div>
+<p>In my controllers, where you might use <code>Model.find(params[:id])</code> or <code>Model.find_by_id(params[:id)</code>, I use <code>Model.from_param(params[:id])</code> instead.</p>
+
+<p>All three methods have almost the same behaviour, the only difference being the handling of missing records. <code>find</code> throws a RecordNotFound, while <code>find_by_id</code> and <code>from_param</code> return nil. So why use <code>from_param</code> over the others?</p>
+
+<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter. It&#8217;s a good principal (though often broken) not to expose database ids in urls. An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>. In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
+<div class='highlight'><pre><span class='k'>class</span> <span class='nc'>User</span> <span class='o'>&lt;</span> <span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span>
+  <span class='k'>def</span> <span class='nf'>to_param</span>
+    <span class='nb'>self</span><span class='o'>.</span><span class='n'>nickname</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we&#8217;d like. If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I&#8217;d then have to go through each one and change it to <code>find_by_nickname</code>. Luckily though, I&#8217;ve used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
+<div class='highlight'><pre><span class='k'>class</span> <span class='nc'>User</span> <span class='o'>&lt;</span> <span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span>
+  <span class='k'>def</span> <span class='nc'>self</span><span class='o'>.</span><span class='nf'>from_param</span><span class='p'>(</span><span class='n'>param</span><span class='p'>)</span>
+    <span class='nb'>self</span><span class='o'>.</span><span class='n'>first</span> <span class='ss'>:conditions</span> <span class='o'>=&gt;</span> <span class='p'>{</span><span class='ss'>:nickname</span> <span class='o'>=&gt;</span> <span class='n'>param</span><span class='p'>}</span>
+  <span class='k'>end</span>
+  
+  <span class='k'>def</span> <span class='nf'>to_param</span>
+    <span class='nb'>self</span><span class='o'>.</span><span class='n'>nickname</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>I&#8217;ve been doing this for years, but it&#8217;s hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method. There&#8217;s <a href='http://dev.rubyonrails.org/ticket/11505'>even an old ticket on trac</a> asking for it, but it&#8217;s been considered too trivial to add.</p>
+
+<p>I disagree - for me the value comes from having the method from the start, not when you need it. Luckily it&#8217;s easy to add to my own projects.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/09">23rd September 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/from-param" rel="tag">from-param</a></span>
+  </div>
+</div>
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h2>
+    <p>Run this code in a rails console to list foreign keys which aren&#8217;t indexed.</p>
+<div class='highlight'><pre><span class='n'>c</span> <span class='o'>=</span> <span class='no'>ActiveRecord</span><span class='o'>::</span><span class='no'>Base</span><span class='o'>.</span><span class='n'>connection</span>
+<span class='n'>c</span><span class='o'>.</span><span class='n'>tables</span><span class='o'>.</span><span class='n'>collect</span> <span class='k'>do</span> <span class='o'>|</span><span class='n'>t</span><span class='o'>|</span>  
+  <span class='n'>columns</span> <span class='o'>=</span> <span class='n'>c</span><span class='o'>.</span><span class='n'>columns</span><span class='p'>(</span><span class='n'>t</span><span class='p'>)</span><span class='o'>.</span><span class='n'>collect</span><span class='p'>(</span><span class='o'>&amp;</span><span class='ss'>:name</span><span class='p'>)</span><span class='o'>.</span><span class='n'>select</span> <span class='p'>{</span><span class='o'>|</span><span class='n'>x</span><span class='o'>|</span> <span class='n'>x</span><span class='o'>.</span><span class='n'>ends_with?</span><span class='p'>(</span><span class='s2'>&quot;_id&quot;</span> <span class='o'>||</span> <span class='n'>x</span><span class='o'>.</span><span class='n'>ends_with</span><span class='p'>(</span><span class='s2'>&quot;_type&quot;</span><span class='p'>))}</span>
+  <span class='n'>indexed_columns</span> <span class='o'>=</span> <span class='n'>c</span><span class='o'>.</span><span class='n'>indexes</span><span class='p'>(</span><span class='n'>t</span><span class='p'>)</span><span class='o'>.</span><span class='n'>collect</span><span class='p'>(</span><span class='o'>&amp;</span><span class='ss'>:columns</span><span class='p'>)</span><span class='o'>.</span><span class='n'>flatten</span><span class='o'>.</span><span class='n'>uniq</span>
+  <span class='n'>unindexed</span> <span class='o'>=</span> <span class='n'>columns</span> <span class='o'>-</span> <span class='n'>indexed_columns</span>
+  <span class='k'>unless</span> <span class='n'>unindexed</span><span class='o'>.</span><span class='n'>empty?</span>
+    <span class='nb'>puts</span> <span class='s2'>&quot;</span><span class='si'>#{</span><span class='n'>t</span><span class='si'>}</span><span class='s2'>: </span><span class='si'>#{</span><span class='n'>unindexed</span><span class='o'>.</span><span class='n'>join</span><span class='p'>(</span><span class='s2'>&quot;, &quot;</span><span class='p'>)</span><span class='si'>}</span><span class='s2'>&quot;</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>This list will look something like this:</p>
+<div class='highlight'><pre>attachments: parent_id, asset_id
+domain_names: organisation_id
+event_memberships: user_id, event_id
+events: editor_id
+group_actions: user_id, group_id
+groups: user_id
+icons: parent_id
+invitations: sender_id
+legacy_actions: item_upon_id
+news_items: author_id
+organisations: midas_id
+pages: author_id
+pending_event_memberships: invitation_id, event_id
+resources: user_id, resourceable_id
+subscriptions: subscribable_id, user_id
+taggings: tag_id, taggable_id, user_id
+</pre>
+</div>
+<p>For each column in the list, ask yourself why you don&#8217;t need an index.</p>
+
+<p><em>Update:</em> Andrew Coleman has <a href='http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes'>added output in migration format</a>. If you want to play around with it further, <a href='http://gist.github.com/191181'>here&#8217;s the original code on gist</a>.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/09">22nd September 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/code" rel="tag">code</a></span>
+  </div>
+</div>
+
+    </div>
+  </div>
+</body>	
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Posts tagged with evil &middot; tomafro.net</title>
+  <meta name="robots" content="noindex"/>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+  <meta name="viewport" content="width=850" />
+  <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
+</head>
+<body>  
+  <div id="container">
+    <div id="header" class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </div>
+    <div id="main">
+      <div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/05/using-rack-middleware-for-good-and-evil">Using Rack Middleware for good and evil</a></h2>
+    <p>So we all know that <a href='http://rack.rubyforge.org/'>Rack</a> is awesome, and that we can use Rack::Middleware for all sorts of things: <a href='http://github.com/brynary/rack-bug/tree/master'>debugging</a>, <a href='http://tomayko.com/src/rack-cache/'>caching</a> and a <a href='http://github.com/rack/rack-contrib/tree/master'>whole host more</a>.</p>
+
+<p>What all these have in common (apart from maybe <a href='http://github.com/rack/rack-contrib/blob/8b6323c8eecc8279088987c52b27dda5d4cadf7b/lib/rack/contrib/evil.rb'>Rack::Evil</a>) is that they&#8217;re all helpful. They all make writing Rack applications easier. Not my Middleware though.</p>
+
+<h3 id='introducing_rackshuffler'>Introducing Rack::Shuffler</h3>
+<div class='highlight'><pre><span class='k'>module</span> <span class='nn'>Rack</span>
+  <span class='k'>class</span> <span class='nc'>Shuffler</span>
+    <span class='k'>def</span> <span class='nf'>initialize</span><span class='p'>(</span><span class='n'>app</span><span class='p'>)</span>
+      <span class='vi'>@app</span> <span class='o'>=</span> <span class='n'>app</span>
+      <span class='vi'>@responses</span> <span class='o'>=</span> <span class='o'>[]</span>
+    <span class='k'>end</span>
+    
+    <span class='k'>def</span> <span class='nf'>call</span><span class='p'>(</span><span class='n'>env</span><span class='p'>)</span>
+      <span class='vi'>@responses</span> <span class='o'>&lt;&lt;</span> <span class='vi'>@app</span><span class='o'>.</span><span class='n'>call</span><span class='p'>(</span><span class='n'>env</span><span class='p'>)</span>
+      <span class='vi'>@responses</span><span class='o'>[</span><span class='nb'>rand</span><span class='p'>(</span><span class='vi'>@responses</span><span class='o'>.</span><span class='n'>size</span><span class='p'>)</span><span class='o'>]</span>
+    <span class='k'>ensure</span>
+      <span class='vi'>@responses</span><span class='o'>.</span><span class='n'>delete_at</span><span class='p'>(</span><span class='nb'>rand</span><span class='p'>(</span><span class='vi'>@responses</span><span class='o'>.</span><span class='n'>size</span><span class='p'>))</span> <span class='k'>if</span> <span class='vi'>@responses</span><span class='o'>.</span><span class='n'>size</span> <span class='o'>&gt;</span> <span class='mi'>100</span>
+    <span class='k'>end</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>I suggest you add it to a colleague&#8217;s app late on a Friday afternoon, and see how long it takes to drive them to insanity.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/05">22nd May 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rack" rel="tag">rack</a> &middot; <a href="/tags/middleware" rel="tag">middleware</a> &middot; <a href="/tags/evil" rel="tag">evil</a> &middot; <a href="/tags/fun" rel="tag">fun</a></span>
+  </div>
+</div>
+
+    </div>
+  </div>
+</body>	
+</html>

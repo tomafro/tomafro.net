@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>A rails template for gem bundler &middot; tomafro.net</title>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net/2009/11/a-rails-template-for-gem-bundler"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+  <meta name="viewport" content="width=850" />
+  <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
+</head>
+<body>  
+  <div id="container">
+    <div id="header" class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </div>
+    <div id="main">
+      
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h2>
+    <p>Following Nick Quaranto&#8217;s article <a href='http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/'>&#8216;Gem Bundler is the Future&#8217;</a>, I was inspired to try out <a href='http://github.com/wycats/bundler'>bundler</a> on my latest rails project. Previously, I&#8217;ve found rails&#8217; own gem management a massive headache. In contrast, using bundler has been a pleasure.</p>
+
+<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I&#8217;ve made a rails template to do the hard work.</p>
+
+<p>Give it a try by running the following. You should be up and running in a couple of minutes:</p>
+<div class='highlight'><pre>rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb &lt;project&gt;
+</pre>
+</div>
+<p>That will give you a bundled project, ready for you to add your own gems. Here&#8217;s what each step of the template actually does:</p>
+
+<p>Gem bundler is itself a gem. It can&#8217;t be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
+<div class='highlight'><pre><span class='n'>inside</span> <span class='s1'>&#39;gems/bundler&#39;</span> <span class='k'>do</span>  
+  <span class='n'>run</span> <span class='s1'>&#39;git init&#39;</span>
+  <span class='n'>run</span> <span class='s1'>&#39;git pull --depth 1 git://github.com/wycats/bundler.git&#39;</span> 
+  <span class='n'>run</span> <span class='s1'>&#39;rm -rf .git .gitignore&#39;</span>
+<span class='k'>end</span>
+</pre>
+</div>
+<p>Just having bundler installed is no good without any way to run it; a script is needed. Once this is installed the local bundler can be run with <code>script/bundle &lt;options&gt;</code>:</p>
+<div class='highlight'><pre><span class='n'>file</span> <span class='s1'>&#39;script/bundle&#39;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>#!/usr/bin/env ruby</span>
+<span class='sx'>path = File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems/bundler/lib&quot;))</span>
+<span class='sx'>$LOAD_PATH.unshift path</span>
+<span class='sx'>require &#39;rubygems&#39;</span>
+<span class='sx'>require &#39;rubygems/command&#39;</span>
+<span class='sx'>require &#39;bundler&#39;</span>
+<span class='sx'>require &#39;bundler/commands/bundle_command&#39;</span>
+<span class='sx'>Gem::Commands::BundleCommand.new.invoke(*ARGV)</span>
+<span class='sx'>}</span><span class='o'>.</span><span class='n'>strip</span>
+
+<span class='n'>run</span> <span class='s1'>&#39;chmod +x script/bundle&#39;</span>
+</pre>
+</div>
+<p>Bundler uses Gemfiles to declare which gems are required in each environment. This simple <code>Gemfile</code> includes rails in all environments, and ruby-debug in all environments other than production:</p>
+<div class='highlight'><pre><span class='n'>file</span> <span class='s1'>&#39;Gemfile&#39;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>clear_sources</span>
+<span class='sx'>source &#39;http://gemcutter.org&#39;</span>
+
+<span class='sx'>disable_system_gems</span>
+
+<span class='sx'>bundle_path &#39;gems&#39;</span>
+
+<span class='sx'>gem &#39;rails&#39;, &#39;</span><span class='si'>#{</span><span class='no'>Rails</span><span class='o'>::</span><span class='no'>VERSION</span><span class='o'>::</span><span class='no'>STRING</span><span class='si'>}</span><span class='sx'>&#39;</span>
+<span class='sx'>gem &#39;ruby-debug&#39;, :except =&gt; &#39;production&#39;</span>
+<span class='sx'>}</span><span class='o'>.</span><span class='n'>strip</span>
+</pre>
+</div>
+<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn&#8217;t be added to the project repository. The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler. All the rest should be ignored:</p>
+<div class='highlight'><pre><span class='n'>append_file</span> <span class='s1'>&#39;.gitignore&#39;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>gems/*</span>
+<span class='sx'>!gems/cache</span>
+<span class='sx'>!gems/bundler}</span>
+</pre>
+</div>
+<p>The bundle script needs to be run for the first time:</p>
+<div class='highlight'><pre><span class='n'>run</span> <span class='s1'>&#39;script/bundle&#39;</span>
+</pre>
+</div>
+<p>Finally rails needs to be modified to ensure the bundler environment is loaded. This is done it two parts. First, a preinitializer is added to load the bundler&#8217;s environment file before anything else:</p>
+<div class='highlight'><pre><span class='n'>append_file</span> <span class='s1'>&#39;/config/preinitializer.rb&#39;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>require File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems&quot;, &quot;environment&quot;))</span>
+<span class='sx'>}</span>
+</pre>
+</div>
+<p>Second, rails initialization process is hijacked to require the correct bundler environment:</p>
+<div class='highlight'><pre><span class='n'>gsub_file</span> <span class='s1'>&#39;config/environment.rb&#39;</span><span class='p'>,</span> <span class='s2'>&quot;require File.join(File.dirname(__FILE__), &#39;boot&#39;)&quot;</span><span class='p'>,</span> <span class='sx'>%{</span>
+<span class='sx'>require File.join(File.dirname(__FILE__), &#39;boot&#39;)</span>
+
+<span class='sx'># Hijack rails initializer to load the bundler gem environment before loading the rails environment.</span>
+
+<span class='sx'>Rails::Initializer.module_eval do</span>
+<span class='sx'>  alias load_environment_without_bundler load_environment</span>
+<span class='sx'>  </span>
+<span class='sx'>  def load_environment</span>
+<span class='sx'>    Bundler.require_env configuration.environment</span>
+<span class='sx'>    load_environment_without_bundler</span>
+<span class='sx'>  end</span>
+<span class='sx'>end</span>
+<span class='sx'>}</span>
+</pre>
+</div>
+<p>And that&#8217;s it. The project is now fully bundled. More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11"> 3rd November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
+  </div>
+</div>
+<div class="related">
+<h3>More Posts</h3>
+<p><a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a> &middot; <a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a> &middot; <a href="/2009/05/using-rack-middleware-for-good-and-evil">Using Rack Middleware for good and evil</a> &middot; <a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a> &middot; <a href="/2009/06/pimp-my-script-console">Pimp my script/console</a> &middot; <a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a> &middot; <a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a> &middot; <a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a> &middot; <a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a> &middot; <a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a> &middot; <a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a> &middot; <a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></p>
+</div>
+    </div>
+  </div>
+</body>	
+</html>

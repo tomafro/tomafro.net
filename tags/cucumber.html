@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Posts tagged with cucumber &middot; tomafro.net</title>
+  <meta name="robots" content="noindex"/>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+  <meta name="viewport" content="width=850" />
+  <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
+</head>
+<body>  
+  <div id="container">
+    <div id="header" class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </div>
+    <div id="main">
+      <div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h2>
+    <p>If you&#8217;re using <a href='http://cukes.info/'>cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
+<div class='highlight'><pre><span class='k'>module</span> <span class='nn'>NavigationHelpers</span>
+  <span class='k'>def</span> <span class='nf'>path_to</span><span class='p'>(</span><span class='n'>page_name</span><span class='p'>)</span>
+    <span class='k'>case</span> <span class='n'>page_name</span>
+    
+    <span class='k'>when</span><span class='sr'> /the home page/</span>
+      <span class='n'>root_path</span>
+    <span class='k'>when</span><span class='sr'> /the new client page/</span>
+      <span class='n'>new_client_path</span>
+    <span class='k'>when</span><span class='sr'> /the clients page/</span>
+      <span class='n'>clients_path</span>    
+    <span class='c1'># Add more page name =&gt; path mappings here</span>
+    <span class='k'>else</span>
+      <span class='k'>raise</span> <span class='s2'>&quot;Can&#39;t find mapping from </span><span class='se'>\&quot;</span><span class='si'>#{</span><span class='n'>page_name</span><span class='si'>}</span><span class='se'>\&quot;</span><span class='s2'> to a path.</span><span class='se'>\n</span><span class='s2'>&quot;</span> <span class='o'>+</span>
+      <span class='s2'>&quot;Now, go and add a mapping in features/support/paths.rb&quot;</span>
+    <span class='k'>end</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+
+<span class='no'>World</span><span class='p'>(</span><span class='no'>NavigationHelpers</span><span class='p'>)</span>
+</pre>
+</div>
+<p>This let&#8217;s us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths. So how can we make it better?</p>
+
+<p>By automatically matching some rails paths. Here&#8217;s the code:</p>
+<div class='highlight'><pre><span class='k'>module</span> <span class='nn'>NavigationHelpers</span>
+  <span class='k'>def</span> <span class='nf'>path_to</span><span class='p'>(</span><span class='n'>page_name</span><span class='p'>)</span>
+    <span class='k'>case</span> <span class='n'>page_name</span>
+    
+    <span class='k'>when</span><span class='sr'> /the home page/</span>
+      <span class='n'>root_path</span>   
+    <span class='c1'># Add more page name =&gt; path mappings here</span>
+    <span class='k'>else</span>
+      <span class='k'>if</span> <span class='n'>path</span> <span class='o'>=</span> <span class='n'>match_rails_path_for</span><span class='p'>(</span><span class='n'>page_name</span><span class='p'>)</span> 
+        <span class='n'>path</span>
+      <span class='k'>else</span> 
+        <span class='k'>raise</span> <span class='s2'>&quot;Can&#39;t find mapping from </span><span class='se'>\&quot;</span><span class='si'>#{</span><span class='n'>page_name</span><span class='si'>}</span><span class='se'>\&quot;</span><span class='s2'> to a path.</span><span class='se'>\n</span><span class='s2'>&quot;</span> <span class='o'>+</span>
+        <span class='s2'>&quot;Now, go and add a mapping in features/support/paths.rb&quot;</span>
+      <span class='k'>end</span>
+    <span class='k'>end</span>
+  <span class='k'>end</span>
+
+  <span class='k'>def</span> <span class='nf'>match_rails_path_for</span><span class='p'>(</span><span class='n'>page_name</span><span class='p'>)</span>
+    <span class='k'>if</span> <span class='n'>page_name</span><span class='o'>.</span><span class='n'>match</span><span class='p'>(</span><span class='sr'>/the (.*) page/</span><span class='p'>)</span>
+      <span class='k'>return</span> <span class='nb'>send</span> <span class='s2'>&quot;</span><span class='si'>#{</span><span class='vg'>$1</span><span class='o'>.</span><span class='n'>gsub</span><span class='p'>(</span><span class='s2'>&quot; &quot;</span><span class='p'>,</span> <span class='s2'>&quot;_&quot;</span><span class='p'>)</span><span class='si'>}</span><span class='s2'>_path&quot;</span> <span class='k'>rescue</span> <span class='kp'>nil</span>
+    <span class='k'>end</span>
+  <span class='k'>end</span>
+<span class='k'>end</span>
+
+<span class='no'>World</span><span class='p'>(</span><span class='no'>NavigationHelpers</span><span class='p'>)</span>
+</pre>
+</div>
+<p>What it does is pretty simple. Given a page name <code>the clients page</code> (with no other matches defined) it will try and send <code>clients_path</code>. If successful, then it returns the result, otherwise nil.</p>
+
+<p>Not the biggest improvement in the world, but it&#8217;s made my cucumber tests just a little bit easier to write.</p>
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/05">13th May 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/cucumber" rel="tag">cucumber</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/testing" rel="tag">testing</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
+  </div>
+</div>
+
+    </div>
+  </div>
+</body>	
+</html>
