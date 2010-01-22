@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tip: Create and move to directory"
-categories: [tiny, tip, zsh, peepcode]
+tags: [tiny, tip, zsh, peepcode]
 ---
 Before my next post on database indexes, here's a useful little function from the [Advanced Command Line peepcode screencast](http://peepcode.com/products/advanced-command-line) (which I highly recommend).:
 

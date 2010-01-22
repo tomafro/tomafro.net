@@ -1,7 +1,7 @@
 ---
 layout: post
 title: dscl - the easy way to add hosts on OS X
-categories: [osx, dscl, development, shell, reminder]
+tags: [osx, dscl, development, shell, reminder]
 ---
 As a web developer, I often want several host names pointing at my local machine whilst developing and testing applications.  I may want to use Apache virtual hosts to serve multiple apps at once, or use subdomains to distinguish different accounts within a single application.
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tip: Open new tab in OS X Terminal"
-categories: [tiny, tip, zsh, osx, terminal]
+tags: [tiny, tip, zsh, osx, terminal]
 ---
 Another simple shell function, this time just for OS X.  
 

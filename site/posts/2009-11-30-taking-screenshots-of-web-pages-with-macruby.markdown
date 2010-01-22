@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Taking screenshots of web pages with macruby
-categories: [macruby, screenshots, web, osx]
+tags: [macruby, screenshots, web, osx]
 ---
 Whilst playing around with the very exciting [macruby](http://macruby.org) last weekend, I thought I'd try building a web page screenshot grabber, based on [Ben Curtis' code](http://www.bencurtis.com/?p=128).  The code was very easy to change translate from `rubycocoa`, looks cleaner and seems to work really well:
 

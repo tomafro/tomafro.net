@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Pimp my script/console
-categories: [ruby, rails, irb, tip]
+tags: [ruby, rails, irb, tip]
 ---
 For a long time I've had [an .irbrc file](http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc) and a [.railsrc file](http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc), setting up some simple helpers methods in my `irb` and `script/console` sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my [machinist](http://github.com/notahat/machinist/tree/master) blueprints, to help me play around with some models.
 

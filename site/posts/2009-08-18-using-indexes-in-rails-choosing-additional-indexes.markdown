@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using indexes in rails: Choosing additional indexes"
-categories: [rails, databases, indexes, sql, using-indexes-in-rails]
+tags: [rails, databases, indexes, sql, using-indexes-in-rails]
 ---
 [The first part in this series of posts](http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations) looked at adding indexes to foreign keys, to improve the performance when navigating rails associations.  But many queries involve data other than just foreign keys.  With the judicious use of indexes, we can improve these too. 
 

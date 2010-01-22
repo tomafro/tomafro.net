@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using indexes in rails: Index your associations"
-categories: [rails, databases, indexes, sql, using-indexes-in-rails]
+tags: [rails, databases, indexes, sql, using-indexes-in-rails]
 ---
 Many rails developers are great at building applications but have limited experience in database design.  As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.
 

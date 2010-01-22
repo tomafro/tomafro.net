@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Quickly list missing foreign key indexes"
-categories: [rails, databases, indexes, sql, code]
+tags: [rails, databases, indexes, sql, code]
 ---
 Run this code in a rails console to list foreign keys which aren't indexed.
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tip: Zoom keyboard shortcut for OS X"
-categories: [tip, osx, keyboard, shortcut, zoom, tiny]
+tags: [tip, osx, keyboard, shortcut, zoom, tiny]
 ---
 In the Terminal run:
 

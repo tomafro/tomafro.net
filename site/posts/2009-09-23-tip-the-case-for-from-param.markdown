@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tip: The case for from_param"
-categories: [tip, ruby, rails, active-record, from-param]
+tags: [tip, ruby, rails, active-record, from-param]
 ---
 There's one small method I add to every new rails project I work on:
 

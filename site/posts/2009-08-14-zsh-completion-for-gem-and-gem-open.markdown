@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ZSH Completion for gem and gem open
-categories: [zsh, completion, gem, gem-open]
+tags: [zsh, completion, gem, gem-open]
 ---
 I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.
 

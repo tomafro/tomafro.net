@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Automatching rails paths in cucumber
-categories: [cucumber, rails, ruby, testing, tip]
+tags: [cucumber, rails, ruby, testing, tip]
 ---
 If you're using [cucumber](http://cukes.info/) as part of your testing, you probably have a `paths.rb` file that looks something like this:
 

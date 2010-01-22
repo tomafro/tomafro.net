@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Read ActiveRecord columns directly from the class
-categories: [ruby, rails, active-record]
+tags: [ruby, rails, active-record]
 ---
 Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it's a shame to do away with the nice type conversion `ActiveRecord` provides.  It'd also be a pity to get rid of find scoping, amongst other goodness.
 

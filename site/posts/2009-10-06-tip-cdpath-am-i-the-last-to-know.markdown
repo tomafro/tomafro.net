@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Tip: cdpath - Am I the last to know?"
-categories: [tiny, tip, zsh, terminal, cdpath]
+tags: [tiny, tip, zsh, terminal, cdpath]
 ---
 This one is just so simple, I can't believe I didn't know about it earlier.
 

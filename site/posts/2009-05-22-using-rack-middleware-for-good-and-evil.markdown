@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Using Rack Middleware for good and evil
-categories: [ruby, rack, middleware, evil, fun]
+tags: [ruby, rack, middleware, evil, fun]
 ---
 So we all know that [Rack](http://rack.rubyforge.org/) is awesome, and that we can use Rack::Middleware for all sorts of things: [debugging](http://github.com/brynary/rack-bug/tree/master), [caching](http://tomayko.com/src/rack-cache/) and a [whole host more](http://github.com/rack/rack-contrib/tree/master).
 

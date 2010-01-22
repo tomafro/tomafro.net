@@ -1,0 +1,9 @@
+---
+url: /:year/:month
+path: ":url.html"
+layout: default
+title: Posts from :month/:year
+---
+{% for post in site.posts.years[year].months[month].by_date reversed %}
+{% include 'post' with post %}
+{% endfor %}

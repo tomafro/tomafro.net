@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The cost of explicit returns in ruby
-categories: [ruby, micro-benchmark, return]
+tags: [ruby, micro-benchmark, return]
 ---
 Yesterday [Pratik Naik wrote a post](http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return) on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.  
 

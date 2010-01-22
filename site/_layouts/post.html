@@ -1,6 +1,4 @@
 ---
 layout: default
 ---
-{% assign body = content %}
-{% include post-div.html %}
-{% unless page.hide_meta %}{% related %}{% endunless %}
+{% include 'post' with page %}

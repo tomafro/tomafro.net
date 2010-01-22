@@ -1,0 +1,9 @@
+---
+url: /tags/:tag
+path: ":url.html"
+layout: default
+title: Posts tagged with :tag
+---
+{% for post in site.posts.tags[tag].by_date reversed %}
+{% include 'post' with post %}
+{% endfor %}

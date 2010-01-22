@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A rails template for gem bundler
-categories: [ruby, rails, gem, bundler]
+tags: [ruby, rails, gem, bundler]
 ---
 Following Nick Quaranto's article ['Gem Bundler is the Future'](http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/), I was inspired to try out [bundler](http://github.com/wycats/bundler) on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Building rails gems from the 2-3-stable branch
-categories: [ruby, rails, gem, bundler]
+tags: [ruby, rails, gem, bundler]
 ---
 For the latest application I've been working on, I wanted to use [Michael Koziarski's rails_xss plugin](http://github.com/NZKoz/rails_xss/), to turn default escaping on in my erb templates.  I'm also using [wycats gem bundler](http://github.com/wycats/bundler/) to manage gems and their dependencies, including rails.
 
