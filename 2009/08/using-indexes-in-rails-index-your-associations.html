@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title> &middot; tomafro.net</title>
+  <title>Using indexes in rails: Index your associations &middot; tomafro.net</title>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net"/>
+  <link rel="canonical" href="http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -144,7 +144,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 <span class="n">add_column</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="ss">:subject_type</span><span class="p">,</span> <span class="ss">:string</span>
 
 <span class="n">create_table</span> <span class="ss">:artworks</span> <span class="k">do</span> <span class="o">|</span><span class="n">table</span><span class="o">|</span>
-  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">:title</span>
+  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">Using indexes in rails: Index your associations</span>
 <span class="k">end</span>
 
 <span class="k">class</span> <span class="nc">Artwork</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
