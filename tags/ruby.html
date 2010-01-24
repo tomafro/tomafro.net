@@ -36,6 +36,45 @@
       
 <div class="post">
   <div class="content">
+    <h2 class="title"><a href="/2010/01/how-to-use-rails3-gems-now">How to easily use Rails 3 now</a></h2>
+    <p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
+
+<p>First, install rails main dependencies:</p>
+
+<div class="highlight"><pre>gem install rake rack bundler
+gem install arel --version 0.2.pre
+</pre>
+</div>
+
+
+<p>Next, get the latest rails code from github, and install the rails gems.  There may be a few errors you can safely ignore:</p>
+
+<div class="highlight"><pre>git clone git://github.com/rails/rails.git
+<span class="nb">cd </span>rails
+rake install
+</pre>
+</div>
+
+
+<p>And bang, you can start your first rails 3 project:</p>
+
+<div class="highlight"><pre>rails ~/apps/playground/rails3 
+</pre>
+</div>
+
+
+<p>Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2010/01">24th January 2010</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails-3" rel="tag">rails-3</a> &middot; <a href="/tags/gems" rel="tag">gems</a></span>
+  </div>
+</div>
+
+<div class="post">
+  <div class="content">
     <h2 class="title"><a href="/2010/01/tip-relative-paths-with-file-expand-path">Tip: Relative paths with File.expand_path</a></h2>
     <p>You probably know about the <code>__FILE__</code> magic constant.  It holds the filename of the currently executing ruby source file, relative to the execution directory.  So with the following saved as <code>/code/examples/path_example.rb</code>:</p>
 
