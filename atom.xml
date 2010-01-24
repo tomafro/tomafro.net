@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated></updated>
+ <updated>2010-01-24T11:35:18+00:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
@@ -17,59 +17,180 @@
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html"></content>
-   <updated>2010-01-23</updated>
+   <content type="html">&lt;p&gt;You probably know about the &lt;code&gt;__FILE__&lt;/code&gt; magic constant.  It holds the filename of the currently executing ruby source file, relative to the execution directory.  So with the following saved as &lt;code&gt;/code/examples/path_example.rb&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;__FILE__&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Running this file from the &lt;code&gt;/code&lt;/code&gt; folder will output &lt;code&gt;examples/path_example.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This is often used to load files on paths relative to the current file.  The way I've used it before is like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;config_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expand_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;config.yml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This works, but it's a bit clunky.&lt;br/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;What I didn't realise until reading the rails source code the other day, is that &lt;code&gt;File.expand_path&lt;/code&gt; can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;config_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expand_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;../config.yml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Much simpler.&lt;/p&gt;
+</content>
+   <updated>2010-01-23T00:00:00+00:00</updated>
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <updated>2010-01-23</updated>
    <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
-   <updated>2010-01-23</updated>
    <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
-   <updated>2010-01-23</updated>
    <category scheme="http://tomafro.net/tags/" term="file" label="file" />
-   <updated>2010-01-23</updated>
    <category scheme="http://tomafro.net/tags/" term="expand-path" label="expand-path" />
  </entry>
  
  <entry>
    <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/09/quickly-list-missing-foreign-key-indexes"/>
-   <title>Quickly list missing foreign key indexes</title>
+   <link href="http://tomafro.net/2009/11/taking-screenshots-of-web-pages-with-macruby"/>
+   <title>Taking screenshots of web pages with macruby</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html"></content>
-   <updated>2009-09-22</updated>
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <updated>2009-09-22</updated>
-   <category scheme="http://tomafro.net/tags/" term="databases" label="databases" />
-   <updated>2009-09-22</updated>
-   <category scheme="http://tomafro.net/tags/" term="indexes" label="indexes" />
-   <updated>2009-09-22</updated>
-   <category scheme="http://tomafro.net/tags/" term="sql" label="sql" />
-   <updated>2009-09-22</updated>
-   <category scheme="http://tomafro.net/tags/" term="code" label="code" />
+   <content type="html">&lt;p&gt;Whilst playing around with the very exciting &lt;a href=&quot;http://macruby.org&quot;&gt;macruby&lt;/a&gt; last weekend, I thought I'd try building a web page screenshot grabber, based on &lt;a href=&quot;http://www.bencurtis.com/?p=128&quot;&gt;Ben Curtis' code&lt;/a&gt;.  The code was very easy to change translate from &lt;code&gt;rubycocoa&lt;/code&gt;, looks cleaner and seems to work really well:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;framework&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Cocoa&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;framework&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;WebKit&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Snapper&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;attr_accessor&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:window&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;initialize_view&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setFrameLoadDelegate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Tell the webView what URL to load.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mainFrame&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;req&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NSURLRequest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;requestWithURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NSURL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;URLWithString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loadRequest&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;req&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isLoading&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timed_out?&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;NSRunLoop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentRunLoop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runUntilDate&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NSDate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;date&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@failedLoading&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Failed to load page at: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mainFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frameView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;documentView&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setContentSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+      &lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setNeedsDisplay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;displayIfNeeded&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lockFocus&lt;/span&gt;
+    
+      &lt;span class=&quot;n&quot;&gt;bitmap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NSBitmapImageRep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;initWithFocusedViewRect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;docView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unlockFocus&lt;/span&gt;
+
+      &lt;span class=&quot;c1&quot;&gt;# Write the bitmap to a file as a PNG&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bitmap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;representationUsingType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NSPNGFileType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;representation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;writeToFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;atomically&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;bitmap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;release&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;kp&quot;&gt;private&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;webView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;didFailLoadWithError&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;forFrame&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@failedLoading&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;webView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;didFailProvisionalLoadWithError&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;forFrame&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@failedLoading&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize_view&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;NSApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sharedApplication&lt;/span&gt;    
+    
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;WebView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NSWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;initWithContentRect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;styleMask&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:NSBorderlessWindowMask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;backing&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:NSBackingStoreBuffered&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;defer&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      
+    &lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setContentView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    
+    &lt;span class=&quot;c1&quot;&gt;# Use the screen stylesheet, rather than the print one.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setMediaStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;screen&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Set the user agent to Safari, to ensure we get back the exactly the same content as &lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# if we browsed directly to the page&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setCustomUserAgent&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-us)&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&amp;#39;AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10&amp;#39;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Make sure we don&amp;#39;t save any of the prefs that we change.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;preferences&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setAutosaves&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Set some useful options.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;preferences&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setShouldPrintBackgrounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;preferences&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setJavaScriptCanOpenWindowsAutomatically&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;preferences&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setAllowsAnimatedImages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Make sure we don&amp;#39;t get a scroll bar.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mainFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frameView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setAllowsScrolling&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;timed_out?&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;To use:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;macruby&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;snapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Snapper.new.save(&amp;#39;http://tomafro.net&amp;#39;, &amp;#39;tomafro.net.png&amp;#39;)&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The next step is to add some command line options, then try compilation and deployment with &lt;code&gt;macrubyc&lt;/code&gt; and &lt;code&gt;macruby_deploy&lt;/code&gt;&lt;/p&gt;
+</content>
+   <updated>2009-11-30T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="macruby" label="macruby" />
+   <category scheme="http://tomafro.net/tags/" term="screenshots" label="screenshots" />
+   <category scheme="http://tomafro.net/tags/" term="web" label="web" />
+   <category scheme="http://tomafro.net/tags/" term="osx" label="osx" />
  </entry>
  
  <entry>
    <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/08/tip-move-to-directory-and-open-in-textmate"/>
-   <title>Tip: Move to directory and open in TextMate</title>
+   <link href="http://tomafro.net/2009/11/zoom-keyboard-shortcut-for-os-x"/>
+   <title>Tip: Zoom keyboard shortcut for OS X</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html"></content>
-   <updated>2009-08-07</updated>
-   <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
-   <updated>2009-08-07</updated>
+   <content type="html">&lt;p&gt;In the Terminal run:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;defaults write NSGlobalDomain NSUserKeyEquivalents &lt;span class=&quot;s1&quot;&gt;&amp;#39;{&amp;quot;Zoom&amp;quot; = &amp;quot;@^Z&amp;quot;; &amp;quot;Zoom Window&amp;quot; = &amp;quot;@^Z&amp;quot;; }&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Quit and relaunch your applications, and &lt;span class='osx-shortcut'&gt;⌃⌘Z&lt;/span&gt; should zoom and unzoom.&lt;/p&gt;
+
+&lt;p&gt;Stolen from &lt;a href=&quot;http://www.macosxhints.com/article.php?story=20051227001809626&quot;&gt;macoshints.com&lt;/a&gt;, posted here for my own benefit.&lt;/p&gt;
+</content>
+   <updated>2009-11-06T00:00:00+00:00</updated>
    <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
-   <updated>2009-08-07</updated>
-   <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
-   <updated>2009-08-07</updated>
    <category scheme="http://tomafro.net/tags/" term="osx" label="osx" />
-   <updated>2009-08-07</updated>
-   <category scheme="http://tomafro.net/tags/" term="textmate" label="textmate" />
+   <category scheme="http://tomafro.net/tags/" term="keyboard" label="keyboard" />
+   <category scheme="http://tomafro.net/tags/" term="shortcut" label="shortcut" />
+   <category scheme="http://tomafro.net/tags/" term="zoom" label="zoom" />
+   <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
  </entry>
  
  <entry>
@@ -80,14 +201,177 @@
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html"></content>
-   <updated>2009-11-05</updated>
+   <content type="html">&lt;p&gt;For the latest application I've been working on, I wanted to use &lt;a href=&quot;http://github.com/NZKoz/rails_xss/&quot;&gt;Michael Koziarski's rails_xss plugin&lt;/a&gt;, to turn default escaping on in my erb templates.  I'm also using &lt;a href=&quot;http://github.com/wycats/bundler/&quot;&gt;wycats gem bundler&lt;/a&gt; to manage gems and their dependencies, including rails.&lt;/p&gt;
+
+&lt;p&gt;This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).&lt;/p&gt;
+
+&lt;p&gt;The solution was obvious: build my own gems, and get bundler to use them.  Luckily, rails makes this an easy process.&lt;/p&gt;
+
+&lt;p&gt;First, clone rails from github, and change to the 2-3-stable branch:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;git clone git://github.com/rails/rails.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;rails
+git co -b 2-3-stable origin/2-3-stable
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;actionmailer
+rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../actionpack
+rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../activerecord
+rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../activeresource
+rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../activesupport
+rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../railties
+rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The key is the &lt;code&gt;PKG_BUILD&lt;/code&gt; variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.&lt;/p&gt;
+
+&lt;p&gt;Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;cp **/pkg/*.gem &amp;lt;project-folder&amp;gt;/gems/cache
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+</content>
+   <updated>2009-11-05T00:00:00+00:00</updated>
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <updated>2009-11-05</updated>
    <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <updated>2009-11-05</updated>
    <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
-   <updated>2009-11-05</updated>
+   <category scheme="http://tomafro.net/tags/" term="bundler" label="bundler" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/11/a-rails-template-for-gem-bundler"/>
+   <title>A rails template for gem bundler</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;Following Nick Quaranto's article &lt;a href=&quot;http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/&quot;&gt;'Gem Bundler is the Future'&lt;/a&gt;, I was inspired to try out &lt;a href=&quot;http://github.com/wycats/bundler&quot;&gt;bundler&lt;/a&gt; on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.&lt;/p&gt;
+
+&lt;p&gt;Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I've  made a rails template to do the hard work.&lt;/p&gt;
+
+&lt;p&gt;Give it a try by running the following. You should be up and running in a couple of minutes:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb &amp;lt;project&amp;gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;That will give you a bundled project, ready for you to add your own gems.  Here's what each step of the template actually does:&lt;/p&gt;
+
+&lt;p&gt;Gem bundler is itself a gem.  It can't be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;inside&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;gems/bundler&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;git init&amp;#39;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;git pull --depth 1 git://github.com/wycats/bundler.git&amp;#39;&lt;/span&gt; 
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rm -rf .git .gitignore&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Just having bundler installed is no good without any way to run it; a script is needed.  Once this is installed the local bundler can be run with &lt;code&gt;script/bundle &amp;lt;options&amp;gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;script/bundle&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;#!/usr/bin/env ruby&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;path = File.expand_path(File.join(File.dirname(__FILE__), &amp;quot;..&amp;quot;, &amp;quot;gems/bundler/lib&amp;quot;))&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;$LOAD_PATH.unshift path&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;require &amp;#39;rubygems&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;require &amp;#39;rubygems/command&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;require &amp;#39;bundler&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;require &amp;#39;bundler/commands/bundle_command&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;Gem::Commands::BundleCommand.new.invoke(*ARGV)&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;chmod +x script/bundle&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Bundler uses Gemfiles to declare which gems are required in each environment.  This simple &lt;code&gt;Gemfile&lt;/code&gt; includes rails in all environments, and ruby-debug in all environments other than production:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Gemfile&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;clear_sources&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;source &amp;#39;http://gemcutter.org&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt;disable_system_gems&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt;bundle_path &amp;#39;gems&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt;gem &amp;#39;rails&amp;#39;, &amp;#39;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;STRING&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;gem &amp;#39;ruby-debug&amp;#39;, :except =&amp;gt; &amp;#39;production&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Most of the files bundler will place in the &lt;code&gt;gem&lt;/code&gt; path can be regenerated; they shouldn't be added to the project repository.  The only things that should be added are the &lt;code&gt;.gem&lt;/code&gt; files themselves, and the local copy of bundler.  All the rest should be ignored:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;.gitignore&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;gems/*&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;!gems/cache&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;!gems/bundler}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The bundle script needs to be run for the first time:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;script/bundle&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler's environment file before anything else:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/config/preinitializer.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;require File.expand_path(File.join(File.dirname(__FILE__), &amp;quot;..&amp;quot;, &amp;quot;gems&amp;quot;, &amp;quot;environment&amp;quot;))&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Second, rails initialization process is hijacked to require the correct bundler environment:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;config/environment.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;require File.join(File.dirname(__FILE__), &amp;#39;boot&amp;#39;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;require File.join(File.dirname(__FILE__), &amp;#39;boot&amp;#39;)&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt;# Hijack rails initializer to load the bundler gem environment before loading the rails environment.&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt;Rails::Initializer.module_eval do&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  alias load_environment_without_bundler load_environment&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  &lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  def load_environment&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;    Bundler.require_env configuration.environment&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;    load_environment_without_bundler&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;And that's it.  The project is now fully bundled.  More gems can be added to the &lt;code&gt;Gemfile&lt;/code&gt; and pulled into the project with &lt;code&gt;script/bundle&lt;/code&gt;.&lt;/p&gt;
+</content>
+   <updated>2009-11-03T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
    <category scheme="http://tomafro.net/tags/" term="bundler" label="bundler" />
  </entry>
  
@@ -99,17 +383,157 @@
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html"></content>
-   <updated>2009-10-06</updated>
+   <content type="html">&lt;p&gt;This one is just so simple, I can't believe I didn't know about it earlier.&lt;/p&gt;
+
+&lt;p&gt;First, setup the cdpath or CDPATH variable:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;cdpath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;~ ~/Projects/apps ~/Projects/tools ~/Projects/plugins ~/Projects/sites&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Now, changing directory in the shell becomes a whole world easier:&lt;/p&gt;
+
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;span class=&quot;s1&quot;&gt;tomw@fellini:~&lt;span class='nv'&gt;$ &lt;/span&gt;&lt;/span&gt;&lt;span class='nb'&gt;cd &lt;/span&gt;super-secret-app
+~/Projects/apps/super-secret-app
+&lt;span class=&quot;s1&quot;&gt;tomw@fellini:~/Projects/apps/super-secret-app&lt;span class='nv'&gt;$ &lt;/span&gt;&lt;/span&gt;&lt;span class='nb'&gt;cd &lt;/span&gt;Documents
+~/Documents
+&lt;span class=&quot;s1&quot;&gt;tomw@fellini:~/Documents&lt;span class='nv'&gt;$ &lt;/span&gt;&lt;/span&gt;&lt;span class='nb'&gt;cd &lt;/span&gt;tomafro.net
+~/Projects/sites/tomafro.net
+&lt;span class=&quot;s1&quot;&gt;tomw@fellini:~/Projects/sites/tomafro.net &lt;span class='err'&gt;$&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I've already added this to &lt;a href=&quot;http://github.com/tomafro/dotfiles&quot;&gt;my dotfiles&lt;/a&gt;.&lt;/p&gt;
+</content>
+   <updated>2009-10-06T00:00:00+01:00</updated>
    <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
-   <updated>2009-10-06</updated>
    <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
-   <updated>2009-10-06</updated>
    <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
-   <updated>2009-10-06</updated>
    <category scheme="http://tomafro.net/tags/" term="terminal" label="terminal" />
-   <updated>2009-10-06</updated>
    <category scheme="http://tomafro.net/tags/" term="cdpath" label="cdpath" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/09/tip-the-case-for-from-param"/>
+   <title>Tip: The case for from_param</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;There's one small method I add to every new rails project I work on:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Tomafro::FromParam&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;from_param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:conditions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;primary_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tomafro&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;FromParam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;In my controllers, where you might use &lt;code&gt;Model.find(params[:id])&lt;/code&gt; or &lt;code&gt;Model.find_by_id(params[:id)&lt;/code&gt;, I use &lt;code&gt;Model.from_param(params[:id])&lt;/code&gt; instead.&lt;/p&gt;
+
+&lt;p&gt;All three methods have almost the same behaviour, the only difference being the handling of missing records.  &lt;code&gt;find&lt;/code&gt; throws a RecordNotFound, while &lt;code&gt;find_by_id&lt;/code&gt; and &lt;code&gt;from_param&lt;/code&gt; return nil.  So why use &lt;code&gt;from_param&lt;/code&gt; over the others?&lt;/p&gt;
+
+&lt;p&gt;The answer comes when you want to change &lt;code&gt;to_param&lt;/code&gt;, the method rails uses to turn a record into a parameter.  It's a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so &lt;code&gt;/users/12452&lt;/code&gt; becomes &lt;code&gt;/users/tomafro&lt;/code&gt;.  In rails this is easy to achieve, by overriding the &lt;code&gt;to_param&lt;/code&gt; method:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;to_param&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nickname&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Rails will automatically use this method when generating routes, so &lt;code&gt;users_path(@user)&lt;/code&gt; will return &lt;code&gt;/users/tomafro&lt;/code&gt; as we'd like.  If I was using &lt;code&gt;find&lt;/code&gt; or &lt;code&gt;find_by_id&lt;/code&gt; in my controllers, I'd then have to go through each one and change it to &lt;code&gt;find_by_nickname&lt;/code&gt;.  Luckily though, I've used &lt;code&gt;from_param&lt;/code&gt;, so whenever I override &lt;code&gt;to_param&lt;/code&gt; I just have to remember to provide an equivalent implementation for &lt;code&gt;from_param&lt;/code&gt;, and my controllers will work without modification:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;from_param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:conditions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:nickname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;to_param&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nickname&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I've been doing this for years, but it's hardly a new principle, to provide a &lt;code&gt;from&lt;/code&gt; method for every &lt;code&gt;to&lt;/code&gt; method.  There's &lt;a href=&quot;http://dev.rubyonrails.org/ticket/11505&quot;&gt;even an old ticket on trac&lt;/a&gt; asking for it, but it's been considered too trivial to add.&lt;br/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects.&lt;/p&gt;
+</content>
+   <updated>2009-09-23T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
+   <category scheme="http://tomafro.net/tags/" term="from-param" label="from-param" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/09/quickly-list-missing-foreign-key-indexes"/>
+   <title>Quickly list missing foreign key indexes</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;Run this code in a rails console to list foreign keys which aren't indexed.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tables&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;  
+  &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ends_with?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ends_with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;_type&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;indexed_columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatten&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uniq&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;unindexed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexed_columns&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unindexed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty?&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unindexed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;, &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This list will look something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;attachments: parent_id, asset_id
+domain_names: organisation_id
+event_memberships: user_id, event_id
+events: editor_id
+group_actions: user_id, group_id
+groups: user_id
+icons: parent_id
+invitations: sender_id
+legacy_actions: item_upon_id
+news_items: author_id
+organisations: midas_id
+pages: author_id
+pending_event_memberships: invitation_id, event_id
+resources: user_id, resourceable_id
+subscriptions: subscribable_id, user_id
+taggings: tag_id, taggable_id, user_id
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;For each column in the list, ask yourself why you don't need an index.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt; Andrew Coleman has &lt;a href=&quot;http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes&quot;&gt;added output in migration format&lt;/a&gt;.  If you want to play around with it further, &lt;a href=&quot;http://gist.github.com/191181&quot;&gt;here's the original code on gist&lt;/a&gt;.&lt;/p&gt;
+</content>
+   <updated>2009-09-22T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="databases" label="databases" />
+   <category scheme="http://tomafro.net/tags/" term="indexes" label="indexes" />
+   <category scheme="http://tomafro.net/tags/" term="sql" label="sql" />
+   <category scheme="http://tomafro.net/tags/" term="code" label="code" />
  </entry>
  
  <entry>
@@ -120,89 +544,240 @@
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html"></content>
-   <updated>2009-08-19</updated>
+   <content type="html">&lt;p&gt;Another simple shell function, this time just for OS X.&lt;br/&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Usage is simple: &lt;code&gt;tab &amp;lt;command&amp;gt;&lt;/code&gt; opens a new tab in Terminal, and runs the given command in the current working directory.  For example &lt;code&gt;tab script/server&lt;/code&gt; would open a new tab and run &lt;code&gt;script/server&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;tab &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  osascript 2&amp;gt;/dev/null &lt;span class=&quot;s&quot;&gt;&amp;lt;&amp;lt;EOF&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;    tell application &amp;quot;System Events&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;      tell process &amp;quot;Terminal&amp;quot; to keystroke &amp;quot;t&amp;quot; using command down&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;    end&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;    tell application &amp;quot;Terminal&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;      activate&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;      do script with command &amp;quot;cd $PWD; $*&amp;quot; in window 1&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;    end tell&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;  EOF&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+</content>
+   <updated>2009-08-19T00:00:00+01:00</updated>
    <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
-   <updated>2009-08-19</updated>
    <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
-   <updated>2009-08-19</updated>
    <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
-   <updated>2009-08-19</updated>
    <category scheme="http://tomafro.net/tags/" term="osx" label="osx" />
-   <updated>2009-08-19</updated>
    <category scheme="http://tomafro.net/tags/" term="terminal" label="terminal" />
  </entry>
  
  <entry>
    <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/08/tip-create-and-move-to-directory"/>
-   <title>Tip: Create and move to directory</title>
+   <link href="http://tomafro.net/2009/08/using-indexes-in-rails-choosing-additional-indexes"/>
+   <title>Using indexes in rails: Choosing additional indexes</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html"></content>
-   <updated>2009-08-12</updated>
-   <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
-   <updated>2009-08-12</updated>
-   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
-   <updated>2009-08-12</updated>
-   <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
-   <updated>2009-08-12</updated>
-   <category scheme="http://tomafro.net/tags/" term="peepcode" label="peepcode" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/08/kernel-specific-zsh-dotfiles"/>
-   <title>Kernel specific ZSH dotfiles</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html"></content>
-   <updated>2009-08-03</updated>
-   <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
-   <updated>2009-08-03</updated>
-   <category scheme="http://tomafro.net/tags/" term="osx" label="osx" />
-   <updated>2009-08-03</updated>
-   <category scheme="http://tomafro.net/tags/" term="linux" label="linux" />
-   <updated>2009-08-03</updated>
-   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class"/>
-   <title>Read ActiveRecord columns directly from the class</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html"></content>
-   <updated>2009-05-29</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <updated>2009-05-29</updated>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations&quot;&gt;The first part in this series of posts&lt;/a&gt; looked at adding indexes to foreign keys, to improve the performance when navigating rails associations.  But many queries involve data other than just foreign keys.  With the judicious use of indexes, we can improve these too.&lt;/p&gt;
+
+&lt;p&gt;Let's take the &lt;code&gt;conversations&lt;/code&gt; table used in the first article, and add a column to hold the language, and some timestamps.  Here's the full schema:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;create_table&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conversations&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;   &lt;span class=&quot;ss&quot;&gt;:subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt;  &lt;span class=&quot;ss&quot;&gt;:user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt;  &lt;span class=&quot;ss&quot;&gt;:subject_id&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;   &lt;span class=&quot;ss&quot;&gt;:subject_type&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;   &lt;span class=&quot;ss&quot;&gt;:language_code&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:created_at&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:updated_at&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;We want to split conversations by their languages, so we'll add a &lt;code&gt;named_scope&lt;/code&gt; to the Conversation class:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Conversation&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;belongs_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;belongs_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:polymorphic&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  
+  &lt;span class=&quot;n&quot;&gt;named_scope&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:in_language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; 
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:conditions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:language_code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Using &lt;code&gt;Conversation.in_language 'en'&lt;/code&gt; will now get us all conversations in English.  Like we did for foreign keys, we can see how long the query takes and read the explain plan.&lt;/p&gt;
+
+&lt;pre&gt;mysql&gt; SELECT * FROM conversations WHERE language_code = 'en';
+90791 rows in set (3.94 sec)
+
+mysql&gt; EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
++-------------+------+---------------+---------+-------+---------+-------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra       |
++-------------+------+---------------+---------+-------+---------+-------------+
+| SIMPLE      | ref  | NULL          | NULL    | NULL  | 1000111 | Using where | 
++-------------+------+---------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+&lt;/pre&gt;
+
+
+&lt;p&gt;Adding an index to the &lt;code&gt;language_code&lt;/code&gt; column should improve the query performance, so let's do that and see the effect on our query:&lt;/p&gt;
+
+&lt;pre&gt;mysql&gt; SELECT * FROM conversations WHERE language_code = 'en';
+90791 rows in set (3.02 sec)
+
+mysql&gt; EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
++-------------+------+---------------+---------+-------+---------+-------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra       |
++-------------+------+---------------+---------+-------+---------+-------------+
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where | 
++-------------+------+---------------+---------+-------+---------+-------------+
+1 row in set (0.00 sec)
+&lt;/pre&gt;
+
+
+&lt;p&gt;So the query now uses the index, and the time taken has gone from almost 4 seconds to just over 3.  That's not nearly as big a performance gain as before, but why?  The answer is in the number of rows returned: 90791.  The index helps the database find the relevant rows quickly.  However, it still has to read those rows, and reading over 90,000 rows will always take a significant amount of time.&lt;/p&gt;
+
+&lt;p&gt;In a real app we're unlikely to want to read all these rows at once, so let's do another quick comparison limiting the query to the first 100 rows:&lt;/p&gt;
+
+&lt;pre&gt;Without the index:  
+
+mysql&gt; SELECT * FROM conversations WHERE language_code = 'en' LIMIT 100;
+100 rows in set (1.32 sec)
+
+And with the index:
+
+mysql&gt; SELECT * FROM conversations WHERE language_code = 'en' LIMIT 100;
+100 rows in set (0.01 sec)
+&lt;/pre&gt;
+
+
+&lt;p&gt;Much better.&lt;/p&gt;
+
+&lt;h3&gt;Choosing between indexes&lt;/h3&gt;
+
+&lt;p&gt;We've seen that by using an index and limiting the number of results we can quickly get the 'first' 100 English conversations.  But in this case 'first' doesn't really mean anything.  When no order clause is specified, MySQL may appear to order its results by id, but this is just a coincidence and shouldn't be relied on.  Let's instead order our results by &lt;code&gt;created_at&lt;/code&gt; to get the 100 most recent conversations.&lt;/p&gt;
+
+&lt;pre&gt;mysql&gt; SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
+100 rows in set (4.42 sec)
+
+mysql&gt; EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra                       |
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort | 
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+1 row in set (0.00 sec)
+&lt;/pre&gt;
+
+
+&lt;p&gt;Even though this query uses our index and only returns 100 rows, it has still taken almost 4.5 seconds!  The reason for this terrible performance is hinted in the extra information in the explain plan: &lt;code&gt;using filesort&lt;/code&gt;.  The database is reading all rows that match the condition (all 90791 of them), then using a filesort to order them before returning the first 100.&lt;/p&gt;
+
+&lt;p&gt;If we add an index on &lt;code&gt;created_at&lt;/code&gt; and do the query again we get:&lt;/p&gt;
+
+&lt;pre&gt;mysql&gt; SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
+100 rows in set (4.39 sec)
+
+mysql&gt; EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra                       |
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort | 
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+1 row in set (0.00 sec)
+&lt;/pre&gt;
+
+
+&lt;p&gt;It's pretty much exactly the same - still almost 4.5 seconds.  This is because MySQL can only use one index per table in a query.  It has to choose between the index on &lt;code&gt;language_code&lt;/code&gt; and the one on &lt;code&gt;created_at&lt;/code&gt;, and in this case chooses the language code index.  We can force it to use our other index for comparison:&lt;/p&gt;
+
+&lt;pre&gt;mysql&gt; SELECT * FROM conversations 
+       USE INDEX(created_ix) WHERE language_code = 'en' 
+       ORDER BY created_at DESC LIMIT 100;
+100 rows in set (0.02 sec)
+
+mysql&gt; EXPLAIN SELECT * FROM conversations 
+       USE INDEX(created_ix) WHERE language_code = 'en' 
+       ORDER BY created_at DESC LIMIT 100;
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| select_type | type | key           | key_len | ref   | rows    | Extra                       |
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+| SIMPLE      | ref  | created_ix    | 8       | const | 9903411 | Using where                 | 
++-------------+------+---------------+---------+-------+---------+-----------------------------+
+1 row in set (0.00 sec)
+&lt;/pre&gt;
+
+
+&lt;p&gt;Using a trick stolen from &lt;a href=&quot;http://m.onkey.org/2009/8/6/use-index-with-active-record-finders&quot;&gt;Pratik Naik (in the comments of his article)&lt;/a&gt; we can force the use of a particular index in rails with a special named scope, and perform our query:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;no&quot;&gt;Conversation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;named_scope&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:use_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; 
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:from&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quoted_table_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; USE INDEX(&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Conversation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in_language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;en&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;use_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;created_ix&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:order&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;created_at desc&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;But there is also another way - using indexing multiple columns.&lt;/p&gt;
+
+&lt;h3&gt;Using compound indexes&lt;/h3&gt;
+
+&lt;p&gt;A compound index indexes across two or more columns.  When defining a compound index, the order of the columns is significant, as the database reduces the set of candidate rows by comparing the columns in turn.  So an index created with &lt;code&gt;add_index :conversations, [language_code, created_at]&lt;/code&gt; will compare &lt;code&gt;created_at&lt;/code&gt; first, then &lt;code&gt;language_code&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Because of this, we need to take some care in choosing the order of our columns.  In general, the rule is to specify the most selective column first.  That is, the column with the most unique values.  So for our query, we'll add the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;add_index&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:conversations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;created_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;language_code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If we explain the query without forcing the index we find it is still efficient:&lt;/p&gt;
+
+&lt;pre&gt;mysql&gt; EXPLAIN SELECT * FROM conversations 
+       WHERE language_code = 'en' 
+       ORDER BY created_at DESC LIMIT 100;
++-------------+------+----------------+---------+-------+---------+-----------------------------+
+| select_type | type | key            | key_len | ref   | rows    | Extra                       |
++-------------+------+----------------+---------+-------+---------+-----------------------------+
+| SIMPLE      | ref  | lang_and_ca_ix |      48 | const |  640231 | Using where                 | 
++-------------+------+----------------+---------+-------+---------+-----------------------------+
+1 row in set (0.00 sec)
+&lt;/pre&gt;
+
+
+&lt;h3&gt;A technique for choosing index column order&lt;/h3&gt;
+
+&lt;p&gt;Sometimes it's hard to know which order your columns should be in an index, but there's an easy way to get a rough idea.  Rewrite the query, removing all conditions, and selecting &lt;code&gt;count(distinct column_to_index)&lt;/code&gt; for each column.  So for our query, we'd do the following:&lt;/p&gt;
+
+&lt;pre&gt;mysql&gt; SELECT count(distinct language_code), count(distinct created_at)
+       FROM conversations;
++-------------------------------+----------------------------+
+| count(distinct language_code) | count(distinct created_at) |
++-------------------------------+----------------------------+
+|                            21 |                     584089 | 
++-------------------------------+----------------------------+
+1 row in set (1.90 sec)
+&lt;/pre&gt;
+
+
+&lt;p&gt;From this it's clear that there are more distinct created_at values, so we probably want to index this column first.  Note though that I said probably.  When deciding on indexes, there are no hard and fast rules.  Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.&lt;/p&gt;
+
+&lt;p&gt;The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.&lt;br/&gt;
+&lt;/p&gt;
+</content>
+   <updated>2009-08-18T00:00:00+01:00</updated>
    <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <updated>2009-05-29</updated>
-   <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/05/an-objective-c-implementation-of-active-supports-inflector"/>
-   <title>An Objective-C implementation of ActiveSupport's Inflector</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html"></content>
-   <updated>2009-05-28</updated>
-   <category scheme="http://tomafro.net/tags/" term="objective-c" label="objective-c" />
-   <updated>2009-05-28</updated>
-   <category scheme="http://tomafro.net/tags/" term="active-support" label="active-support" />
-   <updated>2009-05-28</updated>
-   <category scheme="http://tomafro.net/tags/" term="inflector" label="inflector" />
+   <category scheme="http://tomafro.net/tags/" term="databases" label="databases" />
+   <category scheme="http://tomafro.net/tags/" term="indexes" label="indexes" />
+   <category scheme="http://tomafro.net/tags/" term="sql" label="sql" />
+   <category scheme="http://tomafro.net/tags/" term="using-indexes-in-rails" label="using-indexes-in-rails" />
  </entry>
  
 </feed>
