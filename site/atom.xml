@@ -8,7 +8,7 @@
    <name>Tom Ward</name>
    <email>tom@popdog.net</email>
  </author>
- {% for post in site.posts limit:10 %}
+ {% for post in site.posts.by_date.reversed limit:10 %}
  <entry>
    <id>http://tomafro.net{{ post.id }}</id>
    <link href="http://tomafro.net{{ post.url }}"/>
@@ -17,8 +17,8 @@
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html">{{ post.content | xml_escape }}</content>{% for tag in post.tags %}
-   <updated>{{ post.date | date_to_xmlschema }}</updated>
+   <content type="html">{{ post.body | xml_escape }}</content>
+   <updated>{{ post.date | date_to_xmlschema }}</updated>{% for tag in post.tags %}
    <category scheme="http://tomafro.net/tags/" term="{{ tag }}" label="{{ tag }}" />{% endfor %}
  </entry>
  {% endfor %}
