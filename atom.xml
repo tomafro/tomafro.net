@@ -11,6 +11,27 @@
  
  <entry>
    <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2010/01/tip-relative-paths-with-file-expand-path"/>
+   <title>Tip: Relative paths with File.expand_path</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html"></content>
+   <updated>2010-01-23</updated>
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <updated>2010-01-23</updated>
+   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
+   <updated>2010-01-23</updated>
+   <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
+   <updated>2010-01-23</updated>
+   <category scheme="http://tomafro.net/tags/" term="file" label="file" />
+   <updated>2010-01-23</updated>
+   <category scheme="http://tomafro.net/tags/" term="expand-path" label="expand-path" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2009/09/quickly-list-missing-foreign-key-indexes"/>
    <title>Quickly list missing foreign key indexes</title>
    <author>
@@ -182,27 +203,6 @@
    <category scheme="http://tomafro.net/tags/" term="active-support" label="active-support" />
    <updated>2009-05-28</updated>
    <category scheme="http://tomafro.net/tags/" term="inflector" label="inflector" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/05/automatching-rails-paths-in-cucumber"/>
-   <title>Automatching rails paths in cucumber</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html"></content>
-   <updated>2009-05-13</updated>
-   <category scheme="http://tomafro.net/tags/" term="cucumber" label="cucumber" />
-   <updated>2009-05-13</updated>
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <updated>2009-05-13</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <updated>2009-05-13</updated>
-   <category scheme="http://tomafro.net/tags/" term="testing" label="testing" />
-   <updated>2009-05-13</updated>
-   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
  </entry>
  
 </feed>

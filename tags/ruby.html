@@ -26,8 +26,6 @@
     })();
   </script>
   
-  <meta name="viewport" content="width=850" />
-  <link rel="stylesheet" media="screen and (max-device-width: 480px)" href="/css/iphone.css" type="text/css"/>
 </head>
 <body>  
   <div id="container">
@@ -36,6 +34,45 @@
     </div>
     <div id="main">
       
+<div class="post">
+  <div class="content">
+    <h2 class="title"><a href="/2010/01/tip-relative-paths-with-file-expand-path">Tip: Relative paths with File.expand_path</a></h2>
+    <p>You probably know about the <code>__FILE__</code> magic constant.  It holds the filename of the currently executing ruby source file, relative to the execution directory.  So with the following saved as <code>/code/examples/path_example.rb</code>:</p>
+
+<div class="highlight"><pre><span class="nb">puts</span> <span class="bp">__FILE__</span>
+</pre>
+</div>
+
+
+<p>Running this file from the <code>/code</code> folder will output <code>examples/path_example.rb</code></p>
+
+<p>This is often used to load files on paths relative to the current file.  The way I've used it before is like this:</p>
+
+<div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">))</span>
+</pre>
+</div>
+
+
+<p>This works, but it's a bit clunky.<br/>
+</p>
+
+<p>What I didn't realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
+
+<div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../config.yml&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>Much simpler.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2010/01">23rd January 2010</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/file" rel="tag">file</a> &middot; <a href="/tags/expand-path" rel="tag">expand-path</a></span>
+  </div>
+</div>
+
 <div class="post">
   <div class="content">
     <h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
