@@ -29,9 +29,24 @@ body {
   color: #004491;
 }
 
-#header {
-  margin-bottom: 3em;
+header {
+  display: block;
+  padding-bottom: 3em;
   padding-top: 0.3em;
+}
+
+div.update {
+  background: #ddeeff;
+  padding: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  -moz-border-radius: 0.3em;
+  -webkit-border-radius: 0.3em;
+}
+
+.update h3 {
+  margin: 0;
+  font-size: 1.1em;
 }
 
 #footer {
@@ -61,14 +76,9 @@ h1 {
 	border-bottom: 1px solid #ddd;
 }
 
-h1, .post, .link-post {
+h1, article {
   padding-bottom: 8px;
 	margin-bottom: 48px;
-}
-
-
-.link-post h2 {
-  font-size: 1.4em;
 }
 
 code {
@@ -113,8 +123,7 @@ code {
 }
 
 .meta a {
-  font-weight: normal;
-  
+  font-weight: normal; 
 }
 
 .meta a:hover, .content a:hover, .related a:hover {
