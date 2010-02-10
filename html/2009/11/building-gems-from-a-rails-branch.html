@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Building rails gems from the 2-3-stable branch &middot; tomafro.net</title>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net/2009/11/building-gems-from-a-rails-branch"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+</head>
+<body>  
+  <div id="container">
+    <header class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </header>
+    <div id="main">
+      <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
+    <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+
+<p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
+
+<p>The solution was obvious: build my own gems, and get bundler to use them.  Luckily, rails makes this an easy process.</p>
+
+<p>First, clone rails from github, and change to the 2-3-stable branch:</p>
+
+<div class="highlight"><pre>git clone git://github.com/rails/rails.git
+<span class="nb">cd </span>rails
+git co -b 2-3-stable origin/2-3-stable
+</pre>
+</div>
+
+
+<p>Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:</p>
+
+<div class="highlight"><pre><span class="nb">cd </span>actionmailer
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../actionpack
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activerecord
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activeresource
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activesupport
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../railties
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ..
+</pre>
+</div>
+
+
+<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.</p>
+
+<p>Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+
+<div class="highlight"><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11"> 5th November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
+  </div>
+</article>
+
+    </div>
+  </div>
+</body>	
+</html>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Posts tagged with zsh &middot; tomafro.net</title>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net/tags/zsh"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+</head>
+<body>  
+  <div id="container">
+    <header class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </header>
+    <div id="main">
+      
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h2>
+    <p>This one is just so simple, I can't believe I didn't know about it earlier.</p>
+
+<p>First, setup the cdpath or CDPATH variable:</p>
+
+<div class="highlight"><pre><span class="nv">cdpath</span><span class="o">=(</span>~ ~/Projects/apps ~/Projects/tools ~/Projects/plugins ~/Projects/sites<span class="o">)</span>
+</pre>
+</div>
+
+
+<p>Now, changing directory in the shell becomes a whole world easier:</p>
+
+<div class='highlight'><pre><span class="s1">tomw@fellini:~<span class='nv'>$ </span></span><span class='nb'>cd </span>super-secret-app
+~/Projects/apps/super-secret-app
+<span class="s1">tomw@fellini:~/Projects/apps/super-secret-app<span class='nv'>$ </span></span><span class='nb'>cd </span>Documents
+~/Documents
+<span class="s1">tomw@fellini:~/Documents<span class='nv'>$ </span></span><span class='nb'>cd </span>tomafro.net
+~/Projects/sites/tomafro.net
+<span class="s1">tomw@fellini:~/Projects/sites/tomafro.net <span class='err'>$</span></span>
+</pre>
+</div>
+
+
+<p>I've already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/10"> 6th October 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a> &middot; <a href="/tags/cdpath" rel="tag">cdpath</a></span>
+  </div>
+</article>
+
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
+    <p>Another simple shell function, this time just for OS X.<br/>
+</p>
+
+<p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
+
+<div class="highlight"><pre>tab <span class="o">()</span> <span class="o">{</span>
+  osascript 2&gt;/dev/null <span class="s">&lt;&lt;EOF</span>
+<span class="s">    tell application &quot;System Events&quot;</span>
+<span class="s">      tell process &quot;Terminal&quot; to keystroke &quot;t&quot; using command down</span>
+<span class="s">    end</span>
+<span class="s">    tell application &quot;Terminal&quot;</span>
+<span class="s">      activate</span>
+<span class="s">      do script with command &quot;cd $PWD; $*&quot; in window 1</span>
+<span class="s">    end tell</span>
+<span class="s">  EOF</span>
+<span class="o">}</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">19th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a></span>
+  </div>
+</article>
+
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h2>
+    <p>I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.</p>
+
+<p>Here's my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
+
+<p>So typing <code>gem &lt;tab&gt;</code> gives a list of possible commands, whilst <code>gem open &lt;tab&gt;</code> will complete with the names of the currently installed gems.</p>
+
+<div class="highlight"><pre><span class="c">#compdef gem</span>
+
+_gem_commands <span class="o">()</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$gem_commands</span> <span class="o">]]</span> ; <span class="k">then</span>
+<span class="k">    </span><span class="nv">gem_commands</span><span class="o">=</span><span class="k">$(</span>gem <span class="nb">help </span>commands | grep <span class="s1">&#39;^    [a-z]&#39;</span> | cut -d <span class="s2">&quot; &quot;</span> -f 5<span class="k">)</span>
+  <span class="k">fi</span>
+  
+  <span class="c"># This seems unnecessary, but if I try to set gem_commands to an array, it falls over.</span>
+ 
+  <span class="nb">typeset</span> -a gem_command_array
+  <span class="nv">gem_command_array</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$gem_commands</span><span class="k">)</span><span class="o">)</span>
+  compadd <span class="nv">$gem_command_array</span>
+<span class="o">}</span>
+ 
+_installed_gems <span class="o">()</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$installed_gems</span> <span class="o">]]</span> ; <span class="k">then</span>
+<span class="k">    </span><span class="nv">installed_gems</span><span class="o">=(</span><span class="k">$(</span>gem list | grep <span class="s1">&#39;^[A-Za-z]&#39;</span> | cut -d <span class="s2">&quot; &quot;</span> -f 1<span class="k">)</span><span class="o">)</span>
+  <span class="k">fi</span>
+<span class="k">  </span>
+<span class="k">  </span><span class="nb">typeset</span> -a installed_gem_array
+  <span class="nv">installed_gem_array</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$installed_gems</span><span class="k">)</span><span class="o">)</span>
+  compadd <span class="nv">$installed_gem_array</span>
+<span class="o">}</span>
+ 
+<span class="k">if</span> <span class="o">((</span> <span class="nv">CURRENT</span> <span class="o">==</span> 2 <span class="o">))</span>; <span class="k">then</span>
+<span class="k">  </span>_gem_commands
+<span class="k">else</span>
+<span class="k">  if</span> <span class="o">[[</span> <span class="nv">$words</span><span class="o">[</span>2<span class="o">]</span> <span class="o">==</span> open <span class="o">||</span> <span class="nv">$words</span><span class="o">[</span>2<span class="o">]</span> <span class="o">==</span> update <span class="o">]]</span> ; <span class="k">then</span>
+<span class="k">    </span>_installed_gems
+  <span class="k">fi</span>
+<span class="k">fi</span>
+</pre>
+</div>
+
+
+<p>As it's a first attempt, it's a long way from perfect.  I've <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I'd appreciate any advice or improvements.  Specifically I'd like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I'd also like to know a better way to check if the given command is in the list <code>[open, update]</code>.<br/>
+</p>
+
+<p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">14th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/completion" rel="tag">completion</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
+  </div>
+</article>
+
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h2>
+    <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
+
+<div class="highlight"><pre><span class="c"># Create and move to a directory in a single command</span>
+<span class="c"># Usage: take ~/Projects/tools/awesometer</span>
+
+take<span class="o">()</span> <span class="o">{</span>
+  mkdir -p <span class="nv">$1</span>
+  <span class="nb">cd</span> <span class="nv">$1</span>
+<span class="o">}</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">12th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/peepcode" rel="tag">peepcode</a></span>
+  </div>
+</article>
+
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h2>
+    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
+
+<div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
+<span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
+
+tm<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">cd</span> <span class="nv">$1</span>
+  mate <span class="nv">$1</span>
+<span class="o">}</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08"> 7th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/textmate" rel="tag">textmate</a></span>
+  </div>
+</article>
+
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h2>
+    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
+
+<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
+
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.<br/>
+</p>
+
+<p>Here's the code:</p>
+
+<div class="highlight"><pre><span class="k">case</span> <span class="nv">$system_name</span> in
+  Darwin*<span class="o">)</span>
+    <span class="nb">source</span> ~/.houseshare/zsh/kernel/darwin.zsh
+    ;;
+  *<span class="o">)</span>
+    <span class="nb">source</span> ~/.houseshare/zsh/kernel/linux.zsh
+    ;;;
+<span class="k">esac</span>
+</pre>
+</div>
+
+
+<p>As I said, simple.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08"> 3rd August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
+  </div>
+</article>
+
+
+    </div>
+  </div>
+</body>	
+</html>

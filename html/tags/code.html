@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Posts tagged with code &middot; tomafro.net</title>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net/tags/code"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+</head>
+<body>  
+  <div id="container">
+    <header class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </header>
+    <div id="main">
+      
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h2>
+    <p>Run this code in a rails console to list foreign keys which aren't indexed.</p>
+
+<div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span>
+<span class="n">c</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>  
+  <span class="n">columns</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">columns</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:name</span><span class="p">)</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">ends_with?</span><span class="p">(</span><span class="s2">&quot;_id&quot;</span> <span class="o">||</span> <span class="n">x</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="s2">&quot;_type&quot;</span><span class="p">))}</span>
+  <span class="n">indexed_columns</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">indexes</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:columns</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="o">.</span><span class="n">uniq</span>
+  <span class="n">unindexed</span> <span class="o">=</span> <span class="n">columns</span> <span class="o">-</span> <span class="n">indexed_columns</span>
+  <span class="k">unless</span> <span class="n">unindexed</span><span class="o">.</span><span class="n">empty?</span>
+    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">t</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">unindexed</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>This list will look something like this:</p>
+
+<div class="highlight"><pre>attachments: parent_id, asset_id
+domain_names: organisation_id
+event_memberships: user_id, event_id
+events: editor_id
+group_actions: user_id, group_id
+groups: user_id
+icons: parent_id
+invitations: sender_id
+legacy_actions: item_upon_id
+news_items: author_id
+organisations: midas_id
+pages: author_id
+pending_event_memberships: invitation_id, event_id
+resources: user_id, resourceable_id
+subscriptions: subscribable_id, user_id
+taggings: tag_id, taggable_id, user_id
+</pre>
+</div>
+
+
+<p>For each column in the list, ask yourself why you don't need an index.</p>
+
+<p><em>Update:</em> Andrew Coleman has <a href="http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes">added output in migration format</a>.  If you want to play around with it further, <a href="http://gist.github.com/191181">here's the original code on gist</a>.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/09">22nd September 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/code" rel="tag">code</a></span>
+  </div>
+</article>
+
+
+    </div>
+  </div>
+</body>	
+</html>

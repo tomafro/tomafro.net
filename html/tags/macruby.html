@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Posts tagged with macruby &middot; tomafro.net</title>
+  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+  <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+  <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
+  <link rel="canonical" href="http://tomafro.net/tags/macruby"/>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-1103395-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+          'http://www') + '.google-analytics.com/ga.js';
+      ga.setAttribute('async', 'true');
+      document.documentElement.firstChild.appendChild(ga);
+    })();
+  </script>
+  
+</head>
+<body>  
+  <div id="container">
+    <header class="menubar">
+      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
+    </header>
+    <div id="main">
+      
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h2>
+    <p>Whilst playing around with the very exciting <a href="http://macruby.org">macruby</a> last weekend, I thought I'd try building a web page screenshot grabber, based on <a href="http://www.bencurtis.com/?p=128">Ben Curtis' code</a>.  The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
+
+<div class="highlight"><pre><span class="n">framework</span> <span class="s1">&#39;Cocoa&#39;</span>
+<span class="n">framework</span> <span class="s1">&#39;WebKit&#39;</span>
+
+<span class="k">class</span> <span class="nc">Snapper</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:options</span><span class="p">,</span> <span class="ss">:view</span><span class="p">,</span> <span class="ss">:window</span>
+  
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="vi">@options</span> <span class="o">=</span> <span class="n">options</span>
+    <span class="n">initialize_view</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setFrameLoadDelegate</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+    <span class="c1"># Tell the webView what URL to load.</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="no">NSURLRequest</span><span class="o">.</span><span class="n">requestWithURL</span><span class="p">(</span><span class="no">NSURL</span><span class="o">.</span><span class="n">URLWithString</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">loadRequest</span> <span class="n">req</span>
+    
+    <span class="k">while</span> <span class="n">view</span><span class="o">.</span><span class="n">isLoading</span>  <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">timed_out?</span>
+      <span class="no">NSRunLoop</span><span class="o">.</span><span class="n">currentRunLoop</span><span class="o">.</span><span class="n">runUntilDate</span> <span class="no">NSDate</span><span class="o">.</span><span class="n">date</span>
+    <span class="k">end</span>
+    
+    <span class="k">if</span> <span class="vi">@failedLoading</span>
+      <span class="nb">puts</span> <span class="s2">&quot;Failed to load page at: </span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span>
+      <span class="n">docView</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span><span class="o">.</span><span class="n">frameView</span><span class="o">.</span><span class="n">documentView</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setContentSize</span><span class="p">(</span><span class="n">docView</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">setFrame</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+    
+      <span class="n">docView</span><span class="o">.</span><span class="n">setNeedsDisplay</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">displayIfNeeded</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">lockFocus</span>
+    
+      <span class="n">bitmap</span> <span class="o">=</span> <span class="no">NSBitmapImageRep</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithFocusedViewRect</span><span class="p">(</span><span class="n">docView</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">unlockFocus</span>
+
+      <span class="c1"># Write the bitmap to a file as a PNG</span>
+      <span class="n">representation</span> <span class="o">=</span> <span class="n">bitmap</span><span class="o">.</span><span class="n">representationUsingType</span><span class="p">(</span><span class="no">NSPNGFileType</span><span class="p">,</span> <span class="n">properties</span><span class="ss">:nil</span><span class="p">)</span>
+      <span class="n">representation</span><span class="o">.</span><span class="n">writeToFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">atomically</span><span class="ss">:true</span><span class="p">)</span>
+      <span class="n">bitmap</span><span class="o">.</span><span class="n">release</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  
+  <span class="kp">private</span>
+  
+  <span class="k">def</span> <span class="nf">webView</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">didFailLoadWithError</span><span class="ss">:error</span><span class="p">,</span> <span class="n">forFrame</span><span class="ss">:frame</span><span class="p">)</span>
+    <span class="vi">@failedLoading</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">webView</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">didFailProvisionalLoadWithError</span><span class="ss">:error</span><span class="p">,</span> <span class="n">forFrame</span><span class="ss">:frame</span><span class="p">)</span>
+    <span class="vi">@failedLoading</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">initialize_view</span>
+    <span class="no">NSApplication</span><span class="o">.</span><span class="n">sharedApplication</span>    
+    
+    <span class="nb">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="no">WebView</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithFrame</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">600</span><span class="o">]</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="no">NSWindow</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithContentRect</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">600</span><span class="o">]</span><span class="p">,</span>
+      <span class="n">styleMask</span><span class="ss">:NSBorderlessWindowMask</span><span class="p">,</span> <span class="n">backing</span><span class="ss">:NSBackingStoreBuffered</span><span class="p">,</span> <span class="n">defer</span><span class="ss">:false</span><span class="p">)</span>
+      
+    <span class="n">window</span><span class="o">.</span><span class="n">setContentView</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>    
+    <span class="c1"># Use the screen stylesheet, rather than the print one.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setMediaStyle</span><span class="p">(</span><span class="s1">&#39;screen&#39;</span><span class="p">)</span>
+    <span class="c1"># Set the user agent to Safari, to ensure we get back the exactly the same content as </span>
+    <span class="c1"># if we browsed directly to the page</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setCustomUserAgent</span> <span class="s1">&#39;Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-us)&#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10&#39;</span>
+    <span class="c1"># Make sure we don&#39;t save any of the prefs that we change.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setAutosaves</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="c1"># Set some useful options.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setShouldPrintBackgrounds</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setJavaScriptCanOpenWindowsAutomatically</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setAllowsAnimatedImages</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="c1"># Make sure we don&#39;t get a scroll bar.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span><span class="o">.</span><span class="n">frameView</span><span class="o">.</span><span class="n">setAllowsScrolling</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">timed_out?</span>
+    <span class="vi">@start</span> <span class="o">||=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+    <span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span> <span class="o">-</span> <span class="vi">@start</span><span class="o">.</span><span class="n">to_i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">options</span><span class="o">[</span><span class="ss">:timeout</span><span class="o">]</span> <span class="o">||</span> <span class="mi">30</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>To use:</p>
+
+<div class="highlight"><pre><span class="n">macruby</span> <span class="o">-</span><span class="n">r</span> <span class="n">snapper</span><span class="o">.</span><span class="n">rb</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;Snapper.new.save(&#39;http://tomafro.net&#39;, &#39;tomafro.net.png&#39;)&quot;</span>
+</pre>
+</div>
+
+
+<p>The next step is to add some command line options, then try compilation and deployment with <code>macrubyc</code> and <code>macruby_deploy</code></p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11">30th November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/macruby" rel="tag">macruby</a> &middot; <a href="/tags/screenshots" rel="tag">screenshots</a> &middot; <a href="/tags/web" rel="tag">web</a> &middot; <a href="/tags/osx" rel="tag">osx</a></span>
+  </div>
+</article>
+
+
+    </div>
+  </div>
+</body>	
+</html>
