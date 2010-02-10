@@ -1,8 +1,22 @@
 ---
 layout: post
 title: "How to easily use Rails 3 now"
-tags: [ruby, rails-3, gems]
+tags: [ruby, rails3, gems]
 ---
+<div class="update">
+<h3>Update 10th February 2010:</h3>
+The instructions below were useful earlier in the development cycle.  Now the <a href="http://weblog.rubyonrails.org/2010/2/5/rails-3-0-beta-release">beta gem has been released</a>, the process is much easier:
+
+
+<div class="highlight"><pre>gem uninstall bundler
+gem install tzinfo builder memcache-client rack rack-test rack-mount 
+gem install erubis mail text-format thor bundler i18n
+gem install rails --pre
+</pre>
+</div>
+
+</div>
+
 Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.
 
 First, install rails main dependencies:
