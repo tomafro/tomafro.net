@@ -1,10 +1,23 @@
+@serif: "ff-tisa-web-pro-1","ff-tisa-web-pro-2";
+@sans-serif: "ff-dagny-web-pro-1","ff-dagny-web-pro-2";
+
+.rounded-corners (@radius: 0.3em) {
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  border-radius: @radius;
+}
+
 body {
 	margin: 0;
 	padding: 0;
-	font: 18px  "ff-dagny-web-pro-1","ff-dagny-web-pro-2";
+	font: 18px @sans-serif;
 	line-height: 1.7em;
 	color: black;
 	background: white;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: @serif
 }
 
 #container {
@@ -40,8 +53,7 @@ div.update {
   padding: 0.5em;
   margin-top: 1em;
   margin-bottom: 1em;
-  -moz-border-radius: 0.3em;
-  -webkit-border-radius: 0.3em;
+  .rounded-corners;
 }
 
 .update h3 {
@@ -56,7 +68,6 @@ div.update {
 
 h2 {
   font-size: 1.8em;
-  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2";
   font-weight: 100;
   line-height: 1.2em;
   border-bottom: 1px solid #ddd;
@@ -87,8 +98,7 @@ code {
   padding-left: 0.2em;
   padding-right: 0.2em;
   border: 1px solid #e0e0e0;
-  -moz-border-radius: 0.2em;
-  -webkit-border-radius: 0.2em;
+  .rounded-corners(0.2em);
 }
 
 .highlight {
@@ -101,12 +111,11 @@ code {
   padding-left: 0.2em;
   padding-right: 0.2em;
   border: 1px solid #e0e0e0;
-  -moz-border-radius: 0.2em;
-  -webkit-border-radius: 0.2em;	
+  .rounded-corners(0.2em);	
 }
 
 .meta {
-  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2";
+  font-family: @sans-serif;
   font-size: 0.9em;
   font-weight: bold;
   color: #999;
@@ -156,8 +165,7 @@ pre {
   display: block;
   color: white;
   background: #222;
-  -moz-border-radius: 0.3em;
-  -webkit-border-radius: 0.3em;
+  .rounded-corners;
   padding: 0.6em;
 }
 		
