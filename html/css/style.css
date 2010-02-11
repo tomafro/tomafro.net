@@ -158,3 +158,9 @@ pre {
 }
 .related p { margin-top: 0.4em; }
 .content p { margin-bottom: 1.3em; }
+.s1, .s2, .sx, .mi { color: #aec4eb; }
+.nb, .k, .o, .kp { color: #c4ebae; }
+.ss { color: #ffcf87; }
+.nf { color: #ffffa0; }
+.vi { color: #ff9f9d; }
+.c, .c1 { color: #a0a0a0; }
