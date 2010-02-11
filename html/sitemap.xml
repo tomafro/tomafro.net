@@ -55,6 +55,11 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>http://tomafro.net/2010/02/rails-3-direct-column-reader</loc>
+    <lastmod>2010-02-11</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>http://tomafro.net/2009/05/an-objective-c-implementation-of-active-supports-inflector</loc>
     <lastmod>2009-05-28</lastmod>
     <changefreq>monthly</changefreq>

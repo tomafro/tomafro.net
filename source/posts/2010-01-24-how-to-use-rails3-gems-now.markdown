@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to easily use Rails 3 now"
-tags: [ruby, rails3, gems]
+tags: [ruby, rails, rails3, gems]
 ---
 <div class="update">
 <h3>Update 10th February 2010:</h3>

@@ -2,12 +2,81 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2010-02-11T09:11:47+00:00</updated>
+ <updated>2010-02-11T11:11:39+00:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
    <email>tom@popdog.net</email>
  </author>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2010/02/rails-3-direct-column-reader"/>
+   <title>Rails 3 direct column reader</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;Whilst trying to get my head around &lt;a href=&quot;http://github.com/brynary/arel&quot;&gt;arel&lt;/a&gt; and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I &lt;a href=&quot;http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class&quot;&gt;introduced last year&lt;/a&gt;.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.&lt;/p&gt;
+
+&lt;p&gt;Here's the updated code:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ColumnReader&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;column_reader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pluralize&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns_hash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+  
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module_eval&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;      def self.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;        query = scoped.arel.project(arel_table[:&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;        connection.select_all(query.to_sql).collect do |value| &lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;          v = value.values.first&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type_cast_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;v&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;        end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;      end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;    }&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The code isn't that different, though using &lt;code&gt;scoped&lt;/code&gt; over &lt;code&gt;construct_finder_sql&lt;/code&gt; feels a lot nicer.  If you've got suggestions for improvement, please (gist away)[http://gist.github.com/301420].&lt;/p&gt;
+
+&lt;p&gt;Usage is similar to before, only using the new rails 3 syntax:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Animal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;column_reader&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;id&amp;#39;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;column_reader&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;  
+ 
+  &lt;span class=&quot;n&quot;&gt;named_scope&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:dangerous&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:conditions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:carnivorous&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; 
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; [&amp;#39;Lion&amp;#39;, &amp;#39;Tiger&amp;#39;, &amp;#39;Zebra&amp;#39;, &amp;#39;Gazelle&amp;#39;]&lt;/span&gt;
+ 
+&lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; 
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; [&amp;#39;Lion&amp;#39;] (Normal finder options supported)&lt;/span&gt;
+ 
+&lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dangerous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; 
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; [&amp;#39;Lion&amp;#39;, &amp;#39;Tiger&amp;#39;] (Scoping respected)&lt;/span&gt;
+ 
+&lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ids&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; [1, 2, 3] (Values cast correctly)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I'm still not entirely convinced of the value of this helper, so if you find a good use, please (tweet me)[http://twitter.com/tomafro].  Enjoy!&lt;/p&gt;
+</content>
+   <updated>2010-02-11T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
+   <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
+ </entry>
  
  <entry>
    <id>http://tomafro.net</id>
@@ -62,6 +131,7 @@ rake install
 </content>
    <updated>2010-01-24T00:00:00+00:00</updated>
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
    <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
    <category scheme="http://tomafro.net/tags/" term="gems" label="gems" />
  </entry>
@@ -591,44 +661,6 @@ taggings: tag_id, taggable_id, user_id
    <category scheme="http://tomafro.net/tags/" term="indexes" label="indexes" />
    <category scheme="http://tomafro.net/tags/" term="sql" label="sql" />
    <category scheme="http://tomafro.net/tags/" term="code" label="code" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/08/tip-open-new-tab-in-osx-terminal"/>
-   <title>Tip: Open new tab in OS X Terminal</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;Another simple shell function, this time just for OS X.&lt;br/&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Usage is simple: &lt;code&gt;tab &amp;lt;command&amp;gt;&lt;/code&gt; opens a new tab in Terminal, and runs the given command in the current working directory.  For example &lt;code&gt;tab script/server&lt;/code&gt; would open a new tab and run &lt;code&gt;script/server&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;tab &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  osascript 2&amp;gt;/dev/null &lt;span class=&quot;s&quot;&gt;&amp;lt;&amp;lt;EOF&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;    tell application &amp;quot;System Events&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;      tell process &amp;quot;Terminal&amp;quot; to keystroke &amp;quot;t&amp;quot; using command down&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;    end&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;    tell application &amp;quot;Terminal&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;      activate&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;      do script with command &amp;quot;cd $PWD; $*&amp;quot; in window 1&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;    end tell&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  EOF&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-
-</content>
-   <updated>2009-08-19T00:00:00+01:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
-   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
-   <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
-   <category scheme="http://tomafro.net/tags/" term="osx" label="osx" />
-   <category scheme="http://tomafro.net/tags/" term="terminal" label="terminal" />
  </entry>
  
 </feed>

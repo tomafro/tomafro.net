@@ -35,6 +35,123 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h2>
+    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
+
+<p>Here's the updated code:</p>
+
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">ColumnReader</span>
+  <span class="k">def</span> <span class="nf">column_reader</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="ss">:as</span><span class="p">)</span> <span class="o">||</span> <span class="n">column_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">pluralize</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">columns_hash</span><span class="o">[</span><span class="n">column_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">]</span>
+  
+    <span class="nb">self</span><span class="o">.</span><span class="n">module_eval</span> <span class="sx">%{</span>
+<span class="sx">      def self.</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        query = scoped.arel.project(arel_table[:</span><span class="si">#{</span><span class="n">column_name</span><span class="si">}</span><span class="sx">])</span>
+<span class="sx">        connection.select_all(query.to_sql).collect do |value| </span>
+<span class="sx">          v = value.values.first</span>
+<span class="sx">          </span><span class="si">#{</span><span class="n">column</span><span class="o">.</span><span class="n">type_cast_code</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">)</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        end</span>
+<span class="sx">      end</span>
+<span class="sx">    }</span>
+  <span class="k">end</span>
+
+  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>The code isn't that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you've got suggestions for improvement, please (gist away)[http://gist.github.com/301420].</p>
+
+<p>Usage is similar to before, only using the new rails 3 syntax:</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Animal</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">column_reader</span> <span class="s1">&#39;id&#39;</span>
+  <span class="n">column_reader</span> <span class="s1">&#39;name&#39;</span>  
+ 
+  <span class="n">named_scope</span> <span class="ss">:dangerous</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:carnivorous</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">}</span> 
+<span class="k">end</span>
+
+<span class="no">Animal</span><span class="o">.</span><span class="n">names</span> 
+<span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;, &#39;Zebra&#39;, &#39;Gazelle&#39;]</span>
+ 
+<span class="no">Animal</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">names</span> 
+<span class="c1">#=&gt; [&#39;Lion&#39;] (Normal finder options supported)</span>
+ 
+<span class="no">Animal</span><span class="o">.</span><span class="n">dangerous</span><span class="o">.</span><span class="n">names</span> 
+<span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;] (Scoping respected)</span>
+ 
+<span class="no">Animal</span><span class="o">.</span><span class="n">ids</span>
+<span class="c1">#=&gt; [1, 2, 3] (Values cast correctly)</span>
+</pre>
+</div>
+
+
+<p>I'm still not entirely convinced of the value of this helper, so if you find a good use, please (tweet me)[http://twitter.com/tomafro].  Enjoy!</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2010/02">11th February 2010</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a></span>
+  </div>
+</article>
+
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2010/01/how-to-use-rails3-gems-now">How to easily use Rails 3 now</a></h2>
+    <div class="update">
+<h3>Update 10th February 2010:</h3>
+The instructions below were useful earlier in the development cycle.  Now the <a href="http://weblog.rubyonrails.org/2010/2/5/rails-3-0-beta-release">beta gem has been released</a>, the process is much easier:
+
+
+<div class="highlight"><pre>gem uninstall bundler
+gem install tzinfo builder memcache-client rack rack-test rack-mount 
+gem install erubis mail text-format thor bundler i18n
+gem install rails --pre
+</pre>
+</div>
+
+</div>
+
+
+<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
+
+<p>First, install rails main dependencies:</p>
+
+<div class="highlight"><pre>gem install rake rack bundler
+gem install arel --version 0.2.pre
+</pre>
+</div>
+
+
+<p>Next, get the latest rails code from github, and install the rails gems.  There may be a few errors you can safely ignore:</p>
+
+<div class="highlight"><pre>git clone git://github.com/rails/rails.git
+<span class="nb">cd </span>rails
+rake install
+</pre>
+</div>
+
+
+<p>And bang, you can start your first rails 3 project:</p>
+
+<div class="highlight"><pre>rails ~/apps/playground/rails3 
+</pre>
+</div>
+
+
+<p>Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2010/01">24th January 2010</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/gems" rel="tag">gems</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
     <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
