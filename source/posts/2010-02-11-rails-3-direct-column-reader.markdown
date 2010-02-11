@@ -28,7 +28,7 @@ module ColumnReader
 end
 {% endhighlight %}
 
-The code isn't that different, though using `scoped` over `construct_finder_sql` feels a lot nicer.  If you've got suggestions for improvement, please [gist away](http://gist.github.com/301420). 
+The code isn't that different, though using `scoped` over `construct_finder_sql` feels a lot nicer.  If you've got suggestions for improvement [gist away](http://gist.github.com/301420). 
 
 Usage is similar to before, only using the new rails 3 syntax:
 
@@ -53,4 +53,4 @@ Animal.ids
 #=> [1, 2, 3] (Values cast correctly)
 {% endhighlight %}
 
-I'm still not entirely convinced of the value of this helper, so if you find a good use, please [tweet me](http://twitter.com/tomafro).  Enjoy!
+I'm still not entirely convinced of the value of this helper, so if you find a good use [tweet me](http://twitter.com/tomafro).  Enjoy!
