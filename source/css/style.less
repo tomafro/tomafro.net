@@ -17,7 +17,8 @@ body {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: @serif
+  font-family: @serif;
+  font-weight: normal;
 }
 
 #container {
@@ -48,8 +49,12 @@ header {
   padding-top: 0.3em;
 }
 
+article {
+  display: block;
+}
+
 div.update {
-  background: #ddeeff;
+  background: #ffdddd;
   padding: 0.5em;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -68,7 +73,6 @@ div.update {
 
 h2 {
   font-size: 1.8em;
-  font-weight: 100;
   line-height: 1.2em;
   border-bottom: 1px solid #ddd;
   padding-bottom: 0.2em;
@@ -78,18 +82,17 @@ h2 {
 
 h3 {
   font-size: 1.3em;
-  font-weight: normal;
 }
 
 h1 {
   font-size: 2em;
   font-weight: normal;
 	border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
 }
 
-h1, article {
-  padding-bottom: 8px;
-	margin-bottom: 48px;
+article {
+  padding-bottom: 48px;
 }
 
 code {
@@ -115,7 +118,7 @@ code {
 }
 
 .meta {
-  font-family: @sans-serif;
+  font-family: @serif;
   font-size: 0.9em;
   font-weight: bold;
   color: #999;
