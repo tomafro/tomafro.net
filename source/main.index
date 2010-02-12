@@ -1,0 +1,16 @@
+---
+layout: default
+title: "Tom Ward's blog"
+description: "Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"
+---
+{% paginate pages in site.posts.by_date.reversed size:5 %}
+  {% if pagination.first %}
+    {% assign path = '/index.html' %}
+  {% else %}
+    {% assign number = pagination.page %}
+    {% assign url = '/:number' %}
+    {% assign path = ':url.html' %}
+  {% endif %}
+  
+  {% render 'index' with pages:pages url:url path:path title:title description:description %}
+{% endpaginate %}
