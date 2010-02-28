@@ -55,6 +55,11 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>http://tomafro.net/2010/02/updated-rails-template-for-bundler</loc>
+    <lastmod>2010-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>http://tomafro.net/2010/02/rails-3-direct-column-reader</loc>
     <lastmod>2010-02-11</lastmod>
     <changefreq>monthly</changefreq>

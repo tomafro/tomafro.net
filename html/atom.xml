@@ -2,12 +2,129 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2010-02-12T15:45:18+00:00</updated>
+ <updated>2010-02-28T16:08:45+00:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
    <email>tom@popdog.net</email>
  </author>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2010/02/updated-rails-template-for-bundler"/>
+   <title>An updated rails template for gem bundler</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;A few months ago I wrote &lt;a href=&quot;http://tomafro.net/2009/11/a-rails-template-for-gem-bundler&quot;&gt;a rails template for gem bundler&lt;/a&gt;. Since then, bundler has changed a lot, and my template no longer works. Here then is an updated version, based on &lt;a href=&quot;http://gist.github.com/302406&quot;&gt;this gist&lt;/a&gt; from &lt;a href=&quot;http://arko.net/&quot;&gt;Andre Arko&lt;/a&gt;.  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.&lt;/p&gt;
+
+&lt;p&gt;The first step is to install the latest bundler.  At the time of writing, this was 0.9.9.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bundler&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Now you should be able to run the template, either on a new project, or on an existing rails 2.3.5 project.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb &amp;lt;project&amp;gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you'll need to remove the old hooks in &lt;code&gt;config/preinitializer.rb&lt;/code&gt; and &lt;code&gt;config/environment.rb&lt;/code&gt;, and the &lt;code&gt;gems&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;h3&gt;Explaining the template, step by step&lt;/h3&gt;
+
+
+&lt;p&gt;The first step creates the project &lt;code&gt;Gemfile&lt;/code&gt;, with rails available in all environments, and ruby-debug included in development.  If the project has other gems, they should be added here, rather than using rails own &lt;code&gt;config.gem&lt;/code&gt; mechanism.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Gemfile&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;source &amp;#39;http://rubygems.org&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt;gem &amp;#39;rails&amp;#39;, &amp;#39;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;STRING&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt;group :development do&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  gem &amp;#39;ruby-debug&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The next step is get bundler to load correctly.  This is done in two stages.  First, in &lt;code&gt;config\preinitializer.rb&lt;/code&gt; bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.&lt;br/&gt;
+&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;  
+&lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/config/preinitializer.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;begin&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  # Require the preresolved locked set of gems.&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  require File.expand_path(&amp;#39;../../.bundle/environment&amp;#39;, __FILE__)&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;rescue LoadError&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  # Fallback on doing the resolve at runtime.&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  require &amp;quot;rubygems&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  require &amp;quot;bundler&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  if Bundler::VERSION &amp;lt;= &amp;quot;0.9.5&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;    raise RuntimeError, &amp;quot;Bundler incompatible.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;quot; +&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;      &amp;quot;Your bundler version is incompatible with Rails 2.3 and an unlocked bundle.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;quot; +&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;      &amp;quot;Run `gem install bundler` to upgrade or `bundle lock` to lock.&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  else&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;    Bundler.setup&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Second, the rails boot process is modified to start the bundler environment.  This 'requires' all gems in the bundle, letting them run initialisation code.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;config/boot.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Rails.boot!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;  &lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;class Rails::Boot&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt; def run&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;   load_initializer&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;   extend_environment&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;   Rails::Initializer.run(:set_load_path)&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt; end&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt; def extend_environment&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;   Rails::Initializer.class_eval do&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;     old_load = instance_method(:load_environment)&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;     define_method(:load_environment) do&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;       Bundler.require :default, Rails.env&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;       old_load.bind(self).call&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;     end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;   end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt; end&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;sx&quot;&gt;Rails.boot!&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;All that's left now is a little cleaning up.  The &lt;code&gt;.bundle&lt;/code&gt; folder should never be checked into the code repository as it holds machine-local configuration, so it's added to &lt;code&gt;.gitignore&lt;/code&gt;.  Finally, &lt;code&gt;bundle install&lt;/code&gt; is run to fetch the bundled gems.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/.gitignore&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;/.bundle&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bundle install&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;And that's it.  I hope you find it useful.&lt;/p&gt;
+</content>
+   <updated>2010-02-28T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
+   <category scheme="http://tomafro.net/tags/" term="bundler" label="bundler" />
+ </entry>
  
  <entry>
    <id>http://tomafro.net</id>
@@ -388,7 +505,13 @@ rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html">&lt;p&gt;Following Nick Quaranto's article &lt;a href=&quot;http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/&quot;&gt;'Gem Bundler is the Future'&lt;/a&gt;, I was inspired to try out &lt;a href=&quot;http://github.com/wycats/bundler&quot;&gt;bundler&lt;/a&gt; on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.&lt;/p&gt;
+   <content type="html">&lt;div class=&quot;update&quot;&gt;
+&lt;h3&gt;Update 28th February 2010:&lt;/h3&gt;
+Bundler has changed a lot since I first wrote this template, so I've &lt;a href=&quot;/2010/02/updated-rails-template-for-gem-bundler&quot;&gt;written a new version&lt;/a&gt;.  Please use the updated version rather than the one below.
+&lt;/div&gt;
+
+
+&lt;p&gt;Following Nick Quaranto's article &lt;a href=&quot;http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/&quot;&gt;'Gem Bundler is the Future'&lt;/a&gt;, I was inspired to try out &lt;a href=&quot;http://github.com/wycats/bundler&quot;&gt;bundler&lt;/a&gt; on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.&lt;/p&gt;
 
 &lt;p&gt;Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I've  made a rails template to do the hard work.&lt;/p&gt;
 
@@ -604,63 +727,6 @@ rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&
    <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
    <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
    <category scheme="http://tomafro.net/tags/" term="from-param" label="from-param" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/09/quickly-list-missing-foreign-key-indexes"/>
-   <title>Quickly list missing foreign key indexes</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;Run this code in a rails console to list foreign keys which aren't indexed.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connection&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tables&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ends_with?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ends_with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;_type&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))}&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;indexed_columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;indexes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatten&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uniq&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;unindexed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexed_columns&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unindexed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty?&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unindexed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;, &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;This list will look something like this:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;attachments: parent_id, asset_id
-domain_names: organisation_id
-event_memberships: user_id, event_id
-events: editor_id
-group_actions: user_id, group_id
-groups: user_id
-icons: parent_id
-invitations: sender_id
-legacy_actions: item_upon_id
-news_items: author_id
-organisations: midas_id
-pages: author_id
-pending_event_memberships: invitation_id, event_id
-resources: user_id, resourceable_id
-subscriptions: subscribable_id, user_id
-taggings: tag_id, taggable_id, user_id
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;For each column in the list, ask yourself why you don't need an index.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Update:&lt;/em&gt; Andrew Coleman has &lt;a href=&quot;http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes&quot;&gt;added output in migration format&lt;/a&gt;.  If you want to play around with it further, &lt;a href=&quot;http://gist.github.com/191181&quot;&gt;here's the original code on gist&lt;/a&gt;.&lt;/p&gt;
-</content>
-   <updated>2009-09-22T00:00:00+01:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="databases" label="databases" />
-   <category scheme="http://tomafro.net/tags/" term="indexes" label="indexes" />
-   <category scheme="http://tomafro.net/tags/" term="sql" label="sql" />
-   <category scheme="http://tomafro.net/tags/" term="code" label="code" />
  </entry>
  
 </feed>

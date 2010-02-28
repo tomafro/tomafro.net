@@ -35,6 +35,118 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2010/02/updated-rails-template-for-bundler">An updated rails template for gem bundler</a></h2>
+    <p>A few months ago I wrote <a href="http://tomafro.net/2009/11/a-rails-template-for-gem-bundler">a rails template for gem bundler</a>. Since then, bundler has changed a lot, and my template no longer works. Here then is an updated version, based on <a href="http://gist.github.com/302406">this gist</a> from <a href="http://arko.net/">Andre Arko</a>.  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.</p>
+
+<p>The first step is to install the latest bundler.  At the time of writing, this was 0.9.9.</p>
+
+<div class="highlight"><pre><span class="n">gem</span> <span class="n">install</span> <span class="n">bundler</span>
+</pre>
+</div>
+
+
+<p>Now you should be able to run the template, either on a new project, or on an existing rails 2.3.5 project.</p>
+
+<div class="highlight"><pre>rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb &lt;project&gt;
+</pre>
+</div>
+
+
+<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you'll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
+
+<h3>Explaining the template, step by step</h3>
+
+
+<p>The first step creates the project <code>Gemfile</code>, with rails available in all environments, and ruby-debug included in development.  If the project has other gems, they should be added here, rather than using rails own <code>config.gem</code> mechanism.</p>
+
+<div class="highlight"><pre><span class="n">file</span> <span class="s1">&#39;Gemfile&#39;</span><span class="p">,</span> <span class="sx">%{</span>
+<span class="sx">source &#39;http://rubygems.org&#39;</span>
+
+<span class="sx">gem &#39;rails&#39;, &#39;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">::</span><span class="no">VERSION</span><span class="o">::</span><span class="no">STRING</span><span class="si">}</span><span class="sx">&#39;</span>
+
+<span class="sx">group :development do</span>
+<span class="sx">  gem &#39;ruby-debug&#39;</span>
+<span class="sx">end</span>
+<span class="sx">}</span><span class="o">.</span><span class="n">strip</span>
+</pre>
+</div>
+
+
+<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.<br/>
+</p>
+
+<div class="highlight"><pre>  
+<span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
+<span class="sx">begin</span>
+<span class="sx">  # Require the preresolved locked set of gems.</span>
+<span class="sx">  require File.expand_path(&#39;../../.bundle/environment&#39;, __FILE__)</span>
+<span class="sx">rescue LoadError</span>
+<span class="sx">  # Fallback on doing the resolve at runtime.</span>
+<span class="sx">  require &quot;rubygems&quot;</span>
+<span class="sx">  require &quot;bundler&quot;</span>
+<span class="sx">  if Bundler::VERSION &lt;= &quot;0.9.5&quot;</span>
+<span class="sx">    raise RuntimeError, &quot;Bundler incompatible.</span><span class="se">\n</span><span class="sx">&quot; +</span>
+<span class="sx">      &quot;Your bundler version is incompatible with Rails 2.3 and an unlocked bundle.</span><span class="se">\n</span><span class="sx">&quot; +</span>
+<span class="sx">      &quot;Run `gem install bundler` to upgrade or `bundle lock` to lock.&quot;</span>
+<span class="sx">  else</span>
+<span class="sx">    Bundler.setup</span>
+<span class="sx">  end</span>
+<span class="sx">end</span>
+<span class="sx">}</span><span class="o">.</span><span class="n">strip</span>
+</pre>
+</div>
+
+
+<p>Second, the rails boot process is modified to start the bundler environment.  This 'requires' all gems in the bundle, letting them run initialisation code.</p>
+
+<div class="highlight"><pre><span class="n">gsub_file</span> <span class="s1">&#39;config/boot.rb&#39;</span><span class="p">,</span> <span class="s2">&quot;Rails.boot!&quot;</span><span class="p">,</span> <span class="sx">%{</span>
+<span class="sx">  </span>
+<span class="sx">class Rails::Boot</span>
+<span class="sx"> def run</span>
+<span class="sx">   load_initializer</span>
+<span class="sx">   extend_environment</span>
+<span class="sx">   Rails::Initializer.run(:set_load_path)</span>
+<span class="sx"> end</span>
+
+<span class="sx"> def extend_environment</span>
+<span class="sx">   Rails::Initializer.class_eval do</span>
+<span class="sx">     old_load = instance_method(:load_environment)</span>
+<span class="sx">     define_method(:load_environment) do</span>
+<span class="sx">       Bundler.require :default, Rails.env</span>
+<span class="sx">       old_load.bind(self).call</span>
+<span class="sx">     end</span>
+<span class="sx">   end</span>
+<span class="sx"> end</span>
+<span class="sx">end</span>
+
+<span class="sx">Rails.boot!</span>
+<span class="sx">}</span>
+</pre>
+</div>
+
+
+<p>All that's left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it's added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
+
+<div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
+<span class="sx">/.bundle</span>
+<span class="sx">}</span>
+
+<span class="n">run</span> <span class="s1">&#39;bundle install&#39;</span>
+</pre>
+</div>
+
+
+<p>And that's it.  I hope you find it useful.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2010/02">28th February 2010</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h2>
     <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
 
@@ -293,27 +405,6 @@ rake install
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/11">30th November 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/macruby" rel="tag">macruby</a> &middot; <a href="/tags/screenshots" rel="tag">screenshots</a> &middot; <a href="/tags/web" rel="tag">web</a> &middot; <a href="/tags/osx" rel="tag">osx</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></h2>
-    <p>In the Terminal run:</p>
-
-<div class="highlight"><pre>defaults write NSGlobalDomain NSUserKeyEquivalents <span class="s1">&#39;{&quot;Zoom&quot; = &quot;@^Z&quot;; &quot;Zoom Window&quot; = &quot;@^Z&quot;; }&#39;</span>
-</pre>
-</div>
-
-
-<p>Quit and relaunch your applications, and <span class='osx-shortcut'>⌃⌘Z</span> should zoom and unzoom.</p>
-
-<p>Stolen from <a href="http://www.macosxhints.com/article.php?story=20051227001809626">macoshints.com</a>, posted here for my own benefit.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11"> 6th November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/keyboard" rel="tag">keyboard</a> &middot; <a href="/tags/shortcut" rel="tag">shortcut</a> &middot; <a href="/tags/zoom" rel="tag">zoom</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a></span>
   </div>
 </article>
 

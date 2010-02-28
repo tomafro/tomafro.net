@@ -3,6 +3,11 @@ layout: post
 title: A rails template for gem bundler
 tags: [ruby, rails, gem, bundler]
 ---
+<div class="update">
+<h3>Update 28th February 2010:</h3>
+Bundler has changed a lot since I first wrote this template, so I've <a href="/2010/02/updated-rails-template-for-gem-bundler">written a new version</a>.  Please use the updated version rather than the one below.
+</div>
+
 Following Nick Quaranto's article ['Gem Bundler is the Future'](http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/), I was inspired to try out [bundler](http://github.com/wycats/bundler) on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.
 
 Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I've  made a rails template to do the hard work.
