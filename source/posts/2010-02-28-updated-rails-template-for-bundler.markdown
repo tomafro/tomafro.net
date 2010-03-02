@@ -3,7 +3,7 @@ layout: post
 title: An updated rails template for gem bundler
 tags: [ruby, rails, gem, bundler]
 ---
-A few months ago I wrote [a rails template for gem bundler](http://tomafro.net/2009/11/a-rails-template-for-gem-bundler). Since then, bundler has changed a lot, and my template no longer works. Here then is an updated version, based on [this gist](http://gist.github.com/302406) from [Andre Arko](http://arko.net/).  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.
+A few months ago I wrote [a rails template for gem bundler](http://tomafro.net/2009/11/a-rails-template-for-gem-bundler). Since then, bundler has changed a lot, and my template no longer works. [Here then is an updated version](http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb), based on [this gist](http://gist.github.com/302406) from [Andre Arko](http://arko.net/).  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.
 
 The first step is to install the latest bundler.  At the time of writing, this was 0.9.9.
 
