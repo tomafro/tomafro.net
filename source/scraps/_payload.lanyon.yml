@@ -1,0 +1,4 @@
+--- 
+path: "scrapbook/:year/:month/:permalink"
+url: ":path.html"
+draft: true
