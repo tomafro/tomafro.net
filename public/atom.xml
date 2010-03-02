@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2010-03-01T09:00:14+00:00</updated>
+ <updated>2010-03-02T09:04:42+00:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
@@ -17,7 +17,7 @@
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html">&lt;p&gt;A few months ago I wrote &lt;a href=&quot;http://tomafro.net/2009/11/a-rails-template-for-gem-bundler&quot;&gt;a rails template for gem bundler&lt;/a&gt;. Since then, bundler has changed a lot, and my template no longer works. Here then is an updated version, based on &lt;a href=&quot;http://gist.github.com/302406&quot;&gt;this gist&lt;/a&gt; from &lt;a href=&quot;http://arko.net/&quot;&gt;Andre Arko&lt;/a&gt;.  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.&lt;/p&gt;
+   <content type="html">&lt;p&gt;A few months ago I wrote &lt;a href=&quot;http://tomafro.net/2009/11/a-rails-template-for-gem-bundler&quot;&gt;a rails template for gem bundler&lt;/a&gt;. Since then, bundler has changed a lot, and my template no longer works. &lt;a href=&quot;http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb&quot;&gt;Here then is an updated version&lt;/a&gt;, based on &lt;a href=&quot;http://gist.github.com/302406&quot;&gt;this gist&lt;/a&gt; from &lt;a href=&quot;http://arko.net/&quot;&gt;Andre Arko&lt;/a&gt;.  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.&lt;/p&gt;
 
 &lt;p&gt;The first step is to install the latest bundler.  At the time of writing, this was 0.9.9.&lt;/p&gt;
 

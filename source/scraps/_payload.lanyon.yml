@@ -1,4 +1,4 @@
 --- 
-path: "scrapbook/:year/:month/:permalink"
-url: ":path.html"
+path: ":url.html"
+url: "/scrapbook/:year/:month/:permalink"
 draft: true
