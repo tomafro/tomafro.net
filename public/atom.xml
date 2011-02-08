@@ -12,7 +12,7 @@
  <entry>
    <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2011/02/rails-3-column-reader-tweak"/>
-   <title>Rails 3 direct column reader</title>
+   <title>A home for my Active Record column reader</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
@@ -21,7 +21,7 @@
 
 &lt;p&gt;I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.&lt;/p&gt;
 
-&lt;p&gt;So here it is, as both &lt;a href=&quot;https://github.com/tomafro/rails-activerecord-columnreader&quot;&gt;a github repository&lt;/a&gt; and &lt;a href=&quot;https://github.com/tomafro/rails-activerecord-columnreader&quot;&gt;a gem&lt;/a&gt;.  Enjoy!&lt;/p&gt;
+&lt;p&gt;So here it is, as both &lt;a href=&quot;https://github.com/tomafro/rails-activerecord-columnreader&quot;&gt;a github repository&lt;/a&gt; and &lt;a href=&quot;http://rubygems.org/gems/activerecord-column-reader&quot;&gt;a gem&lt;/a&gt;.  Enjoy!&lt;/p&gt;
 </content>
    <updated>2011-02-08T00:00:00+00:00</updated>
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
