@@ -273,8 +273,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <p>From this it's clear that there are more distinct created_at values, so we probably want to index this column first.  Note though that I said probably.  When deciding on indexes, there are no hard and fast rules.  Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.</p>
 
-<p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.<br/>
-</p>
+<p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.</p>
 
   </div>
   <div class="meta">
@@ -292,8 +291,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <h3>A brief overview of database indexes</h3>
 
-<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.<br/>
-</p>
+<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.</p>
 
 <p>For every index on a table, there is a penalty both when inserting and updating rows.  Indexes also take up space on disk and in memory, which can affect the efficiency of queries.  Finally, having too many indexes can cause databases to choose between them poorly, actually harming performance rather than improving it.</p>
 
@@ -392,7 +390,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 <span class="n">add_column</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="ss">:subject_type</span><span class="p">,</span> <span class="ss">:string</span>
 
 <span class="n">create_table</span> <span class="ss">:artworks</span> <span class="k">do</span> <span class="o">|</span><span class="n">table</span><span class="o">|</span>
-  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">:title</span>
+  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">Posts tagged with sql</span>
 <span class="k">end</span>
 
 <span class="k">class</span> <span class="nc">Artwork</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>

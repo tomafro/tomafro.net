@@ -35,6 +35,31 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h2>
+    <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
+
+<div class="highlight"><pre><span class="c"># Create and move to a directory in a single command</span>
+<span class="c"># Usage: take ~/Projects/tools/awesometer</span>
+
+take<span class="o">()</span> <span class="o">{</span>
+  mkdir -p <span class="nv">$1</span>
+  <span class="nb">cd</span> <span class="nv">$1</span>
+<span class="o">}</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">12th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/peepcode" rel="tag">peepcode</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h2>
     <p>Many rails developers are great at building applications but have limited experience in database design.  As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.</p>
 
@@ -42,8 +67,7 @@
 
 <h3>A brief overview of database indexes</h3>
 
-<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.<br/>
-</p>
+<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.</p>
 
 <p>For every index on a table, there is a penalty both when inserting and updating rows.  Indexes also take up space on disk and in memory, which can affect the efficiency of queries.  Finally, having too many indexes can cause databases to choose between them poorly, actually harming performance rather than improving it.</p>
 
@@ -142,7 +166,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 <span class="n">add_column</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="ss">:subject_type</span><span class="p">,</span> <span class="ss">:string</span>
 
 <span class="n">create_table</span> <span class="ss">:artworks</span> <span class="k">do</span> <span class="o">|</span><span class="n">table</span><span class="o">|</span>
-  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">:title</span>
+  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">Tom Ward's blog</span>
 <span class="k">end</span>
 
 <span class="k">class</span> <span class="nc">Artwork</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
@@ -261,8 +285,7 @@ tm<span class="o">()</span> <span class="o">{</span>
 
 <article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h2>
-    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.<br/>
-</p>
+    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.</p>
 
 <p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I'd investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
 
@@ -293,8 +316,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </pre>
 
 
-<p>So neither jruby nor ruby 1.9 incur this penalty.<br/>
-</p>
+<p>So neither jruby nor ruby 1.9 incur this penalty.</p>
 
 <p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn't matter either way.</p>
 
@@ -312,8 +334,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 
 <p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
-<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.<br/>
-</p>
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
 
 <p>Here's the code:</p>
 
@@ -336,21 +357,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08"> 3rd August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/07/salvador-dali-on-whats-my-line">Salvador Dali on "What's My Line?"</a></h2>
-    <p class="video">
-<object width="800" height="630"><param name="movie" value="http://www.youtube.com/v/iXT2E9Ccc8A&amp;hl=en&amp;fs=1&amp;rel=0&amp;color1=0x3a3a3a&amp;color2=0x999999"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/iXT2E9Ccc8A&amp;hl=en&amp;fs=1&amp;rel=0&amp;color1=0x3a3a3a&amp;color2=0x999999" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="800" height="630"></embed></object>
-</p>
-
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/07">10th July 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/salvador-dali" rel="tag">salvador-dali</a> &middot; <a href="/tags/whats-my-line" rel="tag">whats-my-line</a> &middot; <a href="/tags/tv" rel="tag">tv</a> &middot; <a href="/tags/youtube" rel="tag">youtube</a></span>
   </div>
 </article>
 

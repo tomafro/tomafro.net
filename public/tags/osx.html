@@ -163,8 +163,7 @@
 
 <article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
-    <p>Another simple shell function, this time just for OS X.<br/>
-</p>
+    <p>Another simple shell function, this time just for OS X.</p>
 
 <p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
 
@@ -224,8 +223,7 @@ tm<span class="o">()</span> <span class="o">{</span>
 
 <p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
-<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.<br/>
-</p>
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
 
 <p>Here's the code:</p>
 

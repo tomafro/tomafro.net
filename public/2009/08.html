@@ -35,8 +35,7 @@
       
 <article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
-    <p>Another simple shell function, this time just for OS X.<br/>
-</p>
+    <p>Another simple shell function, this time just for OS X.</p>
 
 <p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
 
@@ -254,8 +253,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <p>From this it's clear that there are more distinct created_at values, so we probably want to index this column first.  Note though that I said probably.  When deciding on indexes, there are no hard and fast rules.  Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.</p>
 
-<p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.<br/>
-</p>
+<p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.</p>
 
   </div>
   <div class="meta">
@@ -308,8 +306,7 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-<p>As it's a first attempt, it's a long way from perfect.  I've <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I'd appreciate any advice or improvements.  Specifically I'd like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I'd also like to know a better way to check if the given command is in the list <code>[open, update]</code>.<br/>
-</p>
+<p>As it's a first attempt, it's a long way from perfect.  I've <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I'd appreciate any advice or improvements.  Specifically I'd like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I'd also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
 
 <p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
 
@@ -354,8 +351,7 @@ take<span class="o">()</span> <span class="o">{</span>
 
 <h3>A brief overview of database indexes</h3>
 
-<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.<br/>
-</p>
+<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.</p>
 
 <p>For every index on a table, there is a penalty both when inserting and updating rows.  Indexes also take up space on disk and in memory, which can affect the efficiency of queries.  Finally, having too many indexes can cause databases to choose between them poorly, actually harming performance rather than improving it.</p>
 
@@ -454,7 +450,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 <span class="n">add_column</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="ss">:subject_type</span><span class="p">,</span> <span class="ss">:string</span>
 
 <span class="n">create_table</span> <span class="ss">:artworks</span> <span class="k">do</span> <span class="o">|</span><span class="n">table</span><span class="o">|</span>
-  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">:title</span>
+  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">Posts from 08/2009</span>
 <span class="k">end</span>
 
 <span class="k">class</span> <span class="nc">Artwork</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
@@ -573,8 +569,7 @@ tm<span class="o">()</span> <span class="o">{</span>
 
 <article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h2>
-    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.<br/>
-</p>
+    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.</p>
 
 <p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I'd investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
 
@@ -605,8 +600,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </pre>
 
 
-<p>So neither jruby nor ruby 1.9 incur this penalty.<br/>
-</p>
+<p>So neither jruby nor ruby 1.9 incur this penalty.</p>
 
 <p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn't matter either way.</p>
 
@@ -624,8 +618,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 
 <p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
-<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.<br/>
-</p>
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
 
 <p>Here's the code:</p>
 

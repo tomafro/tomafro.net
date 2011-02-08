@@ -39,8 +39,7 @@
 
 <p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
-<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.<br/>
-</p>
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
 
 <p>Here's the code:</p>
 

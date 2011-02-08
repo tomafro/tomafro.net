@@ -36,12 +36,11 @@
   <div class="content"><h2 class="title"><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h2>
     <p>Many rails developers are great at building applications but have limited experience in database design.  As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.</p>
 
-<p>To try and improve this I've planned a series of posts on indexes, targetted at rails developers.  In this first post I'll <a href="">introduce indexes and how to index your associations</a>, then I'll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
+<p>To try and improve this I've planned a series of posts on indexes, targetted at rails developers.  In this first post I'll <a href="/2009/08/using-indexes-in-rails-index-your-associations">introduce indexes and how to index your associations</a>, then I'll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
 
 <h3>A brief overview of database indexes</h3>
 
-<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.<br/>
-</p>
+<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.</p>
 
 <p>For every index on a table, there is a penalty both when inserting and updating rows.  Indexes also take up space on disk and in memory, which can affect the efficiency of queries.  Finally, having too many indexes can cause databases to choose between them poorly, actually harming performance rather than improving it.</p>
 

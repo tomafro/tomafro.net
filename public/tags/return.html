@@ -35,8 +35,7 @@
       
 <article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h2>
-    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.<br/>
-</p>
+    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.</p>
 
 <p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I'd investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
 
@@ -67,8 +66,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </pre>
 
 
-<p>So neither jruby nor ruby 1.9 incur this penalty.<br/>
-</p>
+<p>So neither jruby nor ruby 1.9 incur this penalty.</p>
 
 <p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn't matter either way.</p>
 

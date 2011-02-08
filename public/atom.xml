@@ -2,12 +2,34 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2010-03-02T09:04:42+00:00</updated>
+ <updated></updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
    <email>tom@popdog.net</email>
  </author>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2011/02/rails-3-column-reader-tweak"/>
+   <title>Rails 3 direct column reader</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://twitter.com/kraykray&quot;&gt;@kraykray&lt;/a&gt; was nice enough to let me know that Rails 3.03 had broken my column-reader code.&lt;/p&gt;
+
+&lt;p&gt;I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.&lt;/p&gt;
+
+&lt;p&gt;So here it is, as both &lt;a href=&quot;https://github.com/tomafro/rails-activerecord-columnreader&quot;&gt;a github repository&lt;/a&gt; and &lt;a href=&quot;https://github.com/tomafro/rails-activerecord-columnreader&quot;&gt;a gem&lt;/a&gt;.  Enjoy!&lt;/p&gt;
+</content>
+   <updated>2011-02-08T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
+   <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
+   <category scheme="http://tomafro.net/tags/" term="column-reader" label="column-reader" />
+ </entry>
  
  <entry>
    <id>http://tomafro.net</id>
@@ -17,7 +39,13 @@
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html">&lt;p&gt;A few months ago I wrote &lt;a href=&quot;http://tomafro.net/2009/11/a-rails-template-for-gem-bundler&quot;&gt;a rails template for gem bundler&lt;/a&gt;. Since then, bundler has changed a lot, and my template no longer works. &lt;a href=&quot;http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb&quot;&gt;Here then is an updated version&lt;/a&gt;, based on &lt;a href=&quot;http://gist.github.com/302406&quot;&gt;this gist&lt;/a&gt; from &lt;a href=&quot;http://arko.net/&quot;&gt;Andre Arko&lt;/a&gt;.  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.&lt;/p&gt;
+   <content type="html">&lt;div class=&quot;update&quot;&gt;
+&lt;h3&gt;Update 8th February 2011:&lt;/h3&gt;
+Bundler has changed a lot since I wrote these instructions.  Use them at your own risk!
+&lt;/div&gt;
+
+
+&lt;p&gt;A few months ago I wrote &lt;a href=&quot;http://tomafro.net/2009/11/a-rails-template-for-gem-bundler&quot;&gt;a rails template for gem bundler&lt;/a&gt;. Since then, bundler has changed a lot, and my template no longer works. &lt;a href=&quot;http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb&quot;&gt;Here then is an updated version&lt;/a&gt;, based on &lt;a href=&quot;http://gist.github.com/302406&quot;&gt;this gist&lt;/a&gt; from &lt;a href=&quot;http://arko.net/&quot;&gt;Andre Arko&lt;/a&gt;.  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.&lt;/p&gt;
 
 &lt;p&gt;The first step is to install the latest bundler.  At the time of writing, this was 0.9.9.&lt;/p&gt;
 
@@ -53,8 +81,7 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;The next step is get bundler to load correctly.  This is done in two stages.  First, in &lt;code&gt;config\preinitializer.rb&lt;/code&gt; bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.&lt;br/&gt;
-&lt;/p&gt;
+&lt;p&gt;The next step is get bundler to load correctly.  This is done in two stages.  First, in &lt;code&gt;config\preinitializer.rb&lt;/code&gt; bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;  
 &lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/config/preinitializer.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
@@ -193,6 +220,7 @@
    <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
    <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
    <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
+   <category scheme="http://tomafro.net/tags/" term="column-reader" label="column-reader" />
  </entry>
  
  <entry>
@@ -277,8 +305,7 @@ rake install
 &lt;/div&gt;
 
 
-&lt;p&gt;This works, but it's a bit clunky.&lt;br/&gt;
-&lt;/p&gt;
+&lt;p&gt;This works, but it's a bit clunky.&lt;/p&gt;
 
 &lt;p&gt;What I didn't realise until reading the rails source code the other day, is that &lt;code&gt;File.expand_path&lt;/code&gt; can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:&lt;/p&gt;
 
@@ -663,70 +690,6 @@ Bundler has changed a lot since I first wrote this template, so I've &lt;a href=
    <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
    <category scheme="http://tomafro.net/tags/" term="terminal" label="terminal" />
    <category scheme="http://tomafro.net/tags/" term="cdpath" label="cdpath" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/09/tip-the-case-for-from-param"/>
-   <title>Tip: The case for from_param</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;There's one small method I add to every new rails project I work on:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Tomafro::FromParam&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;from_param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:conditions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;primary_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Tomafro&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;FromParam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;In my controllers, where you might use &lt;code&gt;Model.find(params[:id])&lt;/code&gt; or &lt;code&gt;Model.find_by_id(params[:id)&lt;/code&gt;, I use &lt;code&gt;Model.from_param(params[:id])&lt;/code&gt; instead.&lt;/p&gt;
-
-&lt;p&gt;All three methods have almost the same behaviour, the only difference being the handling of missing records.  &lt;code&gt;find&lt;/code&gt; throws a RecordNotFound, while &lt;code&gt;find_by_id&lt;/code&gt; and &lt;code&gt;from_param&lt;/code&gt; return nil.  So why use &lt;code&gt;from_param&lt;/code&gt; over the others?&lt;/p&gt;
-
-&lt;p&gt;The answer comes when you want to change &lt;code&gt;to_param&lt;/code&gt;, the method rails uses to turn a record into a parameter.  It's a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so &lt;code&gt;/users/12452&lt;/code&gt; becomes &lt;code&gt;/users/tomafro&lt;/code&gt;.  In rails this is easy to achieve, by overriding the &lt;code&gt;to_param&lt;/code&gt; method:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;to_param&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nickname&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Rails will automatically use this method when generating routes, so &lt;code&gt;users_path(@user)&lt;/code&gt; will return &lt;code&gt;/users/tomafro&lt;/code&gt; as we'd like.  If I was using &lt;code&gt;find&lt;/code&gt; or &lt;code&gt;find_by_id&lt;/code&gt; in my controllers, I'd then have to go through each one and change it to &lt;code&gt;find_by_nickname&lt;/code&gt;.  Luckily though, I've used &lt;code&gt;from_param&lt;/code&gt;, so whenever I override &lt;code&gt;to_param&lt;/code&gt; I just have to remember to provide an equivalent implementation for &lt;code&gt;from_param&lt;/code&gt;, and my controllers will work without modification:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;from_param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:conditions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:nickname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;to_param&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nickname&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;I've been doing this for years, but it's hardly a new principle, to provide a &lt;code&gt;from&lt;/code&gt; method for every &lt;code&gt;to&lt;/code&gt; method.  There's &lt;a href=&quot;http://dev.rubyonrails.org/ticket/11505&quot;&gt;even an old ticket on trac&lt;/a&gt; asking for it, but it's been considered too trivial to add.&lt;br/&gt;
-&lt;/p&gt;
-
-&lt;p&gt;I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects.&lt;/p&gt;
-</content>
-   <updated>2009-09-23T00:00:00+01:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
-   <category scheme="http://tomafro.net/tags/" term="from-param" label="from-param" />
  </entry>
  
 </feed>
