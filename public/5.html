@@ -35,6 +35,38 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h2>
+    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
+
+<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
+
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
+
+<p>Here's the code:</p>
+
+<div class="highlight"><pre><span class="k">case</span> <span class="nv">$system_name</span> in
+  Darwin*<span class="o">)</span>
+    <span class="nb">source</span> ~/.houseshare/zsh/kernel/darwin.zsh
+    ;;
+  *<span class="o">)</span>
+    <span class="nb">source</span> ~/.houseshare/zsh/kernel/linux.zsh
+    ;;;
+<span class="k">esac</span>
+</pre>
+</div>
+
+
+<p>As I said, simple.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="date"><a href="/2009/08"> 3rd August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/07/salvador-dali-on-whats-my-line">Salvador Dali on "What's My Line?"</a></h2>
     <p class="video">
 <object width="800" height="630"><param name="movie" value="http://www.youtube.com/v/iXT2E9Ccc8A&amp;hl=en&amp;fs=1&amp;rel=0&amp;color1=0x3a3a3a&amp;color2=0x999999"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/iXT2E9Ccc8A&amp;hl=en&amp;fs=1&amp;rel=0&amp;color1=0x3a3a3a&amp;color2=0x999999" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="800" height="630"></embed></object>
@@ -233,20 +265,6 @@ yet-another-half-baked-idea.localhost            127.0.0.1
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/05">29th May 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/column-reader" rel="tag">column-reader</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/05/an-objective-c-implementation-of-active-supports-inflector">An Objective-C implementation of ActiveSupport's Inflector</a></h2>
-    <p>Over the last week I've been playing with Objective-C, for fun rather than profit.  Here's the first result of this dabbling - <a href="http://github.com/tomafro/ActiveSupportInflector/tree/master">an Objective-C implementation</a> of ActiveSupport's pluralize and singularize methods.</p>
-
-<p>It's my first piece of code in the language, so I'd appreciate comments and feedback.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/05">28th May 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/objective-c" rel="tag">objective-c</a> &middot; <a href="/tags/active-support" rel="tag">active-support</a> &middot; <a href="/tags/inflector" rel="tag">inflector</a></span>
   </div>
 </article>
 

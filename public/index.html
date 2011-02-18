@@ -35,6 +35,117 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2011/02/experimental-mongo-instrumentation">Experimental Mongo Instrumentation (for Rails 3)</a></h2>
+    <p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
+
+<div class="highlight"><pre>    Completed 200 OK in 6ms (Views 370.5ms | ActiveRecord: 2.3ms)
+</pre>
+</div>
+
+
+<p>We wanted to do the same for our Mongo accesses, just to give a rough idea as to what our requests were doing.  Luckily Rails 3 makes this relatively straightforward, providing hooks to instrument methods, subscribe to log messages and add information to the request log.  Here, then, is my first stab (mainly harvested from ActiveRecord):</p>
+
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">Mongo</span>
+  <span class="k">module</span> <span class="nn">Instrumentation</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">instrument</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="o">*</span><span class="nb">methods</span><span class="p">)</span>
+      <span class="n">clazz</span><span class="o">.</span><span class="n">module_eval</span> <span class="k">do</span>
+        <span class="nb">methods</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
+          <span class="nb">class_eval</span> <span class="sx">%{def </span><span class="si">#{</span><span class="n">m</span><span class="si">}</span><span class="sx">_with_instrumentation(*args)</span>
+<span class="sx">            ActiveSupport::Notifications.instrumenter.instrument &quot;mongo.mongo&quot;, :name =&gt; &quot;</span><span class="si">#{</span><span class="n">m</span><span class="si">}</span><span class="sx">&quot; do</span>
+<span class="sx">              </span><span class="si">#{</span><span class="n">m</span><span class="si">}</span><span class="sx">_without_instrumentation(*args)</span>
+<span class="sx">            end</span>
+<span class="sx">          end</span>
+<span class="sx">          }</span>
+
+          <span class="n">alias_method_chain</span> <span class="n">m</span><span class="p">,</span> <span class="ss">:instrumentation</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">class</span> <span class="nc">Railtie</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Railtie</span>
+      <span class="n">initializer</span> <span class="s2">&quot;mongo.instrumentation&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">app</span><span class="o">|</span>
+        <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">.</span><span class="n">instrument</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">Collection</span><span class="p">,</span> <span class="ss">:find</span><span class="p">,</span> <span class="ss">:save</span><span class="p">,</span> <span class="ss">:insert</span><span class="p">,</span> <span class="ss">:update</span>
+        <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">.</span><span class="n">instrument</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">DB</span><span class="p">,</span> <span class="ss">:command</span>
+
+        <span class="no">ActiveSupport</span><span class="o">.</span><span class="n">on_load</span><span class="p">(</span><span class="ss">:action_controller</span><span class="p">)</span> <span class="k">do</span>
+          <span class="kp">include</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">::</span><span class="no">ControllerRuntime</span>
+        <span class="k">end</span>
+
+        <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">::</span><span class="no">LogSubscriber</span><span class="o">.</span><span class="n">attach_to</span> <span class="ss">:mongo</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">module</span> <span class="nn">ControllerRuntime</span>
+      <span class="kp">extend</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span>
+
+      <span class="kp">protected</span>
+
+      <span class="n">attr_internal</span> <span class="ss">:mongo_runtime</span>
+
+      <span class="k">def</span> <span class="nf">cleanup_view_runtime</span>
+        <span class="n">mongo_rt_before_render</span> <span class="o">=</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">::</span><span class="no">LogSubscriber</span><span class="o">.</span><span class="n">reset_runtime</span>
+        <span class="n">runtime</span> <span class="o">=</span> <span class="k">super</span>
+        <span class="n">mongo_rt_after_render</span> <span class="o">=</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">::</span><span class="no">LogSubscriber</span><span class="o">.</span><span class="n">reset_runtime</span>
+        <span class="nb">self</span><span class="o">.</span><span class="n">mongo_runtime</span> <span class="o">=</span> <span class="n">mongo_rt_before_render</span> <span class="o">+</span> <span class="n">mongo_rt_after_render</span>
+        <span class="n">runtime</span> <span class="o">-</span> <span class="n">mongo_rt_after_render</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">append_info_to_payload</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">super</span>
+        <span class="n">payload</span><span class="o">[</span><span class="ss">:mongo_runtime</span><span class="o">]</span> <span class="o">=</span> <span class="n">mongo_runtime</span>
+      <span class="k">end</span>
+
+      <span class="k">module</span> <span class="nn">ClassMethods</span>
+        <span class="k">def</span> <span class="nf">log_process_action</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+          <span class="n">messages</span><span class="p">,</span> <span class="n">mongo_runtime</span> <span class="o">=</span> <span class="k">super</span><span class="p">,</span> <span class="n">payload</span><span class="o">[</span><span class="ss">:mongo_runtime</span><span class="o">]</span>
+          <span class="n">messages</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="s2">&quot;Mongo: %.1fms&quot;</span> <span class="o">%</span> <span class="n">mongo_runtime</span><span class="o">.</span><span class="n">to_f</span><span class="p">)</span> <span class="k">if</span> <span class="n">mongo_runtime</span>
+          <span class="n">messages</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="k">class</span> <span class="nc">LogSubscriber</span> <span class="o">&lt;</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">LogSubscriber</span>
+      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">runtime</span><span class="o">=</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="no">Thread</span><span class="o">.</span><span class="n">current</span><span class="o">[</span><span class="s2">&quot;mongo_mongo_runtime&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">value</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">runtime</span>
+        <span class="no">Thread</span><span class="o">.</span><span class="n">current</span><span class="o">[</span><span class="s2">&quot;mongo_mongo_runtime&quot;</span><span class="o">]</span> <span class="o">||=</span> <span class="mi">0</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">reset_runtime</span>
+        <span class="n">rt</span><span class="p">,</span> <span class="nb">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">=</span> <span class="n">runtime</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="n">rt</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">mongo</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">runtime</span> <span class="o">+=</span> <span class="n">event</span><span class="o">.</span><span class="n">duration</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>It looks complicated, but it's actually pretty simple.  Data access methods in <code>Mongo::DB</code> and <code>Mongo::Collection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
+
+<div class="highlight"><pre>    Completed 200 OK in 838ms (Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms)
+</pre>
+</div>
+
+
+<p>It's just a first stab, so any comments and improvements are more then welcome.  It's <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="date"><a href="/2011/02">18th February 2011</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/mongo" rel="tag">mongo</a> &middot; <a href="/tags/instrumentation" rel="tag">instrumentation</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2011/02/rails-3-column-reader-tweak">A home for my Active Record column reader</a></h2>
     <p><a href="http://twitter.com/kraykray">@kraykray</a> was nice enough to let me know that Rails 3.03 had broken my column-reader code.</p>
 
@@ -281,43 +392,6 @@ rake install
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2010/01">24th January 2010</a></span>
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/gems" rel="tag">gems</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2010/01/tip-relative-paths-with-file-expand-path">Tip: Relative paths with File.expand_path</a></h2>
-    <p>You probably know about the <code>__FILE__</code> magic constant.  It holds the filename of the currently executing ruby source file, relative to the execution directory.  So with the following saved as <code>/code/examples/path_example.rb</code>:</p>
-
-<div class="highlight"><pre><span class="nb">puts</span> <span class="bp">__FILE__</span>
-</pre>
-</div>
-
-
-<p>Running this file from the <code>/code</code> folder will output <code>examples/path_example.rb</code></p>
-
-<p>This is often used to load files on paths relative to the current file.  The way I've used it before is like this:</p>
-
-<div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">))</span>
-</pre>
-</div>
-
-
-<p>This works, but it's a bit clunky.</p>
-
-<p>What I didn't realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
-
-<div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../config.yml&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
-</pre>
-</div>
-
-
-<p>Much simpler.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2010/01">23rd January 2010</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/file" rel="tag">file</a> &middot; <a href="/tags/expand-path" rel="tag">expand-path</a></span>
   </div>
 </article>
 

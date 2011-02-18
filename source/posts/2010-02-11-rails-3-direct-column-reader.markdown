@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Rails 3 direct column reader
-tags: [ruby, rails, rails3, active-record]
+tags: [ruby, rails, rails3, active-record, column-reader]
 ---
 Whilst trying to get my head around [arel](http://github.com/brynary/arel) and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I [introduced last year](http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class).  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.
 

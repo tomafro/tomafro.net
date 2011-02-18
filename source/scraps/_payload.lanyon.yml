@@ -1,4 +1,0 @@
---- 
-path: ":url.html"
-url: "/scrapbook/:year/:month/:permalink"
-draft: true
