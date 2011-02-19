@@ -11,14 +11,43 @@
  
  <entry>
    <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2011/02/rails-mongo-instrumentation-gem"/>
+   <title>Mongo instrumentation released as a gem</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://rubygems.org/gems/mongo-rails-instrumentation&quot;&gt;mongo-rails-instrumentation&lt;/a&gt; gem is available on rubygems, and the code is &lt;a href=&quot;https://github.com/tomafro/mongo-rails-instrumentation&quot;&gt;up on github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Adding it to a project is simple, just put the following in your &lt;code&gt;Gemfile&lt;/code&gt;, run &lt;code&gt;bundle install&lt;/code&gt; and restart your app.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;mongo-rails-instrumentation&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;~&amp;gt;0.1&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Please add any suggestions, improvements and comments to the code in github.  I hope people find it useful.&lt;/p&gt;
+</content>
+   <updated>2011-02-19T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
+   <category scheme="http://tomafro.net/tags/" term="mongo" label="mongo" />
+   <category scheme="http://tomafro.net/tags/" term="instrumentation" label="instrumentation" />
+ </entry>
+
+ <entry>
+   <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2011/02/experimental-mongo-instrumentation"/>
-   <title>Experimental Mongo Instrumentation (for Rails 3)</title>
+   <title>Experimental Mongo instrumentation (for Rails 3)</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
    <content type="html">&lt;div class=&quot;update&quot;&gt;
-Update: Changed to instrument methods on the `Mongo::Connection`
+Update: Changed to instrument methods on the Mongo::Connection
 &lt;/div&gt;
 
 
@@ -639,134 +668,6 @@ rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&
 
 </content>
    <updated>2009-11-05T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
-   <category scheme="http://tomafro.net/tags/" term="bundler" label="bundler" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/11/a-rails-template-for-gem-bundler"/>
-   <title>A rails template for gem bundler</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;div class=&quot;update&quot;&gt;
-&lt;h3&gt;Update 28th February 2010:&lt;/h3&gt;
-Bundler has changed a lot since I first wrote this template, so I've &lt;a href=&quot;/2010/02/updated-rails-template-for-gem-bundler&quot;&gt;written a new version&lt;/a&gt;.  Please use the updated version rather than the one below.
-&lt;/div&gt;
-
-
-&lt;p&gt;Following Nick Quaranto's article &lt;a href=&quot;http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/&quot;&gt;'Gem Bundler is the Future'&lt;/a&gt;, I was inspired to try out &lt;a href=&quot;http://github.com/wycats/bundler&quot;&gt;bundler&lt;/a&gt; on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.&lt;/p&gt;
-
-&lt;p&gt;Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I've  made a rails template to do the hard work.&lt;/p&gt;
-
-&lt;p&gt;Give it a try by running the following. You should be up and running in a couple of minutes:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb &amp;lt;project&amp;gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;That will give you a bundled project, ready for you to add your own gems.  Here's what each step of the template actually does:&lt;/p&gt;
-
-&lt;p&gt;Gem bundler is itself a gem.  It can't be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;inside&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;gems/bundler&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;  
-  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;git init&amp;#39;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;git pull --depth 1 git://github.com/wycats/bundler.git&amp;#39;&lt;/span&gt; 
-  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;rm -rf .git .gitignore&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Just having bundler installed is no good without any way to run it; a script is needed.  Once this is installed the local bundler can be run with &lt;code&gt;script/bundle &amp;lt;options&amp;gt;&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;script/bundle&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;#!/usr/bin/env ruby&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;path = File.expand_path(File.join(File.dirname(__FILE__), &amp;quot;..&amp;quot;, &amp;quot;gems/bundler/lib&amp;quot;))&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;$LOAD_PATH.unshift path&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;require &amp;#39;rubygems&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;require &amp;#39;rubygems/command&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;require &amp;#39;bundler&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;require &amp;#39;bundler/commands/bundle_command&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;Gem::Commands::BundleCommand.new.invoke(*ARGV)&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;chmod +x script/bundle&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Bundler uses Gemfiles to declare which gems are required in each environment.  This simple &lt;code&gt;Gemfile&lt;/code&gt; includes rails in all environments, and ruby-debug in all environments other than production:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Gemfile&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;clear_sources&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;source &amp;#39;http://gemcutter.org&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt;disable_system_gems&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt;bundle_path &amp;#39;gems&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt;gem &amp;#39;rails&amp;#39;, &amp;#39;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;STRING&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;gem &amp;#39;ruby-debug&amp;#39;, :except =&amp;gt; &amp;#39;production&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Most of the files bundler will place in the &lt;code&gt;gem&lt;/code&gt; path can be regenerated; they shouldn't be added to the project repository.  The only things that should be added are the &lt;code&gt;.gem&lt;/code&gt; files themselves, and the local copy of bundler.  All the rest should be ignored:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;.gitignore&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;gems/*&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;!gems/cache&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;!gems/bundler}&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;The bundle script needs to be run for the first time:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;script/bundle&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler's environment file before anything else:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/config/preinitializer.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;require File.expand_path(File.join(File.dirname(__FILE__), &amp;quot;..&amp;quot;, &amp;quot;gems&amp;quot;, &amp;quot;environment&amp;quot;))&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Second, rails initialization process is hijacked to require the correct bundler environment:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;config/environment.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;require File.join(File.dirname(__FILE__), &amp;#39;boot&amp;#39;)&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;require File.join(File.dirname(__FILE__), &amp;#39;boot&amp;#39;)&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt;# Hijack rails initializer to load the bundler gem environment before loading the rails environment.&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt;Rails::Initializer.module_eval do&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  alias load_environment_without_bundler load_environment&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  &lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  def load_environment&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;    Bundler.require_env configuration.environment&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;    load_environment_without_bundler&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;And that's it.  The project is now fully bundled.  More gems can be added to the &lt;code&gt;Gemfile&lt;/code&gt; and pulled into the project with &lt;code&gt;script/bundle&lt;/code&gt;.&lt;/p&gt;
-</content>
-   <updated>2009-11-03T00:00:00+00:00</updated>
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
    <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
    <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />

@@ -164,4 +164,9 @@
     <lastmod>2011-02-18</lastmod>
     <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>http://tomafro.net/2011/02/rails-mongo-instrumentation-gem</loc>
+    <lastmod>2011-02-19</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>

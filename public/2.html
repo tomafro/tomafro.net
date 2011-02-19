@@ -35,6 +35,59 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2010/01/how-to-use-rails3-gems-now">How to easily use Rails 3 now</a></h2>
+    <div class="update">
+<h3>Update 10th February 2010:</h3>
+The instructions below were useful earlier in the development cycle.  Now the <a href="http://weblog.rubyonrails.org/2010/2/5/rails-3-0-beta-release">beta gem has been released</a>, the process is much easier:
+
+
+<div class="highlight"><pre>gem uninstall bundler
+gem install tzinfo builder memcache-client rack rack-test rack-mount
+gem install erubis mail text-format thor bundler i18n
+gem install rails --pre
+</pre>
+</div>
+
+</div>
+
+
+<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
+
+<p>First, install rails main dependencies:</p>
+
+<div class="highlight"><pre>gem install rake rack bundler
+gem install arel --version 0.2.pre
+</pre>
+</div>
+
+
+<p>Next, get the latest rails code from github, and install the rails gems.  There may be a few errors you can safely ignore:</p>
+
+<div class="highlight"><pre>git clone git://github.com/rails/rails.git
+<span class="nb">cd </span>rails
+rake install
+</pre>
+</div>
+
+
+<p>And bang, you can start your first rails 3 project:</p>
+
+<div class="highlight"><pre>rails ~/apps/playground/rails3
+</pre>
+</div>
+
+
+<p>Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="date"><a href="/2010/01">24th January 2010</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/gems" rel="tag">gems</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2010/01/tip-relative-paths-with-file-expand-path">Tip: Relative paths with File.expand_path</a></h2>
     <p>You probably know about the <code>__FILE__</code> magic constant.  It holds the filename of the currently executing ruby source file, relative to the execution directory.  So with the following saved as <code>/code/examples/path_example.rb</code>:</p>
 
@@ -250,129 +303,6 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
   <div class="meta">
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/11"> 5th November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h2>
-    <div class="update">
-<h3>Update 28th February 2010:</h3>
-Bundler has changed a lot since I first wrote this template, so I've <a href="/2010/02/updated-rails-template-for-gem-bundler">written a new version</a>.  Please use the updated version rather than the one below.
-</div>
-
-
-<p>Following Nick Quaranto's article <a href="http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/">'Gem Bundler is the Future'</a>, I was inspired to try out <a href="http://github.com/wycats/bundler">bundler</a> on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.</p>
-
-<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I've  made a rails template to do the hard work.</p>
-
-<p>Give it a try by running the following. You should be up and running in a couple of minutes:</p>
-
-<div class="highlight"><pre>rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb &lt;project&gt;
-</pre>
-</div>
-
-
-<p>That will give you a bundled project, ready for you to add your own gems.  Here's what each step of the template actually does:</p>
-
-<p>Gem bundler is itself a gem.  It can't be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
-
-<div class="highlight"><pre><span class="n">inside</span> <span class="s1">&#39;gems/bundler&#39;</span> <span class="k">do</span>  
-  <span class="n">run</span> <span class="s1">&#39;git init&#39;</span>
-  <span class="n">run</span> <span class="s1">&#39;git pull --depth 1 git://github.com/wycats/bundler.git&#39;</span> 
-  <span class="n">run</span> <span class="s1">&#39;rm -rf .git .gitignore&#39;</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>Just having bundler installed is no good without any way to run it; a script is needed.  Once this is installed the local bundler can be run with <code>script/bundle &lt;options&gt;</code>:</p>
-
-<div class="highlight"><pre><span class="n">file</span> <span class="s1">&#39;script/bundle&#39;</span><span class="p">,</span> <span class="sx">%{</span>
-<span class="sx">#!/usr/bin/env ruby</span>
-<span class="sx">path = File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems/bundler/lib&quot;))</span>
-<span class="sx">$LOAD_PATH.unshift path</span>
-<span class="sx">require &#39;rubygems&#39;</span>
-<span class="sx">require &#39;rubygems/command&#39;</span>
-<span class="sx">require &#39;bundler&#39;</span>
-<span class="sx">require &#39;bundler/commands/bundle_command&#39;</span>
-<span class="sx">Gem::Commands::BundleCommand.new.invoke(*ARGV)</span>
-<span class="sx">}</span><span class="o">.</span><span class="n">strip</span>
-
-<span class="n">run</span> <span class="s1">&#39;chmod +x script/bundle&#39;</span>
-</pre>
-</div>
-
-
-<p>Bundler uses Gemfiles to declare which gems are required in each environment.  This simple <code>Gemfile</code> includes rails in all environments, and ruby-debug in all environments other than production:</p>
-
-<div class="highlight"><pre><span class="n">file</span> <span class="s1">&#39;Gemfile&#39;</span><span class="p">,</span> <span class="sx">%{</span>
-<span class="sx">clear_sources</span>
-<span class="sx">source &#39;http://gemcutter.org&#39;</span>
-
-<span class="sx">disable_system_gems</span>
-
-<span class="sx">bundle_path &#39;gems&#39;</span>
-
-<span class="sx">gem &#39;rails&#39;, &#39;</span><span class="si">#{</span><span class="no">Rails</span><span class="o">::</span><span class="no">VERSION</span><span class="o">::</span><span class="no">STRING</span><span class="si">}</span><span class="sx">&#39;</span>
-<span class="sx">gem &#39;ruby-debug&#39;, :except =&gt; &#39;production&#39;</span>
-<span class="sx">}</span><span class="o">.</span><span class="n">strip</span>
-</pre>
-</div>
-
-
-<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn't be added to the project repository.  The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler.  All the rest should be ignored:</p>
-
-<div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
-<span class="sx">gems/*</span>
-<span class="sx">!gems/cache</span>
-<span class="sx">!gems/bundler}</span>
-</pre>
-</div>
-
-
-<p>The bundle script needs to be run for the first time:</p>
-
-<div class="highlight"><pre><span class="n">run</span> <span class="s1">&#39;script/bundle&#39;</span>
-</pre>
-</div>
-
-
-<p>Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler's environment file before anything else:</p>
-
-<div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
-<span class="sx">require File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems&quot;, &quot;environment&quot;))</span>
-<span class="sx">}</span>
-</pre>
-</div>
-
-
-<p>Second, rails initialization process is hijacked to require the correct bundler environment:</p>
-
-<div class="highlight"><pre><span class="n">gsub_file</span> <span class="s1">&#39;config/environment.rb&#39;</span><span class="p">,</span> <span class="s2">&quot;require File.join(File.dirname(__FILE__), &#39;boot&#39;)&quot;</span><span class="p">,</span> <span class="sx">%{</span>
-<span class="sx">require File.join(File.dirname(__FILE__), &#39;boot&#39;)</span>
-
-<span class="sx"># Hijack rails initializer to load the bundler gem environment before loading the rails environment.</span>
-
-<span class="sx">Rails::Initializer.module_eval do</span>
-<span class="sx">  alias load_environment_without_bundler load_environment</span>
-<span class="sx">  </span>
-<span class="sx">  def load_environment</span>
-<span class="sx">    Bundler.require_env configuration.environment</span>
-<span class="sx">    load_environment_without_bundler</span>
-<span class="sx">  end</span>
-<span class="sx">end</span>
-<span class="sx">}</span>
-</pre>
-</div>
-
-
-<p>And that's it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11"> 3rd November 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
   </div>
 </article>

@@ -34,9 +34,32 @@
     <div id="main">
       
 <article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/02/experimental-mongo-instrumentation">Experimental Mongo Instrumentation (for Rails 3)</a></h2>
+  <div class="content"><h2 class="title"><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h2>
+    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.</p>
+
+<p>The <a href="http://rubygems.org/gems/mongo-rails-instrumentation">mongo-rails-instrumentation</a> gem is available on rubygems, and the code is <a href="https://github.com/tomafro/mongo-rails-instrumentation">up on github</a>.</p>
+
+<p>Adding it to a project is simple, just put the following in your <code>Gemfile</code>, run <code>bundle install</code> and restart your app.</p>
+
+<div class="highlight"><pre>    <span class="n">gem</span> <span class="s1">&#39;mongo-rails-instrumentation&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt;0.1&#39;</span>
+</pre>
+</div>
+
+
+<p>Please add any suggestions, improvements and comments to the code in github.  I hope people find it useful.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="date"><a href="/2011/02">19th February 2011</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/mongo" rel="tag">mongo</a> &middot; <a href="/tags/instrumentation" rel="tag">instrumentation</a></span>
+  </div>
+</article>
+
+<article class="post">
+  <div class="content"><h2 class="title"><a href="/2011/02/experimental-mongo-instrumentation">Experimental Mongo instrumentation (for Rails 3)</a></h2>
     <div class="update">
-Update: Changed to instrument methods on the `Mongo::Connection`
+Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 

@@ -35,6 +35,78 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h2>
+    <p>If you're using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
+
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
+  <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">page_name</span>
+
+    <span class="k">when</span><span class="sr"> /the home page/</span>
+      <span class="n">root_path</span>
+    <span class="k">when</span><span class="sr"> /the new client page/</span>
+      <span class="n">new_client_path</span>
+    <span class="k">when</span><span class="sr"> /the clients page/</span>
+      <span class="n">clients_path</span>
+    <span class="c1"># Add more page name =&gt; path mappings here</span>
+    <span class="k">else</span>
+      <span class="k">raise</span> <span class="s2">&quot;Can&#39;t find mapping from </span><span class="se">\&quot;</span><span class="si">#{</span><span class="n">page_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> to a path.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+      <span class="s2">&quot;Now, go and add a mapping in features/support/paths.rb&quot;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">World</span><span class="p">(</span><span class="no">NavigationHelpers</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>This let's us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
+
+<p>By automatically matching some rails paths.  Here's the code:</p>
+
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
+  <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
+    <span class="k">case</span> <span class="n">page_name</span>
+
+    <span class="k">when</span><span class="sr"> /the home page/</span>
+      <span class="n">root_path</span>
+    <span class="c1"># Add more page name =&gt; path mappings here</span>
+    <span class="k">else</span>
+      <span class="k">if</span> <span class="n">path</span> <span class="o">=</span> <span class="n">match_rails_path_for</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
+        <span class="n">path</span>
+      <span class="k">else</span>
+        <span class="k">raise</span> <span class="s2">&quot;Can&#39;t find mapping from </span><span class="se">\&quot;</span><span class="si">#{</span><span class="n">page_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> to a path.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+        <span class="s2">&quot;Now, go and add a mapping in features/support/paths.rb&quot;</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">match_rails_path_for</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">page_name</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sr">/the (.*) page/</span><span class="p">)</span>
+      <span class="k">return</span> <span class="nb">send</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="vg">$1</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">_path&quot;</span> <span class="k">rescue</span> <span class="kp">nil</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">World</span><span class="p">(</span><span class="no">NavigationHelpers</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>What it does is pretty simple.  Given a page name <code>the clients page</code> (with no other matches defined) it will try and send <code>clients_path</code>.  If successful, then it returns the result, otherwise nil.</p>
+
+<p>Not the biggest improvement in the world, but it's made my cucumber tests just a little bit easier to write.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="date"><a href="/2009/05">13th May 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/cucumber" rel="tag">cucumber</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/testing" rel="tag">testing</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a></h2>
     <p>The latest version of <a href="http://rubygems.org/">rubygems</a> (1.3.2) now has an interface to add commands.  Making great use of this feature, <a href="http://endofline.wordpress.com/">Adam Sanderson</a> has written <a href="http://github.com/adamsanderson/open_gem">open_gem</a>, a simple but amazingly useful tool.</p>
 
