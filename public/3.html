@@ -35,6 +35,61 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
+    <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+
+<p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
+
+<p>The solution was obvious: build my own gems, and get bundler to use them.  Luckily, rails makes this an easy process.</p>
+
+<p>First, clone rails from github, and change to the 2-3-stable branch:</p>
+
+<div class="highlight"><pre>git clone git://github.com/rails/rails.git
+<span class="nb">cd </span>rails
+git co -b 2-3-stable origin/2-3-stable
+</pre>
+</div>
+
+
+<p>Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:</p>
+
+<div class="highlight"><pre><span class="nb">cd </span>actionmailer
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../actionpack
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activerecord
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activeresource
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../activesupport
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ../railties
+rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
+<span class="nb">cd</span> ..
+</pre>
+</div>
+
+
+<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.</p>
+
+<p>Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+
+<div class="highlight"><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11"> 5th November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h2>
     <div class="update">
 <h3>Update 28th February 2010:</h3>
@@ -57,9 +112,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 
 <p>Gem bundler is itself a gem.  It can't be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
 
-<div class="highlight"><pre><span class="n">inside</span> <span class="s1">&#39;gems/bundler&#39;</span> <span class="k">do</span>
+<div class="highlight"><pre><span class="n">inside</span> <span class="s1">&#39;gems/bundler&#39;</span> <span class="k">do</span>  
   <span class="n">run</span> <span class="s1">&#39;git init&#39;</span>
-  <span class="n">run</span> <span class="s1">&#39;git pull --depth 1 git://github.com/wycats/bundler.git&#39;</span>
+  <span class="n">run</span> <span class="s1">&#39;git pull --depth 1 git://github.com/wycats/bundler.git&#39;</span> 
   <span class="n">run</span> <span class="s1">&#39;rm -rf .git .gitignore&#39;</span>
 <span class="k">end</span>
 </pre>
@@ -151,7 +206,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/11"> 3rd November 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
   </div>
@@ -185,7 +240,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/10"> 6th October 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a> &middot; <a href="/tags/cdpath" rel="tag">cdpath</a></span>
   </div>
@@ -296,37 +351,6 @@ taggings: tag_id, taggable_id, user_id
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/09">22nd September 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/code" rel="tag">code</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
-    <p>Another simple shell function, this time just for OS X.</p>
-
-<p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
-
-<div class="highlight"><pre>tab <span class="o">()</span> <span class="o">{</span>
-  osascript 2&gt;/dev/null <span class="s">&lt;&lt;EOF</span>
-<span class="s">    tell application &quot;System Events&quot;</span>
-<span class="s">      tell process &quot;Terminal&quot; to keystroke &quot;t&quot; using command down</span>
-<span class="s">    end</span>
-<span class="s">    tell application &quot;Terminal&quot;</span>
-<span class="s">      activate</span>
-<span class="s">      do script with command &quot;cd $PWD; $*&quot; in window 1</span>
-<span class="s">    end tell</span>
-<span class="s">  EOF</span>
-<span class="o">}</span>
-</pre>
-</div>
-
-
-
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">19th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a></span>
   </div>
 </article>
 

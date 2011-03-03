@@ -35,6 +35,31 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h2>
+    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
+
+<div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
+<span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
+
+tm<span class="o">()</span> <span class="o">{</span>
+  <span class="nb">cd</span> <span class="nv">$1</span>
+  mate <span class="nv">$1</span>
+<span class="o">}</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08"> 7th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/textmate" rel="tag">textmate</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h2>
     <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.</p>
 
@@ -73,7 +98,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08"> 4th August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/micro-benchmark" rel="tag">micro-benchmark</a> &middot; <a href="/tags/return" rel="tag">return</a></span>
   </div>
@@ -105,7 +130,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08"> 3rd August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
   </div>
@@ -205,46 +230,6 @@ yet-another-half-baked-idea.localhost            127.0.0.1
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/07"> 8th July 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/dscl" rel="tag">dscl</a> &middot; <a href="/tags/development" rel="tag">development</a> &middot; <a href="/tags/shell" rel="tag">shell</a> &middot; <a href="/tags/reminder" rel="tag">reminder</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h2>
-    <p>For a long time I've had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
-
-<p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when <code>.irbrc</code> is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:</p>
-
-<div class="highlight"><pre><span class="no">Rails</span><span class="o">::</span><span class="no">Initializer</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-  <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">IRB</span><span class="p">)</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">gem</span> <span class="s1">&#39;faker&#39;</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">gem</span> <span class="s1">&#39;notahat-machinist&#39;</span><span class="p">,</span> <span class="ss">:lib</span> <span class="o">=&gt;</span> <span class="s1">&#39;machinist&#39;</span><span class="p">,</span> <span class="ss">:source</span> <span class="o">=&gt;</span> <span class="s2">&quot;http://gems.github.com&quot;</span>
-    <span class="no">IRB</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="ss">:IRB_RC</span><span class="o">]</span> <span class="o">=</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">RAILS_ROOT</span><span class="p">,</span> <span class="s2">&quot;config&quot;</span><span class="p">,</span> <span class="s2">&quot;console&quot;</span><span class="p">)</span> <span class="p">}</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>The key part is the line starting <code>IRB.conf[:IRB_RC]</code>, which tells <code>irb</code> to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I've set it to require <code>config/console.rb</code>, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in <code>script/console</code> sessions where I want these shortcuts, not in my general code.  Here it is:</p>
-
-<div class="highlight"><pre><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/../spec/blueprints.rb&quot;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">tomafro</span>
-  <span class="no">Account</span><span class="o">.</span><span class="n">find_by_login</span><span class="p">(</span><span class="s2">&quot;tomafro&quot;</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="k">def</span> <span class="nf">bbi</span>
-  <span class="no">Client</span><span class="o">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="s2">&quot;Big Bad Industries&quot;</span><span class="p">)</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/06">22nd June 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/irb" rel="tag">irb</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
   </div>
 </article>
 

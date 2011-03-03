@@ -1,0 +1,3 @@
+--- 
+url: "/:year/:month/:permalink"
+path: ":url.html"

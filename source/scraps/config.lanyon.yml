@@ -1,0 +1,3 @@
+--- 
+url: "/scrapbook/:year/:month/:permalink"
+path: ":url.html"

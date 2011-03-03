@@ -35,6 +35,37 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
+    <p>Another simple shell function, this time just for OS X.</p>
+
+<p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
+
+<div class="highlight"><pre>tab <span class="o">()</span> <span class="o">{</span>
+  osascript 2&gt;/dev/null <span class="s">&lt;&lt;EOF</span>
+<span class="s">    tell application &quot;System Events&quot;</span>
+<span class="s">      tell process &quot;Terminal&quot; to keystroke &quot;t&quot; using command down</span>
+<span class="s">    end</span>
+<span class="s">    tell application &quot;Terminal&quot;</span>
+<span class="s">      activate</span>
+<span class="s">      do script with command &quot;cd $PWD; $*&quot; in window 1</span>
+<span class="s">    end tell</span>
+<span class="s">  EOF</span>
+<span class="o">}</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">19th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a></h2>
     <p><a href="http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">The first part in this series of posts</a> looked at adding indexes to foreign keys, to improve the performance when navigating rails associations.  But many queries involve data other than just foreign keys.  With the judicious use of indexes, we can improve these too.</p>
 
@@ -58,8 +89,8 @@
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Conversation</span>
   <span class="n">belongs_to</span> <span class="ss">:user</span>
   <span class="n">belongs_to</span> <span class="ss">:subject</span><span class="p">,</span> <span class="ss">:polymorphic</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-
-  <span class="n">named_scope</span> <span class="ss">:in_language</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">language</span><span class="o">|</span>
+  
+  <span class="n">named_scope</span> <span class="ss">:in_language</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">language</span><span class="o">|</span> 
     <span class="p">{</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:language_code</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">}}</span>
   <span class="p">}</span>
 <span class="k">end</span>
@@ -76,7 +107,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | NULL          | NULL    | NULL  | 1000111 | Using where |
+| SIMPLE      | ref  | NULL          | NULL    | NULL  | 1000111 | Using where | 
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -91,7 +122,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where |
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where | 
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -101,7 +132,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 
 <p>In a real app we're unlikely to want to read all these rows at once, so let's do another quick comparison limiting the query to the first 100 rows:</p>
 
-<pre>Without the index:
+<pre>Without the index:  
 
 mysql> SELECT * FROM conversations WHERE language_code = 'en' LIMIT 100;
 100 rows in set (1.32 sec)
@@ -126,7 +157,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY c
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra                       |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
-| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort |
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort | 
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 1 row in set (0.00 sec)
 </pre>
@@ -143,7 +174,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY c
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra                       |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
-| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort |
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort | 
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 1 row in set (0.00 sec)
 </pre>
@@ -151,18 +182,18 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY c
 
 <p>It's pretty much exactly the same - still almost 4.5 seconds.  This is because MySQL can only use one index per table in a query.  It has to choose between the index on <code>language_code</code> and the one on <code>created_at</code>, and in this case chooses the language code index.  We can force it to use our other index for comparison:</p>
 
-<pre>mysql> SELECT * FROM conversations
-       USE INDEX(created_ix) WHERE language_code = 'en'
+<pre>mysql> SELECT * FROM conversations 
+       USE INDEX(created_ix) WHERE language_code = 'en' 
        ORDER BY created_at DESC LIMIT 100;
 100 rows in set (0.02 sec)
 
-mysql> EXPLAIN SELECT * FROM conversations
-       USE INDEX(created_ix) WHERE language_code = 'en'
+mysql> EXPLAIN SELECT * FROM conversations 
+       USE INDEX(created_ix) WHERE language_code = 'en' 
        ORDER BY created_at DESC LIMIT 100;
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra                       |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
-| SIMPLE      | ref  | created_ix    | 8       | const | 9903411 | Using where                 |
+| SIMPLE      | ref  | created_ix    | 8       | const | 9903411 | Using where                 | 
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 1 row in set (0.00 sec)
 </pre>
@@ -170,7 +201,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <p>Using a trick stolen from <a href="http://m.onkey.org/2009/8/6/use-index-with-active-record-finders">Pratik Naik (in the comments of his article)</a> we can force the use of a particular index in rails with a special named scope, and perform our query:</p>
 
-<div class="highlight"><pre><span class="no">Conversation</span><span class="o">.</span><span class="n">named_scope</span> <span class="ss">:use_index</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">index</span><span class="o">|</span>
+<div class="highlight"><pre><span class="no">Conversation</span><span class="o">.</span><span class="n">named_scope</span> <span class="ss">:use_index</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">index</span><span class="o">|</span> 
   <span class="p">{</span><span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">quoted_table_name</span><span class="si">}</span><span class="s2"> USE INDEX(</span><span class="si">#{</span><span class="n">index</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -194,13 +225,13 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <p>If we explain the query without forcing the index we find it is still efficient:</p>
 
-<pre>mysql> EXPLAIN SELECT * FROM conversations
-       WHERE language_code = 'en'
+<pre>mysql> EXPLAIN SELECT * FROM conversations 
+       WHERE language_code = 'en' 
        ORDER BY created_at DESC LIMIT 100;
 +-------------+------+----------------+---------+-------+---------+-----------------------------+
 | select_type | type | key            | key_len | ref   | rows    | Extra                       |
 +-------------+------+----------------+---------+-------+---------+-----------------------------+
-| SIMPLE      | ref  | lang_and_ca_ix |      48 | const |  640231 | Using where                 |
+| SIMPLE      | ref  | lang_and_ca_ix |      48 | const |  640231 | Using where                 | 
 +-------------+------+----------------+---------+-------+---------+-----------------------------+
 1 row in set (0.00 sec)
 </pre>
@@ -215,7 +246,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 +-------------------------------+----------------------------+
 | count(distinct language_code) | count(distinct created_at) |
 +-------------------------------+----------------------------+
-|                            21 |                     584089 |
+|                            21 |                     584089 | 
 +-------------------------------+----------------------------+
 1 row in set (1.90 sec)
 </pre>
@@ -227,7 +258,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08">18th August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
   </div>
@@ -247,14 +278,14 @@ _gem_commands <span class="o">()</span> <span class="o">{</span>
   <span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$gem_commands</span> <span class="o">]]</span> ; <span class="k">then</span>
 <span class="k">    </span><span class="nv">gem_commands</span><span class="o">=</span><span class="k">$(</span>gem <span class="nb">help </span>commands | grep <span class="s1">&#39;^    [a-z]&#39;</span> | cut -d <span class="s2">&quot; &quot;</span> -f 5<span class="k">)</span>
   <span class="k">fi</span>
-
+  
   <span class="c"># This seems unnecessary, but if I try to set gem_commands to an array, it falls over.</span>
-
+ 
   <span class="nb">typeset</span> -a gem_command_array
   <span class="nv">gem_command_array</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$gem_commands</span><span class="k">)</span><span class="o">)</span>
   compadd <span class="nv">$gem_command_array</span>
 <span class="o">}</span>
-
+ 
 _installed_gems <span class="o">()</span> <span class="o">{</span>
   <span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$installed_gems</span> <span class="o">]]</span> ; <span class="k">then</span>
 <span class="k">    </span><span class="nv">installed_gems</span><span class="o">=(</span><span class="k">$(</span>gem list | grep <span class="s1">&#39;^[A-Za-z]&#39;</span> | cut -d <span class="s2">&quot; &quot;</span> -f 1<span class="k">)</span><span class="o">)</span>
@@ -264,7 +295,7 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
   <span class="nv">installed_gem_array</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$installed_gems</span><span class="k">)</span><span class="o">)</span>
   compadd <span class="nv">$installed_gem_array</span>
 <span class="o">}</span>
-
+ 
 <span class="k">if</span> <span class="o">((</span> <span class="nv">CURRENT</span> <span class="o">==</span> 2 <span class="o">))</span>; <span class="k">then</span>
 <span class="k">  </span>_gem_commands
 <span class="k">else</span>
@@ -282,7 +313,7 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08">14th August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/completion" rel="tag">completion</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
   </div>
@@ -509,31 +540,6 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08">11th August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h2>
-    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
-
-<div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
-<span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
-
-tm<span class="o">()</span> <span class="o">{</span>
-  <span class="nb">cd</span> <span class="nv">$1</span>
-  mate <span class="nv">$1</span>
-<span class="o">}</span>
-</pre>
-</div>
-
-
-
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08"> 7th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/textmate" rel="tag">textmate</a></span>
   </div>
 </article>
 

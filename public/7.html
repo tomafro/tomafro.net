@@ -35,19 +35,31 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/05/imitation-is-the-sincerest-form-of-flattery">If imitation is the sincerest form of flattery...</a></h2>
+    <p><a href="http://www.tiagoluchini.eu/">...consider me flattered</a>.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/05">14th May 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/meta" rel="tag">meta</a> &middot; <a href="/tags/design" rel="tag">design</a> &middot; <a href="/tags/imitation" rel="tag">imitation</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h2>
     <p>If you're using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
     <span class="k">case</span> <span class="n">page_name</span>
-
+    
     <span class="k">when</span><span class="sr"> /the home page/</span>
       <span class="n">root_path</span>
     <span class="k">when</span><span class="sr"> /the new client page/</span>
       <span class="n">new_client_path</span>
     <span class="k">when</span><span class="sr"> /the clients page/</span>
-      <span class="n">clients_path</span>
+      <span class="n">clients_path</span>    
     <span class="c1"># Add more page name =&gt; path mappings here</span>
     <span class="k">else</span>
       <span class="k">raise</span> <span class="s2">&quot;Can&#39;t find mapping from </span><span class="se">\&quot;</span><span class="si">#{</span><span class="n">page_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> to a path.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
@@ -68,14 +80,14 @@
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
     <span class="k">case</span> <span class="n">page_name</span>
-
+    
     <span class="k">when</span><span class="sr"> /the home page/</span>
-      <span class="n">root_path</span>
+      <span class="n">root_path</span>   
     <span class="c1"># Add more page name =&gt; path mappings here</span>
     <span class="k">else</span>
-      <span class="k">if</span> <span class="n">path</span> <span class="o">=</span> <span class="n">match_rails_path_for</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">path</span> <span class="o">=</span> <span class="n">match_rails_path_for</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span> 
         <span class="n">path</span>
-      <span class="k">else</span>
+      <span class="k">else</span> 
         <span class="k">raise</span> <span class="s2">&quot;Can&#39;t find mapping from </span><span class="se">\&quot;</span><span class="si">#{</span><span class="n">page_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> to a path.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
         <span class="s2">&quot;Now, go and add a mapping in features/support/paths.rb&quot;</span>
       <span class="k">end</span>
@@ -100,7 +112,7 @@
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/05">13th May 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/cucumber" rel="tag">cucumber</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/testing" rel="tag">testing</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
   </div>

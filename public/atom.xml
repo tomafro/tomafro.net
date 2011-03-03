@@ -11,6 +11,40 @@
  
  <entry>
    <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2011/03/hashblue-opens-for-business"/>
+   <title>#blue opens for business</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;If you're an &lt;a href=&quot;http://o2.co.uk&quot;&gt;O2&lt;/a&gt; customer based in the UK, you might be interested that &lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt;, a project &lt;a href=&quot;http://gofreerange.com&quot;&gt;we've built&lt;/a&gt;, has recently (re)opened for business.  It's a soft launch, but feel free to tell your friends.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt; gets copies of every SMS message you send or receive, and makes them available to you on the web.  You can search your messages, read whole conversations, and even reply, all from the comfort of your browser.&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/images/20110303-hashblue-messages.png&quot;/&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;As well as a nice-looking web UI, there's also &lt;a href=&quot;https://api.hashblue.com&quot;&gt;an API&lt;/a&gt; that allows other apps to read and manipulate your messages and contacts (once you give them permission). Think automatic posting to twitter, or showing new messages as alerts on your desktop.  The possibilities are endless.&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/images/20110303-hashblue-api.png&quot;/&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Oh, and it's all free.  All you need is an &lt;a href=&quot;http://o2.co.uk&quot;&gt;O2&lt;/a&gt; phone.&lt;/p&gt;
+
+&lt;p&gt;If you think it sounds interesting, &lt;a href=&quot;https://hashblue.com/&quot;&gt;ask for a beta request&lt;/a&gt;.  You should get an invitation very quickly.  Once on board, please send me any suggestions and feedback.  It's going to be interesting to see where we can take this project.&lt;/p&gt;
+</content>
+   <updated>2011-03-03T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="hashblue" label="hashblue" />
+   <category scheme="http://tomafro.net/tags/" term="gofreerange" label="gofreerange" />
+   <category scheme="http://tomafro.net/tags/" term="o2" label="o2" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2011/02/rails-mongo-instrumentation-gem"/>
    <title>Mongo instrumentation released as a gem</title>
    <author>
@@ -37,7 +71,7 @@
    <category scheme="http://tomafro.net/tags/" term="mongo" label="mongo" />
    <category scheme="http://tomafro.net/tags/" term="instrumentation" label="instrumentation" />
  </entry>
-
+ 
  <entry>
    <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2011/02/experimental-mongo-instrumentation"/>
@@ -158,7 +192,7 @@ Update: Changed to instrument methods on the Mongo::Connection
    <category scheme="http://tomafro.net/tags/" term="mongo" label="mongo" />
    <category scheme="http://tomafro.net/tags/" term="instrumentation" label="instrumentation" />
  </entry>
-
+ 
  <entry>
    <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2011/02/rails-3-column-reader-tweak"/>
@@ -612,66 +646,6 @@ rake install
    <category scheme="http://tomafro.net/tags/" term="shortcut" label="shortcut" />
    <category scheme="http://tomafro.net/tags/" term="zoom" label="zoom" />
    <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2009/11/building-gems-from-a-rails-branch"/>
-   <title>Building rails gems from the 2-3-stable branch</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;For the latest application I've been working on, I wanted to use &lt;a href=&quot;http://github.com/NZKoz/rails_xss/&quot;&gt;Michael Koziarski's rails_xss plugin&lt;/a&gt;, to turn default escaping on in my erb templates.  I'm also using &lt;a href=&quot;http://github.com/wycats/bundler/&quot;&gt;wycats gem bundler&lt;/a&gt; to manage gems and their dependencies, including rails.&lt;/p&gt;
-
-&lt;p&gt;This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).&lt;/p&gt;
-
-&lt;p&gt;The solution was obvious: build my own gems, and get bundler to use them.  Luckily, rails makes this an easy process.&lt;/p&gt;
-
-&lt;p&gt;First, clone rails from github, and change to the 2-3-stable branch:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;git clone git://github.com/rails/rails.git
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;rails
-git co -b 2-3-stable origin/2-3-stable
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;actionmailer
-rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../actionpack
-rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../activerecord
-rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../activeresource
-rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../activesupport
-rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../railties
-rake gem &lt;span class=&quot;nv&quot;&gt;PKG_BUILD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;The key is the &lt;code&gt;PKG_BUILD&lt;/code&gt; variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.&lt;/p&gt;
-
-&lt;p&gt;Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;cp **/pkg/*.gem &amp;lt;project-folder&amp;gt;/gems/cache
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-
-</content>
-   <updated>2009-11-05T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
-   <category scheme="http://tomafro.net/tags/" term="bundler" label="bundler" />
  </entry>
  
 </feed>
