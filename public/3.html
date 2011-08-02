@@ -35,6 +35,27 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></h2>
+    <p>In the Terminal run:</p>
+
+<div class="highlight"><pre>defaults write NSGlobalDomain NSUserKeyEquivalents <span class="s1">&#39;{&quot;Zoom&quot; = &quot;@^Z&quot;; &quot;Zoom Window&quot; = &quot;@^Z&quot;; }&#39;</span>
+</pre>
+</div>
+
+
+<p>Quit and relaunch your applications, and <span class='osx-shortcut'>⌃⌘Z</span> should zoom and unzoom.</p>
+
+<p>Stolen from <a href="http://www.macosxhints.com/article.php?story=20051227001809626">macoshints.com</a>, posted here for my own benefit.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11"> 6th November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/keyboard" rel="tag">keyboard</a> &middot; <a href="/tags/shortcut" rel="tag">shortcut</a> &middot; <a href="/tags/zoom" rel="tag">zoom</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
     <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
@@ -300,57 +321,6 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/09">23rd September 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/from-param" rel="tag">from-param</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h2>
-    <p>Run this code in a rails console to list foreign keys which aren't indexed.</p>
-
-<div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span>
-<span class="n">c</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>  
-  <span class="n">columns</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">columns</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:name</span><span class="p">)</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">ends_with?</span><span class="p">(</span><span class="s2">&quot;_id&quot;</span> <span class="o">||</span> <span class="n">x</span><span class="o">.</span><span class="n">ends_with</span><span class="p">(</span><span class="s2">&quot;_type&quot;</span><span class="p">))}</span>
-  <span class="n">indexed_columns</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">indexes</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:columns</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="o">.</span><span class="n">uniq</span>
-  <span class="n">unindexed</span> <span class="o">=</span> <span class="n">columns</span> <span class="o">-</span> <span class="n">indexed_columns</span>
-  <span class="k">unless</span> <span class="n">unindexed</span><span class="o">.</span><span class="n">empty?</span>
-    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">t</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">unindexed</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>This list will look something like this:</p>
-
-<div class="highlight"><pre>attachments: parent_id, asset_id
-domain_names: organisation_id
-event_memberships: user_id, event_id
-events: editor_id
-group_actions: user_id, group_id
-groups: user_id
-icons: parent_id
-invitations: sender_id
-legacy_actions: item_upon_id
-news_items: author_id
-organisations: midas_id
-pages: author_id
-pending_event_memberships: invitation_id, event_id
-resources: user_id, resourceable_id
-subscriptions: subscribable_id, user_id
-taggings: tag_id, taggable_id, user_id
-</pre>
-</div>
-
-
-<p>For each column in the list, ask yourself why you don't need an index.</p>
-
-<p><em>Update:</em> Andrew Coleman has <a href="http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes">added output in migration format</a>.  If you want to play around with it further, <a href="http://gist.github.com/191181">here's the original code on gist</a>.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/09">22nd September 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/code" rel="tag">code</a></span>
   </div>
 </article>
 

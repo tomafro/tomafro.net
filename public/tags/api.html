@@ -2,15 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tom Ward's blog &middot; tomafro.net</title>
-  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
+  <title>Posts tagged with api &middot; tomafro.net</title>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net"/>
+  <link rel="canonical" href="http://tomafro.net/tags/api"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -77,7 +76,7 @@
     <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
 
     <span class="kp">attr_accessor</span> <span class="ss">:controller</span><span class="p">,</span> <span class="ss">:subject</span>
-    <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">:url_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
+    <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">/tags/api_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
     <span class="n">delegate</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:subject</span>
 
     <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
@@ -147,7 +146,7 @@
   <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
 
   <span class="kp">attr_accessor</span> <span class="ss">:controller</span><span class="p">,</span> <span class="ss">:subject</span>
-  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">:url_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
+  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">/tags/api_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
   <span class="n">delegate</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:subject</span>
 
   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
@@ -269,189 +268,6 @@
   </div>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/03/hashblue-opens-for-business">#blue opens for business</a></h2>
-    <p>If you're an <a href="http://o2.co.uk">O2</a> customer based in the UK, you might be interested that <a href="https://hashblue.com">#blue</a>, a project <a href="http://gofreerange.com">we've built</a>, has recently (re)opened for business.  It's a soft launch, but feel free to tell your friends.</p>
-
-<p><a href="https://hashblue.com">#blue</a> gets copies of every SMS message you send or receive, and makes them available to you on the web.  You can search your messages, read whole conversations, and even reply, all from the comfort of your browser.</p>
-
-<div class="screenshot">
-<img src="/images/20110303-hashblue-messages.png"/>
-</div>
-
-
-<p>As well as a nice-looking web UI, there's also <a href="https://api.hashblue.com">an API</a> that allows other apps to read and manipulate your messages and contacts (once you give them permission). Think automatic posting to twitter, or showing new messages as alerts on your desktop.  The possibilities are endless.</p>
-
-<div class="screenshot">
-<img src="/images/20110303-hashblue-api.png"/>
-</div>
-
-
-<p>Oh, and it's all free.  All you need is an <a href="http://o2.co.uk">O2</a> phone.</p>
-
-<p>If you think it sounds interesting, <a href="https://hashblue.com/">ask for a beta request</a>.  You should get an invitation very quickly.  Once on board, please send me any suggestions and feedback.  It's going to be interesting to see where we can take this project.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/03"> 3rd March 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/hashblue" rel="tag">hashblue</a> &middot; <a href="/tags/gofreerange" rel="tag">gofreerange</a> &middot; <a href="/tags/o2" rel="tag">o2</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h2>
-    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.</p>
-
-<p>The <a href="http://rubygems.org/gems/mongo-rails-instrumentation">mongo-rails-instrumentation</a> gem is available on rubygems, and the code is <a href="https://github.com/tomafro/mongo-rails-instrumentation">up on github</a>.</p>
-
-<p>Adding it to a project is simple, just put the following in your <code>Gemfile</code>, run <code>bundle install</code> and restart your app.</p>
-
-<div class="highlight"><pre>    <span class="n">gem</span> <span class="s1">&#39;mongo-rails-instrumentation&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt;0.1&#39;</span>
-</pre>
-</div>
-
-
-<p>Please add any suggestions, improvements and comments to the code in github.  I hope people find it useful.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/02">19th February 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/mongo" rel="tag">mongo</a> &middot; <a href="/tags/instrumentation" rel="tag">instrumentation</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/02/experimental-mongo-instrumentation">Experimental Mongo instrumentation (for Rails 3)</a></h2>
-    <div class="update">
-Update: Changed to instrument methods on the Mongo::Connection
-</div>
-
-
-<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
-
-<div class="highlight"><pre>    Completed 200 OK in 6ms (Views 370.5ms | ActiveRecord: 2.3ms)
-</pre>
-</div>
-
-
-<p>We wanted to do the same for our Mongo accesses, just to give a rough idea as to what our requests were doing.  Luckily Rails 3 makes this relatively straightforward, providing hooks to instrument methods, subscribe to log messages and add information to the request log.  Here, then, is my first stab (mainly harvested from ActiveRecord):</p>
-
-<div class="highlight"><pre><span class="k">module</span> <span class="nn">Mongo</span>
-  <span class="k">module</span> <span class="nn">Instrumentation</span>
-    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">instrument</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="o">*</span><span class="nb">methods</span><span class="p">)</span>
-      <span class="n">clazz</span><span class="o">.</span><span class="n">module_eval</span> <span class="k">do</span>
-        <span class="nb">methods</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
-          <span class="nb">class_eval</span> <span class="sx">%{def </span><span class="si">#{</span><span class="n">m</span><span class="si">}</span><span class="sx">_with_instrumentation(*args, &amp;block)</span>
-<span class="sx">            ActiveSupport::Notifications.instrumenter.instrument &quot;mongo.mongo&quot;, :name =&gt; &quot;</span><span class="si">#{</span><span class="n">m</span><span class="si">}</span><span class="sx">&quot; do</span>
-<span class="sx">              </span><span class="si">#{</span><span class="n">m</span><span class="si">}</span><span class="sx">_without_instrumentation(*args, &amp;block)</span>
-<span class="sx">            end</span>
-<span class="sx">          end</span>
-<span class="sx">          }</span>
-
-          <span class="n">alias_method_chain</span> <span class="n">m</span><span class="p">,</span> <span class="ss">:instrumentation</span>
-        <span class="k">end</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-
-    <span class="k">class</span> <span class="nc">Railtie</span> <span class="o">&lt;</span> <span class="no">Rails</span><span class="o">::</span><span class="no">Railtie</span>
-      <span class="n">initializer</span> <span class="s2">&quot;mongo.instrumentation&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">app</span><span class="o">|</span>
-        <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">.</span><span class="n">instrument</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">Connection</span><span class="p">,</span> <span class="ss">:send_message</span><span class="p">,</span> <span class="ss">:send_message_with_safe_check</span><span class="p">,</span> <span class="ss">:receive_message</span>
-
-        <span class="no">ActiveSupport</span><span class="o">.</span><span class="n">on_load</span><span class="p">(</span><span class="ss">:action_controller</span><span class="p">)</span> <span class="k">do</span>
-          <span class="kp">include</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">::</span><span class="no">ControllerRuntime</span>
-        <span class="k">end</span>
-
-        <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">::</span><span class="no">LogSubscriber</span><span class="o">.</span><span class="n">attach_to</span> <span class="ss">:mongo</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-
-    <span class="k">module</span> <span class="nn">ControllerRuntime</span>
-      <span class="kp">extend</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span>
-
-      <span class="kp">protected</span>
-
-      <span class="n">attr_internal</span> <span class="ss">:mongo_runtime</span>
-
-      <span class="k">def</span> <span class="nf">cleanup_view_runtime</span>
-        <span class="n">mongo_rt_before_render</span> <span class="o">=</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">::</span><span class="no">LogSubscriber</span><span class="o">.</span><span class="n">reset_runtime</span>
-        <span class="n">runtime</span> <span class="o">=</span> <span class="k">super</span>
-        <span class="n">mongo_rt_after_render</span> <span class="o">=</span> <span class="no">Mongo</span><span class="o">::</span><span class="no">Instrumentation</span><span class="o">::</span><span class="no">LogSubscriber</span><span class="o">.</span><span class="n">reset_runtime</span>
-        <span class="nb">self</span><span class="o">.</span><span class="n">mongo_runtime</span> <span class="o">=</span> <span class="n">mongo_rt_before_render</span> <span class="o">+</span> <span class="n">mongo_rt_after_render</span>
-        <span class="n">runtime</span> <span class="o">-</span> <span class="n">mongo_rt_after_render</span>
-      <span class="k">end</span>
-
-      <span class="k">def</span> <span class="nf">append_info_to_payload</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
-        <span class="k">super</span>
-        <span class="n">payload</span><span class="o">[</span><span class="ss">:mongo_runtime</span><span class="o">]</span> <span class="o">=</span> <span class="n">mongo_runtime</span>
-      <span class="k">end</span>
-
-      <span class="k">module</span> <span class="nn">ClassMethods</span>
-        <span class="k">def</span> <span class="nf">log_process_action</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
-          <span class="n">messages</span><span class="p">,</span> <span class="n">mongo_runtime</span> <span class="o">=</span> <span class="k">super</span><span class="p">,</span> <span class="n">payload</span><span class="o">[</span><span class="ss">:mongo_runtime</span><span class="o">]</span>
-          <span class="n">messages</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="s2">&quot;Mongo: %.1fms&quot;</span> <span class="o">%</span> <span class="n">mongo_runtime</span><span class="o">.</span><span class="n">to_f</span><span class="p">)</span> <span class="k">if</span> <span class="n">mongo_runtime</span>
-          <span class="n">messages</span>
-        <span class="k">end</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-
-    <span class="k">class</span> <span class="nc">LogSubscriber</span> <span class="o">&lt;</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">LogSubscriber</span>
-      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">runtime</span><span class="o">=</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="no">Thread</span><span class="o">.</span><span class="n">current</span><span class="o">[</span><span class="s2">&quot;mongo_mongo_runtime&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">value</span>
-      <span class="k">end</span>
-
-      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">runtime</span>
-        <span class="no">Thread</span><span class="o">.</span><span class="n">current</span><span class="o">[</span><span class="s2">&quot;mongo_mongo_runtime&quot;</span><span class="o">]</span> <span class="o">||=</span> <span class="mi">0</span>
-      <span class="k">end</span>
-
-      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">reset_runtime</span>
-        <span class="n">rt</span><span class="p">,</span> <span class="nb">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">=</span> <span class="n">runtime</span><span class="p">,</span> <span class="mi">0</span>
-        <span class="n">rt</span>
-      <span class="k">end</span>
-
-      <span class="k">def</span> <span class="nf">mongo</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-        <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">runtime</span> <span class="o">+=</span> <span class="n">event</span><span class="o">.</span><span class="n">duration</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>It looks complicated, but it's actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
-
-<div class="highlight"><pre>    Completed 200 OK in 838ms (Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms)
-</pre>
-</div>
-
-
-<p>It's just a first stab, so any comments and improvements are more then welcome.  It's <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/02">18th February 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/mongo" rel="tag">mongo</a> &middot; <a href="/tags/instrumentation" rel="tag">instrumentation</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/02/rails-3-column-reader-tweak">A home for my Active Record column reader</a></h2>
-    <p><a href="http://twitter.com/kraykray">@kraykray</a> was nice enough to let me know that Rails 3.03 had broken my column-reader code.</p>
-
-<p>I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.</p>
-
-<p>So here it is, as both <a href="https://github.com/tomafro/rails-activerecord-columnreader">a github repository</a> and <a href="http://rubygems.org/gems/activerecord-column-reader">a gem</a>.  Enjoy!</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/02"> 8th February 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/column-reader" rel="tag">column-reader</a></span>
-  </div>
-</article>
 
     </div>
   </div>
