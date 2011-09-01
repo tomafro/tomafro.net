@@ -35,6 +35,31 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h2>
+    <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
+
+<div class="highlight"><pre><span class="c"># Create and move to a directory in a single command</span>
+<span class="c"># Usage: take ~/Projects/tools/awesometer</span>
+
+take<span class="o">()</span> <span class="o">{</span>
+  mkdir -p <span class="nv">$1</span>
+  <span class="nb">cd</span> <span class="nv">$1</span>
+<span class="o">}</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/08">12th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/peepcode" rel="tag">peepcode</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h2>
     <p>Many rails developers are great at building applications but have limited experience in database design.  As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.</p>
 
@@ -332,21 +357,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08"> 3rd August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/07/salvador-dali-on-whats-my-line">Salvador Dali on "What's My Line?"</a></h2>
-    <p class="video">
-<object width="800" height="630"><param name="movie" value="http://www.youtube.com/v/iXT2E9Ccc8A&amp;hl=en&amp;fs=1&amp;rel=0&amp;color1=0x3a3a3a&amp;color2=0x999999"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/iXT2E9Ccc8A&amp;hl=en&amp;fs=1&amp;rel=0&amp;color1=0x3a3a3a&amp;color2=0x999999" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="800" height="630"></embed></object>
-</p>
-
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/07">10th July 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/salvador-dali" rel="tag">salvador-dali</a> &middot; <a href="/tags/whats-my-line" rel="tag">whats-my-line</a> &middot; <a href="/tags/tv" rel="tag">tv</a> &middot; <a href="/tags/youtube" rel="tag">youtube</a></span>
   </div>
 </article>
 

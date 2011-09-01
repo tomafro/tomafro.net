@@ -35,6 +35,113 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h2>
+    <p>Whilst playing around with the very exciting <a href="http://macruby.org">macruby</a> last weekend, I thought I'd try building a web page screenshot grabber, based on <a href="http://www.bencurtis.com/?p=128">Ben Curtis' code</a>.  The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
+
+<div class="highlight"><pre><span class="n">framework</span> <span class="s1">&#39;Cocoa&#39;</span>
+<span class="n">framework</span> <span class="s1">&#39;WebKit&#39;</span>
+
+<span class="k">class</span> <span class="nc">Snapper</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:options</span><span class="p">,</span> <span class="ss">:view</span><span class="p">,</span> <span class="ss">:window</span>
+  
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="vi">@options</span> <span class="o">=</span> <span class="n">options</span>
+    <span class="n">initialize_view</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setFrameLoadDelegate</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+    <span class="c1"># Tell the webView what URL to load.</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="no">NSURLRequest</span><span class="o">.</span><span class="n">requestWithURL</span><span class="p">(</span><span class="no">NSURL</span><span class="o">.</span><span class="n">URLWithString</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+        <span class="n">frame</span><span class="o">.</span><span class="n">loadRequest</span> <span class="n">req</span>
+    
+    <span class="k">while</span> <span class="n">view</span><span class="o">.</span><span class="n">isLoading</span>  <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">timed_out?</span>
+      <span class="no">NSRunLoop</span><span class="o">.</span><span class="n">currentRunLoop</span><span class="o">.</span><span class="n">runUntilDate</span> <span class="no">NSDate</span><span class="o">.</span><span class="n">date</span>
+    <span class="k">end</span>
+    
+    <span class="k">if</span> <span class="vi">@failedLoading</span>
+      <span class="nb">puts</span> <span class="s2">&quot;Failed to load page at: </span><span class="si">#{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span>
+      <span class="n">docView</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span><span class="o">.</span><span class="n">frameView</span><span class="o">.</span><span class="n">documentView</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">setContentSize</span><span class="p">(</span><span class="n">docView</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">setFrame</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+    
+      <span class="n">docView</span><span class="o">.</span><span class="n">setNeedsDisplay</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">displayIfNeeded</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">lockFocus</span>
+    
+      <span class="n">bitmap</span> <span class="o">=</span> <span class="no">NSBitmapImageRep</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithFocusedViewRect</span><span class="p">(</span><span class="n">docView</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+      <span class="n">docView</span><span class="o">.</span><span class="n">unlockFocus</span>
+
+      <span class="c1"># Write the bitmap to a file as a PNG</span>
+      <span class="n">representation</span> <span class="o">=</span> <span class="n">bitmap</span><span class="o">.</span><span class="n">representationUsingType</span><span class="p">(</span><span class="no">NSPNGFileType</span><span class="p">,</span> <span class="n">properties</span><span class="ss">:nil</span><span class="p">)</span>
+      <span class="n">representation</span><span class="o">.</span><span class="n">writeToFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">atomically</span><span class="ss">:true</span><span class="p">)</span>
+      <span class="n">bitmap</span><span class="o">.</span><span class="n">release</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  
+  <span class="kp">private</span>
+  
+  <span class="k">def</span> <span class="nf">webView</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">didFailLoadWithError</span><span class="ss">:error</span><span class="p">,</span> <span class="n">forFrame</span><span class="ss">:frame</span><span class="p">)</span>
+    <span class="vi">@failedLoading</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">webView</span><span class="p">(</span><span class="n">view</span><span class="p">,</span> <span class="n">didFailProvisionalLoadWithError</span><span class="ss">:error</span><span class="p">,</span> <span class="n">forFrame</span><span class="ss">:frame</span><span class="p">)</span>
+    <span class="vi">@failedLoading</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">initialize_view</span>
+    <span class="no">NSApplication</span><span class="o">.</span><span class="n">sharedApplication</span>    
+    
+    <span class="nb">self</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="no">WebView</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithFrame</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">600</span><span class="o">]</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="no">NSWindow</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithContentRect</span><span class="p">(</span><span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">600</span><span class="o">]</span><span class="p">,</span>
+      <span class="n">styleMask</span><span class="ss">:NSBorderlessWindowMask</span><span class="p">,</span> <span class="n">backing</span><span class="ss">:NSBackingStoreBuffered</span><span class="p">,</span> <span class="n">defer</span><span class="ss">:false</span><span class="p">)</span>
+      
+    <span class="n">window</span><span class="o">.</span><span class="n">setContentView</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>    
+    <span class="c1"># Use the screen stylesheet, rather than the print one.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setMediaStyle</span><span class="p">(</span><span class="s1">&#39;screen&#39;</span><span class="p">)</span>
+    <span class="c1"># Set the user agent to Safari, to ensure we get back the exactly the same content as </span>
+    <span class="c1"># if we browsed directly to the page</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">setCustomUserAgent</span> <span class="s1">&#39;Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; en-us)&#39;</span> <span class="o">+</span>
+        <span class="s1">&#39;AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10&#39;</span>
+    <span class="c1"># Make sure we don&#39;t save any of the prefs that we change.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setAutosaves</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="c1"># Set some useful options.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setShouldPrintBackgrounds</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setJavaScriptCanOpenWindowsAutomatically</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">preferences</span><span class="o">.</span><span class="n">setAllowsAnimatedImages</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+    <span class="c1"># Make sure we don&#39;t get a scroll bar.</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">mainFrame</span><span class="o">.</span><span class="n">frameView</span><span class="o">.</span><span class="n">setAllowsScrolling</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">timed_out?</span>
+    <span class="vi">@start</span> <span class="o">||=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+    <span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_i</span> <span class="o">-</span> <span class="vi">@start</span><span class="o">.</span><span class="n">to_i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">options</span><span class="o">[</span><span class="ss">:timeout</span><span class="o">]</span> <span class="o">||</span> <span class="mi">30</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>To use:</p>
+
+<div class="highlight"><pre><span class="n">macruby</span> <span class="o">-</span><span class="n">r</span> <span class="n">snapper</span><span class="o">.</span><span class="n">rb</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;Snapper.new.save(&#39;http://tomafro.net&#39;, &#39;tomafro.net.png&#39;)&quot;</span>
+</pre>
+</div>
+
+
+<p>The next step is to add some command line options, then try compilation and deployment with <code>macrubyc</code> and <code>macruby_deploy</code></p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/11">30th November 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/macruby" rel="tag">macruby</a> &middot; <a href="/tags/screenshots" rel="tag">screenshots</a> &middot; <a href="/tags/web" rel="tag">web</a> &middot; <a href="/tags/osx" rel="tag">osx</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></h2>
     <p>In the Terminal run:</p>
 
@@ -264,63 +371,6 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/10"> 6th October 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a> &middot; <a href="/tags/cdpath" rel="tag">cdpath</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h2>
-    <p>There's one small method I add to every new rails project I work on:</p>
-
-<div class="highlight"><pre><span class="k">module</span> <span class="nn">Tomafro::FromParam</span>
-  <span class="k">def</span> <span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
-    <span class="nb">self</span><span class="o">.</span><span class="n">first</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="n">primary_key</span> <span class="o">=&gt;</span> <span class="n">param</span> <span class="p">}</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="no">Tomafro</span><span class="o">::</span><span class="no">FromParam</span><span class="p">)</span>
-</pre>
-</div>
-
-
-<p>In my controllers, where you might use <code>Model.find(params[:id])</code> or <code>Model.find_by_id(params[:id)</code>, I use <code>Model.from_param(params[:id])</code> instead.</p>
-
-<p>All three methods have almost the same behaviour, the only difference being the handling of missing records.  <code>find</code> throws a RecordNotFound, while <code>find_by_id</code> and <code>from_param</code> return nil.  So why use <code>from_param</code> over the others?</p>
-
-<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It's a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-  <span class="k">def</span> <span class="nf">to_param</span>
-    <span class="nb">self</span><span class="o">.</span><span class="n">nickname</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we'd like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I'd then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I've used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
-    <span class="nb">self</span><span class="o">.</span><span class="n">first</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:nickname</span> <span class="o">=&gt;</span> <span class="n">param</span><span class="p">}</span>
-  <span class="k">end</span>
-  
-  <span class="k">def</span> <span class="nf">to_param</span>
-    <span class="nb">self</span><span class="o">.</span><span class="n">nickname</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>I've been doing this for years, but it's hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There's <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it's been considered too trivial to add.</p>
-
-<p>I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/09">23rd September 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/from-param" rel="tag">from-param</a></span>
   </div>
 </article>
 
