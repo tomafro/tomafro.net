@@ -35,6 +35,61 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h2>
+    <p>I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.</p>
+
+<p>Here's my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
+
+<p>So typing <code>gem &lt;tab&gt;</code> gives a list of possible commands, whilst <code>gem open &lt;tab&gt;</code> will complete with the names of the currently installed gems.</p>
+
+<div class="highlight"><pre><span class="c">#compdef gem</span>
+
+_gem_commands <span class="o">()</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$gem_commands</span> <span class="o">]]</span> ; <span class="k">then</span>
+<span class="k">    </span><span class="nv">gem_commands</span><span class="o">=</span><span class="k">$(</span>gem <span class="nb">help </span>commands | grep <span class="s1">&#39;^    [a-z]&#39;</span> | cut -d <span class="s2">&quot; &quot;</span> -f 5<span class="k">)</span>
+  <span class="k">fi</span>
+
+  <span class="c"># This seems unnecessary, but if I try to set gem_commands to an array, it falls over.</span>
+
+  <span class="nb">typeset</span> -a gem_command_array
+  <span class="nv">gem_command_array</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$gem_commands</span><span class="k">)</span><span class="o">)</span>
+  compadd <span class="nv">$gem_command_array</span>
+<span class="o">}</span>
+
+_installed_gems <span class="o">()</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$installed_gems</span> <span class="o">]]</span> ; <span class="k">then</span>
+<span class="k">    </span><span class="nv">installed_gems</span><span class="o">=(</span><span class="k">$(</span>gem list | grep <span class="s1">&#39;^[A-Za-z]&#39;</span> | cut -d <span class="s2">&quot; &quot;</span> -f 1<span class="k">)</span><span class="o">)</span>
+  <span class="k">fi</span>
+<span class="k">  </span>
+<span class="k">  </span><span class="nb">typeset</span> -a installed_gem_array
+  <span class="nv">installed_gem_array</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$installed_gems</span><span class="k">)</span><span class="o">)</span>
+  compadd <span class="nv">$installed_gem_array</span>
+<span class="o">}</span>
+
+<span class="k">if</span> <span class="o">((</span> <span class="nv">CURRENT</span> <span class="o">==</span> 2 <span class="o">))</span>; <span class="k">then</span>
+<span class="k">  </span>_gem_commands
+<span class="k">else</span>
+<span class="k">  if</span> <span class="o">[[</span> <span class="nv">$words</span><span class="o">[</span>2<span class="o">]</span> <span class="o">==</span> open <span class="o">||</span> <span class="nv">$words</span><span class="o">[</span>2<span class="o">]</span> <span class="o">==</span> update <span class="o">]]</span> ; <span class="k">then</span>
+<span class="k">    </span>_installed_gems
+  <span class="k">fi</span>
+<span class="k">fi</span>
+</pre>
+</div>
+
+
+<p>As it's a first attempt, it's a long way from perfect.  I've <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I'd appreciate any advice or improvements.  Specifically I'd like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I'd also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
+
+<p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="date"><a href="/2009/08">14th August 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/completion" rel="tag">completion</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h2>
     <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
 
@@ -325,38 +380,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08"> 4th August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/micro-benchmark" rel="tag">micro-benchmark</a> &middot; <a href="/tags/return" rel="tag">return</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h2>
-    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
-
-<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
-
-<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
-
-<p>Here's the code:</p>
-
-<div class="highlight"><pre><span class="k">case</span> <span class="nv">$system_name</span> in
-  Darwin*<span class="o">)</span>
-    <span class="nb">source</span> ~/.houseshare/zsh/kernel/darwin.zsh
-    ;;
-  *<span class="o">)</span>
-    <span class="nb">source</span> ~/.houseshare/zsh/kernel/linux.zsh
-    ;;;
-<span class="k">esac</span>
-</pre>
-</div>
-
-
-<p>As I said, simple.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08"> 3rd August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
   </div>
 </article>
 

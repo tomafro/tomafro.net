@@ -11,6 +11,28 @@
  
  <entry>
    <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes"/>
+   <title>A small toy to explore geohashes</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;For an app I've been building, I've been looking into &lt;a href=&quot;http://geohash.org/&quot;&gt;geohashes&lt;/a&gt;.  For those who don't know, the &lt;a href=&quot;http://en.wikipedia.org/wiki/Geohash&quot;&gt;geohash&lt;/a&gt; format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson's Column in London (51.507794, -0.127952) has the geohash &lt;code&gt;gcpvj0dyds&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Geohashes have a couple of interesting features.  First, as you remove characters, you lose precision. &lt;code&gt;gcpvj0dyds&lt;/code&gt; fairly accurately points to Nelson's Column; &lt;code&gt;gcpvj0d&lt;/code&gt; represents the South-West of Trafalgar Square and some of the Mall; and &lt;code&gt;gcpvj&lt;/code&gt; covers most of Central London, as well as Islington and King's Cross.  A geohash doesn't really represent a point, but rather a bounding area within which a point may lie.  The longer the geohash, the smaller that bounding area.&lt;/p&gt;
+
+&lt;p&gt;The other interesting property geohashes have is that nearby locations usually (but not always) share similar prefixes.  So much of North London is in &lt;code&gt;gcpv&lt;/code&gt;, while much of South London is in &lt;code&gt;gcpu&lt;/code&gt;.  However, due to the &lt;a href=&quot;http://en.wikipedia.org/wiki/Prime_Meridian&quot;&gt;Prime Meridian&lt;/a&gt; passing through Greenwhich, South East London has the geohash &lt;code&gt;u10h&lt;/code&gt; - wildly different than the other two.&lt;/p&gt;
+
+&lt;p&gt;This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I've written a toy app that draws them on a map.  To try it out, go to &lt;a href=&quot;http://geohash.gofreerange.com&quot;&gt;http://geohash.gofreerange.com&lt;/a&gt;, click the map, zoom and play.  If you find it useful, let me know.&lt;/p&gt;
+</content>
+   <updated>2011-09-15T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="geohash" label="geohash" />
+   <category scheme="http://tomafro.net/tags/" term="toy" label="toy" />
+   <category scheme="http://tomafro.net/tags/" term="app" label="app" />
+ </entry>
+
+ <entry>
+   <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2011/09/tip-automatic-bundle-exec-for-rake-and-more"/>
    <title>Tip: Automatic bundle exec for rake and other gems</title>
    <author>
@@ -747,49 +769,6 @@ rake install
    <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
    <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
    <category scheme="http://tomafro.net/tags/" term="gems" label="gems" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2010/01/tip-relative-paths-with-file-expand-path"/>
-   <title>Tip: Relative paths with File.expand_path</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;You probably know about the &lt;code&gt;__FILE__&lt;/code&gt; magic constant.  It holds the filename of the currently executing ruby source file, relative to the execution directory.  So with the following saved as &lt;code&gt;/code/examples/path_example.rb&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;__FILE__&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Running this file from the &lt;code&gt;/code&lt;/code&gt; folder will output &lt;code&gt;examples/path_example.rb&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;This is often used to load files on paths relative to the current file.  The way I've used it before is like this:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;config_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expand_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;config.yml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;This works, but it's a bit clunky.&lt;/p&gt;
-
-&lt;p&gt;What I didn't realise until reading the rails source code the other day, is that &lt;code&gt;File.expand_path&lt;/code&gt; can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;config_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expand_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;../config.yml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Much simpler.&lt;/p&gt;
-</content>
-   <updated>2010-01-23T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
-   <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
-   <category scheme="http://tomafro.net/tags/" term="file" label="file" />
-   <category scheme="http://tomafro.net/tags/" term="expand-path" label="expand-path" />
  </entry>
  
 </feed>

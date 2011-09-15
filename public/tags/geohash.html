@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Posts from 09/2011 &middot; tomafro.net</title>
+  <title>Posts tagged with geohash &middot; tomafro.net</title>
   <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
-  <link rel="canonical" href="http://tomafro.net/2011/09"/>
+  <link rel="canonical" href="http://tomafro.net/tags/geohash"/>
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -45,45 +45,9 @@
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2011/09">15th September 2011</a></span>
   <span class="tags"> &middot; <a href="/tags/geohash" rel="tag">geohash</a> &middot; <a href="/tags/toy" rel="tag">toy</a> &middot; <a href="/tags/app" rel="tag">app</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h2>
-    <p>It's irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
-
-<p>Here's the function (which I've named <code>be</code>):</p>
-
-<div class="highlight"><pre>if [[ -a Gemfile ]]; then
-  bundle exec $*
-else
-  command $*
-fi
-</pre>
-</div>
-
-
-<p>It's very simple.  If there's a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
-
-<p>I've combined this with some aliases for much less pain and less frustration:</p>
-
-<div class="highlight"><pre>alias rake=&#39;be rake&#39;
-alias cap=&#39;be cap&#39;
-alias rspec=&#39;be rspec&#39;
-</pre>
-</div>
-
-
-
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/09"> 1st September 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/rake" rel="tag">rake</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
   </div>
 </article>
 

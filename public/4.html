@@ -35,6 +35,40 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h2>
+    <p>This one is just so simple, I can't believe I didn't know about it earlier.</p>
+
+<p>First, setup the cdpath or CDPATH variable:</p>
+
+<div class="highlight"><pre><span class="nv">cdpath</span><span class="o">=(</span>~ ~/Projects/apps ~/Projects/tools ~/Projects/plugins ~/Projects/sites<span class="o">)</span>
+</pre>
+</div>
+
+
+<p>Now, changing directory in the shell becomes a whole world easier:</p>
+
+<div class='highlight'><pre><span class="s1">tomw@fellini:~<span class='nv'>$ </span></span><span class='nb'>cd </span>super-secret-app
+~/Projects/apps/super-secret-app
+<span class="s1">tomw@fellini:~/Projects/apps/super-secret-app<span class='nv'>$ </span></span><span class='nb'>cd </span>Documents
+~/Documents
+<span class="s1">tomw@fellini:~/Documents<span class='nv'>$ </span></span><span class='nb'>cd </span>tomafro.net
+~/Projects/sites/tomafro.net
+<span class="s1">tomw@fellini:~/Projects/sites/tomafro.net <span class='err'>$</span></span>
+</pre>
+</div>
+
+
+<p>I've already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="date"><a href="/2009/10"> 6th October 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a> &middot; <a href="/tags/cdpath" rel="tag">cdpath</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h2>
     <p>There's one small method I add to every new rails project I work on:</p>
 
@@ -369,61 +403,6 @@ mysql> EXPLAIN SELECT * FROM conversations
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/08">18th August 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h2>
-    <p>I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.</p>
-
-<p>Here's my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
-
-<p>So typing <code>gem &lt;tab&gt;</code> gives a list of possible commands, whilst <code>gem open &lt;tab&gt;</code> will complete with the names of the currently installed gems.</p>
-
-<div class="highlight"><pre><span class="c">#compdef gem</span>
-
-_gem_commands <span class="o">()</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$gem_commands</span> <span class="o">]]</span> ; <span class="k">then</span>
-<span class="k">    </span><span class="nv">gem_commands</span><span class="o">=</span><span class="k">$(</span>gem <span class="nb">help </span>commands | grep <span class="s1">&#39;^    [a-z]&#39;</span> | cut -d <span class="s2">&quot; &quot;</span> -f 5<span class="k">)</span>
-  <span class="k">fi</span>
-  
-  <span class="c"># This seems unnecessary, but if I try to set gem_commands to an array, it falls over.</span>
- 
-  <span class="nb">typeset</span> -a gem_command_array
-  <span class="nv">gem_command_array</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$gem_commands</span><span class="k">)</span><span class="o">)</span>
-  compadd <span class="nv">$gem_command_array</span>
-<span class="o">}</span>
- 
-_installed_gems <span class="o">()</span> <span class="o">{</span>
-  <span class="k">if</span> <span class="o">[[</span> -z <span class="nv">$installed_gems</span> <span class="o">]]</span> ; <span class="k">then</span>
-<span class="k">    </span><span class="nv">installed_gems</span><span class="o">=(</span><span class="k">$(</span>gem list | grep <span class="s1">&#39;^[A-Za-z]&#39;</span> | cut -d <span class="s2">&quot; &quot;</span> -f 1<span class="k">)</span><span class="o">)</span>
-  <span class="k">fi</span>
-<span class="k">  </span>
-<span class="k">  </span><span class="nb">typeset</span> -a installed_gem_array
-  <span class="nv">installed_gem_array</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$installed_gems</span><span class="k">)</span><span class="o">)</span>
-  compadd <span class="nv">$installed_gem_array</span>
-<span class="o">}</span>
- 
-<span class="k">if</span> <span class="o">((</span> <span class="nv">CURRENT</span> <span class="o">==</span> 2 <span class="o">))</span>; <span class="k">then</span>
-<span class="k">  </span>_gem_commands
-<span class="k">else</span>
-<span class="k">  if</span> <span class="o">[[</span> <span class="nv">$words</span><span class="o">[</span>2<span class="o">]</span> <span class="o">==</span> open <span class="o">||</span> <span class="nv">$words</span><span class="o">[</span>2<span class="o">]</span> <span class="o">==</span> update <span class="o">]]</span> ; <span class="k">then</span>
-<span class="k">    </span>_installed_gems
-  <span class="k">fi</span>
-<span class="k">fi</span>
-</pre>
-</div>
-
-
-<p>As it's a first attempt, it's a long way from perfect.  I've <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I'd appreciate any advice or improvements.  Specifically I'd like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I'd also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
-
-<p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">14th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/completion" rel="tag">completion</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
   </div>
 </article>
 
