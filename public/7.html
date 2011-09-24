@@ -35,6 +35,73 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a></h2>
+    <p>Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it's a shame to do away with the nice type conversion <code>ActiveRecord</code> provides.  It'd also be a pity to get rid of find scoping, amongst other goodness.</p>
+
+<p>Enter <code>Tomafro::ColumnReader</code>:</p>
+
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">Tomafro::ColumnReader</span>
+  <span class="k">def</span> <span class="nf">column_reader</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="ss">:as</span><span class="p">)</span> <span class="o">||</span> <span class="n">column_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">pluralize</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">columns_hash</span><span class="o">[</span><span class="n">column_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">]</span>
+    
+    <span class="nb">self</span><span class="o">.</span><span class="n">module_eval</span> <span class="sx">%{</span>
+<span class="sx">      def self.</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx">(options = {})</span>
+<span class="sx">        merged = options.merge(:select =&gt; &#39;</span><span class="si">#{</span><span class="n">column_name</span><span class="si">}</span><span class="sx">&#39;)</span>
+<span class="sx">        connection.select_all(construct_finder_sql(merged)).collect do |value| </span>
+<span class="sx">          v = value.values.first</span>
+<span class="sx">          </span><span class="si">#{</span><span class="n">column</span><span class="o">.</span><span class="n">type_cast_code</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">)</span><span class="si">}</span><span class="sx"></span>
+<span class="sx">        end</span>
+<span class="sx">      end</span>
+<span class="sx">    }</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Once you've extended <code>ActiveRecord::Base</code> with it, usage is simple.  In your models, declare which columns you want access to:</p>
+
+<div class="highlight"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">extend</span> <span class="no">Tomafro</span><span class="o">::</span><span class="no">ColumnReader</span>
+ 
+<span class="k">class</span> <span class="nc">Animal</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">column_reader</span> <span class="s1">&#39;id&#39;</span>
+  <span class="n">column_reader</span> <span class="s1">&#39;name&#39;</span>  
+ 
+  <span class="n">named_scope</span> <span class="ss">:dangerous</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:carnivorous</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">}</span> 
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Once you've done this, you can access values directly from the class, respecting scope, limits and other finder options.</p>
+
+<div class="highlight"><pre><span class="no">Animal</span><span class="o">.</span><span class="n">names</span> 
+<span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;, &#39;Zebra&#39;, &#39;Gazelle&#39;]</span>
+ 
+<span class="no">Animal</span><span class="o">.</span><span class="n">names</span> <span class="ss">:limit</span> <span class="o">=&gt;</span> <span class="mi">1</span> 
+<span class="c1">#=&gt; [&#39;Lion&#39;] (Normal finder options supported)</span>
+ 
+<span class="no">Animal</span><span class="o">.</span><span class="n">dangerous</span><span class="o">.</span><span class="n">names</span> 
+<span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;] (Scoping respected)</span>
+ 
+<span class="no">Animal</span><span class="o">.</span><span class="n">ids</span>
+<span class="c1">#=&gt; [1, 2, 3] (Values cast correctly)</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2009/05">29th May 2009</a></span>
+  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/column-reader" rel="tag">column-reader</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2009/05/an-objective-c-implementation-of-active-supports-inflector">An Objective-C implementation of ActiveSupport's Inflector</a></h2>
     <p>Over the last week I've been playing with Objective-C, for fun rather than profit.  Here's the first result of this dabbling - <a href="http://github.com/tomafro/ActiveSupportInflector/tree/master">an Objective-C implementation</a> of ActiveSupport's pluralize and singularize methods.</p>
 
@@ -42,7 +109,7 @@
 
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/05">28th May 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/objective-c" rel="tag">objective-c</a> &middot; <a href="/tags/active-support" rel="tag">active-support</a> &middot; <a href="/tags/inflector" rel="tag">inflector</a></span>
   </div>
@@ -109,78 +176,6 @@
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2009/05">14th May 2009</a></span>
   <span class="tags"> &middot; <a href="/tags/meta" rel="tag">meta</a> &middot; <a href="/tags/design" rel="tag">design</a> &middot; <a href="/tags/imitation" rel="tag">imitation</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h2>
-    <p>If you're using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
-
-<div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
-  <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
-    <span class="k">case</span> <span class="n">page_name</span>
-    
-    <span class="k">when</span><span class="sr"> /the home page/</span>
-      <span class="n">root_path</span>
-    <span class="k">when</span><span class="sr"> /the new client page/</span>
-      <span class="n">new_client_path</span>
-    <span class="k">when</span><span class="sr"> /the clients page/</span>
-      <span class="n">clients_path</span>    
-    <span class="c1"># Add more page name =&gt; path mappings here</span>
-    <span class="k">else</span>
-      <span class="k">raise</span> <span class="s2">&quot;Can&#39;t find mapping from </span><span class="se">\&quot;</span><span class="si">#{</span><span class="n">page_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> to a path.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
-      <span class="s2">&quot;Now, go and add a mapping in features/support/paths.rb&quot;</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="no">World</span><span class="p">(</span><span class="no">NavigationHelpers</span><span class="p">)</span>
-</pre>
-</div>
-
-
-<p>This let's us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
-
-<p>By automatically matching some rails paths.  Here's the code:</p>
-
-<div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
-  <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
-    <span class="k">case</span> <span class="n">page_name</span>
-    
-    <span class="k">when</span><span class="sr"> /the home page/</span>
-      <span class="n">root_path</span>   
-    <span class="c1"># Add more page name =&gt; path mappings here</span>
-    <span class="k">else</span>
-      <span class="k">if</span> <span class="n">path</span> <span class="o">=</span> <span class="n">match_rails_path_for</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span> 
-        <span class="n">path</span>
-      <span class="k">else</span> 
-        <span class="k">raise</span> <span class="s2">&quot;Can&#39;t find mapping from </span><span class="se">\&quot;</span><span class="si">#{</span><span class="n">page_name</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2"> to a path.</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
-        <span class="s2">&quot;Now, go and add a mapping in features/support/paths.rb&quot;</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">match_rails_path_for</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">page_name</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sr">/the (.*) page/</span><span class="p">)</span>
-      <span class="k">return</span> <span class="nb">send</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="vg">$1</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="si">}</span><span class="s2">_path&quot;</span> <span class="k">rescue</span> <span class="kp">nil</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="no">World</span><span class="p">(</span><span class="no">NavigationHelpers</span><span class="p">)</span>
-</pre>
-</div>
-
-
-<p>What it does is pretty simple.  Given a page name <code>the clients page</code> (with no other matches defined) it will try and send <code>clients_path</code>.  If successful, then it returns the result, otherwise nil.</p>
-
-<p>Not the biggest improvement in the world, but it's made my cucumber tests just a little bit easier to write.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/05">13th May 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/cucumber" rel="tag">cucumber</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/testing" rel="tag">testing</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
   </div>
 </article>
 

@@ -35,6 +35,18 @@
     <div id="main">
       
 <article class="post">
+  <div class="content"><h2 class="title"><a href="/2011/09/geohash-toy-code-released">Geohash Toy: Code Released</a></h2>
+    <p>A couple of weeks ago I <a href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes">wrote about a small toy app</a> I'd written to explore geohashes.  Now I've cleaned the code up a little, upgraded it to rails 3.1 and released it <a href="https://github.com/tomafro/geohash-explorer">here on github</a>.  Enjoy.</p>
+
+  </div>
+  <div class="meta">
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
+  <span class="date"><a href="/2011/09">24th September 2011</a></span>
+  <span class="tags"> &middot; <a href="/tags/geohash" rel="tag">geohash</a> &middot; <a href="/tags/toy" rel="tag">toy</a> &middot; <a href="/tags/code" rel="tag">code</a> &middot; <a href="/tags/app" rel="tag">app</a> &middot; <a href="/tags/github" rel="tag">github</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a></span>
+  </div>
+</article>
+
+<article class="post">
   <div class="content"><h2 class="title"><a href="/2011/09/a-small-toy-to-explore-geohashes">A small toy to explore geohashes</a></h2>
     <p>For an app I've been building, I've been looking into <a href="http://geohash.org/">geohashes</a>.  For those who don't know, the <a href="http://en.wikipedia.org/wiki/Geohash">geohash</a> format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson's Column in London (51.507794, -0.127952) has the geohash <code>gcpvj0dyds</code>.</p>
 
@@ -44,9 +56,14 @@
 
 <p>This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I've written a toy app that draws them on a map.  To try it out, go to <a href="http://geohash.gofreerange.com">http://geohash.gofreerange.com</a>, click the map, zoom and play.  If you find it useful, let me know.</p>
 
+<div class="update">
+Update: This code is now available [on github](https://github.com/tomafro/geohash-explorer).
+</div>
+
+
   </div>
   <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot;
+  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2011/09">15th September 2011</a></span>
   <span class="tags"> &middot; <a href="/tags/geohash" rel="tag">geohash</a> &middot; <a href="/tags/toy" rel="tag">toy</a> &middot; <a href="/tags/app" rel="tag">app</a></span>
   </div>
@@ -350,29 +367,6 @@ alias rspec=&#39;be rspec&#39;
   <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
   <span class="date"><a href="/2011/03"> 3rd March 2011</a></span>
   <span class="tags"> &middot; <a href="/tags/hashblue" rel="tag">hashblue</a> &middot; <a href="/tags/gofreerange" rel="tag">gofreerange</a> &middot; <a href="/tags/o2" rel="tag">o2</a></span>
-  </div>
-</article>
-
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h2>
-    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.</p>
-
-<p>The <a href="http://rubygems.org/gems/mongo-rails-instrumentation">mongo-rails-instrumentation</a> gem is available on rubygems, and the code is <a href="https://github.com/tomafro/mongo-rails-instrumentation">up on github</a>.</p>
-
-<p>Adding it to a project is simple, just put the following in your <code>Gemfile</code>, run <code>bundle install</code> and restart your app.</p>
-
-<div class="highlight"><pre>    <span class="n">gem</span> <span class="s1">&#39;mongo-rails-instrumentation&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt;0.1&#39;</span>
-</pre>
-</div>
-
-
-<p>Please add any suggestions, improvements and comments to the code in github.  I hope people find it useful.</p>
-
-  </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/02">19th February 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/mongo" rel="tag">mongo</a> &middot; <a href="/tags/instrumentation" rel="tag">instrumentation</a></span>
   </div>
 </article>
 

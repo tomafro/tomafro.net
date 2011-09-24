@@ -11,6 +11,25 @@
  
  <entry>
    <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2011/09/geohash-toy-code-released"/>
+   <title>Geohash Toy: Code Released</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;A couple of weeks ago I &lt;a href=&quot;http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes&quot;&gt;wrote about a small toy app&lt;/a&gt; I'd written to explore geohashes.  Now I've cleaned the code up a little, upgraded it to rails 3.1 and released it &lt;a href=&quot;https://github.com/tomafro/geohash-explorer&quot;&gt;here on github&lt;/a&gt;.  Enjoy.&lt;/p&gt;
+</content>
+   <updated>2011-09-24T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="geohash" label="geohash" />
+   <category scheme="http://tomafro.net/tags/" term="toy" label="toy" />
+   <category scheme="http://tomafro.net/tags/" term="code" label="code" />
+   <category scheme="http://tomafro.net/tags/" term="app" label="app" />
+   <category scheme="http://tomafro.net/tags/" term="github" label="github" />
+   <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes"/>
    <title>A small toy to explore geohashes</title>
    <author>
@@ -24,13 +43,18 @@
 &lt;p&gt;The other interesting property geohashes have is that nearby locations usually (but not always) share similar prefixes.  So much of North London is in &lt;code&gt;gcpv&lt;/code&gt;, while much of South London is in &lt;code&gt;gcpu&lt;/code&gt;.  However, due to the &lt;a href=&quot;http://en.wikipedia.org/wiki/Prime_Meridian&quot;&gt;Prime Meridian&lt;/a&gt; passing through Greenwhich, South East London has the geohash &lt;code&gt;u10h&lt;/code&gt; - wildly different than the other two.&lt;/p&gt;
 
 &lt;p&gt;This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I've written a toy app that draws them on a map.  To try it out, go to &lt;a href=&quot;http://geohash.gofreerange.com&quot;&gt;http://geohash.gofreerange.com&lt;/a&gt;, click the map, zoom and play.  If you find it useful, let me know.&lt;/p&gt;
+
+&lt;div class=&quot;update&quot;&gt;
+Update: This code is now available [on github](https://github.com/tomafro/geohash-explorer).
+&lt;/div&gt;
+
 </content>
    <updated>2011-09-15T00:00:00+01:00</updated>
    <category scheme="http://tomafro.net/tags/" term="geohash" label="geohash" />
    <category scheme="http://tomafro.net/tags/" term="toy" label="toy" />
    <category scheme="http://tomafro.net/tags/" term="app" label="app" />
  </entry>
-
+ 
  <entry>
    <id>http://tomafro.net</id>
    <link href="http://tomafro.net/2011/09/tip-automatic-bundle-exec-for-rake-and-more"/>
@@ -711,64 +735,6 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
    <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
    <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
    <category scheme="http://tomafro.net/tags/" term="column-reader" label="column-reader" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2010/01/how-to-use-rails3-gems-now"/>
-   <title>How to easily use Rails 3 now</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;div class=&quot;update&quot;&gt;
-&lt;h3&gt;Update 10th February 2010:&lt;/h3&gt;
-The instructions below were useful earlier in the development cycle.  Now the &lt;a href=&quot;http://weblog.rubyonrails.org/2010/2/5/rails-3-0-beta-release&quot;&gt;beta gem has been released&lt;/a&gt;, the process is much easier:
-
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;gem uninstall bundler
-gem install tzinfo builder memcache-client rack rack-test rack-mount 
-gem install erubis mail text-format thor bundler i18n
-gem install rails --pre
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-
-&lt;p&gt;Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.&lt;/p&gt;
-
-&lt;p&gt;First, install rails main dependencies:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;gem install rake rack bundler
-gem install arel --version 0.2.pre
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Next, get the latest rails code from github, and install the rails gems.  There may be a few errors you can safely ignore:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;git clone git://github.com/rails/rails.git
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;rails
-rake install
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;And bang, you can start your first rails 3 project:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;rails ~/apps/playground/rails3 
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like &lt;a href=&quot;http://rvm.beginrescueend.com/&quot;&gt;rvm&lt;/a&gt; to switch to a clean set of gems.&lt;/p&gt;
-</content>
-   <updated>2010-01-24T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
-   <category scheme="http://tomafro.net/tags/" term="gems" label="gems" />
  </entry>
  
 </feed>
