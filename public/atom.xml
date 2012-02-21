@@ -11,711 +11,211 @@
  
  <entry>
    <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2011/09/geohash-toy-code-released"/>
-   <title>Geohash toy: code released</title>
+   <link href="http://tomafro.net/2009/07/salvador-dali-on-whats-my-line"/>
+   <title>Salvador Dali on "What's My Line?"</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html">&lt;p&gt;A couple of weeks ago I &lt;a href=&quot;http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes&quot;&gt;wrote about a small toy app&lt;/a&gt; I'd written to explore geohashes.  Now I've cleaned the code up a little, upgraded it to rails 3.1 and released it &lt;a href=&quot;https://github.com/tomafro/geohash-explorer&quot;&gt;here on github&lt;/a&gt;.  Enjoy.&lt;/p&gt;
+   <content type="html">&lt;p class=&quot;video&quot;&gt;
+&lt;object width=&quot;800&quot; height=&quot;630&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/iXT2E9Ccc8A&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0&amp;amp;color1=0x3a3a3a&amp;amp;color2=0x999999&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/iXT2E9Ccc8A&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0&amp;amp;color1=0x3a3a3a&amp;amp;color2=0x999999&quot; type=&quot;application/x-shockwave-flash&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; width=&quot;800&quot; height=&quot;630&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+&lt;/p&gt;
+
 </content>
-   <updated>2011-09-24T00:00:00+01:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="geohash" label="geohash" />
-   <category scheme="http://tomafro.net/tags/" term="toy" label="toy" />
-   <category scheme="http://tomafro.net/tags/" term="code" label="code" />
-   <category scheme="http://tomafro.net/tags/" term="app" label="app" />
-   <category scheme="http://tomafro.net/tags/" term="github" label="github" />
-   <category scheme="http://tomafro.net/tags/" term="tiny" label="tiny" />
+   <updated>2009-07-10T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="salvador-dali" label="salvador-dali" />
+   <category scheme="http://tomafro.net/tags/" term="whats-my-line" label="whats-my-line" />
+   <category scheme="http://tomafro.net/tags/" term="tv" label="tv" />
+   <category scheme="http://tomafro.net/tags/" term="youtube" label="youtube" />
  </entry>
  
  <entry>
    <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes"/>
-   <title>A small toy to explore geohashes</title>
+   <link href="http://tomafro.net/2009/07/dscl-the-easy-way-to-add-hosts-on-osx"/>
+   <title>dscl - the easy way to add hosts on OS X</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html">&lt;p&gt;For an app I've been building, I've been looking into &lt;a href=&quot;http://geohash.org/&quot;&gt;geohashes&lt;/a&gt;.  For those who don't know, the &lt;a href=&quot;http://en.wikipedia.org/wiki/Geohash&quot;&gt;geohash&lt;/a&gt; format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson's Column in London (51.507794, -0.127952) has the geohash &lt;code&gt;gcpvj0dyds&lt;/code&gt;.&lt;/p&gt;
+   <content type="html">&lt;p&gt;As a web developer, I often want several host names pointing at my local machine whilst developing and testing applications.  I may want to use Apache virtual hosts to serve multiple apps at once, or use subdomains to distinguish different accounts within a single application.&lt;/p&gt;
 
-&lt;p&gt;Geohashes have a couple of interesting features.  First, as you remove characters, you lose precision. &lt;code&gt;gcpvj0dyds&lt;/code&gt; fairly accurately points to Nelson's Column; &lt;code&gt;gcpvj0d&lt;/code&gt; represents the South-West of Trafalgar Square and some of the Mall; and &lt;code&gt;gcpvj&lt;/code&gt; covers most of Central London, as well as Islington and King's Cross.  A geohash doesn't really represent a point, but rather a bounding area within which a point may lie.  The longer the geohash, the smaller that bounding area.&lt;/p&gt;
+&lt;p&gt;Previously, to set these host names up, I would manually edit &lt;code&gt;/etc/hosts&lt;/code&gt;, adding entries like:&lt;/p&gt;
 
-&lt;p&gt;The other interesting property geohashes have is that nearby locations usually (but not always) share similar prefixes.  So much of North London is in &lt;code&gt;gcpv&lt;/code&gt;, while much of South London is in &lt;code&gt;gcpu&lt;/code&gt;.  However, due to the &lt;a href=&quot;http://en.wikipedia.org/wiki/Prime_Meridian&quot;&gt;Prime Meridian&lt;/a&gt; passing through Greenwhich, South East London has the geohash &lt;code&gt;u10h&lt;/code&gt; - wildly different than the other two.&lt;/p&gt;
-
-&lt;p&gt;This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I've written a toy app that draws them on a map.  To try it out, go to &lt;a href=&quot;http://geohash.gofreerange.com&quot;&gt;http://geohash.gofreerange.com&lt;/a&gt;, click the map, zoom and play.  If you find it useful, let me know.&lt;/p&gt;
-
-&lt;div class=&quot;update&quot;&gt;
-Update: This code is now available [on github](https://github.com/tomafro/geohash-explorer).
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;127.0.0.1      twitter-killer.localhost
+127.0.0.1      my-url-shortener-is-better-than-yours.localhost
+127.0.0.1      yet-another-half-baked-idea.localhost
+&lt;/pre&gt;
 &lt;/div&gt;
 
+
+&lt;p&gt;This worked well on one level, but on another it just seemed wrong.  It's very manual, prone to error and pretty hard to script.  Recently though, thanks to a hint from Chris Parsons, I've found another way: using &lt;code&gt;dscl&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;dscl&lt;/code&gt;, or Directory Service command line utility to give it its full name, has many uses.  For a web developer, the most relevant is probably the ability to add, list and create local directory entries under &lt;code&gt;/Local/Defaults/Hosts&lt;/code&gt; in the directory (not the file system).  These act like lines in &lt;code&gt;/etc/hosts&lt;/code&gt; but can be manipulated easily from the command line.&lt;/p&gt;
+
+&lt;p&gt;To add an entry (easily the most interesting command) use:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;sudo dscl localhost -create /Local/Default/Hosts/twitter-killer.localhost IPAddress 127.0.0.1
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Once entries have been added, listing them is just as simple:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;sudo dscl localhost -list /Local/Default/Hosts IPAddress
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This produces a list in the form:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;twitter-killer.localhost                         127.0.0.1      
+my-url-shortener-is-better-than-yours.localhost  127.0.0.1      
+yet-another-half-baked-idea.localhost            127.0.0.1      
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Finally, you can remove entries with:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;sudo dscl localhost -delete /Local/Default/Hosts/twitter-killer.localhost
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Once you've mastered these commands, the possibilities are endless.  Here's a rake task to add all subdomains used in a project:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Application&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;subdomains&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdomain&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:subdomains&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:add&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdomains&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdomain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;sb&quot;&gt;`sudo dscl localhost -create /Local/Default/Hosts/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdomain&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;.app.localhost IPAddress 127.0.0.1`&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:remove&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdomains&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdomain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;sb&quot;&gt;`sudo dscl localhost -delete /Local/Default/Hosts/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subdomain&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;.app.localhost`&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Or if you're using &lt;a href=&quot;http://www.modrails.com/&quot;&gt;passenger&lt;/a&gt; for development, you can use a tool like &lt;a href=&quot;http://github.com/lazyatom/hostess/tree/master&quot;&gt;James Adam's hostess&lt;/a&gt; to automatically set up the host entry and virtual host entry for a site in one simple command.&lt;/p&gt;
 </content>
-   <updated>2011-09-15T00:00:00+01:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="geohash" label="geohash" />
-   <category scheme="http://tomafro.net/tags/" term="toy" label="toy" />
-   <category scheme="http://tomafro.net/tags/" term="app" label="app" />
+   <updated>2009-07-08T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="osx" label="osx" />
+   <category scheme="http://tomafro.net/tags/" term="dscl" label="dscl" />
+   <category scheme="http://tomafro.net/tags/" term="development" label="development" />
+   <category scheme="http://tomafro.net/tags/" term="shell" label="shell" />
+   <category scheme="http://tomafro.net/tags/" term="reminder" label="reminder" />
  </entry>
  
  <entry>
    <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2011/09/tip-automatic-bundle-exec-for-rake-and-more"/>
-   <title>Tip: Automatic bundle exec for rake and other gems</title>
+   <link href="http://tomafro.net/2009/06/pimp-my-script-console"/>
+   <title>Pimp my script/console</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html">&lt;p&gt;It's irritating to run gem commands like &lt;code&gt;rake&lt;/code&gt;, &lt;code&gt;cap&lt;/code&gt;, &lt;code&gt;rspec&lt;/code&gt; and others, only to find they needed to be executed via &lt;code&gt;bundle exec&lt;/code&gt;.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.&lt;/p&gt;
+   <content type="html">&lt;p&gt;For a long time I've had &lt;a href=&quot;http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc&quot;&gt;an .irbrc file&lt;/a&gt; and a &lt;a href=&quot;http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc&quot;&gt;.railsrc file&lt;/a&gt;, setting up some simple helpers methods in my &lt;code&gt;irb&lt;/code&gt; and &lt;code&gt;script/console&lt;/code&gt; sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my &lt;a href=&quot;http://github.com/notahat/machinist/tree/master&quot;&gt;machinist&lt;/a&gt; blueprints, to help me play around with some models.&lt;/p&gt;
 
-&lt;p&gt;Here's the function (which I've named &lt;code&gt;be&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;Adding &lt;a href=&quot;http://github.com/notahat/machinist/tree/master&quot;&gt;machinist&lt;/a&gt; isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when &lt;code&gt;.irbrc&lt;/code&gt; is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;if [[ -a Gemfile ]]; then
-  bundle exec $*
-else
-  command $*
-fi
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Initializer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;defined?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;IRB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;faker&amp;#39;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;notahat-machinist&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:lib&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;machinist&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;http://gems.github.com&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;IRB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:IRB_RC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Proc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RAILS_ROOT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;config&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;console&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;It's very simple.  If there's a &lt;code&gt;Gemfile&lt;/code&gt; in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.&lt;/p&gt;
+&lt;p&gt;The key part is the line starting &lt;code&gt;IRB.conf[:IRB_RC]&lt;/code&gt;, which tells &lt;code&gt;irb&lt;/code&gt; to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I've set it to require &lt;code&gt;config/console.rb&lt;/code&gt;, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in &lt;code&gt;script/console&lt;/code&gt; sessions where I want these shortcuts, not in my general code.  Here it is:&lt;/p&gt;
 
-&lt;p&gt;I've combined this with some aliases for much less pain and less frustration:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expand_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;__FILE__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;/../spec/blueprints.rb&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;alias rake=&amp;#39;be rake&amp;#39;
-alias cap=&amp;#39;be cap&amp;#39;
-alias rspec=&amp;#39;be rspec&amp;#39;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;tomafro&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_by_login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;tomafro&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bbi&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_by_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Big Bad Industries&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/div&gt;
 
 
 
 </content>
-   <updated>2011-09-01T00:00:00+01:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
+   <updated>2009-06-22T00:00:00+01:00</updated>
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
-   <category scheme="http://tomafro.net/tags/" term="rake" label="rake" />
-   <category scheme="http://tomafro.net/tags/" term="bundler" label="bundler" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="irb" label="irb" />
    <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
  </entry>
  
  <entry>
    <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2011/08/presenting-the-hashblue-api"/>
-   <title>Presenting the #blue api</title>
+   <link href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class"/>
+   <title>Read ActiveRecord columns directly from the class</title>
    <author>
      <name>Tom Ward</name>
      <email>tom@popdog.net</email>
    </author>
-   <content type="html">&lt;p&gt;In building &lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt; (sign up now!), one of the problems we faced was how to build &lt;code&gt;json&lt;/code&gt; data in response to requests to &lt;a href=&quot;https://api.hashblue.com&quot;&gt;our API&lt;/a&gt;.  The typical rails solution would be to override &lt;code&gt;#as_json&lt;/code&gt; in a model class, then write a controller like this:&lt;/p&gt;
+   <content type="html">&lt;p&gt;Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it's a shame to do away with the nice type conversion &lt;code&gt;ActiveRecord&lt;/code&gt; provides.  It'd also be a pity to get rid of find scoping, amongst other goodness.&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApiController&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;responds_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:json&lt;/span&gt;
+&lt;p&gt;Enter &lt;code&gt;Tomafro::ColumnReader&lt;/code&gt;:&lt;/p&gt;
 
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;respond_with&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Contact&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;I always prefer to keep my controllers as skinny as possible, so this looks like a great solution.  The &lt;code&gt;respond_with&lt;/code&gt; call takes care of converting the message to json and responding with the right &lt;code&gt;Content-Type&lt;/code&gt;, all in a simple call.  However it has a number of problems and disadvantages.&lt;/p&gt;
-
-&lt;p&gt;The biggest issue for our API is that rather than expose the &lt;code&gt;id&lt;/code&gt; of each model, we've tried to encourage the use of the &lt;code&gt;uri&lt;/code&gt; instead.  So the &lt;code&gt;json&lt;/code&gt; returned for a single contact (for example) looks like this:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;s2&quot;&gt;&amp;quot;contact&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&amp;quot;uri&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;https://api.example.com/contacts/ccpwjc&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;George&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;george@handmade.org&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&amp;quot;msisdn&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;447897897899&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&amp;quot;phone_number&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;07897897899&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;s2&quot;&gt;&amp;quot;messages&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;https://api.example.com/contacts/ccpwjc/messages&amp;quot;&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;It doesn't just have a &lt;code&gt;uri&lt;/code&gt; for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute &lt;code&gt;messages_uri&lt;/code&gt;).  Models can't generate uris, and shouldn't really be aware of them, so overriding &lt;code&gt;#as_json&lt;/code&gt; doesn't work.  In any case, the json structure is really presentation logic, not business logic.  It doesn't belong in the model.&lt;/p&gt;
-
-&lt;h3&gt;Presenting a single model&lt;/h3&gt;
-
-&lt;p&gt;The solution we've used is to build a presenter for each model, solely responsible for building the json.  Here's an example for a contact:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactPresenter&lt;/span&gt;
-    &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url_helpers&lt;/span&gt;
-
-    &lt;span class=&quot;kp&quot;&gt;attr_accessor&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:subject&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:url_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:controller&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:errors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:subject&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;vi&quot;&gt;@controller&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;
-      &lt;span class=&quot;vi&quot;&gt;@subject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;as_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:contact&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:msisdn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msisdn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:phone_number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;phone_number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:messages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;api_contact_messages_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:contact_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;uri&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;api_contact_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;It's now simple to rewrite our controller to use the new presenter:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApiController&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;responds_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:json&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;respond_with&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ContactPresenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Contact&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;h3&gt;Presenting pages of models&lt;/h3&gt;
-
-&lt;p&gt;The presenter above works well for a single model, but many of our API calls return a page of results.  The &lt;a href=&quot;https://api.hashblue.com/doc/GET%3Acontacts&quot;&gt;/contacts&lt;/a&gt; for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it's simple to adapt this pattern to present pages like this.  First, we change our original &lt;code&gt;#as_json&lt;/code&gt; method slightly:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;as_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:partial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:msisdn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msisdn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:phone_number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;phone_number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;ss&quot;&gt;:messages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;api_contact_messages_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:contact_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:contact&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:partial&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;This change allows us to call as_json with the options &lt;code&gt;:partial&lt;/code&gt;.  With the option, a hash of data is returned.  Without, the same hash is returned, wrapped in another hash.&lt;/p&gt;
-
-&lt;p&gt;Next, add a page presenter:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactPagePresenter&lt;/span&gt;
-  &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url_helpers&lt;/span&gt;
-
-  &lt;span class=&quot;kp&quot;&gt;attr_accessor&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:subject&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:url_options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:controller&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;delegate&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:errors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:subject&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;vi&quot;&gt;@controller&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;
-    &lt;span class=&quot;vi&quot;&gt;@subject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;as_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;contacts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ContactPresenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:partial&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:contacts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contacts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tap&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;previous_page&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:previous_page_uri&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contacts_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;previous_page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_page&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:next_page_uri&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contacts_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Finally, we can add an index action using this presenter:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApiController&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;responds_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:json&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;respond_with&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ContactPagePresenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Contact&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paginate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:per_page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;h3&gt;Refactoring common logic&lt;/h3&gt;
-
-&lt;p&gt;The code above is a very much simplified version of what we do in &lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt;.  We have many controllers, and several different models, so in our actual code we've abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApiController&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;before_filter&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:find_contact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:only&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;show&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;present&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@contact&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;index&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;present_page_of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contacts&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;
-    &lt;span class=&quot;vi&quot;&gt;@contact&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contacts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;vi&quot;&gt;@contact&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;present&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@contact&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;update&lt;/span&gt;
-    &lt;span class=&quot;vi&quot;&gt;@contact&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update_attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;present&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@contact&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;kp&quot;&gt;private&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find_contact&lt;/span&gt;
-    &lt;span class=&quot;vi&quot;&gt;@contact&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_account&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contacts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:not_found&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@contact&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;I think the code looks pretty clean.  The clever stuff happens in the &lt;code&gt;#present&lt;/code&gt; and &lt;code&gt;#present_page_of&lt;/code&gt; methods, defined in the superclass:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ApiController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationController&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
-  &lt;span class=&quot;kp&quot;&gt;protected&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;present&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;presenter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;presenter_class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:location&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;presenter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty?&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;respond_with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;presenter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;present_page_of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;presenter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page_presenter_class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page_of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;respond_with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;presenter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;page_of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paginate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:per_page&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;presenter_class&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gsub!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Controller&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;singularize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Presenter&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constantize&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;page_presenter_class&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gsub!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Controller&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;singularize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;PagePresenter&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constantize&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;The &lt;code&gt;#present&lt;/code&gt; and &lt;code&gt;#present_page_of&lt;/code&gt; methods handle determining the correct presenter to us, as well as paginating the collection where required.  They still use rails build in &lt;code&gt;#respond_with&lt;/code&gt; method, which helps provide the correct response headers for each request.  As the ContactPresenter delegates &lt;code&gt;#errors&lt;/code&gt; to its subject, if there are validation errors, &lt;code&gt;#respond_with&lt;/code&gt; correctly returns a 422.&lt;/p&gt;
-
-&lt;p&gt;One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we'll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I'm still pretty happy with it.  I hope you find something useful in it too.&lt;/p&gt;
-
-&lt;p&gt;Any comments or suggestions, please get in touch with me &lt;a href=&quot;http://twitter.com/tomafro&quot;&gt;on twitter&lt;/a&gt;.&lt;/p&gt;
-</content>
-   <updated>2011-08-02T00:00:00+01:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="hashblue" label="hashblue" />
-   <category scheme="http://tomafro.net/tags/" term="gofreerange" label="gofreerange" />
-   <category scheme="http://tomafro.net/tags/" term="o2" label="o2" />
-   <category scheme="http://tomafro.net/tags/" term="api" label="api" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2011/03/hashblue-opens-for-business"/>
-   <title>#blue opens for business</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;If you're an &lt;a href=&quot;http://o2.co.uk&quot;&gt;O2&lt;/a&gt; customer based in the UK, you might be interested that &lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt;, a project &lt;a href=&quot;http://gofreerange.com&quot;&gt;we've built&lt;/a&gt;, has recently (re)opened for business.  It's a soft launch, but feel free to tell your friends.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt; gets copies of every SMS message you send or receive, and makes them available to you on the web.  You can search your messages, read whole conversations, and even reply, all from the comfort of your browser.&lt;/p&gt;
-
-&lt;div class=&quot;screenshot&quot;&gt;
-&lt;img src=&quot;/images/20110303-hashblue-messages.png&quot;/&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;As well as a nice-looking web UI, there's also &lt;a href=&quot;https://api.hashblue.com&quot;&gt;an API&lt;/a&gt; that allows other apps to read and manipulate your messages and contacts (once you give them permission). Think automatic posting to twitter, or showing new messages as alerts on your desktop.  The possibilities are endless.&lt;/p&gt;
-
-&lt;div class=&quot;screenshot&quot;&gt;
-&lt;img src=&quot;/images/20110303-hashblue-api.png&quot;/&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Oh, and it's all free.  All you need is an &lt;a href=&quot;http://o2.co.uk&quot;&gt;O2&lt;/a&gt; phone.&lt;/p&gt;
-
-&lt;p&gt;If you think it sounds interesting, &lt;a href=&quot;https://hashblue.com/&quot;&gt;ask for a beta request&lt;/a&gt;.  You should get an invitation very quickly.  Once on board, please send me any suggestions and feedback.  It's going to be interesting to see where we can take this project.&lt;/p&gt;
-</content>
-   <updated>2011-03-03T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="hashblue" label="hashblue" />
-   <category scheme="http://tomafro.net/tags/" term="gofreerange" label="gofreerange" />
-   <category scheme="http://tomafro.net/tags/" term="o2" label="o2" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2011/02/rails-mongo-instrumentation-gem"/>
-   <title>Mongo instrumentation released as a gem</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href=&quot;http://rubygems.org/gems/mongo-rails-instrumentation&quot;&gt;mongo-rails-instrumentation&lt;/a&gt; gem is available on rubygems, and the code is &lt;a href=&quot;https://github.com/tomafro/mongo-rails-instrumentation&quot;&gt;up on github&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Adding it to a project is simple, just put the following in your &lt;code&gt;Gemfile&lt;/code&gt;, run &lt;code&gt;bundle install&lt;/code&gt; and restart your app.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;mongo-rails-instrumentation&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;~&amp;gt;0.1&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Please add any suggestions, improvements and comments to the code in github.  I hope people find it useful.&lt;/p&gt;
-</content>
-   <updated>2011-02-19T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
-   <category scheme="http://tomafro.net/tags/" term="mongo" label="mongo" />
-   <category scheme="http://tomafro.net/tags/" term="instrumentation" label="instrumentation" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2011/02/experimental-mongo-instrumentation"/>
-   <title>Experimental Mongo instrumentation (for Rails 3)</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;div class=&quot;update&quot;&gt;
-Update: Changed to instrument methods on the Mongo::Connection
-&lt;/div&gt;
-
-
-&lt;p&gt;One of our latest rails projects uses &lt;a href=&quot;http://mongodb.org&quot;&gt;Mongo&lt;/a&gt; as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    Completed 200 OK in 6ms (Views 370.5ms | ActiveRecord: 2.3ms)
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;We wanted to do the same for our Mongo accesses, just to give a rough idea as to what our requests were doing.  Luckily Rails 3 makes this relatively straightforward, providing hooks to instrument methods, subscribe to log messages and add information to the request log.  Here, then, is my first stab (mainly harvested from ActiveRecord):&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Mongo&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Instrumentation&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;instrument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module_eval&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-          &lt;span class=&quot;nb&quot;&gt;class_eval&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{def &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;_with_instrumentation(*args, &amp;amp;block)&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;            ActiveSupport::Notifications.instrumenter.instrument &amp;quot;mongo.mongo&amp;quot;, :name =&amp;gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;quot; do&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;              &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;_without_instrumentation(*args, &amp;amp;block)&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;            end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;          end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;          }&lt;/span&gt;
-
-          &lt;span class=&quot;n&quot;&gt;alias_method_chain&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:instrumentation&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Railtie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Railtie&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;initializer&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;mongo.instrumentation&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-        &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instrument&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:send_message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:send_message_with_safe_check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:receive_message&lt;/span&gt;
-
-        &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on_load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:action_controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-          &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ControllerRuntime&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-        &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;LogSubscriber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attach_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:mongo&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ControllerRuntime&lt;/span&gt;
-      &lt;span class=&quot;kp&quot;&gt;extend&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Concern&lt;/span&gt;
-
-      &lt;span class=&quot;kp&quot;&gt;protected&lt;/span&gt;
-
-      &lt;span class=&quot;n&quot;&gt;attr_internal&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:mongo_runtime&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cleanup_view_runtime&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;mongo_rt_before_render&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;LogSubscriber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reset_runtime&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;mongo_rt_after_render&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;LogSubscriber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reset_runtime&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_rt_before_render&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_rt_after_render&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_rt_after_render&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;append_info_to_payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:mongo_runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ClassMethods&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log_process_action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:mongo_runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Mongo: %.1fms&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LogSubscriber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;LogSubscriber&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;no&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;mongo_mongo_runtime&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;
-        &lt;span class=&quot;no&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;mongo_mongo_runtime&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset_runtime&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;rt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;rt&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mongo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;duration&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;It looks complicated, but it's actually pretty simple.  Data access methods in &lt;strike&gt;&lt;code&gt;Mongo::DB&lt;/code&gt; and &lt;code&gt;Mongo::Collection&lt;/code&gt;&lt;/strike&gt; &lt;code&gt;Mongo::Connection&lt;/code&gt; are hijacked and surrounded by an &lt;code&gt;ActiveSupport::Notifications.instrumenter.instrument&lt;/code&gt; block.  This triggers events which are listened to by the &lt;code&gt;LogSubscriber&lt;/code&gt;, summing the total time spent in Mongo.  The &lt;code&gt;ControllerRuntime&lt;/code&gt; then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    Completed 200 OK in 838ms (Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms)
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;It's just a first stab, so any comments and improvements are more then welcome.  It's &lt;a href=&quot;https://gist.github.com/833444&quot;&gt;here on gist&lt;/a&gt; so please fork away.&lt;/p&gt;
-</content>
-   <updated>2011-02-18T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
-   <category scheme="http://tomafro.net/tags/" term="mongo" label="mongo" />
-   <category scheme="http://tomafro.net/tags/" term="instrumentation" label="instrumentation" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2011/02/rails-3-column-reader-tweak"/>
-   <title>A home for my Active Record column reader</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;&lt;a href=&quot;http://twitter.com/kraykray&quot;&gt;@kraykray&lt;/a&gt; was nice enough to let me know that Rails 3.03 had broken my column-reader code.&lt;/p&gt;
-
-&lt;p&gt;I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.&lt;/p&gt;
-
-&lt;p&gt;So here it is, as both &lt;a href=&quot;https://github.com/tomafro/rails-activerecord-columnreader&quot;&gt;a github repository&lt;/a&gt; and &lt;a href=&quot;http://rubygems.org/gems/activerecord-column-reader&quot;&gt;a gem&lt;/a&gt;.  Enjoy!&lt;/p&gt;
-</content>
-   <updated>2011-02-08T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
-   <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
-   <category scheme="http://tomafro.net/tags/" term="column-reader" label="column-reader" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2010/02/updated-rails-template-for-bundler"/>
-   <title>An updated rails template for gem bundler</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;div class=&quot;update&quot;&gt;
-&lt;h3&gt;Update 8th February 2011:&lt;/h3&gt;
-Bundler has changed a lot since I wrote these instructions.  Use them at your own risk!
-&lt;/div&gt;
-
-
-&lt;p&gt;A few months ago I wrote &lt;a href=&quot;http://tomafro.net/2009/11/a-rails-template-for-gem-bundler&quot;&gt;a rails template for gem bundler&lt;/a&gt;. Since then, bundler has changed a lot, and my template no longer works. &lt;a href=&quot;http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb&quot;&gt;Here then is an updated version&lt;/a&gt;, based on &lt;a href=&quot;http://gist.github.com/302406&quot;&gt;this gist&lt;/a&gt; from &lt;a href=&quot;http://arko.net/&quot;&gt;Andre Arko&lt;/a&gt;.  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.&lt;/p&gt;
-
-&lt;p&gt;The first step is to install the latest bundler.  At the time of writing, this was 0.9.9.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bundler&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Now you should be able to run the template, either on a new project, or on an existing rails 2.3.5 project.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb &amp;lt;project&amp;gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you'll need to remove the old hooks in &lt;code&gt;config/preinitializer.rb&lt;/code&gt; and &lt;code&gt;config/environment.rb&lt;/code&gt;, and the &lt;code&gt;gems&lt;/code&gt; folder.&lt;/p&gt;
-
-&lt;h3&gt;Explaining the template, step by step&lt;/h3&gt;
-
-
-&lt;p&gt;The first step creates the project &lt;code&gt;Gemfile&lt;/code&gt;, with rails available in all environments, and ruby-debug included in development.  If the project has other gems, they should be added here, rather than using rails own &lt;code&gt;config.gem&lt;/code&gt; mechanism.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Gemfile&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;source &amp;#39;http://rubygems.org&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt;gem &amp;#39;rails&amp;#39;, &amp;#39;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;STRING&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt;group :development do&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  gem &amp;#39;ruby-debug&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;The next step is get bundler to load correctly.  This is done in two stages.  First, in &lt;code&gt;config\preinitializer.rb&lt;/code&gt; bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;  
-&lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/config/preinitializer.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;begin&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  # Require the preresolved locked set of gems.&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  require File.expand_path(&amp;#39;../../.bundle/environment&amp;#39;, __FILE__)&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;rescue LoadError&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  # Fallback on doing the resolve at runtime.&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  require &amp;quot;rubygems&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  require &amp;quot;bundler&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  if Bundler::VERSION &amp;lt;= &amp;quot;0.9.5&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;    raise RuntimeError, &amp;quot;Bundler incompatible.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;quot; +&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;      &amp;quot;Your bundler version is incompatible with Rails 2.3 and an unlocked bundle.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;quot; +&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;      &amp;quot;Run `gem install bundler` to upgrade or `bundle lock` to lock.&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  else&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;    Bundler.setup&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strip&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;Second, the rails boot process is modified to start the bundler environment.  This 'requires' all gems in the bundle, letting them run initialisation code.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;gsub_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;config/boot.rb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Rails.boot!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;  &lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;class Rails::Boot&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt; def run&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;   load_initializer&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;   extend_environment&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;   Rails::Initializer.run(:set_load_path)&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt; end&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt; def extend_environment&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;   Rails::Initializer.class_eval do&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;     old_load = instance_method(:load_environment)&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;     define_method(:load_environment) do&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;       Bundler.require :default, Rails.env&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;       old_load.bind(self).call&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;     end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;   end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt; end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;end&lt;/span&gt;
-
-&lt;span class=&quot;sx&quot;&gt;Rails.boot!&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;All that's left now is a little cleaning up.  The &lt;code&gt;.bundle&lt;/code&gt; folder should never be checked into the code repository as it holds machine-local configuration, so it's added to &lt;code&gt;.gitignore&lt;/code&gt;.  Finally, &lt;code&gt;bundle install&lt;/code&gt; is run to fetch the bundled gems.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;append_file&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;/.gitignore&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;/.bundle&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bundle install&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;And that's it.  I hope you find it useful.&lt;/p&gt;
-</content>
-   <updated>2010-02-28T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
-   <category scheme="http://tomafro.net/tags/" term="bundler" label="bundler" />
- </entry>
- 
- <entry>
-   <id>http://tomafro.net</id>
-   <link href="http://tomafro.net/2010/02/rails-3-direct-column-reader"/>
-   <title>Rails 3 direct column reader</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;p&gt;Whilst trying to get my head around &lt;a href=&quot;http://github.com/brynary/arel&quot;&gt;arel&lt;/a&gt; and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I &lt;a href=&quot;http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class&quot;&gt;introduced last year&lt;/a&gt;.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.&lt;/p&gt;
-
-&lt;p&gt;Here's the updated code:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ColumnReader&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Tomafro::ColumnReader&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;column_reader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
     &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:as&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pluralize&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns_hash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-  
+    
     &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module_eval&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;      def self.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;        query = scoped.arel.project(arel_table[:&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;])&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;        connection.select_all(query.to_sql).collect do |value| &lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;      def self.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;(options = {})&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;        merged = options.merge(:select =&amp;gt; &amp;#39;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;#39;)&lt;/span&gt;
+&lt;span class=&quot;sx&quot;&gt;        connection.select_all(construct_finder_sql(merged)).collect do |value| &lt;/span&gt;
 &lt;span class=&quot;sx&quot;&gt;          v = value.values.first&lt;/span&gt;
 &lt;span class=&quot;sx&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type_cast_code&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;v&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&lt;/span&gt;
 &lt;span class=&quot;sx&quot;&gt;        end&lt;/span&gt;
 &lt;span class=&quot;sx&quot;&gt;      end&lt;/span&gt;
 &lt;span class=&quot;sx&quot;&gt;    }&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-  &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;The code isn't that different, though using &lt;code&gt;scoped&lt;/code&gt; over &lt;code&gt;construct_finder_sql&lt;/code&gt; feels a lot nicer.  If you've got suggestions for improvement &lt;a href=&quot;http://gist.github.com/301420&quot;&gt;gist away&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Once you've extended &lt;code&gt;ActiveRecord::Base&lt;/code&gt; with it, usage is simple.  In your models, declare which columns you want access to:&lt;/p&gt;
 
-&lt;p&gt;Usage is similar to before, only using the new rails 3 syntax:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Animal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extend&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Tomafro&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ColumnReader&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Animal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;column_reader&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;id&amp;#39;&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;column_reader&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;  
  
   &lt;span class=&quot;n&quot;&gt;named_scope&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:dangerous&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:conditions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:carnivorous&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; 
+
+&lt;p&gt;Once you've done this, you can access values directly from the class, respecting scope, limits and other finder options.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; 
 &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; [&amp;#39;Lion&amp;#39;, &amp;#39;Tiger&amp;#39;, &amp;#39;Zebra&amp;#39;, &amp;#39;Gazelle&amp;#39;]&lt;/span&gt;
  
-&lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; 
+&lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:limit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; 
 &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; [&amp;#39;Lion&amp;#39;] (Normal finder options supported)&lt;/span&gt;
  
 &lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dangerous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;names&lt;/span&gt; 
@@ -727,14 +227,252 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 &lt;/div&gt;
 
 
-&lt;p&gt;I'm still not entirely convinced of the value of this helper, so if you find a good use &lt;a href=&quot;http://twitter.com/tomafro&quot;&gt;tweet me&lt;/a&gt;.  Enjoy!&lt;/p&gt;
+
 </content>
-   <updated>2010-02-11T00:00:00+00:00</updated>
+   <updated>2009-05-29T00:00:00+01:00</updated>
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
    <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
    <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
    <category scheme="http://tomafro.net/tags/" term="column-reader" label="column-reader" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/05/an-objective-c-implementation-of-active-supports-inflector"/>
+   <title>An Objective-C implementation of ActiveSupport's Inflector</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;Over the last week I've been playing with Objective-C, for fun rather than profit.  Here's the first result of this dabbling - &lt;a href=&quot;http://github.com/tomafro/ActiveSupportInflector/tree/master&quot;&gt;an Objective-C implementation&lt;/a&gt; of ActiveSupport's pluralize and singularize methods.&lt;/p&gt;
+
+&lt;p&gt;It's my first piece of code in the language, so I'd appreciate comments and feedback.&lt;/p&gt;
+</content>
+   <updated>2009-05-28T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="objective-c" label="objective-c" />
+   <category scheme="http://tomafro.net/tags/" term="active-support" label="active-support" />
+   <category scheme="http://tomafro.net/tags/" term="inflector" label="inflector" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/05/i-thought-we-were-going-to-kew-gardens"/>
+   <title>I thought we were going to Kew Gardens</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p class=&quot;video&quot;&gt;
+&lt;object width=&quot;800&quot; height=&quot;630&quot;&gt;&lt;param name=&quot;movie&quot; value=&quot;http://www.youtube.com/v/cRjJ1H11kYE&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0&amp;amp;color1=0x3a3a3a&amp;amp;color2=0x999999&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowFullScreen&quot; value=&quot;true&quot;&gt;&lt;/param&gt;&lt;param name=&quot;allowscriptaccess&quot; value=&quot;always&quot;&gt;&lt;/param&gt;&lt;embed src=&quot;http://www.youtube.com/v/cRjJ1H11kYE&amp;amp;hl=en&amp;amp;fs=1&amp;amp;rel=0&amp;amp;color1=0x3a3a3a&amp;amp;color2=0x999999&quot; type=&quot;application/x-shockwave-flash&quot; allowscriptaccess=&quot;always&quot; allowfullscreen=&quot;true&quot; width=&quot;800&quot; height=&quot;630&quot;&gt;&lt;/embed&gt;&lt;/object&gt;
+&lt;/p&gt;
+
+</content>
+   <updated>2009-05-23T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="the-smiths" label="the-smiths" />
+   <category scheme="http://tomafro.net/tags/" term="music" label="music" />
+   <category scheme="http://tomafro.net/tags/" term="youtube" label="youtube" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/05/using-rack-middleware-for-good-and-evil"/>
+   <title>Using Rack Middleware for good and evil</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;So we all know that &lt;a href=&quot;http://rack.rubyforge.org/&quot;&gt;Rack&lt;/a&gt; is awesome, and that we can use Rack::Middleware for all sorts of things: &lt;a href=&quot;http://github.com/brynary/rack-bug/tree/master&quot;&gt;debugging&lt;/a&gt;, &lt;a href=&quot;http://tomayko.com/src/rack-cache/&quot;&gt;caching&lt;/a&gt; and a &lt;a href=&quot;http://github.com/rack/rack-contrib/tree/master&quot;&gt;whole host more&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;What all these have in common (apart from maybe &lt;a href=&quot;http://github.com/rack/rack-contrib/blob/8b6323c8eecc8279088987c52b27dda5d4cadf7b/lib/rack/contrib/evil.rb&quot;&gt;Rack::Evil&lt;/a&gt;) is that they're all helpful.  They all make writing Rack applications easier.  Not my Middleware though.&lt;/p&gt;
+
+&lt;h3&gt;Introducing Rack::Shuffler&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Rack&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Shuffler&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@responses&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@responses&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@responses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;rand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@responses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;ensure&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@responses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;rand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@responses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@responses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;I suggest you add it to a colleague's app late on a Friday afternoon, and see how long it takes to drive them to insanity.&lt;/p&gt;
+</content>
+   <updated>2009-05-22T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="rack" label="rack" />
+   <category scheme="http://tomafro.net/tags/" term="middleware" label="middleware" />
+   <category scheme="http://tomafro.net/tags/" term="evil" label="evil" />
+   <category scheme="http://tomafro.net/tags/" term="fun" label="fun" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/05/imitation-is-the-sincerest-form-of-flattery"/>
+   <title>If imitation is the sincerest form of flattery...</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://www.tiagoluchini.eu/&quot;&gt;...consider me flattered&lt;/a&gt;.&lt;/p&gt;
+</content>
+   <updated>2009-05-14T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="meta" label="meta" />
+   <category scheme="http://tomafro.net/tags/" term="design" label="design" />
+   <category scheme="http://tomafro.net/tags/" term="imitation" label="imitation" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/05/automatching-rails-paths-in-cucumber"/>
+   <title>Automatching rails paths in cucumber</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;If you're using &lt;a href=&quot;http://cukes.info/&quot;&gt;cucumber&lt;/a&gt; as part of your testing, you probably have a &lt;code&gt;paths.rb&lt;/code&gt; file that looks something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;NavigationHelpers&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;path_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt; /the home page/&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;root_path&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt; /the new client page/&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;new_client_path&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt; /the clients page/&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;clients_path&lt;/span&gt;    
+    &lt;span class=&quot;c1&quot;&gt;# Add more page name =&amp;gt; path mappings here&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Can&amp;#39;t find mapping from &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; to a path.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&amp;quot;Now, go and add a mapping in features/support/paths.rb&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;World&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NavigationHelpers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This let's us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?&lt;/p&gt;
+
+&lt;p&gt;By automatically matching some rails paths.  Here's the code:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;NavigationHelpers&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;path_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt; /the home page/&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;root_path&lt;/span&gt;   
+    &lt;span class=&quot;c1&quot;&gt;# Add more page name =&amp;gt; path mappings here&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match_rails_path_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; 
+        &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Can&amp;#39;t find mapping from &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; to a path.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&amp;quot;Now, go and add a mapping in features/support/paths.rb&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;match_rails_path_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page_name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/the (.*) page/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;send&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;vg&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;_path&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;World&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NavigationHelpers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;What it does is pretty simple.  Given a page name &lt;code&gt;the clients page&lt;/code&gt; (with no other matches defined) it will try and send &lt;code&gt;clients_path&lt;/code&gt;.  If successful, then it returns the result, otherwise nil.&lt;/p&gt;
+
+&lt;p&gt;Not the biggest improvement in the world, but it's made my cucumber tests just a little bit easier to write.&lt;/p&gt;
+</content>
+   <updated>2009-05-13T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="cucumber" label="cucumber" />
+   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="testing" label="testing" />
+   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
+ </entry>
+ 
+ <entry>
+   <id>http://tomafro.net</id>
+   <link href="http://tomafro.net/2009/05/adam-sandersons-open-gem"/>
+   <title>Adam Sanderson's open_gem</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;p&gt;The latest version of &lt;a href=&quot;http://rubygems.org/&quot;&gt;rubygems&lt;/a&gt; (1.3.2) now has an interface to add commands.  Making great use of this feature, &lt;a href=&quot;http://endofline.wordpress.com/&quot;&gt;Adam Sanderson&lt;/a&gt; has written &lt;a href=&quot;http://github.com/adamsanderson/open_gem&quot;&gt;open_gem&lt;/a&gt;, a simple but amazingly useful tool.&lt;/p&gt;
+
+&lt;p&gt;You use it like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem open activerecord
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This opens the activerecord gem in your favourite editor (taken from either &lt;code&gt;$GEM_OPEN_EDITOR&lt;/code&gt; or &lt;code&gt;$EDITOR&lt;/code&gt; environment variables).  If there are multiple versions of the gem installed, it will show a menu, letting you choose which version you require.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem open activerecord
+Open which gem?
+ 1. activerecord 2.1.0
+ 2. activerecord 2.3.2
+&amp;gt; 
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;open_gem itself is a gem, and can be installed with:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem install open_gem
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;To get it working, you need to have &lt;code&gt;$EDITOR&lt;/code&gt; set to something sensible:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;EDITOR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;mate
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If you're running on OS X and use TextMate, you may have already set &lt;code&gt;$EDITOR&lt;/code&gt; to &lt;code&gt;mate -w&lt;/code&gt;, which let's you use TextMate as the editor for git commit messages and much more.  However, the &lt;code&gt;-w&lt;/code&gt; flag doesn't work with open_gem, so set the &lt;code&gt;$GEM_OPEN_EDITOR&lt;/code&gt; variable, and open_gem will use that instead:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GEM_OPEN_EDITOR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;mate
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;You should now be good to go.  If you want to see how it works, just use it on itself!&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gem open open_gem
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+
+</content>
+   <updated>2009-05-06T00:00:00+01:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
+   <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
+   <category scheme="http://tomafro.net/tags/" term="tip" label="tip" />
+   <category scheme="http://tomafro.net/tags/" term="gem-open" label="gem-open" />
  </entry>
  
 </feed>

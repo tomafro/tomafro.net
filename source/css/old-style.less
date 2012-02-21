@@ -1,0 +1,224 @@
+@serif: "adelle-1","adelle-2";
+@sans-serif: "ff-dagny-web-pro-1","ff-dagny-web-pro-2";
+
+.rounded-corners (@radius: 0.3em) {
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+  border-radius: @radius;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font: 18px @sans-serif;
+	line-height: 1.7em;
+	color: black;
+	background: white;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: @serif;
+  font-weight: normal;
+}
+
+#container {
+	width: 42em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.menubar {
+  color: #aaa;
+  line-height: 1.3em;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.menubar a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.menubar a:hover {
+  color: #004491;
+}
+
+header {
+  display: block;
+  padding-bottom: 3em;
+  padding-top: 0.3em;
+}
+
+article {
+  display: block;
+}
+
+div.update {
+  background: #ffdddd;
+  padding: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  .rounded-corners;
+}
+
+.update h3 {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+#footer {
+  margin-top: 3em;
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  font-size: 1.8em;
+  line-height: 1.2em;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.2em;
+  margin-top: 0.1em;
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: normal;
+	border-bottom: 1px solid #ddd;
+  padding-bottom: 4px;
+}
+
+article {
+  padding-bottom: 48px;
+}
+
+code {
+  font-size: 0.9em;
+  background: #f0f0f0;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  border: 1px solid #e0e0e0;
+  .rounded-corners(0.2em);
+}
+
+.highlight {
+  background: yellow;
+  margin-top: -0.3em;
+}
+
+.osx-shortcut {
+	background: #f0f0f0;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  border: 1px solid #e0e0e0;
+  .rounded-corners(0.2em);	
+}
+
+.meta {
+  font-family: @serif;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #999;
+  border-top: 1px solid #ddd;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  margin-top: -0.6em;
+}
+
+.meta a, .content a, .related a {
+  color: #004491;
+  text-decoration: none;
+  border-bottom: 1px dotted #d3dfee;
+}
+
+.meta a {
+  font-weight: normal; 
+}
+
+.meta a:hover, .content a:hover, .related a:hover {
+  border-bottom: 1px solid #d3dfee;
+}
+
+.title a {
+  color: black;
+  text-decoration: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: white;
+}
+
+.title a:hover {
+  border: none;
+}
+
+.video {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-bottom: 0;
+  text-align: center;
+}
+
+pre {
+  font: 0.7em Monaco, monospace;
+  line-height: 1.4em;
+  display: block;
+  color: white;
+  background: #222;
+  .rounded-corners;
+  padding: 0.6em;
+}
+		
+.related {
+  padding-top: 1em;
+  color: #aaa;
+  font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2";
+  font-size: 0.9em;
+  line-height: 1.7em;
+}
+
+.related h3 {
+  font-size: 1.2em;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.related p {
+  margin-top: 0.4em;
+}
+
+.content p {
+  margin-bottom: 1.3em;
+}
+
+.s1, .s2, .sx, .mi {
+  color: rgb(174, 196, 235);
+}
+
+.nb, .k, .o, .kp {
+  color: rgb(196, 235, 174);
+}
+
+.ss {
+  color: rgb(255, 207, 135);
+}
+
+.nf {
+  color: rgb(255, 255, 160);
+}
+
+.vi {
+  color: rgb(255, 159, 157);
+}
+
+.c, .c1 {
+  color: rgb(160, 160, 160);
+}
+
+.screenshot {
+  text-align: center;
+}

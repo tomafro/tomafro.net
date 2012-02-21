@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tom Ward's blog &middot; tomafro.net</title>
-  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Tom Ward's blog &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net"/>
@@ -19,7 +20,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -27,27 +28,43 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/09/geohash-toy-code-released">Geohash toy: code released</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2011/09/geohash-toy-code-released">Geohash toy: code released</a></h1>
+  </header>
+  <div class="content">
     <p>A couple of weeks ago I <a href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes">wrote about a small toy app</a> I'd written to explore geohashes.  Now I've cleaned the code up a little, upgraded it to rails 3.1 and released it <a href="https://github.com/tomafro/geohash-explorer">here on github</a>.  Enjoy.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/09">24th September 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/geohash" rel="tag">geohash</a> &middot; <a href="/tags/toy" rel="tag">toy</a> &middot; <a href="/tags/code" rel="tag">code</a> &middot; <a href="/tags/app" rel="tag">app</a> &middot; <a href="/tags/github" rel="tag">github</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/09">24th September 2011</a></span>
+    <ul>
+      <li><a href="/tags/geohash" rel="tag">geohash</a></li>
+      <li><a href="/tags/toy" rel="tag">toy</a></li>
+      <li><a href="/tags/code" rel="tag">code</a></li>
+      <li><a href="/tags/app" rel="tag">app</a></li>
+      <li><a href="/tags/github" rel="tag">github</a></li>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/09/a-small-toy-to-explore-geohashes">A small toy to explore geohashes</a></h2>
+<article>
+  <header>
+    <h1><a href="/2011/09/a-small-toy-to-explore-geohashes">A small toy to explore geohashes</a></h1>
+  </header>
+  <div class="content">
     <p>For an app I've been building, I've been looking into <a href="http://geohash.org/">geohashes</a>.  For those who don't know, the <a href="http://en.wikipedia.org/wiki/Geohash">geohash</a> format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson's Column in London (51.507794, -0.127952) has the geohash <code>gcpvj0dyds</code>.</p>
 
 <p>Geohashes have a couple of interesting features.  First, as you remove characters, you lose precision. <code>gcpvj0dyds</code> fairly accurately points to Nelson's Column; <code>gcpvj0d</code> represents the South-West of Trafalgar Square and some of the Mall; and <code>gcpvj</code> covers most of Central London, as well as Islington and King's Cross.  A geohash doesn't really represent a point, but rather a bounding area within which a point may lie.  The longer the geohash, the smaller that bounding area.</p>
@@ -62,15 +79,22 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/09">15th September 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/geohash" rel="tag">geohash</a> &middot; <a href="/tags/toy" rel="tag">toy</a> &middot; <a href="/tags/app" rel="tag">app</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/09">15th September 2011</a></span>
+    <ul>
+      <li><a href="/tags/geohash" rel="tag">geohash</a></li>
+      <li><a href="/tags/toy" rel="tag">toy</a></li>
+      <li><a href="/tags/app" rel="tag">app</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h2>
+<article>
+  <header>
+    <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
+  </header>
+  <div class="content">
     <p>It's irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
 
 <p>Here's the function (which I've named <code>be</code>):</p>
@@ -98,24 +122,34 @@ alias rspec=&#39;be rspec&#39;
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/09"> 1st September 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/rake" rel="tag">rake</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/09"> 1st September 2011</a></span>
+    <ul>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/rake" rel="tag">rake</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/08/presenting-the-hashblue-api">Presenting the #blue api</a></h2>
+<article>
+  <header>
+    <h1><a href="/2011/08/presenting-the-hashblue-api">Presenting the #blue api</a></h1>
+  </header>
+  <div class="content">
     <p>In building <a href="https://hashblue.com">#blue</a> (sign up now!), one of the problems we faced was how to build <code>json</code> data in response to requests to <a href="https://api.hashblue.com">our API</a>.  The typical rails solution would be to override <code>#as_json</code> in a model class, then write a controller like this:</p>
 
-<div class="highlight"><pre>    <span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
-      <span class="n">responds_to</span> <span class="ss">:json</span>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
+  <span class="n">responds_to</span> <span class="ss">:json</span>
 
-      <span class="k">def</span> <span class="nf">show</span>
-        <span class="n">respond_with</span> <span class="no">Contact</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="n">respond_with</span> <span class="no">Contact</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </pre>
 </div>
 
@@ -124,16 +158,16 @@ alias rspec=&#39;be rspec&#39;
 
 <p>The biggest issue for our API is that rather than expose the <code>id</code> of each model, we've tried to encourage the use of the <code>uri</code> instead.  So the <code>json</code> returned for a single contact (for example) looks like this:</p>
 
-<div class="highlight"><pre>    <span class="p">{</span>
-      <span class="s2">&quot;contact&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;uri&quot;</span><span class="o">:</span> <span class="s2">&quot;https://api.example.com/contacts/ccpwjc&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;George&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;email&quot;</span><span class="o">:</span> <span class="s2">&quot;george@handmade.org&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;msisdn&quot;</span><span class="o">:</span> <span class="s2">&quot;447897897899&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;phone_number&quot;</span><span class="o">:</span> <span class="s2">&quot;07897897899&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;messages&quot;</span><span class="o">:</span> <span class="s2">&quot;https://api.example.com/contacts/ccpwjc/messages&quot;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
+<div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;contact&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;uri&quot;</span><span class="o">:</span> <span class="s2">&quot;https://api.example.com/contacts/ccpwjc&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;George&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;email&quot;</span><span class="o">:</span> <span class="s2">&quot;george@handmade.org&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;msisdn&quot;</span><span class="o">:</span> <span class="s2">&quot;447897897899&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;phone_number&quot;</span><span class="o">:</span> <span class="s2">&quot;07897897899&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;messages&quot;</span><span class="o">:</span> <span class="s2">&quot;https://api.example.com/contacts/ccpwjc/messages&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre>
 </div>
 
@@ -144,46 +178,46 @@ alias rspec=&#39;be rspec&#39;
 
 <p>The solution we've used is to build a presenter for each model, solely responsible for building the json.  Here's an example for a contact:</p>
 
-<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">ContactPresenter</span>
-    <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactPresenter</span>
+  <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
 
-    <span class="kp">attr_accessor</span> <span class="ss">:controller</span><span class="p">,</span> <span class="ss">:subject</span>
-    <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">:url_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
-    <span class="n">delegate</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:subject</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:controller</span><span class="p">,</span> <span class="ss">:subject</span>
+  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">:url_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
+  <span class="n">delegate</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:subject</span>
 
-    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-      <span class="vi">@controller</span> <span class="o">=</span> <span class="n">controller</span>
-      <span class="vi">@subject</span> <span class="o">=</span> <span class="n">subject</span>
-    <span class="k">end</span>
-
-    <span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
-      <span class="p">{</span><span class="ss">:contact</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="ss">:uri</span> <span class="o">=&gt;</span> <span class="n">uri</span><span class="p">,</span>
-        <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
-        <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-        <span class="ss">:msisdn</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">msisdn</span><span class="p">,</span>
-        <span class="ss">:phone_number</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
-        <span class="ss">:messages</span> <span class="o">=&gt;</span> <span class="n">api_contact_messages_url</span><span class="p">(</span><span class="ss">:contact_id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-      <span class="p">}</span>
-    <span class="k">end</span>
-
-    <span class="k">def</span> <span class="nf">uri</span>
-      <span class="n">api_contact_url</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-    <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
+    <span class="vi">@controller</span> <span class="o">=</span> <span class="n">controller</span>
+    <span class="vi">@subject</span> <span class="o">=</span> <span class="n">subject</span>
   <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="p">{</span><span class="ss">:contact</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="ss">:uri</span> <span class="o">=&gt;</span> <span class="n">uri</span><span class="p">,</span>
+      <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+      <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="ss">:msisdn</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">msisdn</span><span class="p">,</span>
+      <span class="ss">:phone_number</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
+      <span class="ss">:messages</span> <span class="o">=&gt;</span> <span class="n">api_contact_messages_url</span><span class="p">(</span><span class="ss">:contact_id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">uri</span>
+    <span class="n">api_contact_url</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </pre>
 </div>
 
 
 <p>It's now simple to rewrite our controller to use the new presenter:</p>
 
-<div class="highlight"><pre>    <span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
-      <span class="n">responds_to</span> <span class="ss">:json</span>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
+  <span class="n">responds_to</span> <span class="ss">:json</span>
 
-      <span class="k">def</span> <span class="nf">show</span>
-        <span class="n">respond_with</span> <span class="no">ContactPresenter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="no">Contact</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">))</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="n">respond_with</span> <span class="no">ContactPresenter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="no">Contact</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </pre>
 </div>
 
@@ -192,20 +226,20 @@ alias rspec=&#39;be rspec&#39;
 
 <p>The presenter above works well for a single model, but many of our API calls return a page of results.  The <a href="https://api.hashblue.com/doc/GET%3Acontacts">/contacts</a> for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it's simple to adapt this pattern to present pages like this.  First, we change our original <code>#as_json</code> method slightly:</p>
 
-<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
-    <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:partial</span><span class="o">]</span>
-      <span class="p">{</span>
-        <span class="ss">:uri</span> <span class="o">=&gt;</span> <span class="n">uri</span><span class="p">,</span>
-        <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
-        <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-        <span class="ss">:msisdn</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">msisdn</span><span class="p">,</span>
-        <span class="ss">:phone_number</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
-        <span class="ss">:messages</span> <span class="o">=&gt;</span> <span class="n">api_contact_messages_url</span><span class="p">(</span><span class="ss">:contact_id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-      <span class="p">}</span>
-    <span class="k">else</span>
-      <span class="p">{</span><span class="ss">:contact</span> <span class="o">=&gt;</span> <span class="n">as_json</span><span class="p">(</span><span class="ss">:partial</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)}</span>
-    <span class="k">end</span>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
+  <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:partial</span><span class="o">]</span>
+    <span class="p">{</span>
+      <span class="ss">:uri</span> <span class="o">=&gt;</span> <span class="n">uri</span><span class="p">,</span>
+      <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+      <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+      <span class="ss">:msisdn</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">msisdn</span><span class="p">,</span>
+      <span class="ss">:phone_number</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
+      <span class="ss">:messages</span> <span class="o">=&gt;</span> <span class="n">api_contact_messages_url</span><span class="p">(</span><span class="ss">:contact_id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="k">else</span>
+    <span class="p">{</span><span class="ss">:contact</span> <span class="o">=&gt;</span> <span class="n">as_json</span><span class="p">(</span><span class="ss">:partial</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)}</span>
   <span class="k">end</span>
+<span class="k">end</span>
 </pre>
 </div>
 
@@ -250,7 +284,10 @@ alias rspec=&#39;be rspec&#39;
   <span class="n">responds_to</span> <span class="ss">:json</span>
 
   <span class="k">def</span> <span class="nf">index</span>
-    <span class="n">respond_with</span> <span class="no">ContactPagePresenter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="no">Contact</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="ss">:page</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:page</span><span class="o">]</span><span class="p">,</span> <span class="ss">:per_page</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">))</span>
+    <span class="n">respond_with</span> <span class="no">ContactPagePresenter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="no">Contact</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span>
+      <span class="ss">:page</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:page</span><span class="o">]</span><span class="p">,</span> 
+      <span class="ss">:per_page</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </pre>
@@ -333,15 +370,24 @@ alias rspec=&#39;be rspec&#39;
 <p>Any comments or suggestions, please get in touch with me <a href="http://twitter.com/tomafro">on twitter</a>.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/08"> 2nd August 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/hashblue" rel="tag">hashblue</a> &middot; <a href="/tags/gofreerange" rel="tag">gofreerange</a> &middot; <a href="/tags/o2" rel="tag">o2</a> &middot; <a href="/tags/api" rel="tag">api</a> &middot; <a href="/tags/rails" rel="tag">rails</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/08"> 2nd August 2011</a></span>
+    <ul>
+      <li><a href="/tags/hashblue" rel="tag">hashblue</a></li>
+      <li><a href="/tags/gofreerange" rel="tag">gofreerange</a></li>
+      <li><a href="/tags/o2" rel="tag">o2</a></li>
+      <li><a href="/tags/api" rel="tag">api</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/03/hashblue-opens-for-business">#blue opens for business</a></h2>
+<article>
+  <header>
+    <h1><a href="/2011/03/hashblue-opens-for-business">#blue opens for business</a></h1>
+  </header>
+  <div class="content">
     <p>If you're an <a href="http://o2.co.uk">O2</a> customer based in the UK, you might be interested that <a href="https://hashblue.com">#blue</a>, a project <a href="http://gofreerange.com">we've built</a>, has recently (re)opened for business.  It's a soft launch, but feel free to tell your friends.</p>
 
 <p><a href="https://hashblue.com">#blue</a> gets copies of every SMS message you send or receive, and makes them available to you on the web.  You can search your messages, read whole conversations, and even reply, all from the comfort of your browser.</p>
@@ -363,14 +409,16 @@ alias rspec=&#39;be rspec&#39;
 <p>If you think it sounds interesting, <a href="https://hashblue.com/">ask for a beta request</a>.  You should get an invitation very quickly.  Once on board, please send me any suggestions and feedback.  It's going to be interesting to see where we can take this project.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/03"> 3rd March 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/hashblue" rel="tag">hashblue</a> &middot; <a href="/tags/gofreerange" rel="tag">gofreerange</a> &middot; <a href="/tags/o2" rel="tag">o2</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/03"> 3rd March 2011</a></span>
+    <ul>
+      <li><a href="/tags/hashblue" rel="tag">hashblue</a></li>
+      <li><a href="/tags/gofreerange" rel="tag">gofreerange</a></li>
+      <li><a href="/tags/o2" rel="tag">o2</a></li>
+    </ul>
+  </footer>
 </article>
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

@@ -6,13 +6,13 @@ tags: [hashblue, gofreerange, o2, api, rails]
 In building [#blue](https://hashblue.com) (sign up now!), one of the problems we faced was how to build `json` data in response to requests to [our API](https://api.hashblue.com).  The typical rails solution would be to override `#as_json` in a model class, then write a controller like this:
 
 {% highlight ruby %}
-    class ContactsController < ApiController
-      responds_to :json
+class ContactsController < ApiController
+  responds_to :json
 
-      def show
-        respond_with Contact.find(params[:id])
-      end
-    end
+  def show
+    respond_with Contact.find(params[:id])
+  end
+end
 {% endhighlight %}
 
 I always prefer to keep my controllers as skinny as possible, so this looks like a great solution.  The `respond_with` call takes care of converting the message to json and responding with the right `Content-Type`, all in a simple call.  However it has a number of problems and disadvantages.
@@ -20,16 +20,16 @@ I always prefer to keep my controllers as skinny as possible, so this looks like
 The biggest issue for our API is that rather than expose the `id` of each model, we've tried to encourage the use of the `uri` instead.  So the `json` returned for a single contact (for example) looks like this:
 
 {% highlight javascript %}
-    {
-      "contact": {
-        "uri": "https://api.example.com/contacts/ccpwjc",
-        "name": "George",
-        "email": "george@handmade.org",
-        "msisdn": "447897897899",
-        "phone_number": "07897897899",
-        "messages": "https://api.example.com/contacts/ccpwjc/messages"
-      }
-    }
+{
+  "contact": {
+    "uri": "https://api.example.com/contacts/ccpwjc",
+    "name": "George",
+    "email": "george@handmade.org",
+    "msisdn": "447897897899",
+    "phone_number": "07897897899",
+    "messages": "https://api.example.com/contacts/ccpwjc/messages"
+  }
+}
 {% endhighlight %}
 
 It doesn't just have a `uri` for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute `messages_uri`).  Models can't generate uris, and shouldn't really be aware of them, so overriding `#as_json` doesn't work.  In any case, the json structure is really presentation logic, not business logic.  It doesn't belong in the model.
@@ -39,45 +39,45 @@ It doesn't just have a `uri` for the actual contact, but also for the messages b
 The solution we've used is to build a presenter for each model, solely responsible for building the json.  Here's an example for a contact:
 
 {% highlight ruby %}
-  class ContactPresenter
-    include Rails.application.routes.url_helpers
+class ContactPresenter
+  include Rails.application.routes.url_helpers
 
-    attr_accessor :controller, :subject
-    delegate :params, :url_options, :to => :controller
-    delegate :errors, :to => :subject
+  attr_accessor :controller, :subject
+  delegate :params, :url_options, :to => :controller
+  delegate :errors, :to => :subject
 
-    def initialize(controller, subject)
-      @controller = controller
-      @subject = subject
-    end
-
-    def as_json(options = {})
-      {:contact => {
-        :uri => uri,
-        :email => subject.email,
-        :name => subject.name,
-        :msisdn => subject.msisdn,
-        :phone_number => subject.phone_number,
-        :messages => api_contact_messages_url(:contact_id => subject.id)
-      }
-    end
-
-    def uri
-      api_contact_url(:id => subject.id)
-    end
+  def initialize(controller, subject)
+    @controller = controller
+    @subject = subject
   end
+
+  def as_json(options = {})
+    {:contact => {
+      :uri => uri,
+      :email => subject.email,
+      :name => subject.name,
+      :msisdn => subject.msisdn,
+      :phone_number => subject.phone_number,
+      :messages => api_contact_messages_url(:contact_id => subject.id)
+    }
+  end
+
+  def uri
+    api_contact_url(:id => subject.id)
+  end
+end
 {% endhighlight %}
 
 It's now simple to rewrite our controller to use the new presenter:
 
 {% highlight ruby %}
-    class ContactsController < ApiController
-      responds_to :json
+class ContactsController < ApiController
+  responds_to :json
 
-      def show
-        respond_with ContactPresenter.new(self, Contact.find(params[:id]))
-      end
-    end
+  def show
+    respond_with ContactPresenter.new(self, Contact.find(params[:id]))
+  end
+end
 {% endhighlight %}
 
 ### Presenting pages of models ###
@@ -85,20 +85,20 @@ It's now simple to rewrite our controller to use the new presenter:
 The presenter above works well for a single model, but many of our API calls return a page of results.  The [/contacts](https://api.hashblue.com/doc/GET%3Acontacts) for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it's simple to adapt this pattern to present pages like this.  First, we change our original `#as_json` method slightly:
 
 {% highlight ruby %}
-  def as_json(options = {})
-    if options[:partial]
-      {
-        :uri => uri,
-        :email => subject.email,
-        :name => subject.name,
-        :msisdn => subject.msisdn,
-        :phone_number => subject.phone_number,
-        :messages => api_contact_messages_url(:contact_id => subject.id)
-      }
-    else
-      {:contact => as_json(:partial => true)}
-    end
+def as_json(options = {})
+  if options[:partial]
+    {
+      :uri => uri,
+      :email => subject.email,
+      :name => subject.name,
+      :msisdn => subject.msisdn,
+      :phone_number => subject.phone_number,
+      :messages => api_contact_messages_url(:contact_id => subject.id)
+    }
+  else
+    {:contact => as_json(:partial => true)}
   end
+end
 {% endhighlight %}
 
 This change allows us to call as_json with the options `:partial`.  With the option, a hash of data is returned.  Without, the same hash is returned, wrapped in another hash.
@@ -141,7 +141,10 @@ class ContactsController < ApiController
   responds_to :json
 
   def index
-    respond_with ContactPagePresenter.new(self, Contact.paginate(:page => params[:page], :per_page => 50))
+    respond_with ContactPagePresenter.new(self, Contact.paginate(
+      :page => params[:page], 
+      :per_page => 50)
+    )
   end
 end
 {% endhighlight %}

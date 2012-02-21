@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Taking screenshots of web pages with macruby &middot; tomafro.net</title>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Taking screenshots of web pages with macruby &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/2009/11/taking-screenshots-of-web-pages-with-macruby"/>
@@ -18,7 +19,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -26,14 +27,20 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      <article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  <article>
+  <header>
+    <h1><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h1>
+  </header>
+  <div class="content">
     <p>Whilst playing around with the very exciting <a href="http://macruby.org">macruby</a> last weekend, I thought I'd try building a web page screenshot grabber, based on <a href="http://www.bencurtis.com/?p=128">Ben Curtis' code</a>.  The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
 
 <div class="highlight"><pre><span class="n">framework</span> <span class="s1">&#39;Cocoa&#39;</span>
@@ -132,14 +139,17 @@
 <p>The next step is to add some command line options, then try compilation and deployment with <code>macrubyc</code> and <code>macruby_deploy</code></p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11">30th November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/macruby" rel="tag">macruby</a> &middot; <a href="/tags/screenshots" rel="tag">screenshots</a> &middot; <a href="/tags/web" rel="tag">web</a> &middot; <a href="/tags/osx" rel="tag">osx</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/11">30th November 2009</a></span>
+    <ul>
+      <li><a href="/tags/macruby" rel="tag">macruby</a></li>
+      <li><a href="/tags/screenshots" rel="tag">screenshots</a></li>
+      <li><a href="/tags/web" rel="tag">web</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+    </ul>
+  </footer>
 </article>
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

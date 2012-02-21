@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Posts tagged with gem &middot; tomafro.net</title>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Posts tagged with gem &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/tags/gem"/>
@@ -18,7 +19,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -26,15 +27,21 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
+  </header>
+  <div class="content">
     <p>It's irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
 
 <p>Here's the function (which I've named <code>be</code>):</p>
@@ -62,15 +69,25 @@ alias rspec=&#39;be rspec&#39;
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/09"> 1st September 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/rake" rel="tag">rake</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/09"> 1st September 2011</a></span>
+    <ul>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/rake" rel="tag">rake</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2010/02/updated-rails-template-for-bundler">An updated rails template for gem bundler</a></h2>
+<article>
+  <header>
+    <h1><a href="/2010/02/updated-rails-template-for-bundler">An updated rails template for gem bundler</a></h1>
+  </header>
+  <div class="content">
     <div class="update">
 <h3>Update 8th February 2011:</h3>
 Bundler has changed a lot since I wrote these instructions.  Use them at your own risk!
@@ -179,15 +196,23 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 <p>And that's it.  I hope you find it useful.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2010/02">28th February 2010</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2010/02">28th February 2010</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h1>
+  </header>
+  <div class="content">
     <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
 <p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
@@ -234,15 +259,23 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11"> 5th November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/11"> 5th November 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h1>
+  </header>
+  <div class="content">
     <div class="update">
 <h3>Update 28th February 2010:</h3>
 Bundler has changed a lot since I first wrote this template, so I've <a href="/2010/02/updated-rails-template-for-gem-bundler">written a new version</a>.  Please use the updated version rather than the one below.
@@ -357,15 +390,23 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 <p>And that's it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11"> 3rd November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/11"> 3rd November 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h1>
+  </header>
+  <div class="content">
     <p>I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.</p>
 
 <p>Here's my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
@@ -412,15 +453,23 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
 <p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">14th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/completion" rel="tag">completion</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">14th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/completion" rel="tag">completion</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/gem-open" rel="tag">gem-open</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a></h1>
+  </header>
+  <div class="content">
     <p>The latest version of <a href="http://rubygems.org/">rubygems</a> (1.3.2) now has an interface to add commands.  Making great use of this feature, <a href="http://endofline.wordpress.com/">Adam Sanderson</a> has written <a href="http://github.com/adamsanderson/open_gem">open_gem</a>, a simple but amazingly useful tool.</p>
 
 <p>You use it like this:</p>
@@ -472,15 +521,18 @@ Open which gem?
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/05"> 6th May 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/05"> 6th May 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/gem-open" rel="tag">gem-open</a></li>
+    </ul>
+  </footer>
 </article>
 
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

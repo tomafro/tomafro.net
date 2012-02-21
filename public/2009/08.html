@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Posts from 08/2009 &middot; tomafro.net</title>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Posts from 08/2009 &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/2009/08"/>
@@ -18,7 +19,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -26,15 +27,21 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h1>
+  </header>
+  <div class="content">
     <p>Another simple shell function, this time just for OS X.</p>
 
 <p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
@@ -57,15 +64,24 @@
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">19th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">19th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+      <li><a href="/tags/terminal" rel="tag">terminal</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a></h1>
+  </header>
+  <div class="content">
     <p><a href="http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">The first part in this series of posts</a> looked at adding indexes to foreign keys, to improve the performance when navigating rails associations.  But many queries involve data other than just foreign keys.  With the judicious use of indexes, we can improve these too.</p>
 
 <p>Let's take the <code>conversations</code> table used in the first article, and add a column to hold the language, and some timestamps.  Here's the full schema:</p>
@@ -256,15 +272,24 @@ mysql> EXPLAIN SELECT * FROM conversations
 <p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">18th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">18th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/databases" rel="tag">databases</a></li>
+      <li><a href="/tags/indexes" rel="tag">indexes</a></li>
+      <li><a href="/tags/sql" rel="tag">sql</a></li>
+      <li><a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h1>
+  </header>
+  <div class="content">
     <p>I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.</p>
 
 <p>Here's my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
@@ -311,15 +336,23 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
 <p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">14th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/completion" rel="tag">completion</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/gem-open" rel="tag">gem-open</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">14th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/completion" rel="tag">completion</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/gem-open" rel="tag">gem-open</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h1>
+  </header>
+  <div class="content">
     <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
 
 <div class="highlight"><pre><span class="c"># Create and move to a directory in a single command</span>
@@ -336,15 +369,23 @@ take<span class="o">()</span> <span class="o">{</span>
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">12th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/peepcode" rel="tag">peepcode</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">12th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/peepcode" rel="tag">peepcode</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h1>
+  </header>
+  <div class="content">
     <p>Many rails developers are great at building applications but have limited experience in database design.  As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.</p>
 
 <p>To try and improve this I've planned a series of posts on indexes, targetted at rails developers.  In this first post I'll <a href="">introduce indexes and how to index your associations</a>, then I'll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
@@ -535,15 +576,24 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 <p>This should give a basic overview of indexes and the performance improvements they can give.  Hopefully I've shown that <strong>foreign_keys should always be indexed</strong>, and how to index them.  The next article (which I hope to publish later this week) will explain more about how to reason about indexes, and how to identify additional indexes (beyond those on foreign keys) to add.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">11th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">11th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/databases" rel="tag">databases</a></li>
+      <li><a href="/tags/indexes" rel="tag">indexes</a></li>
+      <li><a href="/tags/sql" rel="tag">sql</a></li>
+      <li><a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h1>
+  </header>
+  <div class="content">
     <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
 
 <div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
@@ -560,15 +610,24 @@ tm<span class="o">()</span> <span class="o">{</span>
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08"> 7th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/textmate" rel="tag">textmate</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08"> 7th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+      <li><a href="/tags/textmate" rel="tag">textmate</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h1>
+  </header>
+  <div class="content">
     <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.</p>
 
 <p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I'd investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
@@ -605,15 +664,22 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 <p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn't matter either way.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08"> 4th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/micro-benchmark" rel="tag">micro-benchmark</a> &middot; <a href="/tags/return" rel="tag">return</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08"> 4th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/micro-benchmark" rel="tag">micro-benchmark</a></li>
+      <li><a href="/tags/return" rel="tag">return</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h1>
+  </header>
+  <div class="content">
     <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
 
 <p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
@@ -637,15 +703,18 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 <p>As I said, simple.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08"> 3rd August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08"> 3rd August 2009</a></span>
+    <ul>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+      <li><a href="/tags/linux" rel="tag">linux</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+    </ul>
+  </footer>
 </article>
 
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

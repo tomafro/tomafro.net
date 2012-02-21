@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Posts from 06/2009 &middot; tomafro.net</title>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Posts from 06/2009 &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/2009/06"/>
@@ -18,7 +19,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -26,15 +27,21 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h1>
+  </header>
+  <div class="content">
     <p>For a long time I've had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
 
 <p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when <code>.irbrc</code> is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:</p>
@@ -68,15 +75,18 @@
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/06">22nd June 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/irb" rel="tag">irb</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/06">22nd June 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/irb" rel="tag">irb</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+    </ul>
+  </footer>
 </article>
 
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

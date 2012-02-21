@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tom Ward's blog &middot; tomafro.net</title>
-  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Tom Ward's blog &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/4"/>
@@ -19,7 +20,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -27,15 +28,21 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h1>
+  </header>
+  <div class="content">
     <div class="update">
 <h3>Update 28th February 2010:</h3>
 Bundler has changed a lot since I first wrote this template, so I've <a href="/2010/02/updated-rails-template-for-gem-bundler">written a new version</a>.  Please use the updated version rather than the one below.
@@ -150,15 +157,23 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 <p>And that's it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11"> 3rd November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/11"> 3rd November 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h1>
+  </header>
+  <div class="content">
     <p>This one is just so simple, I can't believe I didn't know about it earlier.</p>
 
 <p>First, setup the cdpath or CDPATH variable:</p>
@@ -184,15 +199,24 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 <p>I've already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/10"> 6th October 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a> &middot; <a href="/tags/cdpath" rel="tag">cdpath</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/10"> 6th October 2009</a></span>
+    <ul>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/terminal" rel="tag">terminal</a></li>
+      <li><a href="/tags/cdpath" rel="tag">cdpath</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h1>
+  </header>
+  <div class="content">
     <p>There's one small method I add to every new rails project I work on:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">Tomafro::FromParam</span>
@@ -241,15 +265,24 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 <p>I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/09">23rd September 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/from-param" rel="tag">from-param</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/09">23rd September 2009</a></span>
+    <ul>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/active-record" rel="tag">active-record</a></li>
+      <li><a href="/tags/from-param" rel="tag">from-param</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h1>
+  </header>
+  <div class="content">
     <p>Run this code in a rails console to list foreign keys which aren't indexed.</p>
 
 <div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span>
@@ -292,15 +325,24 @@ taggings: tag_id, taggable_id, user_id
 <p><em>Update:</em> Andrew Coleman has <a href="http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes">added output in migration format</a>.  If you want to play around with it further, <a href="http://gist.github.com/191181">here's the original code on gist</a>.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/09">22nd September 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/code" rel="tag">code</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/09">22nd September 2009</a></span>
+    <ul>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/databases" rel="tag">databases</a></li>
+      <li><a href="/tags/indexes" rel="tag">indexes</a></li>
+      <li><a href="/tags/sql" rel="tag">sql</a></li>
+      <li><a href="/tags/code" rel="tag">code</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h1>
+  </header>
+  <div class="content">
     <p>Another simple shell function, this time just for OS X.</p>
 
 <p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
@@ -323,14 +365,18 @@ taggings: tag_id, taggable_id, user_id
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">19th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/terminal" rel="tag">terminal</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">19th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+      <li><a href="/tags/terminal" rel="tag">terminal</a></li>
+    </ul>
+  </footer>
 </article>
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

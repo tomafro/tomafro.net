@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>A rails template for gem bundler &middot; tomafro.net</title>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>A rails template for gem bundler &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/2009/11/a-rails-template-for-gem-bundler"/>
@@ -18,7 +19,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -26,14 +27,20 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      <article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  <article>
+  <header>
+    <h1><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h1>
+  </header>
+  <div class="content">
     <div class="update">
 <h3>Update 28th February 2010:</h3>
 Bundler has changed a lot since I first wrote this template, so I've <a href="/2010/02/updated-rails-template-for-gem-bundler">written a new version</a>.  Please use the updated version rather than the one below.
@@ -148,14 +155,17 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 <p>And that's it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11"> 3rd November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/11"> 3rd November 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+    </ul>
+  </footer>
 </article>
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

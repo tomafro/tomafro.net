@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tom Ward's blog &middot; tomafro.net</title>
-  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Tom Ward's blog &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/6"/>
@@ -19,7 +20,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -27,15 +28,21 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h1>
+  </header>
+  <div class="content">
     <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.</p>
 
 <p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I'd investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
@@ -72,15 +79,22 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 <p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn't matter either way.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08"> 4th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/micro-benchmark" rel="tag">micro-benchmark</a> &middot; <a href="/tags/return" rel="tag">return</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08"> 4th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/micro-benchmark" rel="tag">micro-benchmark</a></li>
+      <li><a href="/tags/return" rel="tag">return</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h1>
+  </header>
+  <div class="content">
     <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
 
 <p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
@@ -104,30 +118,46 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 <p>As I said, simple.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08"> 3rd August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/zsh" rel="tag">zsh</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/linux" rel="tag">linux</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08"> 3rd August 2009</a></span>
+    <ul>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+      <li><a href="/tags/linux" rel="tag">linux</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/07/salvador-dali-on-whats-my-line">Salvador Dali on "What's My Line?"</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/07/salvador-dali-on-whats-my-line">Salvador Dali on "What's My Line?"</a></h1>
+  </header>
+  <div class="content">
     <p class="video">
 <object width="800" height="630"><param name="movie" value="http://www.youtube.com/v/iXT2E9Ccc8A&amp;hl=en&amp;fs=1&amp;rel=0&amp;color1=0x3a3a3a&amp;color2=0x999999"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/iXT2E9Ccc8A&amp;hl=en&amp;fs=1&amp;rel=0&amp;color1=0x3a3a3a&amp;color2=0x999999" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="800" height="630"></embed></object>
 </p>
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/07">10th July 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/salvador-dali" rel="tag">salvador-dali</a> &middot; <a href="/tags/whats-my-line" rel="tag">whats-my-line</a> &middot; <a href="/tags/tv" rel="tag">tv</a> &middot; <a href="/tags/youtube" rel="tag">youtube</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/07">10th July 2009</a></span>
+    <ul>
+      <li><a href="/tags/salvador-dali" rel="tag">salvador-dali</a></li>
+      <li><a href="/tags/whats-my-line" rel="tag">whats-my-line</a></li>
+      <li><a href="/tags/tv" rel="tag">tv</a></li>
+      <li><a href="/tags/youtube" rel="tag">youtube</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/07/dscl-the-easy-way-to-add-hosts-on-osx">dscl - the easy way to add hosts on OS X</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/07/dscl-the-easy-way-to-add-hosts-on-osx">dscl - the easy way to add hosts on OS X</a></h1>
+  </header>
+  <div class="content">
     <p>As a web developer, I often want several host names pointing at my local machine whilst developing and testing applications.  I may want to use Apache virtual hosts to serve multiple apps at once, or use subdomains to distinguish different accounts within a single application.</p>
 
 <p>Previously, to set these host names up, I would manually edit <code>/etc/hosts</code>, adding entries like:</p>
@@ -201,15 +231,24 @@ yet-another-half-baked-idea.localhost            127.0.0.1
 <p>Or if you're using <a href="http://www.modrails.com/">passenger</a> for development, you can use a tool like <a href="http://github.com/lazyatom/hostess/tree/master">James Adam's hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/07"> 8th July 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/dscl" rel="tag">dscl</a> &middot; <a href="/tags/development" rel="tag">development</a> &middot; <a href="/tags/shell" rel="tag">shell</a> &middot; <a href="/tags/reminder" rel="tag">reminder</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/07"> 8th July 2009</a></span>
+    <ul>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+      <li><a href="/tags/dscl" rel="tag">dscl</a></li>
+      <li><a href="/tags/development" rel="tag">development</a></li>
+      <li><a href="/tags/shell" rel="tag">shell</a></li>
+      <li><a href="/tags/reminder" rel="tag">reminder</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h1>
+  </header>
+  <div class="content">
     <p>For a long time I've had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
 
 <p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when <code>.irbrc</code> is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:</p>
@@ -243,14 +282,17 @@ yet-another-half-baked-idea.localhost            127.0.0.1
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/06">22nd June 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/irb" rel="tag">irb</a> &middot; <a href="/tags/tip" rel="tag">tip</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/06">22nd June 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/irb" rel="tag">irb</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+    </ul>
+  </footer>
 </article>
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

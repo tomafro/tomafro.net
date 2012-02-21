@@ -8,7 +8,7 @@
    <name>Tom Ward</name>
    <email>tom@popdog.net</email>
  </author>
- {% for post in site.posts.by_date.reversed limit:10 %}
+ {% for post in site.posts.by_date reversed limit:10 %}
  <entry>
    <id>http://tomafro.net{{ post.id }}</id>
    <link href="http://tomafro.net{{ post.url }}"/>

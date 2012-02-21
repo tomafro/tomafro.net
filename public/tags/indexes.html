@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Posts tagged with indexes &middot; tomafro.net</title>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Posts tagged with indexes &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/tags/indexes"/>
@@ -18,7 +19,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -26,15 +27,21 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h1>
+  </header>
+  <div class="content">
     <p>Run this code in a rails console to list foreign keys which aren't indexed.</p>
 
 <div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span>
@@ -77,15 +84,24 @@ taggings: tag_id, taggable_id, user_id
 <p><em>Update:</em> Andrew Coleman has <a href="http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes">added output in migration format</a>.  If you want to play around with it further, <a href="http://gist.github.com/191181">here's the original code on gist</a>.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/09">22nd September 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/code" rel="tag">code</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/09">22nd September 2009</a></span>
+    <ul>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/databases" rel="tag">databases</a></li>
+      <li><a href="/tags/indexes" rel="tag">indexes</a></li>
+      <li><a href="/tags/sql" rel="tag">sql</a></li>
+      <li><a href="/tags/code" rel="tag">code</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a></h1>
+  </header>
+  <div class="content">
     <p><a href="http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">The first part in this series of posts</a> looked at adding indexes to foreign keys, to improve the performance when navigating rails associations.  But many queries involve data other than just foreign keys.  With the judicious use of indexes, we can improve these too.</p>
 
 <p>Let's take the <code>conversations</code> table used in the first article, and add a column to hold the language, and some timestamps.  Here's the full schema:</p>
@@ -276,15 +292,24 @@ mysql> EXPLAIN SELECT * FROM conversations
 <p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">18th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">18th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/databases" rel="tag">databases</a></li>
+      <li><a href="/tags/indexes" rel="tag">indexes</a></li>
+      <li><a href="/tags/sql" rel="tag">sql</a></li>
+      <li><a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h1>
+  </header>
+  <div class="content">
     <p>Many rails developers are great at building applications but have limited experience in database design.  As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.</p>
 
 <p>To try and improve this I've planned a series of posts on indexes, targetted at rails developers.  In this first post I'll <a href="">introduce indexes and how to index your associations</a>, then I'll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
@@ -475,15 +500,19 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 <p>This should give a basic overview of indexes and the performance improvements they can give.  Hopefully I've shown that <strong>foreign_keys should always be indexed</strong>, and how to index them.  The next article (which I hope to publish later this week) will explain more about how to reason about indexes, and how to identify additional indexes (beyond those on foreign keys) to add.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/08">11th August 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/databases" rel="tag">databases</a> &middot; <a href="/tags/indexes" rel="tag">indexes</a> &middot; <a href="/tags/sql" rel="tag">sql</a> &middot; <a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">11th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/databases" rel="tag">databases</a></li>
+      <li><a href="/tags/indexes" rel="tag">indexes</a></li>
+      <li><a href="/tags/sql" rel="tag">sql</a></li>
+      <li><a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></li>
+    </ul>
+  </footer>
 </article>
 
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

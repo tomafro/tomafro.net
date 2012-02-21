@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tom Ward's blog &middot; tomafro.net</title>
-  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Tom Ward's blog &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/3"/>
@@ -19,7 +20,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -27,15 +28,21 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2010/01/how-to-use-rails3-gems-now">How to easily use Rails 3 now</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2010/01/how-to-use-rails3-gems-now">How to easily use Rails 3 now</a></h1>
+  </header>
+  <div class="content">
     <div class="update">
 <h3>Update 10th February 2010:</h3>
 The instructions below were useful earlier in the development cycle.  Now the <a href="http://weblog.rubyonrails.org/2010/2/5/rails-3-0-beta-release">beta gem has been released</a>, the process is much easier:
@@ -80,15 +87,23 @@ rake install
 <p>Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2010/01">24th January 2010</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/gems" rel="tag">gems</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2010/01">24th January 2010</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/rails3" rel="tag">rails3</a></li>
+      <li><a href="/tags/gems" rel="tag">gems</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2010/01/tip-relative-paths-with-file-expand-path">Tip: Relative paths with File.expand_path</a></h2>
+<article>
+  <header>
+    <h1><a href="/2010/01/tip-relative-paths-with-file-expand-path">Tip: Relative paths with File.expand_path</a></h1>
+  </header>
+  <div class="content">
     <p>You probably know about the <code>__FILE__</code> magic constant.  It holds the filename of the currently executing ruby source file, relative to the execution directory.  So with the following saved as <code>/code/examples/path_example.rb</code>:</p>
 
 <div class="highlight"><pre><span class="nb">puts</span> <span class="bp">__FILE__</span>
@@ -117,15 +132,24 @@ rake install
 <p>Much simpler.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2010/01">23rd January 2010</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a> &middot; <a href="/tags/file" rel="tag">file</a> &middot; <a href="/tags/expand-path" rel="tag">expand-path</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2010/01">23rd January 2010</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+      <li><a href="/tags/file" rel="tag">file</a></li>
+      <li><a href="/tags/expand-path" rel="tag">expand-path</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h1>
+  </header>
+  <div class="content">
     <p>Whilst playing around with the very exciting <a href="http://macruby.org">macruby</a> last weekend, I thought I'd try building a web page screenshot grabber, based on <a href="http://www.bencurtis.com/?p=128">Ben Curtis' code</a>.  The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
 
 <div class="highlight"><pre><span class="n">framework</span> <span class="s1">&#39;Cocoa&#39;</span>
@@ -224,15 +248,23 @@ rake install
 <p>The next step is to add some command line options, then try compilation and deployment with <code>macrubyc</code> and <code>macruby_deploy</code></p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11">30th November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/macruby" rel="tag">macruby</a> &middot; <a href="/tags/screenshots" rel="tag">screenshots</a> &middot; <a href="/tags/web" rel="tag">web</a> &middot; <a href="/tags/osx" rel="tag">osx</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/11">30th November 2009</a></span>
+    <ul>
+      <li><a href="/tags/macruby" rel="tag">macruby</a></li>
+      <li><a href="/tags/screenshots" rel="tag">screenshots</a></li>
+      <li><a href="/tags/web" rel="tag">web</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/11/zoom-keyboard-shortcut-for-os-x">Tip: Zoom keyboard shortcut for OS X</a></h1>
+  </header>
+  <div class="content">
     <p>In the Terminal run:</p>
 
 <div class="highlight"><pre>defaults write NSGlobalDomain NSUserKeyEquivalents <span class="s1">&#39;{&quot;Zoom&quot; = &quot;@^Z&quot;; &quot;Zoom Window&quot; = &quot;@^Z&quot;; }&#39;</span>
@@ -245,15 +277,25 @@ rake install
 <p>Stolen from <a href="http://www.macosxhints.com/article.php?story=20051227001809626">macoshints.com</a>, posted here for my own benefit.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11"> 6th November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/tip" rel="tag">tip</a> &middot; <a href="/tags/osx" rel="tag">osx</a> &middot; <a href="/tags/keyboard" rel="tag">keyboard</a> &middot; <a href="/tags/shortcut" rel="tag">shortcut</a> &middot; <a href="/tags/zoom" rel="tag">zoom</a> &middot; <a href="/tags/tiny" rel="tag">tiny</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/11"> 6th November 2009</a></span>
+    <ul>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+      <li><a href="/tags/keyboard" rel="tag">keyboard</a></li>
+      <li><a href="/tags/shortcut" rel="tag">shortcut</a></li>
+      <li><a href="/tags/zoom" rel="tag">zoom</a></li>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h2>
+<article>
+  <header>
+    <h1><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h1>
+  </header>
+  <div class="content">
     <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
 <p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
@@ -300,14 +342,17 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
 
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2009/11"> 5th November 2009</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/11"> 5th November 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+    </ul>
+  </footer>
 </article>
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>

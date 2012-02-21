@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tom Ward's blog &middot; tomafro.net</title>
-  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
-  <meta name="verify-v1" content="ADnFYWq1MeVbf8+qNPe/GZTvcEsDgOCgWTWrUIPakz8=" />
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+  <meta name="description" content="Personal blog of Tom Ward, in which he writes about ruby, rails and web development, as well as other random ephemera"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+  <title>Tom Ward's blog &middot; tomafro.net</title>
   <link rel="stylesheet" href="/css/style.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/2"/>
@@ -19,7 +20,7 @@
 
     (function() {
       var ga = document.createElement('script');
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
           'http://www') + '.google-analytics.com/ga.js';
       ga.setAttribute('async', 'true');
       document.documentElement.firstChild.appendChild(ga);
@@ -27,15 +28,21 @@
   </script>
   
 </head>
-<body>  
-  <div id="container">
-    <header class="menubar">
-      <a class="name" href="/">tomafro.net</a> &middot; <a href="/about">about</a> &middot; <a href="http://github.com/tomafro">on github</a> &middot; <a href="http://delicious.com/tomafro">on delicious</a> &middot; <a href="http://twitter.com/tomafro">on twitter</a> &middot; <a href="http://www.last.fm/user/tomafro">on last.fm</a>
-    </header>
-    <div id="main">
-      
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h2>
+<body>
+  <nav>
+  <ul>
+    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/about'>about</a></li>
+    <li><a href='https://github.com/tomafro'>github</a></li>
+    <li><a href='https://twitter.com/tomafro'>twitter</a></li>
+  </ul>
+</nav>
+  
+<article>
+  <header>
+    <h1><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h1>
+  </header>
+  <div class="content">
     <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.</p>
 
 <p>The <a href="http://rubygems.org/gems/mongo-rails-instrumentation">mongo-rails-instrumentation</a> gem is available on rubygems, and the code is <a href="https://github.com/tomafro/mongo-rails-instrumentation">up on github</a>.</p>
@@ -50,15 +57,24 @@
 <p>Please add any suggestions, improvements and comments to the code in github.  I hope people find it useful.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/02">19th February 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/mongo" rel="tag">mongo</a> &middot; <a href="/tags/instrumentation" rel="tag">instrumentation</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/02">19th February 2011</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/rails3" rel="tag">rails3</a></li>
+      <li><a href="/tags/mongo" rel="tag">mongo</a></li>
+      <li><a href="/tags/instrumentation" rel="tag">instrumentation</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/02/experimental-mongo-instrumentation">Experimental Mongo instrumentation (for Rails 3)</a></h2>
+<article>
+  <header>
+    <h1><a href="/2011/02/experimental-mongo-instrumentation">Experimental Mongo instrumentation (for Rails 3)</a></h1>
+  </header>
+  <div class="content">
     <div class="update">
 Update: Changed to instrument methods on the Mongo::Connection
 </div>
@@ -165,15 +181,24 @@ Update: Changed to instrument methods on the Mongo::Connection
 <p>It's just a first stab, so any comments and improvements are more then welcome.  It's <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/02">18th February 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/mongo" rel="tag">mongo</a> &middot; <a href="/tags/instrumentation" rel="tag">instrumentation</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/02">18th February 2011</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/rails3" rel="tag">rails3</a></li>
+      <li><a href="/tags/mongo" rel="tag">mongo</a></li>
+      <li><a href="/tags/instrumentation" rel="tag">instrumentation</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2011/02/rails-3-column-reader-tweak">A home for my Active Record column reader</a></h2>
+<article>
+  <header>
+    <h1><a href="/2011/02/rails-3-column-reader-tweak">A home for my Active Record column reader</a></h1>
+  </header>
+  <div class="content">
     <p><a href="http://twitter.com/kraykray">@kraykray</a> was nice enough to let me know that Rails 3.03 had broken my column-reader code.</p>
 
 <p>I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.</p>
@@ -181,15 +206,24 @@ Update: Changed to instrument methods on the Mongo::Connection
 <p>So here it is, as both <a href="https://github.com/tomafro/rails-activerecord-columnreader">a github repository</a> and <a href="http://rubygems.org/gems/activerecord-column-reader">a gem</a>.  Enjoy!</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2011/02"> 8th February 2011</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/column-reader" rel="tag">column-reader</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/02"> 8th February 2011</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/rails3" rel="tag">rails3</a></li>
+      <li><a href="/tags/active-record" rel="tag">active-record</a></li>
+      <li><a href="/tags/column-reader" rel="tag">column-reader</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2010/02/updated-rails-template-for-bundler">An updated rails template for gem bundler</a></h2>
+<article>
+  <header>
+    <h1><a href="/2010/02/updated-rails-template-for-bundler">An updated rails template for gem bundler</a></h1>
+  </header>
+  <div class="content">
     <div class="update">
 <h3>Update 8th February 2011:</h3>
 Bundler has changed a lot since I wrote these instructions.  Use them at your own risk!
@@ -298,15 +332,23 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 <p>And that's it.  I hope you find it useful.</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2010/02">28th February 2010</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/gem" rel="tag">gem</a> &middot; <a href="/tags/bundler" rel="tag">bundler</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2010/02">28th February 2010</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/gem" rel="tag">gem</a></li>
+      <li><a href="/tags/bundler" rel="tag">bundler</a></li>
+    </ul>
+  </footer>
 </article>
 
-<article class="post">
-  <div class="content"><h2 class="title"><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h2>
+<article>
+  <header>
+    <h1><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h1>
+  </header>
+  <div class="content">
     <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
 
 <p>Here's the updated code:</p>
@@ -362,14 +404,18 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 <p>I'm still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
 
   </div>
-  <div class="meta">
-  <span class="author"><a href="http://tomafro.net">Tom Ward</a></span> &middot; 
-  <span class="date"><a href="/2010/02">11th February 2010</a></span>
-  <span class="tags"> &middot; <a href="/tags/ruby" rel="tag">ruby</a> &middot; <a href="/tags/rails" rel="tag">rails</a> &middot; <a href="/tags/rails3" rel="tag">rails3</a> &middot; <a href="/tags/active-record" rel="tag">active-record</a> &middot; <a href="/tags/column-reader" rel="tag">column-reader</a></span>
-  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2010/02">11th February 2010</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/rails3" rel="tag">rails3</a></li>
+      <li><a href="/tags/active-record" rel="tag">active-record</a></li>
+      <li><a href="/tags/column-reader" rel="tag">column-reader</a></li>
+    </ul>
+  </footer>
 </article>
 
-    </div>
-  </div>
-</body>	
+</body>
 </html>
