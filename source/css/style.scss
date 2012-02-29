@@ -116,6 +116,26 @@ article {
       border-top: 1px solid $grey;
     }
 
+    .browsershots {
+      margin-left: -12px;
+      margin-right: -12px;
+      text-align: center;
+
+      a {
+        border: none;
+      }
+
+      a:hover {
+        opacity: 0.5;
+      }
+
+      img {
+        width: 300px;
+        margin-left: 9px;
+        margin-right: 9px;
+      }
+    }
+
     pre {
       margin-top: 1em;
       margin-bottom: 1.4em;
@@ -166,7 +186,7 @@ nav .byline {
     font: 21px "ff-dagny-web-pro-1", "ff-dagny-web-pro-2";
     line-height: 1.7em;
   }
-  
+
   nav .byline {
     display: inline;
   }

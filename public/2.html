@@ -39,6 +39,43 @@
   
 <article>
   <header>
+    <h1><a href="/2011/03/hashblue-opens-for-business">#blue opens for business</a></h1>
+  </header>
+  <div class="content">
+    <p>If you're an <a href="http://o2.co.uk">O2</a> customer based in the UK, you might be interested that <a href="https://hashblue.com">#blue</a>, a project <a href="http://gofreerange.com">we've built</a>, has recently (re)opened for business.  It's a soft launch, but feel free to tell your friends.</p>
+
+<p><a href="https://hashblue.com">#blue</a> gets copies of every SMS message you send or receive, and makes them available to you on the web.  You can search your messages, read whole conversations, and even reply, all from the comfort of your browser.</p>
+
+<div class="screenshot">
+<img src="/images/20110303-hashblue-messages.png"/>
+</div>
+
+
+<p>As well as a nice-looking web UI, there's also <a href="https://api.hashblue.com">an API</a> that allows other apps to read and manipulate your messages and contacts (once you give them permission). Think automatic posting to twitter, or showing new messages as alerts on your desktop.  The possibilities are endless.</p>
+
+<div class="screenshot">
+<img src="/images/20110303-hashblue-api.png"/>
+</div>
+
+
+<p>Oh, and it's all free.  All you need is an <a href="http://o2.co.uk">O2</a> phone.</p>
+
+<p>If you think it sounds interesting, <a href="https://hashblue.com/">ask for a beta request</a>.  You should get an invitation very quickly.  Once on board, please send me any suggestions and feedback.  It's going to be interesting to see where we can take this project.</p>
+
+  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2011/03"> 3rd March 2011</a></span>
+    <ul>
+      <li><a href="/tags/hashblue" rel="tag">hashblue</a></li>
+      <li><a href="/tags/gofreerange" rel="tag">gofreerange</a></li>
+      <li><a href="/tags/o2" rel="tag">o2</a></li>
+    </ul>
+  </footer>
+</article>
+
+<article>
+  <header>
     <h1><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h1>
   </header>
   <div class="content">
@@ -339,79 +376,6 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
       <li><a href="/tags/rails" rel="tag">rails</a></li>
       <li><a href="/tags/gem" rel="tag">gem</a></li>
       <li><a href="/tags/bundler" rel="tag">bundler</a></li>
-    </ul>
-  </footer>
-</article>
-
-<article>
-  <header>
-    <h1><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h1>
-  </header>
-  <div class="content">
-    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
-
-<p>Here's the updated code:</p>
-
-<div class="highlight"><pre><span class="k">module</span> <span class="nn">ColumnReader</span>
-  <span class="k">def</span> <span class="nf">column_reader</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
-    <span class="nb">name</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="ss">:as</span><span class="p">)</span> <span class="o">||</span> <span class="n">column_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">pluralize</span>
-    <span class="n">column</span> <span class="o">=</span> <span class="n">columns_hash</span><span class="o">[</span><span class="n">column_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">]</span>
-  
-    <span class="nb">self</span><span class="o">.</span><span class="n">module_eval</span> <span class="sx">%{</span>
-<span class="sx">      def self.</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="sx"></span>
-<span class="sx">        query = scoped.arel.project(arel_table[:</span><span class="si">#{</span><span class="n">column_name</span><span class="si">}</span><span class="sx">])</span>
-<span class="sx">        connection.select_all(query.to_sql).collect do |value| </span>
-<span class="sx">          v = value.values.first</span>
-<span class="sx">          </span><span class="si">#{</span><span class="n">column</span><span class="o">.</span><span class="n">type_cast_code</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">)</span><span class="si">}</span><span class="sx"></span>
-<span class="sx">        end</span>
-<span class="sx">      end</span>
-<span class="sx">    }</span>
-  <span class="k">end</span>
-
-  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>The code isn't that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you've got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
-
-<p>Usage is similar to before, only using the new rails 3 syntax:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">Animal</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
-  <span class="n">column_reader</span> <span class="s1">&#39;id&#39;</span>
-  <span class="n">column_reader</span> <span class="s1">&#39;name&#39;</span>  
- 
-  <span class="n">named_scope</span> <span class="ss">:dangerous</span><span class="p">,</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:carnivorous</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">}</span> 
-<span class="k">end</span>
-
-<span class="no">Animal</span><span class="o">.</span><span class="n">names</span> 
-<span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;, &#39;Zebra&#39;, &#39;Gazelle&#39;]</span>
- 
-<span class="no">Animal</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">names</span> 
-<span class="c1">#=&gt; [&#39;Lion&#39;] (Normal finder options supported)</span>
- 
-<span class="no">Animal</span><span class="o">.</span><span class="n">dangerous</span><span class="o">.</span><span class="n">names</span> 
-<span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;] (Scoping respected)</span>
- 
-<span class="no">Animal</span><span class="o">.</span><span class="n">ids</span>
-<span class="c1">#=&gt; [1, 2, 3] (Values cast correctly)</span>
-</pre>
-</div>
-
-
-<p>I'm still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
-
-  </div>
-  <footer>
-    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
-    <span class='date'><a href="/2010/02">11th February 2010</a></span>
-    <ul>
-      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
-      <li><a href="/tags/rails" rel="tag">rails</a></li>
-      <li><a href="/tags/rails3" rel="tag">rails3</a></li>
-      <li><a href="/tags/active-record" rel="tag">active-record</a></li>
-      <li><a href="/tags/column-reader" rel="tag">column-reader</a></li>
     </ul>
   </footer>
 </article>

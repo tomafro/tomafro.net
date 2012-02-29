@@ -39,6 +39,46 @@
   
 <article>
   <header>
+    <h1><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h1>
+  </header>
+  <div class="content">
+    <p>Another simple shell function, this time just for OS X.</p>
+
+<p>Usage is simple: <code>tab &lt;command&gt;</code> opens a new tab in Terminal, and runs the given command in the current working directory.  For example <code>tab script/server</code> would open a new tab and run <code>script/server</code>.</p>
+
+<div class="highlight"><pre>tab <span class="o">()</span> <span class="o">{</span>
+  osascript 2&gt;/dev/null <span class="s">&lt;&lt;EOF</span>
+<span class="s">    tell application &quot;System Events&quot;</span>
+<span class="s">      tell process &quot;Terminal&quot; to keystroke &quot;t&quot; using command down</span>
+<span class="s">    end</span>
+<span class="s">    tell application &quot;Terminal&quot;</span>
+<span class="s">      activate</span>
+<span class="s">      do script with command &quot;cd $PWD; $*&quot; in window 1</span>
+<span class="s">    end tell</span>
+<span class="s">  EOF</span>
+<span class="o">}</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/08">19th August 2009</a></span>
+    <ul>
+      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
+      <li><a href="/tags/osx" rel="tag">osx</a></li>
+      <li><a href="/tags/terminal" rel="tag">terminal</a></li>
+    </ul>
+  </footer>
+</article>
+
+<article>
+  <header>
     <h1><a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a></h1>
   </header>
   <div class="content">
@@ -545,40 +585,6 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
       <li><a href="/tags/indexes" rel="tag">indexes</a></li>
       <li><a href="/tags/sql" rel="tag">sql</a></li>
       <li><a href="/tags/using-indexes-in-rails" rel="tag">using-indexes-in-rails</a></li>
-    </ul>
-  </footer>
-</article>
-
-<article>
-  <header>
-    <h1><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h1>
-  </header>
-  <div class="content">
-    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
-
-<div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
-<span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
-
-tm<span class="o">()</span> <span class="o">{</span>
-  <span class="nb">cd</span> <span class="nv">$1</span>
-  mate <span class="nv">$1</span>
-<span class="o">}</span>
-</pre>
-</div>
-
-
-
-
-  </div>
-  <footer>
-    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
-    <span class='date'><a href="/2009/08"> 7th August 2009</a></span>
-    <ul>
-      <li><a href="/tags/tiny" rel="tag">tiny</a></li>
-      <li><a href="/tags/tip" rel="tag">tip</a></li>
-      <li><a href="/tags/zsh" rel="tag">zsh</a></li>
-      <li><a href="/tags/osx" rel="tag">osx</a></li>
-      <li><a href="/tags/textmate" rel="tag">textmate</a></li>
     </ul>
   </footer>
 </article>

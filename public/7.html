@@ -39,6 +39,56 @@
   
 <article>
   <header>
+    <h1><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h1>
+  </header>
+  <div class="content">
+    <p>For a long time I've had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
+
+<p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when <code>.irbrc</code> is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:</p>
+
+<div class="highlight"><pre><span class="no">Rails</span><span class="o">::</span><span class="no">Initializer</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">IRB</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">gem</span> <span class="s1">&#39;faker&#39;</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">gem</span> <span class="s1">&#39;notahat-machinist&#39;</span><span class="p">,</span> <span class="ss">:lib</span> <span class="o">=&gt;</span> <span class="s1">&#39;machinist&#39;</span><span class="p">,</span> <span class="ss">:source</span> <span class="o">=&gt;</span> <span class="s2">&quot;http://gems.github.com&quot;</span>
+    <span class="no">IRB</span><span class="o">.</span><span class="n">conf</span><span class="o">[</span><span class="ss">:IRB_RC</span><span class="o">]</span> <span class="o">=</span> <span class="no">Proc</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">RAILS_ROOT</span><span class="p">,</span> <span class="s2">&quot;config&quot;</span><span class="p">,</span> <span class="s2">&quot;console&quot;</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>The key part is the line starting <code>IRB.conf[:IRB_RC]</code>, which tells <code>irb</code> to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I've set it to require <code>config/console.rb</code>, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in <code>script/console</code> sessions where I want these shortcuts, not in my general code.  Here it is:</p>
+
+<div class="highlight"><pre><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/../spec/blueprints.rb&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tomafro</span>
+  <span class="no">Account</span><span class="o">.</span><span class="n">find_by_login</span><span class="p">(</span><span class="s2">&quot;tomafro&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">bbi</span>
+  <span class="no">Client</span><span class="o">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="s2">&quot;Big Bad Industries&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+
+
+  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2009/06">22nd June 2009</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/rails" rel="tag">rails</a></li>
+      <li><a href="/tags/irb" rel="tag">irb</a></li>
+      <li><a href="/tags/tip" rel="tag">tip</a></li>
+    </ul>
+  </footer>
+</article>
+
+<article>
+  <header>
     <h1><a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a></h1>
   </header>
   <div class="content">
@@ -197,25 +247,6 @@
       <li><a href="/tags/middleware" rel="tag">middleware</a></li>
       <li><a href="/tags/evil" rel="tag">evil</a></li>
       <li><a href="/tags/fun" rel="tag">fun</a></li>
-    </ul>
-  </footer>
-</article>
-
-<article>
-  <header>
-    <h1><a href="/2009/05/imitation-is-the-sincerest-form-of-flattery">If imitation is the sincerest form of flattery...</a></h1>
-  </header>
-  <div class="content">
-    <p><a href="http://www.tiagoluchini.eu/">...consider me flattered</a>.</p>
-
-  </div>
-  <footer>
-    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
-    <span class='date'><a href="/2009/05">14th May 2009</a></span>
-    <ul>
-      <li><a href="/tags/meta" rel="tag">meta</a></li>
-      <li><a href="/tags/design" rel="tag">design</a></li>
-      <li><a href="/tags/imitation" rel="tag">imitation</a></li>
     </ul>
   </footer>
 </article>

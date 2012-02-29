@@ -81,6 +81,18 @@ article {
       padding-bottom: 0.2em;
       border-bottom: 1px solid #dfdaef;
       border-top: 1px solid #dfdaef; }
+    article div.content .browsershots {
+      margin-left: -12px;
+      margin-right: -12px;
+      text-align: center; }
+      article div.content .browsershots a {
+        border: none; }
+      article div.content .browsershots a:hover {
+        opacity: 0.5; }
+      article div.content .browsershots img {
+        width: 300px;
+        margin-left: 9px;
+        margin-right: 9px; }
     article div.content pre {
       margin-top: 1em;
       margin-bottom: 1.4em;
