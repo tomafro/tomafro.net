@@ -1,6 +1,7 @@
 source :rubygems
 
-gem 'lanyon', :path => "/Users/tomw/Projects/tools/l2"
+gem 'lanyon', path: '/Users/tomw/Desktop/Herzog/Projects/tools/l2'
+gem 'recap', path: '/Users/tomw/Projects/freerange/recap'
 gem 'albino'
-gem 'tomafro-deploy', :path => '/Users/tomw/Projects/tools/tomafro-deploy'
-gem 'rvm'
+gem 'rb-fsevent'
+gem 'guard-sass'
