@@ -1,4 +1,4 @@
-require 'recap/deploy'
+require 'recap/recipes/static'
 
 set :application, "tomafro.net"
 
