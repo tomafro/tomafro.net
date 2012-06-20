@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
-  <link rel="stylesheet" href="/css/style42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style-42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/tags/ruby"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <title>Posts tagged with ruby &middot; tomafro.net</title>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-1103395-2']);
@@ -24,7 +23,6 @@
       document.documentElement.firstChild.appendChild(ga);
     })();
   </script>
-  
   <!--[if lt IE 9]>
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -38,8 +36,7 @@
     <li><a href='https://twitter.com/tomafro'>twitter</a></li>
   </ul>
 </nav>
-  
-<article>
+  <article>
   <header>
     <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
   </header>
@@ -48,11 +45,11 @@
 
 <p>Here's the function (which I've named <code>be</code>):</p>
 
-<div class="highlight"><pre>if [[ -a Gemfile ]]; then
-  bundle exec $*
-else
-  command $*
-fi
+<div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> -a Gemfile <span class="o">]]</span>; <span class="k">then</span>
+<span class="k">  </span>bundle <span class="nb">exec</span> <span class="nv">$*</span>
+<span class="k">else</span>
+<span class="k">  </span><span class="nb">command</span> <span class="nv">$*</span>
+<span class="k">fi</span>
 </pre>
 </div>
 
@@ -61,9 +58,9 @@ fi
 
 <p>I've combined this with some aliases for much less pain and less frustration:</p>
 
-<div class="highlight"><pre>alias rake=&#39;be rake&#39;
-alias cap=&#39;be cap&#39;
-alias rspec=&#39;be rspec&#39;
+<div class="highlight"><pre><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;be rake&#39;</span>
+<span class="nb">alias </span><span class="nv">cap</span><span class="o">=</span><span class="s1">&#39;be cap&#39;</span>
+<span class="nb">alias </span><span class="nv">rspec</span><span class="o">=</span><span class="s1">&#39;be rspec&#39;</span>
 </pre>
 </div>
 
@@ -84,7 +81,6 @@ alias rspec=&#39;be rspec&#39;
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h1>
@@ -116,7 +112,6 @@ alias rspec=&#39;be rspec&#39;
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2011/02/experimental-mongo-instrumentation">Experimental Mongo instrumentation (for Rails 3)</a></h1>
@@ -129,7 +124,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 
 <p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
 
-<div class="highlight"><pre>    Completed 200 OK in 6ms (Views 370.5ms | ActiveRecord: 2.3ms)
+<div class="highlight"><pre>    Completed 200 OK in 6ms <span class="o">(</span>Views 370.5ms | ActiveRecord: 2.3ms<span class="o">)</span>
 </pre>
 </div>
 
@@ -220,7 +215,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 
 <p>It looks complicated, but it's actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
 
-<div class="highlight"><pre>    Completed 200 OK in 838ms (Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms)
+<div class="highlight"><pre>    Completed 200 OK in 838ms <span class="o">(</span>Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms<span class="o">)</span>
 </pre>
 </div>
 
@@ -240,7 +235,6 @@ Update: Changed to instrument methods on the Mongo::Connection
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2011/02/rails-3-column-reader-tweak">A home for my Active Record column reader</a></h1>
@@ -265,7 +259,6 @@ Update: Changed to instrument methods on the Mongo::Connection
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2010/02/updated-rails-template-for-bundler">An updated rails template for gem bundler</a></h1>
@@ -390,7 +383,6 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h1>
@@ -463,7 +455,6 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2010/01/how-to-use-rails3-gems-now">How to easily use Rails 3 now</a></h1>
@@ -524,7 +515,6 @@ rake install
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2010/01/tip-relative-paths-with-file-expand-path">Tip: Relative paths with File.expand_path</a></h1>
@@ -570,7 +560,6 @@ rake install
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h1>
@@ -619,8 +608,6 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -633,7 +620,6 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/11/a-rails-template-for-gem-bundler">A rails template for gem bundler</a></h1>
@@ -764,7 +750,6 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h1>
@@ -830,7 +815,6 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h1>
@@ -882,7 +866,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h1>
@@ -918,8 +901,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -932,7 +913,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a></h1>
@@ -993,8 +973,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -1007,7 +985,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/05/using-rack-middleware-for-good-and-evil">Using Rack Middleware for good and evil</a></h1>
@@ -1053,7 +1030,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h1>
@@ -1065,11 +1041,11 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
     <span class="k">case</span> <span class="n">page_name</span>
     
-    <span class="k">when</span><span class="sr"> /the home page/</span>
+    <span class="k">when</span> <span class="sr">/the home page/</span>
       <span class="n">root_path</span>
-    <span class="k">when</span><span class="sr"> /the new client page/</span>
+    <span class="k">when</span> <span class="sr">/the new client page/</span>
       <span class="n">new_client_path</span>
-    <span class="k">when</span><span class="sr"> /the clients page/</span>
+    <span class="k">when</span> <span class="sr">/the clients page/</span>
       <span class="n">clients_path</span>    
     <span class="c1"># Add more page name =&gt; path mappings here</span>
     <span class="k">else</span>
@@ -1092,7 +1068,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
     <span class="k">case</span> <span class="n">page_name</span>
     
-    <span class="k">when</span><span class="sr"> /the home page/</span>
+    <span class="k">when</span> <span class="sr">/the home page/</span>
       <span class="n">root_path</span>   
     <span class="c1"># Add more page name =&gt; path mappings here</span>
     <span class="k">else</span>
@@ -1134,7 +1110,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/05/adam-sandersons-open-gem">Adam Sanderson's open_gem</a></h1>
@@ -1155,7 +1130,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 Open which gem?
  1. activerecord 2.1.0
  2. activerecord 2.3.2
-&gt; 
+&gt;
 </pre>
 </div>
 
@@ -1188,8 +1163,6 @@ Open which gem?
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -1202,7 +1175,6 @@ Open which gem?
     </ul>
   </footer>
 </article>
-
 
 </body>
 </html>

@@ -1,0 +1,28 @@
+---
+layout: post
+title: "Tip: Relative paths with File.expand_path"
+tags: [ruby, tip, tiny, file, expand-path]
+---
+You probably know about the `__FILE__` magic constant.  It holds the filename of the currently executing ruby source file, relative to the execution directory.  So with the following saved as `/code/examples/path_example.rb`:
+
+{{#ruby}}
+puts __FILE__
+{{/ruby}}
+
+Running this file from the `/code` folder will output `examples/path_example.rb`
+
+This is often used to load files on paths relative to the current file.  The way I've used it before is like this:
+
+{{#ruby}}
+config_path = File.expand_path(File.join(File.dirname(__FILE__), "config.yml"))
+{{/ruby}}
+
+This works, but it's a bit clunky.  
+
+What I didn't realise until reading the rails source code the other day, is that `File.expand_path` can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:
+
+{{#ruby}}
+config_path = File.expand_path("../config.yml", __FILE__)
+{{/ruby}}
+
+Much simpler.

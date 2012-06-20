@@ -1,0 +1,102 @@
+---
+layout: post
+title: An updated rails template for gem bundler
+tags: [ruby, rails, gem, bundler]
+---
+<div class="update">
+<h3>Update 8th February 2011:</h3>
+Bundler has changed a lot since I wrote these instructions.  Use them at your own risk!
+</div>
+
+A few months ago I wrote [a rails template for gem bundler](http://tomafro.net/2009/11/a-rails-template-for-gem-bundler). Since then, bundler has changed a lot, and my template no longer works. [Here then is an updated version](http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb), based on [this gist](http://gist.github.com/302406) from [Andre Arko](http://arko.net/).  Using it, you should be able to get a rails 2.3.5 project working with bundler in less than 5 minutes.
+
+The first step is to install the latest bundler.  At the time of writing, this was 0.9.9.
+
+{{#ruby}}
+gem install bundler
+{{/ruby}}
+
+Now you should be able to run the template, either on a new project, or on an existing rails 2.3.5 project.
+
+{{#shell}}
+rails -m http://github.com/tomafro/dotfiles/raw/master/resources/rails/bundler.rb <project>
+{{/shell}}
+
+On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you'll need to remove the old hooks in `config/preinitializer.rb` and `config/environment.rb`, and the `gems` folder.
+
+<h3>Explaining the template, step by step</h3>
+
+The first step creates the project `Gemfile`, with rails available in all environments, and ruby-debug included in development.  If the project has other gems, they should be added here, rather than using rails own `config.gem` mechanism.
+
+{{#ruby}}
+file 'Gemfile', %{
+source 'http://rubygems.org'
+
+gem 'rails', '#{Rails::VERSION::STRING}'
+
+group :development do
+  gem 'ruby-debug'
+end
+}.strip
+{{/ruby}}  
+
+The next step is get bundler to load correctly.  This is done in two stages.  First, in `config\preinitializer.rb` bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.  
+
+{{#ruby}}  
+append_file '/config/preinitializer.rb', %{
+begin
+  # Require the preresolved locked set of gems.
+  require File.expand_path('../../.bundle/environment', __FILE__)
+rescue LoadError
+  # Fallback on doing the resolve at runtime.
+  require "rubygems"
+  require "bundler"
+  if Bundler::VERSION <= "0.9.5"
+    raise RuntimeError, "Bundler incompatible.\n" +
+      "Your bundler version is incompatible with Rails 2.3 and an unlocked bundle.\n" +
+      "Run `gem install bundler` to upgrade or `bundle lock` to lock."
+  else
+    Bundler.setup
+  end
+end
+}.strip
+{{/ruby}}
+
+Second, the rails boot process is modified to start the bundler environment.  This 'requires' all gems in the bundle, letting them run initialisation code.
+
+{{#ruby}}
+gsub_file 'config/boot.rb', "Rails.boot!", %{
+  
+class Rails::Boot
+ def run
+   load_initializer
+   extend_environment
+   Rails::Initializer.run(:set_load_path)
+ end
+
+ def extend_environment
+   Rails::Initializer.class_eval do
+     old_load = instance_method(:load_environment)
+     define_method(:load_environment) do
+       Bundler.require :default, Rails.env
+       old_load.bind(self).call
+     end
+   end
+ end
+end
+
+Rails.boot!
+}
+{{/ruby}}
+
+All that's left now is a little cleaning up.  The `.bundle` folder should never be checked into the code repository as it holds machine-local configuration, so it's added to `.gitignore`.  Finally, `bundle install` is run to fetch the bundled gems.
+
+{{#ruby}}
+append_file '/.gitignore', %{
+/.bundle
+}
+
+run 'bundle install'
+{{/ruby}}
+
+And that's it.  I hope you find it useful.

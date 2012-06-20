@@ -1,0 +1,56 @@
+---
+layout: post
+title: Rails 3 direct column reader
+tags: [ruby, rails, rails3, active-record, column-reader]
+---
+Whilst trying to get my head around [arel](http://github.com/brynary/arel) and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I [introduced last year](http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class).  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.
+
+Here's the updated code:
+
+{{#ruby}}
+module ColumnReader
+  def column_reader(column_name, options = {})
+    name = options.delete(:as) || column_name.to_s.pluralize
+    column = columns_hash[column_name.to_s]
+  
+    self.module_eval %{
+      def self.#{name}
+        query = scoped.arel.project(arel_table[:#{column_name}])
+        connection.select_all(query.to_sql).collect do |value| 
+          v = value.values.first
+          #{column.type_cast_code('v')}
+        end
+      end
+    }
+  end
+
+  ActiveRecord::Base.extend(self)
+end
+{{/ruby}}
+
+The code isn't that different, though using `scoped` over `construct_finder_sql` feels a lot nicer.  If you've got suggestions for improvement [gist away](http://gist.github.com/301420). 
+
+Usage is similar to before, only using the new rails 3 syntax:
+
+{{#ruby}}
+class Animal < ActiveRecord::Base
+  column_reader 'id'
+  column_reader 'name'  
+ 
+  named_scope :dangerous, :conditions => {:carnivorous => true} 
+end
+
+Animal.names 
+#=> ['Lion', 'Tiger', 'Zebra', 'Gazelle']
+ 
+Animal.limit(1).names 
+#=> ['Lion'] (Normal finder options supported)
+ 
+Animal.dangerous.names 
+#=> ['Lion', 'Tiger'] (Scoping respected)
+ 
+Animal.ids
+#=> [1, 2, 3] (Values cast correctly)
+{{/ruby}}
+
+I'm still not entirely convinced of the value of this helper, so if you find a good use [tweet me](http://twitter.com/tomafro).  Enjoy!

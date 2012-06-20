@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
-  <link rel="stylesheet" href="/css/style42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style-42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/2009/08"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <title>Posts from 08/2009 &middot; tomafro.net</title>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-1103395-2']);
@@ -24,7 +23,6 @@
       document.documentElement.firstChild.appendChild(ga);
     })();
   </script>
-  
   <!--[if lt IE 9]>
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -38,8 +36,7 @@
     <li><a href='https://twitter.com/tomafro'>twitter</a></li>
   </ul>
 </nav>
-  
-<article>
+  <article>
   <header>
     <h1><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h1>
   </header>
@@ -63,8 +60,6 @@
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -78,7 +73,6 @@
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/using-indexes-in-rails-choosing-additional-indexes">Using indexes in rails: Choosing additional indexes</a></h1>
@@ -286,7 +280,6 @@ mysql> EXPLAIN SELECT * FROM conversations
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h1>
@@ -349,7 +342,6 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h1>
@@ -368,8 +360,6 @@ take<span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -382,7 +372,6 @@ take<span class="o">()</span> <span class="o">{</span>
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/using-indexes-in-rails-index-your-associations">Using indexes in rails: Index your associations</a></h1>
@@ -390,7 +379,7 @@ take<span class="o">()</span> <span class="o">{</span>
   <div class="content">
     <p>Many rails developers are great at building applications but have limited experience in database design.  As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.</p>
 
-<p>To try and improve this I've planned a series of posts on indexes, targetted at rails developers.  In this first post I'll <a href="">introduce indexes and how to index your associations</a>, then I'll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
+<p>To try and improve this I've planned a series of posts on indexes, targetted at rails developers.  In this first post I'll <a href="/2009/08/using-indexes-in-rails-index-your-associations">introduce indexes and how to index your associations</a>, then I'll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
 
 <h3>A brief overview of database indexes</h3>
 
@@ -450,7 +439,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ALL  | NULL          | NULL    | NULL  | 1001111 | Using where | 
+| SIMPLE      | ALL  | NULL          | NULL    | NULL  | 1001111 | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -477,7 +466,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | used_id_ix    | 5       | const |  108    | Using where | 
+| SIMPLE      | ref  | used_id_ix    | 5       | const |  108    | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -493,7 +482,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 <span class="n">add_column</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="ss">:subject_type</span><span class="p">,</span> <span class="ss">:string</span>
 
 <span class="n">create_table</span> <span class="ss">:artworks</span> <span class="k">do</span> <span class="o">|</span><span class="n">table</span><span class="o">|</span>
-  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">Posts from 08/2009</span>
+  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">:title</span>
 <span class="k">end</span>
 
 <span class="k">class</span> <span class="nc">Artwork</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
@@ -520,7 +509,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 
 <p>First, an index on just <code>subject_type</code>:</p>
 
-<pre>  
+<pre>
 mysql> SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork';
 12 rows in set (0.31 sec)
 
@@ -528,7 +517,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | sub_type_ix   | 5       | const | 89511   | Using where | 
+| SIMPLE      | ref  | sub_type_ix   | 5       | const | 89511   | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -536,7 +525,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 
 <p>An index on just <code>subject_id</code>:</p>
 
-<pre>  
+<pre>
 mysql> SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork';
 12 rows in set (0.01 sec)
 
@@ -544,7 +533,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | sub_id_ix     | 5       | const | 204     | Using where | 
+| SIMPLE      | ref  | sub_id_ix     | 5       | const | 204     | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -560,7 +549,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 +-------------+------+--------------------+---------+-------+---------+-------------+
 | select_type | type | key                | key_len | ref   | rows    | Extra       |
 +-------------+------+--------------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | sub_id_and_type_ix | 5       | const | 5       | Using where | 
+| SIMPLE      | ref  | sub_id_and_type_ix | 5       | const | 5       | Using where |
 +-------------+------+--------------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -590,7 +579,6 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h1>
@@ -609,8 +597,6 @@ tm<span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -624,7 +610,6 @@ tm<span class="o">()</span> <span class="o">{</span>
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h1>
@@ -676,7 +661,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h1>
@@ -716,7 +700,6 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     </ul>
   </footer>
 </article>
-
 
 </body>
 </html>

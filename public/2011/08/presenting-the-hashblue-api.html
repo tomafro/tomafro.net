@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
-  <link rel="stylesheet" href="/css/style42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style-42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/2011/08/presenting-the-hashblue-api"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <title>Presenting the #blue api &middot; tomafro.net</title>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-1103395-2']);
@@ -24,7 +23,6 @@
       document.documentElement.firstChild.appendChild(ga);
     })();
   </script>
-  
   <!--[if lt IE 9]>
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -84,7 +82,7 @@
   <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
 
   <span class="kp">attr_accessor</span> <span class="ss">:controller</span><span class="p">,</span> <span class="ss">:subject</span>
-  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">/2011/08/presenting-the-hashblue-api_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
+  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">:url_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
   <span class="n">delegate</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:subject</span>
 
   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
@@ -154,7 +152,7 @@
   <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
 
   <span class="kp">attr_accessor</span> <span class="ss">:controller</span><span class="p">,</span> <span class="ss">:subject</span>
-  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">/2011/08/presenting-the-hashblue-api_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
+  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">:url_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
   <span class="n">delegate</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:subject</span>
 
   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>

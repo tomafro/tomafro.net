@@ -1,0 +1,223 @@
+---
+layout: post
+title: "Presenting the #blue api"
+tags: [hashblue, gofreerange, o2, api, rails]
+---
+In building [#blue](https://hashblue.com) (sign up now!), one of the problems we faced was how to build `json` data in response to requests to [our API](https://api.hashblue.com).  The typical rails solution would be to override `#as_json` in a model class, then write a controller like this:
+
+{{#ruby}}
+class ContactsController < ApiController
+  responds_to :json
+
+  def show
+    respond_with Contact.find(params[:id])
+  end
+end
+{{/ruby}}
+
+I always prefer to keep my controllers as skinny as possible, so this looks like a great solution.  The `respond_with` call takes care of converting the message to json and responding with the right `Content-Type`, all in a simple call.  However it has a number of problems and disadvantages.
+
+The biggest issue for our API is that rather than expose the `id` of each model, we've tried to encourage the use of the `uri` instead.  So the `json` returned for a single contact (for example) looks like this:
+
+{{#javascript}}
+{
+  "contact": {
+    "uri": "https://api.example.com/contacts/ccpwjc",
+    "name": "George",
+    "email": "george@handmade.org",
+    "msisdn": "447897897899",
+    "phone_number": "07897897899",
+    "messages": "https://api.example.com/contacts/ccpwjc/messages"
+  }
+}
+{{/javascript}}
+
+It doesn't just have a `uri` for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute `messages_uri`).  Models can't generate uris, and shouldn't really be aware of them, so overriding `#as_json` doesn't work.  In any case, the json structure is really presentation logic, not business logic.  It doesn't belong in the model.
+
+### Presenting a single model ###
+
+The solution we've used is to build a presenter for each model, solely responsible for building the json.  Here's an example for a contact:
+
+{{#ruby}}
+class ContactPresenter
+  include Rails.application.routes.url_helpers
+
+  attr_accessor :controller, :subject
+  delegate :params, :url_options, :to => :controller
+  delegate :errors, :to => :subject
+
+  def initialize(controller, subject)
+    @controller = controller
+    @subject = subject
+  end
+
+  def as_json(options = {})
+    {:contact => {
+      :uri => uri,
+      :email => subject.email,
+      :name => subject.name,
+      :msisdn => subject.msisdn,
+      :phone_number => subject.phone_number,
+      :messages => api_contact_messages_url(:contact_id => subject.id)
+    }
+  end
+
+  def uri
+    api_contact_url(:id => subject.id)
+  end
+end
+{{/ruby}}
+
+It's now simple to rewrite our controller to use the new presenter:
+
+{{#ruby}}
+class ContactsController < ApiController
+  responds_to :json
+
+  def show
+    respond_with ContactPresenter.new(self, Contact.find(params[:id]))
+  end
+end
+{{/ruby}}
+
+### Presenting pages of models ###
+
+The presenter above works well for a single model, but many of our API calls return a page of results.  The [/contacts](https://api.hashblue.com/doc/GET%3Acontacts) for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it's simple to adapt this pattern to present pages like this.  First, we change our original `#as_json` method slightly:
+
+{{#ruby}}
+def as_json(options = {})
+  if options[:partial]
+    {
+      :uri => uri,
+      :email => subject.email,
+      :name => subject.name,
+      :msisdn => subject.msisdn,
+      :phone_number => subject.phone_number,
+      :messages => api_contact_messages_url(:contact_id => subject.id)
+    }
+  else
+    {:contact => as_json(:partial => true)}
+  end
+end
+{{/ruby}}
+
+This change allows us to call as_json with the options `:partial`.  With the option, a hash of data is returned.  Without, the same hash is returned, wrapped in another hash.
+
+Next, add a page presenter:
+
+{{#ruby}}
+class ContactPagePresenter
+  include Rails.application.routes.url_helpers
+
+  attr_accessor :controller, :subject
+  delegate :params, :url_options, :to => :controller
+  delegate :errors, :to => :subject
+
+  def initialize(controller, subject)
+    @controller = controller
+    @subject = subject
+  end
+
+  def as_json(options = {})
+    contacts = subject.map {|o| ContactPresenter.new(controller, o).as_json(:partial => true) }
+
+    {:contacts => contacts}.tap do |result|
+      if subject.previous_page
+        result[:previous_page_uri] = contacts_url(subject.previous_page)
+      end
+
+      if subject.next_page
+        result[:next_page_uri] = contacts_url(subject.next_page)
+      end
+    end
+  end
+end
+{{/ruby}}
+
+Finally, we can add an index action using this presenter:
+
+{{#ruby}}
+class ContactsController < ApiController
+  responds_to :json
+
+  def index
+    respond_with ContactPagePresenter.new(self, Contact.paginate(
+      :page => params[:page], 
+      :per_page => 50)
+    )
+  end
+end
+{{/ruby}}
+
+### Refactoring common logic ###
+
+The code above is a very much simplified version of what we do in [#blue](https://hashblue.com).  We have many controllers, and several different models, so in our actual code we've abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:
+
+{{#ruby}}
+class ContactsController < ApiController
+  before_filter :find_contact, :only => [:show, :update]
+
+  def show
+    present @contact
+  end
+
+  def index
+    present_page_of current_account.contacts
+  end
+
+  def create
+    @contact = current_account.contacts.build(attributes)
+    @contact.save
+    present @contact
+  end
+
+  def update
+    @contact.update_attributes(attributes)
+    present @contact
+  end
+
+  private
+
+  def find_contact
+    @contact = current_account.contacts.where(:_id => params[:id]).first
+    head :status => :not_found unless @contact
+  end
+end
+{{/ruby}}
+
+I think the code looks pretty clean.  The clever stuff happens in the `#present` and `#present_page_of` methods, defined in the superclass:
+
+{{#ruby}}
+class ApiController < ApplicationController::Base
+  protected
+
+  def present(instance, options = {})
+    presenter = presenter_class.new(self, instance)
+    options[:location] ||= presenter.uri if request.post? && subject.errors.empty?
+    respond_with presenter, options
+  end
+
+  def present_page_of(collection, options = {})
+    presenter = page_presenter_class.new(self, page_of(collection))
+    respond_with presenter, options
+  end
+
+  def page_of(collection)
+    collection.paginate(:page => params[:page], :per_page => 50)
+  end
+
+  def presenter_class
+    (self.class.name.gsub!("Controller", "").singularize + "Presenter").constantize
+  end
+
+  def page_presenter_class
+    (self.class.name.gsub!("Controller", "").singularize + "PagePresenter").constantize
+  end
+end
+{{/ruby}}
+
+The `#present` and `#present_page_of` methods handle determining the correct presenter to us, as well as paginating the collection where required.  They still use rails build in `#respond_with` method, which helps provide the correct response headers for each request.  As the ContactPresenter delegates `#errors` to its subject, if there are validation errors, `#respond_with` correctly returns a 422.
+
+One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we'll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I'm still pretty happy with it.  I hope you find something useful in it too.
+
+Any comments or suggestions, please get in touch with me [on twitter](http://twitter.com/tomafro).

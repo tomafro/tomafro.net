@@ -1,0 +1,105 @@
+---
+layout: post
+title: "Experimental Mongo instrumentation (for Rails 3)"
+tags: [ruby, rails, rails3, mongo, instrumentation]
+---
+<div class="update">
+Update: Changed to instrument methods on the Mongo::Connection
+</div>
+
+One of our latest rails projects uses [Mongo](http://mongodb.org) as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:
+
+{{#zsh}}
+    Completed 200 OK in 6ms (Views 370.5ms | ActiveRecord: 2.3ms)
+{{/zsh}}
+
+We wanted to do the same for our Mongo accesses, just to give a rough idea as to what our requests were doing.  Luckily Rails 3 makes this relatively straightforward, providing hooks to instrument methods, subscribe to log messages and add information to the request log.  Here, then, is my first stab (mainly harvested from ActiveRecord):
+
+{{#ruby}}
+module Mongo
+  module Instrumentation
+    def self.instrument(clazz, *methods)
+      clazz.module_eval do
+        methods.each do |m|
+          class_eval %{def #{m}_with_instrumentation(*args, &block)
+            ActiveSupport::Notifications.instrumenter.instrument "mongo.mongo", :name => "#{m}" do
+              #{m}_without_instrumentation(*args, &block)
+            end
+          end
+          }
+
+          alias_method_chain m, :instrumentation
+        end
+      end
+    end
+
+    class Railtie < Rails::Railtie
+      initializer "mongo.instrumentation" do |app|
+        Mongo::Instrumentation.instrument Mongo::Connection, :send_message, :send_message_with_safe_check, :receive_message
+
+        ActiveSupport.on_load(:action_controller) do
+          include Mongo::Instrumentation::ControllerRuntime
+        end
+
+        Mongo::Instrumentation::LogSubscriber.attach_to :mongo
+      end
+    end
+
+    module ControllerRuntime
+      extend ActiveSupport::Concern
+
+      protected
+
+      attr_internal :mongo_runtime
+
+      def cleanup_view_runtime
+        mongo_rt_before_render = Mongo::Instrumentation::LogSubscriber.reset_runtime
+        runtime = super
+        mongo_rt_after_render = Mongo::Instrumentation::LogSubscriber.reset_runtime
+        self.mongo_runtime = mongo_rt_before_render + mongo_rt_after_render
+        runtime - mongo_rt_after_render
+      end
+
+      def append_info_to_payload(payload)
+        super
+        payload[:mongo_runtime] = mongo_runtime
+      end
+
+      module ClassMethods
+        def log_process_action(payload)
+          messages, mongo_runtime = super, payload[:mongo_runtime]
+          messages << ("Mongo: %.1fms" % mongo_runtime.to_f) if mongo_runtime
+          messages
+        end
+      end
+    end
+
+    class LogSubscriber < ActiveSupport::LogSubscriber
+      def self.runtime=(value)
+        Thread.current["mongo_mongo_runtime"] = value
+      end
+
+      def self.runtime
+        Thread.current["mongo_mongo_runtime"] ||= 0
+      end
+
+      def self.reset_runtime
+        rt, self.runtime = runtime, 0
+        rt
+      end
+
+      def mongo(event)
+        self.class.runtime += event.duration
+      end
+    end
+  end
+end
+{{/ruby}}
+
+It looks complicated, but it's actually pretty simple.  Data access methods in <strike>`Mongo::DB` and `Mongo::Collection`</strike> `Mongo::Connection` are hijacked and surrounded by an `ActiveSupport::Notifications.instrumenter.instrument` block.  This triggers events which are listened to by the `LogSubscriber`, summing the total time spent in Mongo.  The `ControllerRuntime` then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:
+
+{{#zsh}}
+    Completed 200 OK in 838ms (Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms)
+{{/zsh}}
+
+It's just a first stab, so any comments and improvements are more then welcome.  It's [here on gist](https://gist.github.com/833444) so please fork away.

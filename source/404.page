@@ -1,0 +1,7 @@
+---
+layout: "_layouts/default.mustache"
+title: "404: Page not found!"
+hide-meta: true
+hide-analytics: true
+---
+The page you're looking for couldn't be found.  Sorry about that.  I'm sure it's my fault, not yours.

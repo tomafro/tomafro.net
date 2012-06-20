@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
-  <link rel="stylesheet" href="/css/style42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style-42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/tags/zsh"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <title>Posts tagged with zsh &middot; tomafro.net</title>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-1103395-2']);
@@ -24,7 +23,6 @@
       document.documentElement.firstChild.appendChild(ga);
     })();
   </script>
-  
   <!--[if lt IE 9]>
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -38,8 +36,7 @@
     <li><a href='https://twitter.com/tomafro'>twitter</a></li>
   </ul>
 </nav>
-  
-<article>
+  <article>
   <header>
     <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
   </header>
@@ -48,11 +45,11 @@
 
 <p>Here's the function (which I've named <code>be</code>):</p>
 
-<div class="highlight"><pre>if [[ -a Gemfile ]]; then
-  bundle exec $*
-else
-  command $*
-fi
+<div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> -a Gemfile <span class="o">]]</span>; <span class="k">then</span>
+<span class="k">  </span>bundle <span class="nb">exec</span> <span class="nv">$*</span>
+<span class="k">else</span>
+<span class="k">  </span><span class="nb">command</span> <span class="nv">$*</span>
+<span class="k">fi</span>
 </pre>
 </div>
 
@@ -61,9 +58,9 @@ fi
 
 <p>I've combined this with some aliases for much less pain and less frustration:</p>
 
-<div class="highlight"><pre>alias rake=&#39;be rake&#39;
-alias cap=&#39;be cap&#39;
-alias rspec=&#39;be rspec&#39;
+<div class="highlight"><pre><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;be rake&#39;</span>
+<span class="nb">alias </span><span class="nv">cap</span><span class="o">=</span><span class="s1">&#39;be cap&#39;</span>
+<span class="nb">alias </span><span class="nv">rspec</span><span class="o">=</span><span class="s1">&#39;be rspec&#39;</span>
 </pre>
 </div>
 
@@ -84,7 +81,6 @@ alias rspec=&#39;be rspec&#39;
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h1>
@@ -127,7 +123,6 @@ alias rspec=&#39;be rspec&#39;
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/tip-open-new-tab-in-osx-terminal">Tip: Open new tab in OS X Terminal</a></h1>
@@ -152,8 +147,6 @@ alias rspec=&#39;be rspec&#39;
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -167,7 +160,6 @@ alias rspec=&#39;be rspec&#39;
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h1>
@@ -230,7 +222,6 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h1>
@@ -249,8 +240,6 @@ take<span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -263,7 +252,6 @@ take<span class="o">()</span> <span class="o">{</span>
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h1>
@@ -282,8 +270,6 @@ tm<span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-
-
   </div>
   <footer>
     <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
@@ -297,7 +283,6 @@ tm<span class="o">()</span> <span class="o">{</span>
     </ul>
   </footer>
 </article>
-
 <article>
   <header>
     <h1><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h1>
@@ -337,7 +322,6 @@ tm<span class="o">()</span> <span class="o">{</span>
     </ul>
   </footer>
 </article>
-
 
 </body>
 </html>

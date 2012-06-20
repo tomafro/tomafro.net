@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Mongo instrumentation released as a gem"
+tags: [ruby, rails, rails3, mongo, instrumentation]
+---
+Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.
+
+The [mongo-rails-instrumentation](http://rubygems.org/gems/mongo-rails-instrumentation) gem is available on rubygems, and the code is [up on github](https://github.com/tomafro/mongo-rails-instrumentation).
+
+Adding it to a project is simple, just put the following in your `Gemfile`, run `bundle install` and restart your app.
+
+{{#ruby}}
+    gem 'mongo-rails-instrumentation', '~>0.1'
+{{/ruby}}
+
+Please add any suggestions, improvements and comments to the code in github.  I hope people find it useful.

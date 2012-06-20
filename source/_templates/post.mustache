@@ -1,0 +1,17 @@
+<article>
+  <header>
+    <h1><a href="{{{ url }}}">{{{ title }}}</a></h1>
+  </header>
+  <div class="content">
+    {{{ body }}}
+  </div>
+  {{^hide-meta}}
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="{{{ date_url }}}">{{{ short_date }}}</a></span>
+    <ul>{{#tags}}
+      <li><a href="/tags/{{{to_s}}}" rel="tag">{{{to_s}}}</a></li>{{/tags}}
+    </ul>
+  </footer>
+  {{/hide-meta}}
+</article>

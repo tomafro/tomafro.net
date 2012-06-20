@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
-  <link rel="stylesheet" href="/css/style42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style-42a6c8dcda3ddbe3660a0126ea4a5670.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
   <title>Using indexes in rails: Index your associations &middot; tomafro.net</title>
-  
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-1103395-2']);
@@ -24,7 +23,6 @@
       document.documentElement.firstChild.appendChild(ga);
     })();
   </script>
-  
   <!--[if lt IE 9]>
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -105,7 +103,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ALL  | NULL          | NULL    | NULL  | 1001111 | Using where | 
+| SIMPLE      | ALL  | NULL          | NULL    | NULL  | 1001111 | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -132,7 +130,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | used_id_ix    | 5       | const |  108    | Using where | 
+| SIMPLE      | ref  | used_id_ix    | 5       | const |  108    | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -148,7 +146,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 <span class="n">add_column</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="ss">:subject_type</span><span class="p">,</span> <span class="ss">:string</span>
 
 <span class="n">create_table</span> <span class="ss">:artworks</span> <span class="k">do</span> <span class="o">|</span><span class="n">table</span><span class="o">|</span>
-  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">Using indexes in rails: Index your associations</span>
+  <span class="n">table</span><span class="o">.</span><span class="n">string</span> <span class="ss">:title</span>
 <span class="k">end</span>
 
 <span class="k">class</span> <span class="nc">Artwork</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
@@ -175,7 +173,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 
 <p>First, an index on just <code>subject_type</code>:</p>
 
-<pre>  
+<pre>
 mysql> SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork';
 12 rows in set (0.31 sec)
 
@@ -183,7 +181,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | sub_type_ix   | 5       | const | 89511   | Using where | 
+| SIMPLE      | ref  | sub_type_ix   | 5       | const | 89511   | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -191,7 +189,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 
 <p>An index on just <code>subject_id</code>:</p>
 
-<pre>  
+<pre>
 mysql> SELECT * FROM conversations WHERE subject_id = 196 and subject_type = 'Artwork';
 12 rows in set (0.01 sec)
 
@@ -199,7 +197,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | sub_id_ix     | 5       | const | 204     | Using where | 
+| SIMPLE      | ref  | sub_id_ix     | 5       | const | 204     | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -215,7 +213,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 +-------------+------+--------------------+---------+-------+---------+-------------+
 | select_type | type | key                | key_len | ref   | rows    | Extra       |
 +-------------+------+--------------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | sub_id_and_type_ix | 5       | const | 5       | Using where | 
+| SIMPLE      | ref  | sub_id_and_type_ix | 5       | const | 5       | Using where |
 +-------------+------+--------------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
