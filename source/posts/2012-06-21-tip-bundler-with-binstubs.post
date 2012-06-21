@@ -1,0 +1,22 @@
+---
+layout: post
+title: "Tip: Bundler with --binstubs"
+tags: [ruby, gem, rake, bundler, tip]
+---
+In [a previous blog](/2011/09/tip-automatic-bundle-exec-for-rake-and-more), I wrote how I'd aliased commands such as `rake`, `cap` and `rspec` to run either with or without `bundle exec`, based on the presence of a `Gemfile`.  I gave up on that a while ago.  Instead, I've started installing all my bundles like this:
+
+{{#zsh}}
+bundle install --path .bundle/gems --binstubs .bundle/bin
+{{/zsh}}
+
+I often use features like `bundle open <gem>` to debug and edit failing gems, so I like to keep each application's gems isolated.  The `--path .bundle/gems` installs them within an application's `.bundle` directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with `rm -rf .bundle`
+
+The `--binstubs .bundle/bin` option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including `rake` will generate a `.bundle/bin/rake` script.  By adding `./.bundle/bin` to the front of my environment `PATH`, the bundled version of `rake` will run when I'm in the application folder.  I never have to type `bundle exec`!
+
+Obviously typing that long `bundle install` command each time is tedious, so I've aliased it to `bi`:
+
+{{#zsh}}
+alias bi='bundle install --path .bundle/gems --binstubs .bundle/bin'
+{{/zsh}}
+
+I've been using these options for a few months, and so far I'm very happy with them.

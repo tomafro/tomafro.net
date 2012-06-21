@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2012-06-21T18:16:12+01:00</updated>
+ <updated>2012-06-21T18:28:56+01:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
@@ -28,9 +28,9 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;I like to keep all my application gems completely isolated from each other.  The &lt;code&gt;--path .bundle/gems&lt;/code&gt; installs them within the current application's &lt;code&gt;.bundle&lt;/code&gt; directory.  I often use features like &lt;code&gt;bundle open &amp;lt;gem&amp;gt;&lt;/code&gt; to debug and edit failing gems.  This ensures I can do this without affecting any other apps.  It also means I can blow away the entire set of gems with &lt;code&gt;rm -rf .bundle&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;I often use features like &lt;code&gt;bundle open &amp;lt;gem&amp;gt;&lt;/code&gt; to debug and edit failing gems, so I like to keep each application's gems isolated.  The &lt;code&gt;--path .bundle/gems&lt;/code&gt; installs them within an application's &lt;code&gt;.bundle&lt;/code&gt; directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with &lt;code&gt;rm -rf .bundle&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;The &lt;code&gt;--binstubs .bundle/bin&lt;/code&gt; installs bundle-aware scripts for each command provided by your gems.  For example, a bundle including &lt;code&gt;rake&lt;/code&gt; will generate a &lt;code&gt;.bundle/bin/rake&lt;/code&gt; script.  I've added &lt;code&gt;./.bundle/bin&lt;/code&gt; to the front of &lt;code&gt;PATH&lt;/code&gt; in my environment.  Whenever I'm in an application's folder, the &lt;code&gt;.bundle/bin/rake&lt;/code&gt; script will be run (if found) in preference to the system &lt;code&gt;rake&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;--binstubs .bundle/bin&lt;/code&gt; option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including &lt;code&gt;rake&lt;/code&gt; will generate a &lt;code&gt;.bundle/bin/rake&lt;/code&gt; script.  By adding &lt;code&gt;./.bundle/bin&lt;/code&gt; to the front of my environment &lt;code&gt;PATH&lt;/code&gt;, the bundled version of &lt;code&gt;rake&lt;/code&gt; will run when I'm in the application folder.  I never have to type &lt;code&gt;bundle exec&lt;/code&gt;!&lt;/p&gt;
 
 &lt;p&gt;Obviously typing that long &lt;code&gt;bundle install&lt;/code&gt; command each time is tedious, so I've aliased it to &lt;code&gt;bi&lt;/code&gt;:&lt;/p&gt;
 
@@ -39,14 +39,13 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;I've been using this scheme for a few months.  So far I'm very happy.&lt;/p&gt;
+&lt;p&gt;I've been using these options for a few months, and so far I'm very happy with them.&lt;/p&gt;
 
   &lt;/div&gt;
   &lt;footer&gt;
     &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class='date'&gt;&lt;a href=&quot;/2012/06&quot;&gt;21st June 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/zsh&quot; rel=&quot;tag&quot;&gt;zsh&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/ruby&quot; rel=&quot;tag&quot;&gt;ruby&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/gem&quot; rel=&quot;tag&quot;&gt;gem&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/rake&quot; rel=&quot;tag&quot;&gt;rake&lt;/a&gt;&lt;/li&gt;
@@ -56,7 +55,6 @@
   &lt;/footer&gt;
 &lt;/article&gt;</content>
    <updated>2012-06-21T00:00:00+01:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="zsh" label="zsh" />
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
    <category scheme="http://tomafro.net/tags/" term="gem" label="gem" />
    <category scheme="http://tomafro.net/tags/" term="rake" label="rake" />

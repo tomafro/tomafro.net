@@ -50,6 +50,10 @@ class Post < Lanyon::Template
     date.xmlschema
   end
 
+  def date_ymd
+    date.strftime("%Y-%m-%d")
+  end
+
   def short_date
     result = date.day.ordinalize + date.strftime(" %B %Y")
     date.day < 10 ? " #{result}" : result.to_s
