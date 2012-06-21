@@ -1,0 +1,28 @@
+---
+destination_path: atom.xml
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ <title>Tom Ward</title>
+ <link href="http://tomafro.net/atom.xml" rel="self"/>
+ <updated>{{ site.updated_date_xml }}</updated>
+ <id>http://tomafro.net/</id>
+ <author>
+   <name>Tom Ward</name>
+   <email>tom@popdog.net</email>
+ </author>
+ {{#site.recent_posts}}
+ <entry>
+   <id>http://tomafro.net{{ url }}</id>
+   <link href="http://tomafro.net{{ url }}"/>
+   <title>{{ title }}</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">{{ article }}</content>
+   <updated>{{ date_xml }}</updated>{{#tags}}
+   <category scheme="http://tomafro.net/tags/" term="{{ . }}" label="{{ . }}" />{{/tags}}
+ </entry>
+ {{/site.recent_posts}}
+</feed>

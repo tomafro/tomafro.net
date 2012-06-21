@@ -29,12 +29,20 @@ module Lanyon
       pages_with_path {|path| path.starts_with?('posts')}
     end
 
+    def recent_posts
+      posts.compact.reverse.take(10)
+    end
+
     def stylesheet
       pages_with_path {|path| path.starts_with?('css')}.first
     end
 
     def pages_with_path(&block)
       pages.select(&block).values
+    end
+
+    def updated_date_xml
+      Time.now.xmlschema
     end
 
     def import

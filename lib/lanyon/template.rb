@@ -66,7 +66,7 @@ module Lanyon
     end
 
     def destination_path
-      path
+      @config[:destination_path] || path
     end
 
     def respond_to?(method)
