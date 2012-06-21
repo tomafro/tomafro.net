@@ -1,0 +1,20 @@
+---
+destination_path: sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://tomafro.net/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>http://tomafro.net/about</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+{{#site.posts}}  <url>
+    <loc>http://tomafro.net{{ url }}</loc>
+    <lastmod>{{ date_ymd }}</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+{{/site.posts}}</urlset>
