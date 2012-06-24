@@ -33,8 +33,8 @@ module Lanyon
       posts.compact.reverse.take(10)
     end
 
-    def stylesheet
-      pages_with_path {|path| path.starts_with?('css')}.first
+    def stylesheets
+      pages_with_path {|path| path.starts_with?('stylesheets')}
     end
 
     def pages_with_path(&block)
