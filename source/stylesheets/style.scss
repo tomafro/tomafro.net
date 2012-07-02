@@ -1,6 +1,7 @@
 $grey: #dfdaef;
 $lightgrey: #fdfcf9;
 $darkgrey: #cfcabf;
+$darkergrey: #4f4a40;
 $black: #0a0600;
 $blue: #004491;
 
@@ -174,6 +175,24 @@ article {
   }
 
   footer span.author:after, footer span.date:after { content:" · ";}
+}
+
+section.related-links {
+  h1 {
+    font-size: 1.2em;
+    padding-bottom: 0.1em;
+    line-height: 1.5em;
+    border-bottom: 1px solid $grey;
+  }
+
+  ul li {
+    list-style-type: none;
+
+    .meta {
+      font-size: 0.8em;
+      color: $darkergrey;
+    }
+  }
 }
 
 nav .byline {

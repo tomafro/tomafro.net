@@ -7,3 +7,11 @@ destination_path: "index.html"
 {{#site.posts.take-6}}
 {{{article}}}
 {{/site.posts.take-6}}
+<section class="related-links">
+<h1>Other articles:</h1>
+<ul>
+{{#site.posts.leave-6}}
+<li><a href="{{url}}">{{title}}</a><span class="meta"> - {{short_date}}</span></li>
+{{/site.posts.leave-6}}
+</ul>
+</section>
