@@ -3,6 +3,13 @@ require 'mustache'
 require 'mustache/context'
 
 class Mustache::Context
+  def with(attributes, &block)
+    push attributes
+    yield
+  ensure
+    pop
+  end
+
   def has_key?(key)
     !!fetch(key, nil)
   rescue ContextMiss
@@ -25,26 +32,20 @@ module Lanyon
     end
 
     def push_context(attributes, &block)
-      context.push(attributes)
-      yield
+      context.push attributes
+      yield context
     ensure
       context.pop
     end
 
     def render(data = template, ctx = self)
       time "template #{@path}" do
-        if data == template && ctx == self
-          @default_render ||= super
-        else
-          time "Calling super" do
-            begin
-              super
-            rescue Object => e
-              puts e.message
-              puts e.backtrace
-              raise e
-            end
-          end
+        begin
+          super
+        rescue Object => e
+          puts e.message
+          puts e.backtrace
+          raise e
         end
       end
     end
@@ -52,11 +53,11 @@ module Lanyon
     def render_page(context = self.context)
       time "page #{@path}" do
         if layout_template
-          push_context(content: render(template, context)) do
-            layout_template.render_page(context)
+          context.with content: render(template, context) do
+            layout_template.render_page context
           end
         else
-          render(template, context)
+          render template, context
         end
       end
     end

@@ -3,10 +3,18 @@ layout: "_layouts/default.mustache"
 ---
 {{{content}}}
 <section class="related-links">
-<h1>Related articles:</h1>
+<h1>Related posts:</h1>
 <ul>
 {{#related_posts}}
-<li><a href="{{url}}">{{title}}</a><span class="meta"> - {{short_date}}</span></li>
+<li>
+  <a class='title' href="{{url}}">{{title}}</a>
+  <div class='meta'>
+  <span class='date'><a href="{{{ date_url }}}">{{{ short_date }}}</a></span>
+  <ul class='tags'>{{#tags}}
+    <li><a href="/tags/{{{to_s}}}" rel="tag">{{{to_s}}}</a></li>{{/tags}}
+  </ul>
+  </div>
+</li>
 {{/related_posts}}
 </ul>
 </section>

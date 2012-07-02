@@ -12,7 +12,6 @@ class MonthIndex < Lanyon::Template
       months = year_posts.collect {|p| p.date.month }
       months.each do |month|
         posts = year_posts.select {|p| p.date.month == month }.compact
-        context = self.context.dup
         m = (month < 10) ? "0#{month}" : month.to_s
         raise "#{month}" if m.blank?
 

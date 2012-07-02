@@ -68,7 +68,13 @@ class Post < Lanyon::Template
   end
 
   def layout
-    "_layouts/default.mustache"
+    "_layouts/post.mustache"
+  end
+
+  def related_posts
+    other_posts = site.posts - [self]
+    related_posts = other_posts.select {|post| (post.tags & self.tags).size > 0}
+    related_posts = related_posts.sort_by {|post| (post.tags & self.tags).size }.reverse.take(5)
   end
 end
 
