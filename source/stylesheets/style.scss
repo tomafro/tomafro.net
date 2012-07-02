@@ -39,7 +39,6 @@ a:hover {
 
 article footer, nav {
   padding-top: 0.4em;
-  border-top: 1px solid $grey;
   font-family: "adelle-1", "adelle-2";
   font-size: 0.9em;
   color: $darkgrey;
@@ -61,6 +60,10 @@ article footer, nav {
       content:"";
     }
   }
+}
+
+article footer {
+  border-top: 1px solid $grey;
 }
 
 article {
@@ -179,16 +182,13 @@ article {
 
 section.related-links {
   font-family: "adelle-1", "adelle-2";
+  padding-bottom: 2em;
 
   h1 {
     font-size: 1.2em;
     padding-bottom: 0.1em;
     line-height: 1.5em;
     border-bottom: 1px solid $grey;
-  }
-
-  h1:after {
-    content:" · ";
   }
 
   .date:after {
