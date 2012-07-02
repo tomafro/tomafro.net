@@ -8,7 +8,7 @@ class TagIndex < Lanyon::Template
   def write_to(destination)
     tags = site.posts.compact.collect(&:tags).flatten.uniq
     tags.each do |tag|
-      posts = site.posts.reverse.select {|p| p && p.tags.include?(tag) }
+      posts = site.posts.select {|p| p && p.tags.include?(tag) }
       #context = self.context.dup
       push_context(
         posts: posts,

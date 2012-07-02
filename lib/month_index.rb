@@ -16,7 +16,7 @@ class MonthIndex < Lanyon::Template
         m = (month < 10) ? "0#{month}" : month.to_s
         raise "#{month}" if m.blank?
 
-        push_context posts: posts.reverse, title: "Posts from #{m}/#{year}", url: "/#{year}/#{m}" do
+        push_context posts: posts, title: "Posts from #{m}/#{year}", url: "/#{year}/#{m}" do
           destination.write "/#{year}/#{m}.html", render_page(context)
         end
       end

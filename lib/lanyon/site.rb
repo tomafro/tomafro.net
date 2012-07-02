@@ -8,7 +8,6 @@ module Lanyon
       Mustache.template_path = source + "/_templates"
       Mustache.raise_on_context_miss = true
       require 'post'
-      require 'main_index'
       require 'tag_index'
       require 'month_index'
       require 'stylesheet'
@@ -30,7 +29,7 @@ module Lanyon
     end
 
     def recent_posts
-      posts.compact.reverse.take(10)
+      posts.take(10)
     end
 
     def stylesheets
@@ -38,7 +37,7 @@ module Lanyon
     end
 
     def pages_with_path(&block)
-      pages.select(&block).values
+      Collection.new(pages.select(&block).values.compact.reverse)
     end
 
     def updated_date_xml
@@ -77,7 +76,6 @@ module Lanyon
       when '.page' then ::Page
       when '.post' then ::Post
       when '.scss' then ::Stylesheet
-      when '.main_index' then ::MainIndex
       when '.tag_index' then ::TagIndex
       when '.month_index' then ::MonthIndex
       when '.txt' then ::Static
@@ -108,6 +106,16 @@ module Lanyon
     def in_source_folder(&block)
       FileUtils.cd source do
         return yield
+      end
+    end
+
+    class Collection < Array
+      define_method "take-6" do
+        take(6)
+      end
+
+      define_method "leave-6" do
+        from(6)
       end
     end
 
