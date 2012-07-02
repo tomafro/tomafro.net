@@ -1,5 +1,0 @@
-{% for year in site.posts.years %}
-{% for month in site.posts.years[year].months %}
-{% render 'monthindex' with year:year month:month %}
-{% endfor %}
-{% endfor %}
