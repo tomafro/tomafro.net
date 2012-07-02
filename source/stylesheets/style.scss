@@ -178,6 +178,8 @@ article {
 }
 
 section.related-links {
+  font-family: "adelle-1", "adelle-2";
+
   h1 {
     font-size: 1.2em;
     padding-bottom: 0.1em;
@@ -185,12 +187,46 @@ section.related-links {
     border-bottom: 1px solid $grey;
   }
 
+  h1:after {
+    content:" · ";
+  }
+
+  .date:after {
+    content:" · ";
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  .meta {
+    font-size: 0.8em;
+
+    a {
+      color: $black;
+      border-bottom: 1px dotted #ccc;
+    }
+
+    a:hover {
+      border-bottom: 1px solid #ccc;
+    }
+  }
+
   ul li {
+    color: $darkgrey;
+    padding-top: 0.8em;
     list-style-type: none;
 
-    .meta {
-      font-size: 0.8em;
-      color: $darkergrey;
+    ul.tags, ul.tags li {
+      display: inline;
+    }
+
+    ul.tags li:after {
+      content:" · ";
+    }
+
+    ul.tags li:last-child:after {
+      content:"";
     }
   }
 }

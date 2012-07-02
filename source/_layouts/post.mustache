@@ -1,0 +1,12 @@
+---
+layout: "_layouts/default.mustache"
+---
+{{{content}}}
+<section class="related-links">
+<h1>Related articles:</h1>
+<ul>
+{{#related_posts}}
+<li><a href="{{url}}">{{title}}</a><span class="meta"> - {{short_date}}</span></li>
+{{/related_posts}}
+</ul>
+</section>

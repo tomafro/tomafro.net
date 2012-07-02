@@ -11,7 +11,15 @@ destination_path: "index.html"
 <h1>Other articles:</h1>
 <ul>
 {{#site.posts.leave-6}}
-<li><a href="{{url}}">{{title}}</a><span class="meta"> - {{short_date}}</span></li>
+<li>
+  <a class='title' href="{{url}}">{{title}}</a>
+  <div class='meta'>
+  <span class='date'><a href="{{{ date_url }}}">{{{ short_date }}}</a></span>
+  <ul class='tags'>{{#tags}}
+    <li><a href="/tags/{{{to_s}}}" rel="tag">{{{to_s}}}</a></li>{{/tags}}
+  </ul>
+  </div>
+</li>
 {{/site.posts.leave-6}}
 </ul>
 </section>
