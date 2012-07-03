@@ -1,5 +1,4 @@
 ---
-layout: "_layouts/default.mustache"
 title: About Tom Ward
 hide-meta: true
 ---
@@ -16,4 +15,4 @@ I'm a member of [FreeRange](http://gofreerange.com), a small collective of talen
 You can see some of the code I've written on github, both on [my own account](http://github.com/tomafro) and [our company account](http://github.com/freerange).
 
 <h2 style="padding-top:2em;">About tomafro.net</h2>
-This site is built using my own hacked together static site generator.  The full source to my site is available [here in github](http://github.com/tomafro/tomafro.net/tree/master).
+This site is built using my own hacked together static site generator.  The full source is available [here on github](http://github.com/tomafro/tomafro.net/tree/master).
