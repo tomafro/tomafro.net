@@ -4,7 +4,7 @@ hide-meta: true
 ---
 I'm a London based software developer, passionate about building and improving the web.
 
-I'm a member of [FreeRange](http://gofreerange.com), a small collective of talented, like-minded developers.  If you're interested on having us work on a project with you, get in touch at [lets@gofreerange.com](mailto:lets@gofreerange.com).  We've worked on sites including [Chromaroma](http://www.chromaroma.com/), [hashblue.com](https://hashblue.com), and [www.gov.uk](https://www.gov.uk).
+I'm a member of [Go Free Range](http://gofreerange.com), a small collective of talented, like-minded developers.  If you're interested on having us work on a project with you, get in touch at [lets@gofreerange.com](mailto:lets@gofreerange.com).  We've worked on sites including [Chromaroma](http://www.chromaroma.com/), [hashblue.com](https://hashblue.com), and [www.gov.uk](https://www.gov.uk).
 
 <div class="browsershots">
 <a href="http://www.chromaroma.com"><img class="browsershot" src="/images/chromaroma.thumb.png"/></a>
