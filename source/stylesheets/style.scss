@@ -201,6 +201,7 @@ section.related-links {
 
   .meta {
     font-size: 0.8em;
+    margin-top: -0.2em;
 
     a {
       color: $black;
@@ -214,7 +215,7 @@ section.related-links {
 
   ul li {
     color: $darkgrey;
-    padding-top: 0.8em;
+    padding-top: 1em;
     list-style-type: none;
 
     ul.tags, ul.tags li {
