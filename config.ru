@@ -7,13 +7,14 @@ module Tomafro
       if ::File.exist?(path)
         [200, {"Content-Type" => content_type_for(path)}, [::File.read(path)]]
       else
-        [400, {"Content-Type" => "text/html"}, [::File.read("html/404.html")]]
+        [400, {"Content-Type" => "text/html"}, [::File.read("public/404.html")]]
       end
     end
-    
+
     def content_type_for(path)
       case path
       when /\.css\Z/ then "text/css"
+      when /\.xml\Z/ then "application/atom+xml"
       else "text/html"
       end
     end
