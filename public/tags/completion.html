@@ -41,9 +41,9 @@
     <h1><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h1>
   </header>
   <div class="content">
-    <p>I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.</p>
+    <p>I&rsquo;ve been trying to get my head around the ZSH completion system.  It&rsquo;s not easy, but I&rsquo;m slowly making progress.</p>
 
-<p>Here's my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
+<p>Here&rsquo;s my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
 
 <p>So typing <code>gem &lt;tab&gt;</code> gives a list of possible commands, whilst <code>gem open &lt;tab&gt;</code> will complete with the names of the currently installed gems.</p>
 
@@ -82,7 +82,7 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-<p>As it's a first attempt, it's a long way from perfect.  I've <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I'd appreciate any advice or improvements.  Specifically I'd like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I'd also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
+<p>As it&rsquo;s a first attempt, it&rsquo;s a long way from perfect.  I&rsquo;ve <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I&rsquo;d appreciate any advice or improvements.  Specifically I&rsquo;d like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I&rsquo;d also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
 
 <p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
 

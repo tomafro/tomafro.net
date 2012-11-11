@@ -41,25 +41,25 @@
     <h1><a href="/2012/06/tip-bundler-with-binstubs">Tip: Bundler with --binstubs</a></h1>
   </header>
   <div class="content">
-    <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I'd aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I've started installing all my bundles like this:</p>
+    <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I&rsquo;d aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I&rsquo;ve started installing all my bundles like this:</p>
 
 <div class="highlight"><pre>bundle install --path .bundle/gems --binstubs .bundle/bin
 </pre>
 </div>
 
 
-<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application's gems isolated.  The <code>--path .bundle/gems</code> installs them within an application's <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
+<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application&rsquo;s gems isolated.  The <code>--path .bundle/gems</code> installs them within an application&rsquo;s <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
 
-<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I'm in the application folder.  I never have to type <code>bundle exec</code>!</p>
+<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I&rsquo;m in the application folder.  I never have to type <code>bundle exec</code>!</p>
 
-<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I've aliased it to <code>bi</code>:</p>
+<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I&rsquo;ve aliased it to <code>bi</code>:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">bi</span><span class="o">=</span><span class="s1">&#39;bundle install --path .bundle/gems --binstubs .bundle/bin&#39;</span>
 </pre>
 </div>
 
 
-<p>I've been using these options for a few months, and so far I'm very happy with them.</p>
+<p>I&rsquo;ve been using these options for a few months, and so far I&rsquo;m very happy with them.</p>
 
   </div>
   <footer>
@@ -79,9 +79,9 @@
     <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
   </header>
   <div class="content">
-    <p>It's irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
+    <p>It&rsquo;s irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
 
-<p>Here's the function (which I've named <code>be</code>):</p>
+<p>Here&rsquo;s the function (which I&rsquo;ve named <code>be</code>):</p>
 
 <div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> -a Gemfile <span class="o">]]</span>; <span class="k">then</span>
 <span class="k">  </span>bundle <span class="nb">exec</span> <span class="nv">$*</span>
@@ -92,9 +92,9 @@
 </div>
 
 
-<p>It's very simple.  If there's a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
+<p>It&rsquo;s very simple.  If there&rsquo;s a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
 
-<p>I've combined this with some aliases for much less pain and less frustration:</p>
+<p>I&rsquo;ve combined this with some aliases for much less pain and less frustration:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;be rake&#39;</span>
 <span class="nb">alias </span><span class="nv">cap</span><span class="o">=</span><span class="s1">&#39;be cap&#39;</span>
@@ -124,7 +124,7 @@
     <h1><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h1>
   </header>
   <div class="content">
-    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.</p>
+    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I&rsquo;ve packaged it up and released it as a gem.</p>
 
 <p>The <a href="http://rubygems.org/gems/mongo-rails-instrumentation">mongo-rails-instrumentation</a> gem is available on rubygems, and the code is <a href="https://github.com/tomafro/mongo-rails-instrumentation">up on github</a>.</p>
 
@@ -160,7 +160,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
+<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We&rsquo;re just starting to get some traffic, and as we do, we&rsquo;re monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
 
 <div class="highlight"><pre>    Completed 200 OK in 6ms <span class="o">(</span>Views 370.5ms | ActiveRecord: 2.3ms<span class="o">)</span>
 </pre>
@@ -251,14 +251,14 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>It looks complicated, but it's actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
+<p>It looks complicated, but it&rsquo;s actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
 
 <div class="highlight"><pre>    Completed 200 OK in 838ms <span class="o">(</span>Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms<span class="o">)</span>
 </pre>
 </div>
 
 
-<p>It's just a first stab, so any comments and improvements are more then welcome.  It's <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
+<p>It&rsquo;s just a first stab, so any comments and improvements are more then welcome.  It&rsquo;s <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
 
   </div>
   <footer>
@@ -280,7 +280,7 @@ Update: Changed to instrument methods on the Mongo::Connection
   <div class="content">
     <p><a href="http://twitter.com/kraykray">@kraykray</a> was nice enough to let me know that Rails 3.03 had broken my column-reader code.</p>
 
-<p>I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.</p>
+<p>I&rsquo;ve always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.</p>
 
 <p>So here it is, as both <a href="https://github.com/tomafro/rails-activerecord-columnreader">a github repository</a> and <a href="http://rubygems.org/gems/activerecord-column-reader">a gem</a>.  Enjoy!</p>
 
@@ -324,7 +324,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you'll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
+<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you&rsquo;ll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
 
 <h3>Explaining the template, step by step</h3>
 
@@ -344,7 +344,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.</p>
+<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn&rsquo;t initialise them.</p>
 
 <div class="highlight"><pre>  
 <span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
@@ -368,7 +368,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>Second, the rails boot process is modified to start the bundler environment.  This 'requires' all gems in the bundle, letting them run initialisation code.</p>
+<p>Second, the rails boot process is modified to start the bundler environment.  This &lsquo;requires&rsquo; all gems in the bundle, letting them run initialisation code.</p>
 
 <div class="highlight"><pre><span class="n">gsub_file</span> <span class="s1">&#39;config/boot.rb&#39;</span><span class="p">,</span> <span class="s2">&quot;Rails.boot!&quot;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">  </span>
@@ -396,7 +396,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>All that's left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it's added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
+<p>All that&rsquo;s left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it&rsquo;s added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">/.bundle</span>
@@ -407,7 +407,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>And that's it.  I hope you find it useful.</p>
+<p>And that&rsquo;s it.  I hope you find it useful.</p>
 
   </div>
   <footer>
@@ -426,9 +426,9 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
     <h1><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h1>
   </header>
   <div class="content">
-    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
+    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it&rsquo;s relationship to ActiveRecord in rails 3, I&rsquo;ve updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
 
-<p>Here's the updated code:</p>
+<p>Here&rsquo;s the updated code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">ColumnReader</span>
   <span class="k">def</span> <span class="nf">column_reader</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
@@ -452,7 +452,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>The code isn't that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you've got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
+<p>The code isn&rsquo;t that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you&rsquo;ve got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
 
 <p>Usage is similar to before, only using the new rails 3 syntax:</p>
 
@@ -478,7 +478,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>I'm still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
+<p>I&rsquo;m still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
 
   </div>
   <footer>
@@ -513,7 +513,7 @@ gem install rails --pre
 </div>
 
 
-<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
+<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I&rsquo;ve seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
 
 <p>First, install rails main dependencies:</p>
 
@@ -539,7 +539,7 @@ rake install
 </div>
 
 
-<p>Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
+<p>Your existing projects shouldn&rsquo;t be affected as rails is installed as a prerelease gem, but to be safe I&rsquo;d recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
 
   </div>
   <footer>
@@ -567,16 +567,16 @@ rake install
 
 <p>Running this file from the <code>/code</code> folder will output <code>examples/path_example.rb</code></p>
 
-<p>This is often used to load files on paths relative to the current file.  The way I've used it before is like this:</p>
+<p>This is often used to load files on paths relative to the current file.  The way I&rsquo;ve used it before is like this:</p>
 
 <div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">))</span>
 </pre>
 </div>
 
 
-<p>This works, but it's a bit clunky.</p>
+<p>This works, but it&rsquo;s a bit clunky.</p>
 
-<p>What I didn't realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
+<p>What I didn&rsquo;t realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument &ndash; a starting directory.  Also, this argument doesn&rsquo;t actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
 
 <div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../config.yml&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
 </pre>
@@ -603,7 +603,7 @@ rake install
     <h1><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h1>
   </header>
   <div class="content">
-    <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+    <p>For the latest application I&rsquo;ve been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski&rsquo;s rails_xss plugin</a>, to turn default escaping on in my erb templates.  I&rsquo;m also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
 <p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
 
@@ -618,7 +618,7 @@ git co -b 2-3-stable origin/2-3-stable
 </div>
 
 
-<p>Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:</p>
+<p>Next, we need to build the gems.  Rails currently doesn&rsquo;t seem to have a Raketask to build all its constituent projects (though I&rsquo;m planning a patch to include one), so you have to build each one in turn:</p>
 
 <div class="highlight"><pre><span class="nb">cd </span>actionmailer
 rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
@@ -637,9 +637,9 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
 </div>
 
 
-<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.</p>
+<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I&rsquo;d use PKG_BUILD=2, then 3 and so on.</p>
 
-<p>Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+<p>Finally, once all these gems are built, it&rsquo;s simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails &lsquo;2.3.4.1&rsquo;.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
 
 <div class="highlight"><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
 </pre>
@@ -669,9 +669,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Following Nick Quaranto's article <a href="http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/">'Gem Bundler is the Future'</a>, I was inspired to try out <a href="http://github.com/wycats/bundler">bundler</a> on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.</p>
+<p>Following Nick Quaranto&rsquo;s article <a href="http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/">&lsquo;Gem Bundler is the Future&rsquo;</a>, I was inspired to try out <a href="http://github.com/wycats/bundler">bundler</a> on my latest rails project.  Previously, I&rsquo;ve found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.</p>
 
-<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I've  made a rails template to do the hard work.</p>
+<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I&rsquo;ve  made a rails template to do the hard work.</p>
 
 <p>Give it a try by running the following. You should be up and running in a couple of minutes:</p>
 
@@ -680,9 +680,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>That will give you a bundled project, ready for you to add your own gems.  Here's what each step of the template actually does:</p>
+<p>That will give you a bundled project, ready for you to add your own gems.  Here&rsquo;s what each step of the template actually does:</p>
 
-<p>Gem bundler is itself a gem.  It can't be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
+<p>Gem bundler is itself a gem.  It can&rsquo;t be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
 
 <div class="highlight"><pre><span class="n">inside</span> <span class="s1">&#39;gems/bundler&#39;</span> <span class="k">do</span>  
   <span class="n">run</span> <span class="s1">&#39;git init&#39;</span>
@@ -728,7 +728,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn't be added to the project repository.  The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler.  All the rest should be ignored:</p>
+<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn&rsquo;t be added to the project repository.  The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler.  All the rest should be ignored:</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">gems/*</span>
@@ -745,7 +745,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler's environment file before anything else:</p>
+<p>Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler&rsquo;s environment file before anything else:</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">require File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems&quot;, &quot;environment&quot;))</span>
@@ -774,7 +774,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>And that's it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
+<p>And that&rsquo;s it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
 
   </div>
   <footer>
@@ -793,7 +793,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
     <h1><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h1>
   </header>
   <div class="content">
-    <p>There's one small method I add to every new rails project I work on:</p>
+    <p>There&rsquo;s one small method I add to every new rails project I work on:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">Tomafro::FromParam</span>
   <span class="k">def</span> <span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -810,7 +810,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 
 <p>All three methods have almost the same behaviour, the only difference being the handling of missing records.  <code>find</code> throws a RecordNotFound, while <code>find_by_id</code> and <code>from_param</code> return nil.  So why use <code>from_param</code> over the others?</p>
 
-<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It's a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
+<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It&rsquo;s a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nf">to_param</span>
@@ -821,7 +821,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we'd like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I'd then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I've used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
+<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we&rsquo;d like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I&rsquo;d then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I&rsquo;ve used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -836,9 +836,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>I've been doing this for years, but it's hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There's <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it's been considered too trivial to add.</p>
+<p>I&rsquo;ve been doing this for years, but it&rsquo;s hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There&rsquo;s <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it&rsquo;s been considered too trivial to add.</p>
 
-<p>I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects.</p>
+<p>I disagree &ndash; for me the value comes from having the method from the start, not when you need it.  Luckily it&rsquo;s easy to add to my own projects.</p>
 
   </div>
   <footer>
@@ -858,9 +858,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
     <h1><a href="/2009/08/the-cost-of-explicit-returns-in-ruby">The cost of explicit returns in ruby</a></h1>
   </header>
   <div class="content">
-    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can't stand them either.</p>
+    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates &ndash; explicit returns in ruby.  I agree 100% with Pratik, I can&rsquo;t stand them either.</p>
 
-<p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I'd investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
+<p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I&rsquo;d investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
 
 <h3>ruby 1.8.7 (2008-08-11 patchlevel 72)</h3>
 
@@ -891,7 +891,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 
 <p>So neither jruby nor ruby 1.9 incur this penalty.</p>
 
-<p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn't matter either way.</p>
+<p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn&rsquo;t matter either way.</p>
 
   </div>
   <footer>
@@ -909,9 +909,9 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     <h1><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h1>
   </header>
   <div class="content">
-    <p>For a long time I've had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
+    <p>For a long time I&rsquo;ve had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I&rsquo;m working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
 
-<p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when <code>.irbrc</code> is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:</p>
+<p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn&rsquo;t as simple as just requiring my blueprints though &mdash; they require my ActiveRecord models, which aren&rsquo;t available when <code>.irbrc</code> is loaded.  Luckily the solution is simple &mdash; just add a couple of lines to the configuration in environment.rb:</p>
 
 <div class="highlight"><pre><span class="no">Rails</span><span class="o">::</span><span class="no">Initializer</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">IRB</span><span class="p">)</span>
@@ -924,7 +924,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </div>
 
 
-<p>The key part is the line starting <code>IRB.conf[:IRB_RC]</code>, which tells <code>irb</code> to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I've set it to require <code>config/console.rb</code>, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in <code>script/console</code> sessions where I want these shortcuts, not in my general code.  Here it is:</p>
+<p>The key part is the line starting <code>IRB.conf[:IRB_RC]</code>, which tells <code>irb</code> to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I&rsquo;ve set it to require <code>config/console.rb</code>, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in <code>script/console</code> sessions where I want these shortcuts, not in my general code.  Here it is:</p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/../spec/blueprints.rb&quot;</span><span class="p">)</span>
 
@@ -956,7 +956,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     <h1><a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a></h1>
   </header>
   <div class="content">
-    <p>Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it's a shame to do away with the nice type conversion <code>ActiveRecord</code> provides.  It'd also be a pity to get rid of find scoping, amongst other goodness.</p>
+    <p>Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it&rsquo;s a shame to do away with the nice type conversion <code>ActiveRecord</code> provides.  It&rsquo;d also be a pity to get rid of find scoping, amongst other goodness.</p>
 
 <p>Enter <code>Tomafro::ColumnReader</code>:</p>
 
@@ -980,7 +980,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </div>
 
 
-<p>Once you've extended <code>ActiveRecord::Base</code> with it, usage is simple.  In your models, declare which columns you want access to:</p>
+<p>Once you&rsquo;ve extended <code>ActiveRecord::Base</code> with it, usage is simple.  In your models, declare which columns you want access to:</p>
 
 <div class="highlight"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">extend</span> <span class="no">Tomafro</span><span class="o">::</span><span class="no">ColumnReader</span>
  
@@ -994,7 +994,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </div>
 
 
-<p>Once you've done this, you can access values directly from the class, respecting scope, limits and other finder options.</p>
+<p>Once you&rsquo;ve done this, you can access values directly from the class, respecting scope, limits and other finder options.</p>
 
 <div class="highlight"><pre><span class="no">Animal</span><span class="o">.</span><span class="n">names</span> 
 <span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;, &#39;Zebra&#39;, &#39;Gazelle&#39;]</span>
@@ -1030,7 +1030,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
   <div class="content">
     <p>So we all know that <a href="http://rack.rubyforge.org/">Rack</a> is awesome, and that we can use Rack::Middleware for all sorts of things: <a href="http://github.com/brynary/rack-bug/tree/master">debugging</a>, <a href="http://tomayko.com/src/rack-cache/">caching</a> and a <a href="http://github.com/rack/rack-contrib/tree/master">whole host more</a>.</p>
 
-<p>What all these have in common (apart from maybe <a href="http://github.com/rack/rack-contrib/blob/8b6323c8eecc8279088987c52b27dda5d4cadf7b/lib/rack/contrib/evil.rb">Rack::Evil</a>) is that they're all helpful.  They all make writing Rack applications easier.  Not my Middleware though.</p>
+<p>What all these have in common (apart from maybe <a href="http://github.com/rack/rack-contrib/blob/8b6323c8eecc8279088987c52b27dda5d4cadf7b/lib/rack/contrib/evil.rb">Rack::Evil</a>) is that they&rsquo;re all helpful.  They all make writing Rack applications easier.  Not my Middleware though.</p>
 
 <h3>Introducing Rack::Shuffler</h3>
 
@@ -1053,7 +1053,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </div>
 
 
-<p>I suggest you add it to a colleague's app late on a Friday afternoon, and see how long it takes to drive them to insanity.</p>
+<p>I suggest you add it to a colleague&rsquo;s app late on a Friday afternoon, and see how long it takes to drive them to insanity.</p>
 
   </div>
   <footer>
@@ -1073,7 +1073,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
     <h1><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h1>
   </header>
   <div class="content">
-    <p>If you're using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
+    <p>If you&rsquo;re using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -1098,9 +1098,9 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 </div>
 
 
-<p>This let's us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
+<p>This let&rsquo;s us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
 
-<p>By automatically matching some rails paths.  Here's the code:</p>
+<p>By automatically matching some rails paths.  Here&rsquo;s the code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -1133,7 +1133,7 @@ implicit   1.520000   0.000000   1.520000 (  1.537492)
 
 <p>What it does is pretty simple.  Given a page name <code>the clients page</code> (with no other matches defined) it will try and send <code>clients_path</code>.  If successful, then it returns the result, otherwise nil.</p>
 
-<p>Not the biggest improvement in the world, but it's made my cucumber tests just a little bit easier to write.</p>
+<p>Not the biggest improvement in the world, but it&rsquo;s made my cucumber tests just a little bit easier to write.</p>
 
   </div>
   <footer>
@@ -1187,7 +1187,7 @@ Open which gem?
 </div>
 
 
-<p>If you're running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let's you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn't work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
+<p>If you&rsquo;re running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let&rsquo;s you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn&rsquo;t work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
 
 <div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">GEM_OPEN_EDITOR</span><span class="o">=</span>mate
 </pre>

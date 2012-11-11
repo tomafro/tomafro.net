@@ -56,7 +56,7 @@
 
 <p>I always prefer to keep my controllers as skinny as possible, so this looks like a great solution.  The <code>respond_with</code> call takes care of converting the message to json and responding with the right <code>Content-Type</code>, all in a simple call.  However it has a number of problems and disadvantages.</p>
 
-<p>The biggest issue for our API is that rather than expose the <code>id</code> of each model, we've tried to encourage the use of the <code>uri</code> instead.  So the <code>json</code> returned for a single contact (for example) looks like this:</p>
+<p>The biggest issue for our API is that rather than expose the <code>id</code> of each model, we&rsquo;ve tried to encourage the use of the <code>uri</code> instead.  So the <code>json</code> returned for a single contact (for example) looks like this:</p>
 
 <div class="highlight"><pre><span class="p">{</span>
   <span class="s2">&quot;contact&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -72,11 +72,11 @@
 </div>
 
 
-<p>It doesn't just have a <code>uri</code> for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute <code>messages_uri</code>).  Models can't generate uris, and shouldn't really be aware of them, so overriding <code>#as_json</code> doesn't work.  In any case, the json structure is really presentation logic, not business logic.  It doesn't belong in the model.</p>
+<p>It doesn&rsquo;t just have a <code>uri</code> for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute <code>messages_uri</code>).  Models can&rsquo;t generate uris, and shouldn&rsquo;t really be aware of them, so overriding <code>#as_json</code> doesn&rsquo;t work.  In any case, the json structure is really presentation logic, not business logic.  It doesn&rsquo;t belong in the model.</p>
 
 <h3>Presenting a single model</h3>
 
-<p>The solution we've used is to build a presenter for each model, solely responsible for building the json.  Here's an example for a contact:</p>
+<p>The solution we&rsquo;ve used is to build a presenter for each model, solely responsible for building the json.  Here&rsquo;s an example for a contact:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactPresenter</span>
   <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
@@ -109,7 +109,7 @@
 </div>
 
 
-<p>It's now simple to rewrite our controller to use the new presenter:</p>
+<p>It&rsquo;s now simple to rewrite our controller to use the new presenter:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
   <span class="n">responds_to</span> <span class="ss">:json</span>
@@ -124,7 +124,7 @@
 
 <h3>Presenting pages of models</h3>
 
-<p>The presenter above works well for a single model, but many of our API calls return a page of results.  The <a href="https://api.hashblue.com/doc/GET%3Acontacts">/contacts</a> for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it's simple to adapt this pattern to present pages like this.  First, we change our original <code>#as_json</code> method slightly:</p>
+<p>The presenter above works well for a single model, but many of our API calls return a page of results.  The <a href="https://api.hashblue.com/doc/GET%3Acontacts">/contacts</a> for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it&rsquo;s simple to adapt this pattern to present pages like this.  First, we change our original <code>#as_json</code> method slightly:</p>
 
 <div class="highlight"><pre><span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
   <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:partial</span><span class="o">]</span>
@@ -196,7 +196,7 @@
 
 <h3>Refactoring common logic</h3>
 
-<p>The code above is a very much simplified version of what we do in <a href="https://hashblue.com">#blue</a>.  We have many controllers, and several different models, so in our actual code we've abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:</p>
+<p>The code above is a very much simplified version of what we do in <a href="https://hashblue.com">#blue</a>.  We have many controllers, and several different models, so in our actual code we&rsquo;ve abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
   <span class="n">before_filter</span> <span class="ss">:find_contact</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">:update</span><span class="o">]</span>
@@ -265,7 +265,7 @@
 
 <p>The <code>#present</code> and <code>#present_page_of</code> methods handle determining the correct presenter to us, as well as paginating the collection where required.  They still use rails build in <code>#respond_with</code> method, which helps provide the correct response headers for each request.  As the ContactPresenter delegates <code>#errors</code> to its subject, if there are validation errors, <code>#respond_with</code> correctly returns a 422.</p>
 
-<p>One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we'll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I'm still pretty happy with it.  I hope you find something useful in it too.</p>
+<p>One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we&rsquo;ll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I&rsquo;m still pretty happy with it.  I hope you find something useful in it too.</p>
 
 <p>Any comments or suggestions, please get in touch with me <a href="http://twitter.com/tomafro">on twitter</a>.</p>
 
@@ -287,7 +287,7 @@
     <h1><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h1>
   </header>
   <div class="content">
-    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.</p>
+    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I&rsquo;ve packaged it up and released it as a gem.</p>
 
 <p>The <a href="http://rubygems.org/gems/mongo-rails-instrumentation">mongo-rails-instrumentation</a> gem is available on rubygems, and the code is <a href="https://github.com/tomafro/mongo-rails-instrumentation">up on github</a>.</p>
 
@@ -323,7 +323,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
+<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We&rsquo;re just starting to get some traffic, and as we do, we&rsquo;re monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
 
 <div class="highlight"><pre>    Completed 200 OK in 6ms <span class="o">(</span>Views 370.5ms | ActiveRecord: 2.3ms<span class="o">)</span>
 </pre>
@@ -414,14 +414,14 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>It looks complicated, but it's actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
+<p>It looks complicated, but it&rsquo;s actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
 
 <div class="highlight"><pre>    Completed 200 OK in 838ms <span class="o">(</span>Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms<span class="o">)</span>
 </pre>
 </div>
 
 
-<p>It's just a first stab, so any comments and improvements are more then welcome.  It's <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
+<p>It&rsquo;s just a first stab, so any comments and improvements are more then welcome.  It&rsquo;s <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
 
   </div>
   <footer>
@@ -443,7 +443,7 @@ Update: Changed to instrument methods on the Mongo::Connection
   <div class="content">
     <p><a href="http://twitter.com/kraykray">@kraykray</a> was nice enough to let me know that Rails 3.03 had broken my column-reader code.</p>
 
-<p>I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.</p>
+<p>I&rsquo;ve always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.</p>
 
 <p>So here it is, as both <a href="https://github.com/tomafro/rails-activerecord-columnreader">a github repository</a> and <a href="http://rubygems.org/gems/activerecord-column-reader">a gem</a>.  Enjoy!</p>
 
@@ -487,7 +487,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you'll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
+<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you&rsquo;ll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
 
 <h3>Explaining the template, step by step</h3>
 
@@ -507,7 +507,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.</p>
+<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn&rsquo;t initialise them.</p>
 
 <div class="highlight"><pre>  
 <span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
@@ -531,7 +531,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>Second, the rails boot process is modified to start the bundler environment.  This 'requires' all gems in the bundle, letting them run initialisation code.</p>
+<p>Second, the rails boot process is modified to start the bundler environment.  This &lsquo;requires&rsquo; all gems in the bundle, letting them run initialisation code.</p>
 
 <div class="highlight"><pre><span class="n">gsub_file</span> <span class="s1">&#39;config/boot.rb&#39;</span><span class="p">,</span> <span class="s2">&quot;Rails.boot!&quot;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">  </span>
@@ -559,7 +559,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>All that's left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it's added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
+<p>All that&rsquo;s left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it&rsquo;s added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">/.bundle</span>
@@ -570,7 +570,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>And that's it.  I hope you find it useful.</p>
+<p>And that&rsquo;s it.  I hope you find it useful.</p>
 
   </div>
   <footer>
@@ -589,9 +589,9 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
     <h1><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h1>
   </header>
   <div class="content">
-    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
+    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it&rsquo;s relationship to ActiveRecord in rails 3, I&rsquo;ve updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
 
-<p>Here's the updated code:</p>
+<p>Here&rsquo;s the updated code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">ColumnReader</span>
   <span class="k">def</span> <span class="nf">column_reader</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
@@ -615,7 +615,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>The code isn't that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you've got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
+<p>The code isn&rsquo;t that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you&rsquo;ve got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
 
 <p>Usage is similar to before, only using the new rails 3 syntax:</p>
 
@@ -641,7 +641,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>I'm still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
+<p>I&rsquo;m still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
 
   </div>
   <footer>
@@ -676,7 +676,7 @@ gem install rails --pre
 </div>
 
 
-<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
+<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I&rsquo;ve seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
 
 <p>First, install rails main dependencies:</p>
 
@@ -702,7 +702,7 @@ rake install
 </div>
 
 
-<p>Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
+<p>Your existing projects shouldn&rsquo;t be affected as rails is installed as a prerelease gem, but to be safe I&rsquo;d recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
 
   </div>
   <footer>
@@ -721,7 +721,7 @@ rake install
     <h1><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h1>
   </header>
   <div class="content">
-    <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+    <p>For the latest application I&rsquo;ve been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski&rsquo;s rails_xss plugin</a>, to turn default escaping on in my erb templates.  I&rsquo;m also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
 <p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
 
@@ -736,7 +736,7 @@ git co -b 2-3-stable origin/2-3-stable
 </div>
 
 
-<p>Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:</p>
+<p>Next, we need to build the gems.  Rails currently doesn&rsquo;t seem to have a Raketask to build all its constituent projects (though I&rsquo;m planning a patch to include one), so you have to build each one in turn:</p>
 
 <div class="highlight"><pre><span class="nb">cd </span>actionmailer
 rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
@@ -755,9 +755,9 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
 </div>
 
 
-<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.</p>
+<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I&rsquo;d use PKG_BUILD=2, then 3 and so on.</p>
 
-<p>Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+<p>Finally, once all these gems are built, it&rsquo;s simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails &lsquo;2.3.4.1&rsquo;.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
 
 <div class="highlight"><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
 </pre>
@@ -787,9 +787,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Following Nick Quaranto's article <a href="http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/">'Gem Bundler is the Future'</a>, I was inspired to try out <a href="http://github.com/wycats/bundler">bundler</a> on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.</p>
+<p>Following Nick Quaranto&rsquo;s article <a href="http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/">&lsquo;Gem Bundler is the Future&rsquo;</a>, I was inspired to try out <a href="http://github.com/wycats/bundler">bundler</a> on my latest rails project.  Previously, I&rsquo;ve found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.</p>
 
-<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I've  made a rails template to do the hard work.</p>
+<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I&rsquo;ve  made a rails template to do the hard work.</p>
 
 <p>Give it a try by running the following. You should be up and running in a couple of minutes:</p>
 
@@ -798,9 +798,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>That will give you a bundled project, ready for you to add your own gems.  Here's what each step of the template actually does:</p>
+<p>That will give you a bundled project, ready for you to add your own gems.  Here&rsquo;s what each step of the template actually does:</p>
 
-<p>Gem bundler is itself a gem.  It can't be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
+<p>Gem bundler is itself a gem.  It can&rsquo;t be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
 
 <div class="highlight"><pre><span class="n">inside</span> <span class="s1">&#39;gems/bundler&#39;</span> <span class="k">do</span>  
   <span class="n">run</span> <span class="s1">&#39;git init&#39;</span>
@@ -846,7 +846,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn't be added to the project repository.  The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler.  All the rest should be ignored:</p>
+<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn&rsquo;t be added to the project repository.  The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler.  All the rest should be ignored:</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">gems/*</span>
@@ -863,7 +863,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler's environment file before anything else:</p>
+<p>Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler&rsquo;s environment file before anything else:</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">require File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems&quot;, &quot;environment&quot;))</span>
@@ -892,7 +892,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>And that's it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
+<p>And that&rsquo;s it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
 
   </div>
   <footer>
@@ -911,7 +911,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
     <h1><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h1>
   </header>
   <div class="content">
-    <p>There's one small method I add to every new rails project I work on:</p>
+    <p>There&rsquo;s one small method I add to every new rails project I work on:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">Tomafro::FromParam</span>
   <span class="k">def</span> <span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -928,7 +928,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 
 <p>All three methods have almost the same behaviour, the only difference being the handling of missing records.  <code>find</code> throws a RecordNotFound, while <code>find_by_id</code> and <code>from_param</code> return nil.  So why use <code>from_param</code> over the others?</p>
 
-<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It's a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
+<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It&rsquo;s a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nf">to_param</span>
@@ -939,7 +939,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we'd like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I'd then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I've used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
+<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we&rsquo;d like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I&rsquo;d then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I&rsquo;ve used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -954,9 +954,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>I've been doing this for years, but it's hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There's <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it's been considered too trivial to add.</p>
+<p>I&rsquo;ve been doing this for years, but it&rsquo;s hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There&rsquo;s <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it&rsquo;s been considered too trivial to add.</p>
 
-<p>I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects.</p>
+<p>I disagree &ndash; for me the value comes from having the method from the start, not when you need it.  Luckily it&rsquo;s easy to add to my own projects.</p>
 
   </div>
   <footer>
@@ -976,7 +976,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
     <h1><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h1>
   </header>
   <div class="content">
-    <p>Run this code in a rails console to list foreign keys which aren't indexed.</p>
+    <p>Run this code in a rails console to list foreign keys which aren&rsquo;t indexed.</p>
 
 <div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span>
 <span class="n">c</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>  
@@ -1013,9 +1013,9 @@ taggings: tag_id, taggable_id, user_id
 </div>
 
 
-<p>For each column in the list, ask yourself why you don't need an index.</p>
+<p>For each column in the list, ask yourself why you don&rsquo;t need an index.</p>
 
-<p><em>Update:</em> Andrew Coleman has <a href="http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes">added output in migration format</a>.  If you want to play around with it further, <a href="http://gist.github.com/191181">here's the original code on gist</a>.</p>
+<p><em>Update:</em> Andrew Coleman has <a href="http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes">added output in migration format</a>.  If you want to play around with it further, <a href="http://gist.github.com/191181">here&rsquo;s the original code on gist</a>.</p>
 
   </div>
   <footer>
@@ -1037,7 +1037,7 @@ taggings: tag_id, taggable_id, user_id
   <div class="content">
     <p><a href="http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">The first part in this series of posts</a> looked at adding indexes to foreign keys, to improve the performance when navigating rails associations.  But many queries involve data other than just foreign keys.  With the judicious use of indexes, we can improve these too.</p>
 
-<p>Let's take the <code>conversations</code> table used in the first article, and add a column to hold the language, and some timestamps.  Here's the full schema:</p>
+<p>Let&rsquo;s take the <code>conversations</code> table used in the first article, and add a column to hold the language, and some timestamps.  Here&rsquo;s the full schema:</p>
 
 <div class="highlight"><pre><span class="n">create_table</span> <span class="n">conversations</span> <span class="k">do</span> <span class="o">|</span><span class="n">table</span><span class="o">|</span>
   <span class="n">table</span><span class="o">.</span><span class="n">string</span>   <span class="ss">:subject</span><span class="p">,</span> <span class="ss">:null</span> <span class="o">=&gt;</span> <span class="kp">false</span>
@@ -1052,7 +1052,7 @@ taggings: tag_id, taggable_id, user_id
 </div>
 
 
-<p>We want to split conversations by their languages, so we'll add a <code>named_scope</code> to the Conversation class:</p>
+<p>We want to split conversations by their languages, so we&rsquo;ll add a <code>named_scope</code> to the Conversation class:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Conversation</span>
   <span class="n">belongs_to</span> <span class="ss">:user</span>
@@ -1081,7 +1081,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 </pre>
 
 
-<p>Adding an index to the <code>language_code</code> column should improve the query performance, so let's do that and see the effect on our query:</p>
+<p>Adding an index to the <code>language_code</code> column should improve the query performance, so let&rsquo;s do that and see the effect on our query:</p>
 
 <pre>mysql> SELECT * FROM conversations WHERE language_code = 'en';
 90791 rows in set (3.02 sec)
@@ -1096,9 +1096,9 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 </pre>
 
 
-<p>So the query now uses the index, and the time taken has gone from almost 4 seconds to just over 3.  That's not nearly as big a performance gain as before, but why?  The answer is in the number of rows returned: 90791.  The index helps the database find the relevant rows quickly.  However, it still has to read those rows, and reading over 90,000 rows will always take a significant amount of time.</p>
+<p>So the query now uses the index, and the time taken has gone from almost 4 seconds to just over 3.  That&rsquo;s not nearly as big a performance gain as before, but why?  The answer is in the number of rows returned: 90791.  The index helps the database find the relevant rows quickly.  However, it still has to read those rows, and reading over 90,000 rows will always take a significant amount of time.</p>
 
-<p>In a real app we're unlikely to want to read all these rows at once, so let's do another quick comparison limiting the query to the first 100 rows:</p>
+<p>In a real app we&rsquo;re unlikely to want to read all these rows at once, so let&rsquo;s do another quick comparison limiting the query to the first 100 rows:</p>
 
 <pre>Without the index:  
 
@@ -1116,7 +1116,7 @@ mysql> SELECT * FROM conversations WHERE language_code = 'en' LIMIT 100;
 
 <h3>Choosing between indexes</h3>
 
-<p>We've seen that by using an index and limiting the number of results we can quickly get the 'first' 100 English conversations.  But in this case 'first' doesn't really mean anything.  When no order clause is specified, MySQL may appear to order its results by id, but this is just a coincidence and shouldn't be relied on.  Let's instead order our results by <code>created_at</code> to get the 100 most recent conversations.</p>
+<p>We&rsquo;ve seen that by using an index and limiting the number of results we can quickly get the &lsquo;first&rsquo; 100 English conversations.  But in this case &lsquo;first&rsquo; doesn&rsquo;t really mean anything.  When no order clause is specified, MySQL may appear to order its results by id, but this is just a coincidence and shouldn&rsquo;t be relied on.  Let&rsquo;s instead order our results by <code>created_at</code> to get the 100 most recent conversations.</p>
 
 <pre>mysql> SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
 100 rows in set (4.42 sec)
@@ -1148,7 +1148,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY c
 </pre>
 
 
-<p>It's pretty much exactly the same - still almost 4.5 seconds.  This is because MySQL can only use one index per table in a query.  It has to choose between the index on <code>language_code</code> and the one on <code>created_at</code>, and in this case chooses the language code index.  We can force it to use our other index for comparison:</p>
+<p>It&rsquo;s pretty much exactly the same &ndash; still almost 4.5 seconds.  This is because MySQL can only use one index per table in a query.  It has to choose between the index on <code>language_code</code> and the one on <code>created_at</code>, and in this case chooses the language code index.  We can force it to use our other index for comparison:</p>
 
 <pre>mysql> SELECT * FROM conversations 
        USE INDEX(created_ix) WHERE language_code = 'en' 
@@ -1178,13 +1178,13 @@ mysql> EXPLAIN SELECT * FROM conversations
 </div>
 
 
-<p>But there is also another way - using indexing multiple columns.</p>
+<p>But there is also another way &ndash; using indexing multiple columns.</p>
 
 <h3>Using compound indexes</h3>
 
 <p>A compound index indexes across two or more columns.  When defining a compound index, the order of the columns is significant, as the database reduces the set of candidate rows by comparing the columns in turn.  So an index created with <code>add_index :conversations, [language_code, created_at]</code> will compare <code>created_at</code> first, then <code>language_code</code>.</p>
 
-<p>Because of this, we need to take some care in choosing the order of our columns.  In general, the rule is to specify the most selective column first.  That is, the column with the most unique values.  So for our query, we'll add the following:</p>
+<p>Because of this, we need to take some care in choosing the order of our columns.  In general, the rule is to specify the most selective column first.  That is, the column with the most unique values.  So for our query, we&rsquo;ll add the following:</p>
 
 <div class="highlight"><pre><span class="n">add_index</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="o">[</span><span class="n">created_at</span><span class="p">,</span> <span class="n">language_code</span><span class="o">]</span>
 </pre>
@@ -1207,7 +1207,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <h3>A technique for choosing index column order</h3>
 
-<p>Sometimes it's hard to know which order your columns should be in an index, but there's an easy way to get a rough idea.  Rewrite the query, removing all conditions, and selecting <code>count(distinct column_to_index)</code> for each column.  So for our query, we'd do the following:</p>
+<p>Sometimes it&rsquo;s hard to know which order your columns should be in an index, but there&rsquo;s an easy way to get a rough idea.  Rewrite the query, removing all conditions, and selecting <code>count(distinct column_to_index)</code> for each column.  So for our query, we&rsquo;d do the following:</p>
 
 <pre>mysql> SELECT count(distinct language_code), count(distinct created_at)
        FROM conversations;
@@ -1220,7 +1220,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 </pre>
 
 
-<p>From this it's clear that there are more distinct created_at values, so we probably want to index this column first.  Note though that I said probably.  When deciding on indexes, there are no hard and fast rules.  Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.</p>
+<p>From this it&rsquo;s clear that there are more distinct created_at values, so we probably want to index this column first.  Note though that I said probably.  When deciding on indexes, there are no hard and fast rules.  Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.</p>
 
 <p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.</p>
 
@@ -1244,19 +1244,19 @@ mysql> EXPLAIN SELECT * FROM conversations
   <div class="content">
     <p>Many rails developers are great at building applications but have limited experience in database design.  As a consequence, projects often have half-baked indexing strategies, and as a result suffer bad performance.</p>
 
-<p>To try and improve this I've planned a series of posts on indexes, targetted at rails developers.  In this first post I'll <a href="/2009/08/using-indexes-in-rails-index-your-associations">introduce indexes and how to index your associations</a>, then I'll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
+<p>To try and improve this I&rsquo;ve planned a series of posts on indexes, targetted at rails developers.  In this first post I&rsquo;ll <a href="/2009/08/using-indexes-in-rails-index-your-associations">introduce indexes and how to index your associations</a>, then I&rsquo;ll write about choosing additional indexes to improve query performance, and finally how to avoid redundant and duplicate indexes.</p>
 
 <h3>A brief overview of database indexes</h3>
 
-<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> 'a database index is a data structure that improves the speed of operations on a database table'.  Unfortunately, this improvement comes at a cost.</p>
+<p><a href="http://en.wikipedia.org/wiki/Index_(database)">Wikipedia states that</a> &lsquo;a database index is a data structure that improves the speed of operations on a database table&rsquo;.  Unfortunately, this improvement comes at a cost.</p>
 
 <p>For every index on a table, there is a penalty both when inserting and updating rows.  Indexes also take up space on disk and in memory, which can affect the efficiency of queries.  Finally, having too many indexes can cause databases to choose between them poorly, actually harming performance rather than improving it.</p>
 
-<p>So while indexing is important, we shouldn't just throw indexes at our slow queries: we need to choose carefully how to index our data.</p>
+<p>So while indexing is important, we shouldn&rsquo;t just throw indexes at our slow queries: we need to choose carefully how to index our data.</p>
 
 <h3>Indexing simple associations</h3>
 
-<p>By far the most common performance problem I've encountered in rails projects is a lack of indexes on foreign keys.  There's no real excuse for this - not indexing foreign keys can cripple your app.</p>
+<p>By far the most common performance problem I&rsquo;ve encountered in rails projects is a lack of indexes on foreign keys.  There&rsquo;s no real excuse for this &ndash; not indexing foreign keys can cripple your app.</p>
 
 <p>Take the following schema:</p>
 
@@ -1287,14 +1287,14 @@ mysql> EXPLAIN SELECT * FROM conversations
 </div>
 
 
-<p>With these models, to find all conversations for a particular user we'd use <code>user.conversations</code>, which in turns uses sql like this:</p>
+<p>With these models, to find all conversations for a particular user we&rsquo;d use <code>user.conversations</code>, which in turns uses sql like this:</p>
 
 <div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">conversations</span> <span class="k">WHERE</span> <span class="n">user_id</span> <span class="o">=</span> <span class="mi">41</span><span class="p">;</span>
 </pre>
 </div>
 
 
-<p>I can run this query on a test database which I've randomly populated with 1,000,000 rows, to see how long it takes.  Note, I've cut out the actual results as they are unimportant:</p>
+<p>I can run this query on a test database which I&rsquo;ve randomly populated with 1,000,000 rows, to see how long it takes.  Note, I&rsquo;ve cut out the actual results as they are unimportant:</p>
 
 <pre>
 mysql> SELECT * FROM conversations WHERE user_id = 41;
@@ -1310,7 +1310,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 </pre>
 
 
-<p>Although the query is simple, it took 1.42 seconds.  The <code>key</code> column show the key or index that MySQL decided to use, in this case <code>NULL</code> as there are no indexes.  The <code>rows</code> column is also relevant.  It shows that MySQL will need to look at around 1,000,000 rows; that's a lot of data being loaded and compared.</p>
+<p>Although the query is simple, it took 1.42 seconds.  The <code>key</code> column show the key or index that MySQL decided to use, in this case <code>NULL</code> as there are no indexes.  The <code>rows</code> column is also relevant.  It shows that MySQL will need to look at around 1,000,000 rows; that&rsquo;s a lot of data being loaded and compared.</p>
 
 <h3>What a difference just an index makes</h3>
 
@@ -1341,7 +1341,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 
 <h3>Indexing polymorphic associations</h3>
 
-<p>So for simple associations, we can add an index on the foreign_key column.  For polymorphic associations the foreign key is made up of two columns, one for the <code>id</code> and one for the <code>type</code>.  Let's add another association to our models to illustrate this.</p>
+<p>So for simple associations, we can add an index on the foreign_key column.  For polymorphic associations the foreign key is made up of two columns, one for the <code>id</code> and one for the <code>type</code>.  Let&rsquo;s add another association to our models to illustrate this.</p>
 
 <div class="highlight"><pre><span class="n">add_column</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="ss">:subject_id</span><span class="p">,</span> <span class="ss">:integer</span>
 <span class="n">add_column</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="ss">:subject_type</span><span class="p">,</span> <span class="ss">:string</span>
@@ -1361,7 +1361,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 </div>
 
 
-<p>Here we've added an association between Artwork and Conversation, where an artwork can be the subject of a conversation.  From an artwork, we can find the related conversation (if any) with <code>artwork.conversation</code> which will use the following SQL:</p>
+<p>Here we&rsquo;ve added an association between Artwork and Conversation, where an artwork can be the subject of a conversation.  From an artwork, we can find the related conversation (if any) with <code>artwork.conversation</code> which will use the following SQL:</p>
 
 <div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">conversations</span> <span class="k">WHERE</span> <span class="n">subject_id</span> <span class="o">=</span> <span class="mi">196</span> <span class="k">and</span> <span class="n">subject_type</span> <span class="o">=</span> <span class="s1">&#39;Artwork&#39;</span><span class="p">;</span>
 </pre>
@@ -1370,7 +1370,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE user_id = 41;
 
 <p>Again the query takes around 1.4 seconds without any indexes.  Now though, we have a choice on what to index.  We can index either <code>subject_type</code> on its own, <code>subject_id</code> on its own, or both together.</p>
 
-<p>Let's try each in turn, and measure the performance.</p>
+<p>Let&rsquo;s try each in turn, and measure the performance.</p>
 
 <p>First, an index on just <code>subject_type</code>:</p>
 
@@ -1429,7 +1429,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 
 <h3>Wrapping up</h3>
 
-<p>This should give a basic overview of indexes and the performance improvements they can give.  Hopefully I've shown that <strong>foreign_keys should always be indexed</strong>, and how to index them.  The next article (which I hope to publish later this week) will explain more about how to reason about indexes, and how to identify additional indexes (beyond those on foreign keys) to add.</p>
+<p>This should give a basic overview of indexes and the performance improvements they can give.  Hopefully I&rsquo;ve shown that <strong>foreign_keys should always be indexed</strong>, and how to index them.  The next article (which I hope to publish later this week) will explain more about how to reason about indexes, and how to identify additional indexes (beyond those on foreign keys) to add.</p>
 
   </div>
   <footer>
@@ -1449,9 +1449,9 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
     <h1><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h1>
   </header>
   <div class="content">
-    <p>For a long time I've had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
+    <p>For a long time I&rsquo;ve had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I&rsquo;m working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
 
-<p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when <code>.irbrc</code> is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:</p>
+<p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn&rsquo;t as simple as just requiring my blueprints though &mdash; they require my ActiveRecord models, which aren&rsquo;t available when <code>.irbrc</code> is loaded.  Luckily the solution is simple &mdash; just add a couple of lines to the configuration in environment.rb:</p>
 
 <div class="highlight"><pre><span class="no">Rails</span><span class="o">::</span><span class="no">Initializer</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">IRB</span><span class="p">)</span>
@@ -1464,7 +1464,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 </div>
 
 
-<p>The key part is the line starting <code>IRB.conf[:IRB_RC]</code>, which tells <code>irb</code> to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I've set it to require <code>config/console.rb</code>, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in <code>script/console</code> sessions where I want these shortcuts, not in my general code.  Here it is:</p>
+<p>The key part is the line starting <code>IRB.conf[:IRB_RC]</code>, which tells <code>irb</code> to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I&rsquo;ve set it to require <code>config/console.rb</code>, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in <code>script/console</code> sessions where I want these shortcuts, not in my general code.  Here it is:</p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/../spec/blueprints.rb&quot;</span><span class="p">)</span>
 
@@ -1496,7 +1496,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
     <h1><a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a></h1>
   </header>
   <div class="content">
-    <p>Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it's a shame to do away with the nice type conversion <code>ActiveRecord</code> provides.  It'd also be a pity to get rid of find scoping, amongst other goodness.</p>
+    <p>Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it&rsquo;s a shame to do away with the nice type conversion <code>ActiveRecord</code> provides.  It&rsquo;d also be a pity to get rid of find scoping, amongst other goodness.</p>
 
 <p>Enter <code>Tomafro::ColumnReader</code>:</p>
 
@@ -1520,7 +1520,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 </div>
 
 
-<p>Once you've extended <code>ActiveRecord::Base</code> with it, usage is simple.  In your models, declare which columns you want access to:</p>
+<p>Once you&rsquo;ve extended <code>ActiveRecord::Base</code> with it, usage is simple.  In your models, declare which columns you want access to:</p>
 
 <div class="highlight"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">extend</span> <span class="no">Tomafro</span><span class="o">::</span><span class="no">ColumnReader</span>
  
@@ -1534,7 +1534,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 </div>
 
 
-<p>Once you've done this, you can access values directly from the class, respecting scope, limits and other finder options.</p>
+<p>Once you&rsquo;ve done this, you can access values directly from the class, respecting scope, limits and other finder options.</p>
 
 <div class="highlight"><pre><span class="no">Animal</span><span class="o">.</span><span class="n">names</span> 
 <span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;, &#39;Zebra&#39;, &#39;Gazelle&#39;]</span>
@@ -1568,7 +1568,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
     <h1><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h1>
   </header>
   <div class="content">
-    <p>If you're using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
+    <p>If you&rsquo;re using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -1593,9 +1593,9 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 </div>
 
 
-<p>This let's us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
+<p>This let&rsquo;s us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
 
-<p>By automatically matching some rails paths.  Here's the code:</p>
+<p>By automatically matching some rails paths.  Here&rsquo;s the code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -1628,7 +1628,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE subject_id = 196 and subject_ty
 
 <p>What it does is pretty simple.  Given a page name <code>the clients page</code> (with no other matches defined) it will try and send <code>clients_path</code>.  If successful, then it returns the result, otherwise nil.</p>
 
-<p>Not the biggest improvement in the world, but it's made my cucumber tests just a little bit easier to write.</p>
+<p>Not the biggest improvement in the world, but it&rsquo;s made my cucumber tests just a little bit easier to write.</p>
 
   </div>
   <footer>

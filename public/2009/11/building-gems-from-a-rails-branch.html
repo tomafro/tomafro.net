@@ -41,7 +41,7 @@
     <h1><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h1>
   </header>
   <div class="content">
-    <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+    <p>For the latest application I&rsquo;ve been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski&rsquo;s rails_xss plugin</a>, to turn default escaping on in my erb templates.  I&rsquo;m also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
 <p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
 
@@ -56,7 +56,7 @@ git co -b 2-3-stable origin/2-3-stable
 </div>
 
 
-<p>Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:</p>
+<p>Next, we need to build the gems.  Rails currently doesn&rsquo;t seem to have a Raketask to build all its constituent projects (though I&rsquo;m planning a patch to include one), so you have to build each one in turn:</p>
 
 <div class="highlight"><pre><span class="nb">cd </span>actionmailer
 rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
@@ -75,9 +75,9 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
 </div>
 
 
-<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.</p>
+<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I&rsquo;d use PKG_BUILD=2, then 3 and so on.</p>
 
-<p>Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+<p>Finally, once all these gems are built, it&rsquo;s simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails &lsquo;2.3.4.1&rsquo;.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
 
 <div class="highlight"><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
 </pre>

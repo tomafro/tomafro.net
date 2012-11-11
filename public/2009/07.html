@@ -78,7 +78,7 @@
 </div>
 
 
-<p>This worked well on one level, but on another it just seemed wrong.  It's very manual, prone to error and pretty hard to script.  Recently though, thanks to a hint from Chris Parsons, I've found another way: using <code>dscl</code>.</p>
+<p>This worked well on one level, but on another it just seemed wrong.  It&rsquo;s very manual, prone to error and pretty hard to script.  Recently though, thanks to a hint from Chris Parsons, I&rsquo;ve found another way: using <code>dscl</code>.</p>
 
 <p><code>dscl</code>, or Directory Service command line utility to give it its full name, has many uses.  For a web developer, the most relevant is probably the ability to add, list and create local directory entries under <code>/Local/Defaults/Hosts</code> in the directory (not the file system).  These act like lines in <code>/etc/hosts</code> but can be manipulated easily from the command line.</p>
 
@@ -112,7 +112,7 @@ yet-another-half-baked-idea.localhost            127.0.0.1
 </div>
 
 
-<p>Once you've mastered these commands, the possibilities are endless.  Here's a rake task to add all subdomains used in a project:</p>
+<p>Once you&rsquo;ve mastered these commands, the possibilities are endless.  Here&rsquo;s a rake task to add all subdomains used in a project:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Application</span>
   <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">subdomains</span>
@@ -137,7 +137,7 @@ yet-another-half-baked-idea.localhost            127.0.0.1
 </div>
 
 
-<p>Or if you're using <a href="http://www.modrails.com/">passenger</a> for development, you can use a tool like <a href="http://github.com/lazyatom/hostess/tree/master">James Adam's hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
+<p>Or if you&rsquo;re using <a href="http://www.modrails.com/">passenger</a> for development, you can use a tool like <a href="http://github.com/lazyatom/hostess/tree/master">James Adam&rsquo;s hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
 
   </div>
   <footer>

@@ -41,7 +41,7 @@
     <h1><a href="/2011/09/geohash-toy-code-released">Geohash toy: code released</a></h1>
   </header>
   <div class="content">
-    <p>A couple of weeks ago I <a href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes">wrote about a small toy app</a> I'd written to explore geohashes.  Now I've cleaned the code up a little, upgraded it to rails 3.1 and released it <a href="https://github.com/tomafro/geohash-explorer">here on github</a>.  Enjoy.</p>
+    <p>A couple of weeks ago I <a href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes">wrote about a small toy app</a> I&rsquo;d written to explore geohashes.  Now I&rsquo;ve cleaned the code up a little, upgraded it to rails 3.1 and released it <a href="https://github.com/tomafro/geohash-explorer">here on github</a>.  Enjoy.</p>
 
   </div>
   <footer>
@@ -71,16 +71,16 @@
 
 <p>Running this file from the <code>/code</code> folder will output <code>examples/path_example.rb</code></p>
 
-<p>This is often used to load files on paths relative to the current file.  The way I've used it before is like this:</p>
+<p>This is often used to load files on paths relative to the current file.  The way I&rsquo;ve used it before is like this:</p>
 
 <div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">))</span>
 </pre>
 </div>
 
 
-<p>This works, but it's a bit clunky.</p>
+<p>This works, but it&rsquo;s a bit clunky.</p>
 
-<p>What I didn't realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
+<p>What I didn&rsquo;t realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument &ndash; a starting directory.  Also, this argument doesn&rsquo;t actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
 
 <div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../config.yml&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
 </pre>
@@ -137,7 +137,7 @@
     <h1><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h1>
   </header>
   <div class="content">
-    <p>This one is just so simple, I can't believe I didn't know about it earlier.</p>
+    <p>This one is just so simple, I can&rsquo;t believe I didn&rsquo;t know about it earlier.</p>
 
 <p>First, setup the cdpath or CDPATH variable:</p>
 
@@ -159,7 +159,7 @@
 </div>
 
 
-<p>I've already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
+<p>I&rsquo;ve already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
 
   </div>
   <footer>
@@ -216,7 +216,7 @@
     <h1><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h1>
   </header>
   <div class="content">
-    <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
+    <p>Before my next post on database indexes, here&rsquo;s a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
 
 <div class="highlight"><pre><span class="c"># Create and move to a directory in a single command</span>
 <span class="c"># Usage: take ~/Projects/tools/awesometer</span>
@@ -246,7 +246,7 @@ take<span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h1>
   </header>
   <div class="content">
-    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
+    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I&rsquo;m finding I use it all the time:</p>
 
 <div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
 <span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>

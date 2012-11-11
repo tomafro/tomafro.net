@@ -41,25 +41,25 @@
     <h1><a href="/2012/06/tip-bundler-with-binstubs">Tip: Bundler with --binstubs</a></h1>
   </header>
   <div class="content">
-    <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I'd aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I've started installing all my bundles like this:</p>
+    <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I&rsquo;d aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I&rsquo;ve started installing all my bundles like this:</p>
 
 <div class="highlight"><pre>bundle install --path .bundle/gems --binstubs .bundle/bin
 </pre>
 </div>
 
 
-<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application's gems isolated.  The <code>--path .bundle/gems</code> installs them within an application's <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
+<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application&rsquo;s gems isolated.  The <code>--path .bundle/gems</code> installs them within an application&rsquo;s <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
 
-<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I'm in the application folder.  I never have to type <code>bundle exec</code>!</p>
+<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I&rsquo;m in the application folder.  I never have to type <code>bundle exec</code>!</p>
 
-<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I've aliased it to <code>bi</code>:</p>
+<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I&rsquo;ve aliased it to <code>bi</code>:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">bi</span><span class="o">=</span><span class="s1">&#39;bundle install --path .bundle/gems --binstubs .bundle/bin&#39;</span>
 </pre>
 </div>
 
 
-<p>I've been using these options for a few months, and so far I'm very happy with them.</p>
+<p>I&rsquo;ve been using these options for a few months, and so far I&rsquo;m very happy with them.</p>
 
   </div>
   <footer>
@@ -79,9 +79,9 @@
     <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
   </header>
   <div class="content">
-    <p>It's irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
+    <p>It&rsquo;s irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
 
-<p>Here's the function (which I've named <code>be</code>):</p>
+<p>Here&rsquo;s the function (which I&rsquo;ve named <code>be</code>):</p>
 
 <div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> -a Gemfile <span class="o">]]</span>; <span class="k">then</span>
 <span class="k">  </span>bundle <span class="nb">exec</span> <span class="nv">$*</span>
@@ -92,9 +92,9 @@
 </div>
 
 
-<p>It's very simple.  If there's a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
+<p>It&rsquo;s very simple.  If there&rsquo;s a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
 
-<p>I've combined this with some aliases for much less pain and less frustration:</p>
+<p>I&rsquo;ve combined this with some aliases for much less pain and less frustration:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;be rake&#39;</span>
 <span class="nb">alias </span><span class="nv">cap</span><span class="o">=</span><span class="s1">&#39;be cap&#39;</span>
@@ -146,7 +146,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you'll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
+<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you&rsquo;ll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
 
 <h3>Explaining the template, step by step</h3>
 
@@ -166,7 +166,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.</p>
+<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn&rsquo;t initialise them.</p>
 
 <div class="highlight"><pre>  
 <span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
@@ -190,7 +190,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>Second, the rails boot process is modified to start the bundler environment.  This 'requires' all gems in the bundle, letting them run initialisation code.</p>
+<p>Second, the rails boot process is modified to start the bundler environment.  This &lsquo;requires&rsquo; all gems in the bundle, letting them run initialisation code.</p>
 
 <div class="highlight"><pre><span class="n">gsub_file</span> <span class="s1">&#39;config/boot.rb&#39;</span><span class="p">,</span> <span class="s2">&quot;Rails.boot!&quot;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">  </span>
@@ -218,7 +218,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>All that's left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it's added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
+<p>All that&rsquo;s left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it&rsquo;s added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">/.bundle</span>
@@ -229,7 +229,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>And that's it.  I hope you find it useful.</p>
+<p>And that&rsquo;s it.  I hope you find it useful.</p>
 
   </div>
   <footer>
@@ -248,7 +248,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
     <h1><a href="/2009/11/building-gems-from-a-rails-branch">Building rails gems from the 2-3-stable branch</a></h1>
   </header>
   <div class="content">
-    <p>For the latest application I've been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski's rails_xss plugin</a>, to turn default escaping on in my erb templates.  I'm also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+    <p>For the latest application I&rsquo;ve been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski&rsquo;s rails_xss plugin</a>, to turn default escaping on in my erb templates.  I&rsquo;m also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
 
 <p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
 
@@ -263,7 +263,7 @@ git co -b 2-3-stable origin/2-3-stable
 </div>
 
 
-<p>Next, we need to build the gems.  Rails currently doesn't seem to have a Raketask to build all its constituent projects (though I'm planning a patch to include one), so you have to build each one in turn:</p>
+<p>Next, we need to build the gems.  Rails currently doesn&rsquo;t seem to have a Raketask to build all its constituent projects (though I&rsquo;m planning a patch to include one), so you have to build each one in turn:</p>
 
 <div class="highlight"><pre><span class="nb">cd </span>actionmailer
 rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
@@ -282,9 +282,9 @@ rake gem <span class="nv">PKG_BUILD</span><span class="o">=</span>1
 </div>
 
 
-<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I'd use PKG_BUILD=2, then 3 and so on.</p>
+<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I&rsquo;d use PKG_BUILD=2, then 3 and so on.</p>
 
-<p>Finally, once all these gems are built, it's simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails '2.3.4.1'.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+<p>Finally, once all these gems are built, it&rsquo;s simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails &lsquo;2.3.4.1&rsquo;.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
 
 <div class="highlight"><pre>cp **/pkg/*.gem &lt;project-folder&gt;/gems/cache
 </pre>
@@ -314,9 +314,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Following Nick Quaranto's article <a href="http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/">'Gem Bundler is the Future'</a>, I was inspired to try out <a href="http://github.com/wycats/bundler">bundler</a> on my latest rails project.  Previously, I've found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.</p>
+<p>Following Nick Quaranto&rsquo;s article <a href="http://litanyagainstfear.com/blog/2009/10/14/gem-bundler-is-the-future/">&lsquo;Gem Bundler is the Future&rsquo;</a>, I was inspired to try out <a href="http://github.com/wycats/bundler">bundler</a> on my latest rails project.  Previously, I&rsquo;ve found rails' own gem management a massive headache.  In contrast, using bundler has been a pleasure.</p>
 
-<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I've  made a rails template to do the hard work.</p>
+<p>Getting it set up how I wanted took a fair bit of experimentation, so to make things easier both for me and the wider community, I&rsquo;ve  made a rails template to do the hard work.</p>
 
 <p>Give it a try by running the following. You should be up and running in a couple of minutes:</p>
 
@@ -325,9 +325,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>That will give you a bundled project, ready for you to add your own gems.  Here's what each step of the template actually does:</p>
+<p>That will give you a bundled project, ready for you to add your own gems.  Here&rsquo;s what each step of the template actually does:</p>
 
-<p>Gem bundler is itself a gem.  It can't be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
+<p>Gem bundler is itself a gem.  It can&rsquo;t be used to manage itself, so to ensure that all environments use the same version, the first step is to install it right into the project:</p>
 
 <div class="highlight"><pre><span class="n">inside</span> <span class="s1">&#39;gems/bundler&#39;</span> <span class="k">do</span>  
   <span class="n">run</span> <span class="s1">&#39;git init&#39;</span>
@@ -373,7 +373,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn't be added to the project repository.  The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler.  All the rest should be ignored:</p>
+<p>Most of the files bundler will place in the <code>gem</code> path can be regenerated; they shouldn&rsquo;t be added to the project repository.  The only things that should be added are the <code>.gem</code> files themselves, and the local copy of bundler.  All the rest should be ignored:</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">gems/*</span>
@@ -390,7 +390,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler's environment file before anything else:</p>
+<p>Finally rails needs to be modified to ensure the bundler environment is loaded.  This is done it two parts.  First, a preinitializer is added to load the bundler&rsquo;s environment file before anything else:</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">require File.expand_path(File.join(File.dirname(__FILE__), &quot;..&quot;, &quot;gems&quot;, &quot;environment&quot;))</span>
@@ -419,7 +419,7 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
 </div>
 
 
-<p>And that's it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
+<p>And that&rsquo;s it.  The project is now fully bundled.  More gems can be added to the <code>Gemfile</code> and pulled into the project with <code>script/bundle</code>.</p>
 
   </div>
   <footer>
@@ -438,9 +438,9 @@ Bundler has changed a lot since I first wrote this template, so I've <a href="/2
     <h1><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h1>
   </header>
   <div class="content">
-    <p>I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.</p>
+    <p>I&rsquo;ve been trying to get my head around the ZSH completion system.  It&rsquo;s not easy, but I&rsquo;m slowly making progress.</p>
 
-<p>Here's my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
+<p>Here&rsquo;s my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
 
 <p>So typing <code>gem &lt;tab&gt;</code> gives a list of possible commands, whilst <code>gem open &lt;tab&gt;</code> will complete with the names of the currently installed gems.</p>
 
@@ -479,7 +479,7 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-<p>As it's a first attempt, it's a long way from perfect.  I've <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I'd appreciate any advice or improvements.  Specifically I'd like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I'd also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
+<p>As it&rsquo;s a first attempt, it&rsquo;s a long way from perfect.  I&rsquo;ve <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I&rsquo;d appreciate any advice or improvements.  Specifically I&rsquo;d like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I&rsquo;d also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
 
 <p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
 
@@ -534,7 +534,7 @@ Open which gem?
 </div>
 
 
-<p>If you're running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let's you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn't work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
+<p>If you&rsquo;re running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let&rsquo;s you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn&rsquo;t work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
 
 <div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">GEM_OPEN_EDITOR</span><span class="o">=</span>mate
 </pre>

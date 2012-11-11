@@ -41,7 +41,7 @@
     <h1><a href="/2009/11/taking-screenshots-of-web-pages-with-macruby">Taking screenshots of web pages with macruby</a></h1>
   </header>
   <div class="content">
-    <p>Whilst playing around with the very exciting <a href="http://macruby.org">macruby</a> last weekend, I thought I'd try building a web page screenshot grabber, based on <a href="http://www.bencurtis.com/?p=128">Ben Curtis' code</a>.  The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
+    <p>Whilst playing around with the very exciting <a href="http://macruby.org">macruby</a> last weekend, I thought I&rsquo;d try building a web page screenshot grabber, based on <a href="http://www.bencurtis.com/?p=128">Ben Curtis' code</a>.  The code was very easy to change translate from <code>rubycocoa</code>, looks cleaner and seems to work really well:</p>
 
 <div class="highlight"><pre><span class="n">framework</span> <span class="s1">&#39;Cocoa&#39;</span>
 <span class="n">framework</span> <span class="s1">&#39;WebKit&#39;</span>
@@ -222,7 +222,7 @@
     <h1><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h1>
   </header>
   <div class="content">
-    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
+    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I&rsquo;m finding I use it all the time:</p>
 
 <div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
 <span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
@@ -253,13 +253,13 @@ tm<span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h1>
   </header>
   <div class="content">
-    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
+    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I&rsquo;ve added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
 
-<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
+<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn&rsquo;t work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
 <p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
 
-<p>Here's the code:</p>
+<p>Here&rsquo;s the code:</p>
 
 <div class="highlight"><pre><span class="k">case</span> <span class="nv">$system_name</span> in
   Darwin*<span class="o">)</span>
@@ -303,7 +303,7 @@ tm<span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-<p>This worked well on one level, but on another it just seemed wrong.  It's very manual, prone to error and pretty hard to script.  Recently though, thanks to a hint from Chris Parsons, I've found another way: using <code>dscl</code>.</p>
+<p>This worked well on one level, but on another it just seemed wrong.  It&rsquo;s very manual, prone to error and pretty hard to script.  Recently though, thanks to a hint from Chris Parsons, I&rsquo;ve found another way: using <code>dscl</code>.</p>
 
 <p><code>dscl</code>, or Directory Service command line utility to give it its full name, has many uses.  For a web developer, the most relevant is probably the ability to add, list and create local directory entries under <code>/Local/Defaults/Hosts</code> in the directory (not the file system).  These act like lines in <code>/etc/hosts</code> but can be manipulated easily from the command line.</p>
 
@@ -337,7 +337,7 @@ yet-another-half-baked-idea.localhost            127.0.0.1
 </div>
 
 
-<p>Once you've mastered these commands, the possibilities are endless.  Here's a rake task to add all subdomains used in a project:</p>
+<p>Once you&rsquo;ve mastered these commands, the possibilities are endless.  Here&rsquo;s a rake task to add all subdomains used in a project:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Application</span>
   <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">subdomains</span>
@@ -362,7 +362,7 @@ yet-another-half-baked-idea.localhost            127.0.0.1
 </div>
 
 
-<p>Or if you're using <a href="http://www.modrails.com/">passenger</a> for development, you can use a tool like <a href="http://github.com/lazyatom/hostess/tree/master">James Adam's hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
+<p>Or if you&rsquo;re using <a href="http://www.modrails.com/">passenger</a> for development, you can use a tool like <a href="http://github.com/lazyatom/hostess/tree/master">James Adam&rsquo;s hostess</a> to automatically set up the host entry and virtual host entry for a site in one simple command.</p>
 
   </div>
   <footer>

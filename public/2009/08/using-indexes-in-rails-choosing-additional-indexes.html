@@ -43,7 +43,7 @@
   <div class="content">
     <p><a href="http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">The first part in this series of posts</a> looked at adding indexes to foreign keys, to improve the performance when navigating rails associations.  But many queries involve data other than just foreign keys.  With the judicious use of indexes, we can improve these too.</p>
 
-<p>Let's take the <code>conversations</code> table used in the first article, and add a column to hold the language, and some timestamps.  Here's the full schema:</p>
+<p>Let&rsquo;s take the <code>conversations</code> table used in the first article, and add a column to hold the language, and some timestamps.  Here&rsquo;s the full schema:</p>
 
 <div class="highlight"><pre><span class="n">create_table</span> <span class="n">conversations</span> <span class="k">do</span> <span class="o">|</span><span class="n">table</span><span class="o">|</span>
   <span class="n">table</span><span class="o">.</span><span class="n">string</span>   <span class="ss">:subject</span><span class="p">,</span> <span class="ss">:null</span> <span class="o">=&gt;</span> <span class="kp">false</span>
@@ -58,7 +58,7 @@
 </div>
 
 
-<p>We want to split conversations by their languages, so we'll add a <code>named_scope</code> to the Conversation class:</p>
+<p>We want to split conversations by their languages, so we&rsquo;ll add a <code>named_scope</code> to the Conversation class:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Conversation</span>
   <span class="n">belongs_to</span> <span class="ss">:user</span>
@@ -87,7 +87,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 </pre>
 
 
-<p>Adding an index to the <code>language_code</code> column should improve the query performance, so let's do that and see the effect on our query:</p>
+<p>Adding an index to the <code>language_code</code> column should improve the query performance, so let&rsquo;s do that and see the effect on our query:</p>
 
 <pre>mysql> SELECT * FROM conversations WHERE language_code = 'en';
 90791 rows in set (3.02 sec)
@@ -102,9 +102,9 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 </pre>
 
 
-<p>So the query now uses the index, and the time taken has gone from almost 4 seconds to just over 3.  That's not nearly as big a performance gain as before, but why?  The answer is in the number of rows returned: 90791.  The index helps the database find the relevant rows quickly.  However, it still has to read those rows, and reading over 90,000 rows will always take a significant amount of time.</p>
+<p>So the query now uses the index, and the time taken has gone from almost 4 seconds to just over 3.  That&rsquo;s not nearly as big a performance gain as before, but why?  The answer is in the number of rows returned: 90791.  The index helps the database find the relevant rows quickly.  However, it still has to read those rows, and reading over 90,000 rows will always take a significant amount of time.</p>
 
-<p>In a real app we're unlikely to want to read all these rows at once, so let's do another quick comparison limiting the query to the first 100 rows:</p>
+<p>In a real app we&rsquo;re unlikely to want to read all these rows at once, so let&rsquo;s do another quick comparison limiting the query to the first 100 rows:</p>
 
 <pre>Without the index:  
 
@@ -122,7 +122,7 @@ mysql> SELECT * FROM conversations WHERE language_code = 'en' LIMIT 100;
 
 <h3>Choosing between indexes</h3>
 
-<p>We've seen that by using an index and limiting the number of results we can quickly get the 'first' 100 English conversations.  But in this case 'first' doesn't really mean anything.  When no order clause is specified, MySQL may appear to order its results by id, but this is just a coincidence and shouldn't be relied on.  Let's instead order our results by <code>created_at</code> to get the 100 most recent conversations.</p>
+<p>We&rsquo;ve seen that by using an index and limiting the number of results we can quickly get the &lsquo;first&rsquo; 100 English conversations.  But in this case &lsquo;first&rsquo; doesn&rsquo;t really mean anything.  When no order clause is specified, MySQL may appear to order its results by id, but this is just a coincidence and shouldn&rsquo;t be relied on.  Let&rsquo;s instead order our results by <code>created_at</code> to get the 100 most recent conversations.</p>
 
 <pre>mysql> SELECT * FROM conversations WHERE language_code = 'en' ORDER BY created_at DESC;
 100 rows in set (4.42 sec)
@@ -154,7 +154,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY c
 </pre>
 
 
-<p>It's pretty much exactly the same - still almost 4.5 seconds.  This is because MySQL can only use one index per table in a query.  It has to choose between the index on <code>language_code</code> and the one on <code>created_at</code>, and in this case chooses the language code index.  We can force it to use our other index for comparison:</p>
+<p>It&rsquo;s pretty much exactly the same &ndash; still almost 4.5 seconds.  This is because MySQL can only use one index per table in a query.  It has to choose between the index on <code>language_code</code> and the one on <code>created_at</code>, and in this case chooses the language code index.  We can force it to use our other index for comparison:</p>
 
 <pre>mysql> SELECT * FROM conversations 
        USE INDEX(created_ix) WHERE language_code = 'en' 
@@ -184,13 +184,13 @@ mysql> EXPLAIN SELECT * FROM conversations
 </div>
 
 
-<p>But there is also another way - using indexing multiple columns.</p>
+<p>But there is also another way &ndash; using indexing multiple columns.</p>
 
 <h3>Using compound indexes</h3>
 
 <p>A compound index indexes across two or more columns.  When defining a compound index, the order of the columns is significant, as the database reduces the set of candidate rows by comparing the columns in turn.  So an index created with <code>add_index :conversations, [language_code, created_at]</code> will compare <code>created_at</code> first, then <code>language_code</code>.</p>
 
-<p>Because of this, we need to take some care in choosing the order of our columns.  In general, the rule is to specify the most selective column first.  That is, the column with the most unique values.  So for our query, we'll add the following:</p>
+<p>Because of this, we need to take some care in choosing the order of our columns.  In general, the rule is to specify the most selective column first.  That is, the column with the most unique values.  So for our query, we&rsquo;ll add the following:</p>
 
 <div class="highlight"><pre><span class="n">add_index</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="o">[</span><span class="n">created_at</span><span class="p">,</span> <span class="n">language_code</span><span class="o">]</span>
 </pre>
@@ -213,7 +213,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <h3>A technique for choosing index column order</h3>
 
-<p>Sometimes it's hard to know which order your columns should be in an index, but there's an easy way to get a rough idea.  Rewrite the query, removing all conditions, and selecting <code>count(distinct column_to_index)</code> for each column.  So for our query, we'd do the following:</p>
+<p>Sometimes it&rsquo;s hard to know which order your columns should be in an index, but there&rsquo;s an easy way to get a rough idea.  Rewrite the query, removing all conditions, and selecting <code>count(distinct column_to_index)</code> for each column.  So for our query, we&rsquo;d do the following:</p>
 
 <pre>mysql> SELECT count(distinct language_code), count(distinct created_at)
        FROM conversations;
@@ -226,7 +226,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 </pre>
 
 
-<p>From this it's clear that there are more distinct created_at values, so we probably want to index this column first.  Note though that I said probably.  When deciding on indexes, there are no hard and fast rules.  Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.</p>
+<p>From this it&rsquo;s clear that there are more distinct created_at values, so we probably want to index this column first.  Note though that I said probably.  When deciding on indexes, there are no hard and fast rules.  Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.</p>
 
 <p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.</p>
 

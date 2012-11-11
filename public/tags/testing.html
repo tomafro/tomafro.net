@@ -41,7 +41,7 @@
     <h1><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h1>
   </header>
   <div class="content">
-    <p>If you're using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
+    <p>If you&rsquo;re using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -66,9 +66,9 @@
 </div>
 
 
-<p>This let's us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
+<p>This let&rsquo;s us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
 
-<p>By automatically matching some rails paths.  Here's the code:</p>
+<p>By automatically matching some rails paths.  Here&rsquo;s the code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -101,7 +101,7 @@
 
 <p>What it does is pretty simple.  Given a page name <code>the clients page</code> (with no other matches defined) it will try and send <code>clients_path</code>.  If successful, then it returns the result, otherwise nil.</p>
 
-<p>Not the biggest improvement in the world, but it's made my cucumber tests just a little bit easier to write.</p>
+<p>Not the biggest improvement in the world, but it&rsquo;s made my cucumber tests just a little bit easier to write.</p>
 
   </div>
   <footer>

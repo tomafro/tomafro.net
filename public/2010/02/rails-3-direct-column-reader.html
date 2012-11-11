@@ -41,9 +41,9 @@
     <h1><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h1>
   </header>
   <div class="content">
-    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
+    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it&rsquo;s relationship to ActiveRecord in rails 3, I&rsquo;ve updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
 
-<p>Here's the updated code:</p>
+<p>Here&rsquo;s the updated code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">ColumnReader</span>
   <span class="k">def</span> <span class="nf">column_reader</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
@@ -67,7 +67,7 @@
 </div>
 
 
-<p>The code isn't that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you've got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
+<p>The code isn&rsquo;t that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you&rsquo;ve got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
 
 <p>Usage is similar to before, only using the new rails 3 syntax:</p>
 
@@ -93,7 +93,7 @@
 </div>
 
 
-<p>I'm still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
+<p>I&rsquo;m still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
 
   </div>
   <footer>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2012-07-03T18:35:33+01:00</updated>
+ <updated>2012-11-11T13:37:52+00:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
@@ -21,25 +21,25 @@
     &lt;h1&gt;&lt;a href=&quot;/2012/06/tip-bundler-with-binstubs&quot;&gt;Tip: Bundler with --binstubs&lt;/a&gt;&lt;/h1&gt;
   &lt;/header&gt;
   &lt;div class=&quot;content&quot;&gt;
-    &lt;p&gt;In &lt;a href=&quot;/2011/09/tip-automatic-bundle-exec-for-rake-and-more&quot;&gt;a previous blog&lt;/a&gt;, I wrote how I'd aliased commands such as &lt;code&gt;rake&lt;/code&gt;, &lt;code&gt;cap&lt;/code&gt; and &lt;code&gt;rspec&lt;/code&gt; to run either with or without &lt;code&gt;bundle exec&lt;/code&gt;, based on the presence of a &lt;code&gt;Gemfile&lt;/code&gt;.  I gave up on that a while ago.  Instead, I've started installing all my bundles like this:&lt;/p&gt;
+    &lt;p&gt;In &lt;a href=&quot;/2011/09/tip-automatic-bundle-exec-for-rake-and-more&quot;&gt;a previous blog&lt;/a&gt;, I wrote how I&amp;rsquo;d aliased commands such as &lt;code&gt;rake&lt;/code&gt;, &lt;code&gt;cap&lt;/code&gt; and &lt;code&gt;rspec&lt;/code&gt; to run either with or without &lt;code&gt;bundle exec&lt;/code&gt;, based on the presence of a &lt;code&gt;Gemfile&lt;/code&gt;.  I gave up on that a while ago.  Instead, I&amp;rsquo;ve started installing all my bundles like this:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;bundle install --path .bundle/gems --binstubs .bundle/bin
 &lt;/pre&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;I often use features like &lt;code&gt;bundle open &amp;lt;gem&amp;gt;&lt;/code&gt; to debug and edit failing gems, so I like to keep each application's gems isolated.  The &lt;code&gt;--path .bundle/gems&lt;/code&gt; installs them within an application's &lt;code&gt;.bundle&lt;/code&gt; directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with &lt;code&gt;rm -rf .bundle&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;I often use features like &lt;code&gt;bundle open &amp;lt;gem&amp;gt;&lt;/code&gt; to debug and edit failing gems, so I like to keep each application&amp;rsquo;s gems isolated.  The &lt;code&gt;--path .bundle/gems&lt;/code&gt; installs them within an application&amp;rsquo;s &lt;code&gt;.bundle&lt;/code&gt; directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with &lt;code&gt;rm -rf .bundle&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;The &lt;code&gt;--binstubs .bundle/bin&lt;/code&gt; option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including &lt;code&gt;rake&lt;/code&gt; will generate a &lt;code&gt;.bundle/bin/rake&lt;/code&gt; script.  By adding &lt;code&gt;./.bundle/bin&lt;/code&gt; to the front of my environment &lt;code&gt;PATH&lt;/code&gt;, the bundled version of &lt;code&gt;rake&lt;/code&gt; will run when I'm in the application folder.  I never have to type &lt;code&gt;bundle exec&lt;/code&gt;!&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;--binstubs .bundle/bin&lt;/code&gt; option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including &lt;code&gt;rake&lt;/code&gt; will generate a &lt;code&gt;.bundle/bin/rake&lt;/code&gt; script.  By adding &lt;code&gt;./.bundle/bin&lt;/code&gt; to the front of my environment &lt;code&gt;PATH&lt;/code&gt;, the bundled version of &lt;code&gt;rake&lt;/code&gt; will run when I&amp;rsquo;m in the application folder.  I never have to type &lt;code&gt;bundle exec&lt;/code&gt;!&lt;/p&gt;
 
-&lt;p&gt;Obviously typing that long &lt;code&gt;bundle install&lt;/code&gt; command each time is tedious, so I've aliased it to &lt;code&gt;bi&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;Obviously typing that long &lt;code&gt;bundle install&lt;/code&gt; command each time is tedious, so I&amp;rsquo;ve aliased it to &lt;code&gt;bi&lt;/code&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;bi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;bundle install --path .bundle/gems --binstubs .bundle/bin&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;I've been using these options for a few months, and so far I'm very happy with them.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve been using these options for a few months, and so far I&amp;rsquo;m very happy with them.&lt;/p&gt;
 
   &lt;/div&gt;
   &lt;footer&gt;
@@ -74,7 +74,7 @@
     &lt;h1&gt;&lt;a href=&quot;/2012/02/working-inside-government&quot;&gt;Working inside government&lt;/a&gt;&lt;/h1&gt;
   &lt;/header&gt;
   &lt;div class=&quot;content&quot;&gt;
-    &lt;p&gt;Since September, I and the other &lt;a href=&quot;http://gofreerange.com&quot;&gt;Go Free Range&lt;/a&gt; guys have been working for the government.  We've been helping the able and growing &lt;a href=&quot;http://digital.cabinetoffice.gov.uk/&quot;&gt;Government Digital Service&lt;/a&gt; to build &lt;a href=&quot;https://github.com/alphagov/whitehall&quot;&gt;whitehall&lt;/a&gt;, our code name for the &lt;a href=&quot;https://www.gov.uk/government&quot;&gt;Inside Government section of gov.uk&lt;/a&gt;.  Yesterday we removed the password and opened our doors to the public.&lt;/p&gt;
+    &lt;p&gt;Since September, I and the other &lt;a href=&quot;http://gofreerange.com&quot;&gt;Go Free Range&lt;/a&gt; guys have been working for the government.  We&amp;rsquo;ve been helping the able and growing &lt;a href=&quot;http://digital.cabinetoffice.gov.uk/&quot;&gt;Government Digital Service&lt;/a&gt; to build &lt;a href=&quot;https://github.com/alphagov/whitehall&quot;&gt;whitehall&lt;/a&gt;, our code name for the &lt;a href=&quot;https://www.gov.uk/government&quot;&gt;Inside Government section of gov.uk&lt;/a&gt;.  Yesterday we removed the password and opened our doors to the public.&lt;/p&gt;
 
 &lt;div class=&quot;browsershots&quot;&gt;
 &lt;a href=&quot;https://www.gov.uk/government/organisations/department-for-international-development&quot;&gt;&lt;img class=&quot;browsershot&quot; src=&quot;/images/dfid.thumb.png&quot;/&gt;&lt;/a&gt;
@@ -83,11 +83,11 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;For those who don't know, &lt;a href=&quot;https://www.gov.uk&quot;&gt;gov.uk&lt;/a&gt; is the UK government's attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means &lt;a href=&quot;https://www.pivotaltracker.com/projects/367813&quot;&gt;public&lt;/a&gt;, &lt;a href=&quot;https://github.com/alphagov/whitehall&quot;&gt;open source&lt;/a&gt;, continual delivery and more.&lt;/p&gt;
+&lt;p&gt;For those who don&amp;rsquo;t know, &lt;a href=&quot;https://www.gov.uk&quot;&gt;gov.uk&lt;/a&gt; is the UK government&amp;rsquo;s attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means &lt;a href=&quot;https://www.pivotaltracker.com/projects/367813&quot;&gt;public&lt;/a&gt;, &lt;a href=&quot;https://github.com/alphagov/whitehall&quot;&gt;open source&lt;/a&gt;, continual delivery and more.&lt;/p&gt;
 
-&lt;p&gt;While the first part of &lt;a href=&quot;https://www.gov.uk&quot;&gt;gov.uk&lt;/a&gt; focussed on helping citizens, &lt;a href=&quot;https://www.gov.uk/government&quot;&gt;Inside Government&lt;/a&gt; is about the business of government.  &lt;a href=&quot;https://www.gov.uk/government/policy-topics&quot;&gt;What policies&lt;/a&gt; the government has, &lt;a href=&quot;https://www.gov.uk/government/policies/launching-the-single-domain&quot;&gt;how it's implementing them&lt;/a&gt;, not to mention the &lt;a href=&quot;https://www.gov.uk/government/news-and-speeches&quot;&gt;news and speeches&lt;/a&gt;, &lt;a href=&quot;https://www.gov.uk/government/publications&quot;&gt;publications&lt;/a&gt;, &lt;a href=&quot;https://www.gov.uk/government/consultations&quot;&gt;consultations&lt;/a&gt; and other things the government does each day.&lt;/p&gt;
+&lt;p&gt;While the first part of &lt;a href=&quot;https://www.gov.uk&quot;&gt;gov.uk&lt;/a&gt; focussed on helping citizens, &lt;a href=&quot;https://www.gov.uk/government&quot;&gt;Inside Government&lt;/a&gt; is about the business of government.  &lt;a href=&quot;https://www.gov.uk/government/policy-topics&quot;&gt;What policies&lt;/a&gt; the government has, &lt;a href=&quot;https://www.gov.uk/government/policies/launching-the-single-domain&quot;&gt;how it&amp;rsquo;s implementing them&lt;/a&gt;, not to mention the &lt;a href=&quot;https://www.gov.uk/government/news-and-speeches&quot;&gt;news and speeches&lt;/a&gt;, &lt;a href=&quot;https://www.gov.uk/government/publications&quot;&gt;publications&lt;/a&gt;, &lt;a href=&quot;https://www.gov.uk/government/consultations&quot;&gt;consultations&lt;/a&gt; and other things the government does each day.&lt;/p&gt;
 
-&lt;p&gt;It's only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by &lt;a href=&quot;https://www.gov.uk/feedback&quot;&gt;feedback from the people who use it&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by &lt;a href=&quot;https://www.gov.uk/feedback&quot;&gt;feedback from the people who use it&lt;/a&gt;.&lt;/p&gt;
 
   &lt;/div&gt;
   &lt;footer&gt;
@@ -120,7 +120,7 @@
     &lt;h1&gt;&lt;a href=&quot;/2011/09/geohash-toy-code-released&quot;&gt;Geohash toy: code released&lt;/a&gt;&lt;/h1&gt;
   &lt;/header&gt;
   &lt;div class=&quot;content&quot;&gt;
-    &lt;p&gt;A couple of weeks ago I &lt;a href=&quot;http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes&quot;&gt;wrote about a small toy app&lt;/a&gt; I'd written to explore geohashes.  Now I've cleaned the code up a little, upgraded it to rails 3.1 and released it &lt;a href=&quot;https://github.com/tomafro/geohash-explorer&quot;&gt;here on github&lt;/a&gt;.  Enjoy.&lt;/p&gt;
+    &lt;p&gt;A couple of weeks ago I &lt;a href=&quot;http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes&quot;&gt;wrote about a small toy app&lt;/a&gt; I&amp;rsquo;d written to explore geohashes.  Now I&amp;rsquo;ve cleaned the code up a little, upgraded it to rails 3.1 and released it &lt;a href=&quot;https://github.com/tomafro/geohash-explorer&quot;&gt;here on github&lt;/a&gt;.  Enjoy.&lt;/p&gt;
 
   &lt;/div&gt;
   &lt;footer&gt;
@@ -157,13 +157,13 @@
     &lt;h1&gt;&lt;a href=&quot;/2011/09/a-small-toy-to-explore-geohashes&quot;&gt;A small toy to explore geohashes&lt;/a&gt;&lt;/h1&gt;
   &lt;/header&gt;
   &lt;div class=&quot;content&quot;&gt;
-    &lt;p&gt;For an app I've been building, I've been looking into &lt;a href=&quot;http://geohash.org/&quot;&gt;geohashes&lt;/a&gt;.  For those who don't know, the &lt;a href=&quot;http://en.wikipedia.org/wiki/Geohash&quot;&gt;geohash&lt;/a&gt; format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson's Column in London (51.507794, -0.127952) has the geohash &lt;code&gt;gcpvj0dyds&lt;/code&gt;.&lt;/p&gt;
+    &lt;p&gt;For an app I&amp;rsquo;ve been building, I&amp;rsquo;ve been looking into &lt;a href=&quot;http://geohash.org/&quot;&gt;geohashes&lt;/a&gt;.  For those who don&amp;rsquo;t know, the &lt;a href=&quot;http://en.wikipedia.org/wiki/Geohash&quot;&gt;geohash&lt;/a&gt; format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson&amp;rsquo;s Column in London (51.507794, -0.127952) has the geohash &lt;code&gt;gcpvj0dyds&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Geohashes have a couple of interesting features.  First, as you remove characters, you lose precision. &lt;code&gt;gcpvj0dyds&lt;/code&gt; fairly accurately points to Nelson's Column; &lt;code&gt;gcpvj0d&lt;/code&gt; represents the South-West of Trafalgar Square and some of the Mall; and &lt;code&gt;gcpvj&lt;/code&gt; covers most of Central London, as well as Islington and King's Cross.  A geohash doesn't really represent a point, but rather a bounding area within which a point may lie.  The longer the geohash, the smaller that bounding area.&lt;/p&gt;
+&lt;p&gt;Geohashes have a couple of interesting features.  First, as you remove characters, you lose precision. &lt;code&gt;gcpvj0dyds&lt;/code&gt; fairly accurately points to Nelson&amp;rsquo;s Column; &lt;code&gt;gcpvj0d&lt;/code&gt; represents the South-West of Trafalgar Square and some of the Mall; and &lt;code&gt;gcpvj&lt;/code&gt; covers most of Central London, as well as Islington and King&amp;rsquo;s Cross.  A geohash doesn&amp;rsquo;t really represent a point, but rather a bounding area within which a point may lie.  The longer the geohash, the smaller that bounding area.&lt;/p&gt;
 
-&lt;p&gt;The other interesting property geohashes have is that nearby locations usually (but not always) share similar prefixes.  So much of North London is in &lt;code&gt;gcpv&lt;/code&gt;, while much of South London is in &lt;code&gt;gcpu&lt;/code&gt;.  However, due to the &lt;a href=&quot;http://en.wikipedia.org/wiki/Prime_Meridian&quot;&gt;Prime Meridian&lt;/a&gt; passing through Greenwhich, South East London has the geohash &lt;code&gt;u10h&lt;/code&gt; - wildly different than the other two.&lt;/p&gt;
+&lt;p&gt;The other interesting property geohashes have is that nearby locations usually (but not always) share similar prefixes.  So much of North London is in &lt;code&gt;gcpv&lt;/code&gt;, while much of South London is in &lt;code&gt;gcpu&lt;/code&gt;.  However, due to the &lt;a href=&quot;http://en.wikipedia.org/wiki/Prime_Meridian&quot;&gt;Prime Meridian&lt;/a&gt; passing through Greenwhich, South East London has the geohash &lt;code&gt;u10h&lt;/code&gt; &amp;ndash; wildly different than the other two.&lt;/p&gt;
 
-&lt;p&gt;This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I've written a toy app that draws them on a map.  To try it out, go to &lt;a href=&quot;http://geohash.gofreerange.com&quot;&gt;http://geohash.gofreerange.com&lt;/a&gt;, click the map, zoom and play.  If you find it useful, let me know.&lt;/p&gt;
+&lt;p&gt;This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I&amp;rsquo;ve written a toy app that draws them on a map.  To try it out, go to &lt;a href=&quot;http://geohash.gofreerange.com&quot;&gt;http://geohash.gofreerange.com&lt;/a&gt;, click the map, zoom and play.  If you find it useful, let me know.&lt;/p&gt;
 
 &lt;div class=&quot;update&quot;&gt;
 Update: This code is now available [on github](https://github.com/tomafro/geohash-explorer).
@@ -199,9 +199,9 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
     &lt;h1&gt;&lt;a href=&quot;/2011/09/tip-automatic-bundle-exec-for-rake-and-more&quot;&gt;Tip: Automatic bundle exec for rake and other gems&lt;/a&gt;&lt;/h1&gt;
   &lt;/header&gt;
   &lt;div class=&quot;content&quot;&gt;
-    &lt;p&gt;It's irritating to run gem commands like &lt;code&gt;rake&lt;/code&gt;, &lt;code&gt;cap&lt;/code&gt;, &lt;code&gt;rspec&lt;/code&gt; and others, only to find they needed to be executed via &lt;code&gt;bundle exec&lt;/code&gt;.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.&lt;/p&gt;
+    &lt;p&gt;It&amp;rsquo;s irritating to run gem commands like &lt;code&gt;rake&lt;/code&gt;, &lt;code&gt;cap&lt;/code&gt;, &lt;code&gt;rspec&lt;/code&gt; and others, only to find they needed to be executed via &lt;code&gt;bundle exec&lt;/code&gt;.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.&lt;/p&gt;
 
-&lt;p&gt;Here's the function (which I've named &lt;code&gt;be&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s the function (which I&amp;rsquo;ve named &lt;code&gt;be&lt;/code&gt;):&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; -a Gemfile &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;  &lt;/span&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$*&lt;/span&gt;
@@ -212,9 +212,9 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 &lt;/div&gt;
 
 
-&lt;p&gt;It's very simple.  If there's a &lt;code&gt;Gemfile&lt;/code&gt; in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s very simple.  If there&amp;rsquo;s a &lt;code&gt;Gemfile&lt;/code&gt; in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.&lt;/p&gt;
 
-&lt;p&gt;I've combined this with some aliases for much less pain and less frustration:&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve combined this with some aliases for much less pain and less frustration:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;rake&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;be rake&amp;#39;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;be cap&amp;#39;&lt;/span&gt;
@@ -275,7 +275,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 &lt;p&gt;I always prefer to keep my controllers as skinny as possible, so this looks like a great solution.  The &lt;code&gt;respond_with&lt;/code&gt; call takes care of converting the message to json and responding with the right &lt;code&gt;Content-Type&lt;/code&gt;, all in a simple call.  However it has a number of problems and disadvantages.&lt;/p&gt;
 
-&lt;p&gt;The biggest issue for our API is that rather than expose the &lt;code&gt;id&lt;/code&gt; of each model, we've tried to encourage the use of the &lt;code&gt;uri&lt;/code&gt; instead.  So the &lt;code&gt;json&lt;/code&gt; returned for a single contact (for example) looks like this:&lt;/p&gt;
+&lt;p&gt;The biggest issue for our API is that rather than expose the &lt;code&gt;id&lt;/code&gt; of each model, we&amp;rsquo;ve tried to encourage the use of the &lt;code&gt;uri&lt;/code&gt; instead.  So the &lt;code&gt;json&lt;/code&gt; returned for a single contact (for example) looks like this:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;s2&quot;&gt;&amp;quot;contact&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -291,11 +291,11 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 &lt;/div&gt;
 
 
-&lt;p&gt;It doesn't just have a &lt;code&gt;uri&lt;/code&gt; for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute &lt;code&gt;messages_uri&lt;/code&gt;).  Models can't generate uris, and shouldn't really be aware of them, so overriding &lt;code&gt;#as_json&lt;/code&gt; doesn't work.  In any case, the json structure is really presentation logic, not business logic.  It doesn't belong in the model.&lt;/p&gt;
+&lt;p&gt;It doesn&amp;rsquo;t just have a &lt;code&gt;uri&lt;/code&gt; for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute &lt;code&gt;messages_uri&lt;/code&gt;).  Models can&amp;rsquo;t generate uris, and shouldn&amp;rsquo;t really be aware of them, so overriding &lt;code&gt;#as_json&lt;/code&gt; doesn&amp;rsquo;t work.  In any case, the json structure is really presentation logic, not business logic.  It doesn&amp;rsquo;t belong in the model.&lt;/p&gt;
 
 &lt;h3&gt;Presenting a single model&lt;/h3&gt;
 
-&lt;p&gt;The solution we've used is to build a presenter for each model, solely responsible for building the json.  Here's an example for a contact:&lt;/p&gt;
+&lt;p&gt;The solution we&amp;rsquo;ve used is to build a presenter for each model, solely responsible for building the json.  Here&amp;rsquo;s an example for a contact:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactPresenter&lt;/span&gt;
   &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;routes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url_helpers&lt;/span&gt;
@@ -328,7 +328,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 &lt;/div&gt;
 
 
-&lt;p&gt;It's now simple to rewrite our controller to use the new presenter:&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s now simple to rewrite our controller to use the new presenter:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApiController&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;responds_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:json&lt;/span&gt;
@@ -343,7 +343,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 &lt;h3&gt;Presenting pages of models&lt;/h3&gt;
 
-&lt;p&gt;The presenter above works well for a single model, but many of our API calls return a page of results.  The &lt;a href=&quot;https://api.hashblue.com/doc/GET%3Acontacts&quot;&gt;/contacts&lt;/a&gt; for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it's simple to adapt this pattern to present pages like this.  First, we change our original &lt;code&gt;#as_json&lt;/code&gt; method slightly:&lt;/p&gt;
+&lt;p&gt;The presenter above works well for a single model, but many of our API calls return a page of results.  The &lt;a href=&quot;https://api.hashblue.com/doc/GET%3Acontacts&quot;&gt;/contacts&lt;/a&gt; for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it&amp;rsquo;s simple to adapt this pattern to present pages like this.  First, we change our original &lt;code&gt;#as_json&lt;/code&gt; method slightly:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;as_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:partial&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
@@ -415,7 +415,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 &lt;h3&gt;Refactoring common logic&lt;/h3&gt;
 
-&lt;p&gt;The code above is a very much simplified version of what we do in &lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt;.  We have many controllers, and several different models, so in our actual code we've abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:&lt;/p&gt;
+&lt;p&gt;The code above is a very much simplified version of what we do in &lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt;.  We have many controllers, and several different models, so in our actual code we&amp;rsquo;ve abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ContactsController&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApiController&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;before_filter&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:find_contact&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:only&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:update&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
@@ -484,7 +484,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 &lt;p&gt;The &lt;code&gt;#present&lt;/code&gt; and &lt;code&gt;#present_page_of&lt;/code&gt; methods handle determining the correct presenter to us, as well as paginating the collection where required.  They still use rails build in &lt;code&gt;#respond_with&lt;/code&gt; method, which helps provide the correct response headers for each request.  As the ContactPresenter delegates &lt;code&gt;#errors&lt;/code&gt; to its subject, if there are validation errors, &lt;code&gt;#respond_with&lt;/code&gt; correctly returns a 422.&lt;/p&gt;
 
-&lt;p&gt;One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we'll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I'm still pretty happy with it.  I hope you find something useful in it too.&lt;/p&gt;
+&lt;p&gt;One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we&amp;rsquo;ll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I&amp;rsquo;m still pretty happy with it.  I hope you find something useful in it too.&lt;/p&gt;
 
 &lt;p&gt;Any comments or suggestions, please get in touch with me &lt;a href=&quot;http://twitter.com/tomafro&quot;&gt;on twitter&lt;/a&gt;.&lt;/p&gt;
 
@@ -521,7 +521,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
     &lt;h1&gt;&lt;a href=&quot;/2011/03/hashblue-opens-for-business&quot;&gt;#blue opens for business&lt;/a&gt;&lt;/h1&gt;
   &lt;/header&gt;
   &lt;div class=&quot;content&quot;&gt;
-    &lt;p&gt;If you're an &lt;a href=&quot;http://o2.co.uk&quot;&gt;O2&lt;/a&gt; customer based in the UK, you might be interested that &lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt;, a project &lt;a href=&quot;http://gofreerange.com&quot;&gt;we've built&lt;/a&gt;, has recently (re)opened for business.  It's a soft launch, but feel free to tell your friends.&lt;/p&gt;
+    &lt;p&gt;If you&amp;rsquo;re an &lt;a href=&quot;http://o2.co.uk&quot;&gt;O2&lt;/a&gt; customer based in the UK, you might be interested that &lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt;, a project &lt;a href=&quot;http://gofreerange.com&quot;&gt;we&amp;rsquo;ve built&lt;/a&gt;, has recently (re)opened for business.  It&amp;rsquo;s a soft launch, but feel free to tell your friends.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://hashblue.com&quot;&gt;#blue&lt;/a&gt; gets copies of every SMS message you send or receive, and makes them available to you on the web.  You can search your messages, read whole conversations, and even reply, all from the comfort of your browser.&lt;/p&gt;
 
@@ -530,16 +530,16 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 &lt;/div&gt;
 
 
-&lt;p&gt;As well as a nice-looking web UI, there's also &lt;a href=&quot;https://api.hashblue.com&quot;&gt;an API&lt;/a&gt; that allows other apps to read and manipulate your messages and contacts (once you give them permission). Think automatic posting to twitter, or showing new messages as alerts on your desktop.  The possibilities are endless.&lt;/p&gt;
+&lt;p&gt;As well as a nice-looking web UI, there&amp;rsquo;s also &lt;a href=&quot;https://api.hashblue.com&quot;&gt;an API&lt;/a&gt; that allows other apps to read and manipulate your messages and contacts (once you give them permission). Think automatic posting to twitter, or showing new messages as alerts on your desktop.  The possibilities are endless.&lt;/p&gt;
 
 &lt;div class=&quot;screenshot&quot;&gt;
 &lt;img src=&quot;/images/20110303-hashblue-api.png&quot;/&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;Oh, and it's all free.  All you need is an &lt;a href=&quot;http://o2.co.uk&quot;&gt;O2&lt;/a&gt; phone.&lt;/p&gt;
+&lt;p&gt;Oh, and it&amp;rsquo;s all free.  All you need is an &lt;a href=&quot;http://o2.co.uk&quot;&gt;O2&lt;/a&gt; phone.&lt;/p&gt;
 
-&lt;p&gt;If you think it sounds interesting, &lt;a href=&quot;https://hashblue.com/&quot;&gt;ask for a beta request&lt;/a&gt;.  You should get an invitation very quickly.  Once on board, please send me any suggestions and feedback.  It's going to be interesting to see where we can take this project.&lt;/p&gt;
+&lt;p&gt;If you think it sounds interesting, &lt;a href=&quot;https://hashblue.com/&quot;&gt;ask for a beta request&lt;/a&gt;.  You should get an invitation very quickly.  Once on board, please send me any suggestions and feedback.  It&amp;rsquo;s going to be interesting to see where we can take this project.&lt;/p&gt;
 
   &lt;/div&gt;
   &lt;footer&gt;
@@ -570,7 +570,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
     &lt;h1&gt;&lt;a href=&quot;/2011/02/rails-mongo-instrumentation-gem&quot;&gt;Mongo instrumentation released as a gem&lt;/a&gt;&lt;/h1&gt;
   &lt;/header&gt;
   &lt;div class=&quot;content&quot;&gt;
-    &lt;p&gt;Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.&lt;/p&gt;
+    &lt;p&gt;Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I&amp;rsquo;ve packaged it up and released it as a gem.&lt;/p&gt;
 
 &lt;p&gt;The &lt;a href=&quot;http://rubygems.org/gems/mongo-rails-instrumentation&quot;&gt;mongo-rails-instrumentation&lt;/a&gt; gem is available on rubygems, and the code is &lt;a href=&quot;https://github.com/tomafro/mongo-rails-instrumentation&quot;&gt;up on github&lt;/a&gt;.&lt;/p&gt;
 
@@ -621,7 +621,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 &lt;/div&gt;
 
 
-&lt;p&gt;One of our latest rails projects uses &lt;a href=&quot;http://mongodb.org&quot;&gt;Mongo&lt;/a&gt; as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:&lt;/p&gt;
+&lt;p&gt;One of our latest rails projects uses &lt;a href=&quot;http://mongodb.org&quot;&gt;Mongo&lt;/a&gt; as a backend.  We&amp;rsquo;re just starting to get some traffic, and as we do, we&amp;rsquo;re monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    Completed 200 OK in 6ms &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Views 370.5ms | ActiveRecord: 2.3ms&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;/pre&gt;
@@ -712,14 +712,14 @@ Update: Changed to instrument methods on the Mongo::Connection
 &lt;/div&gt;
 
 
-&lt;p&gt;It looks complicated, but it's actually pretty simple.  Data access methods in &lt;strike&gt;&lt;code&gt;Mongo::DB&lt;/code&gt; and &lt;code&gt;Mongo::Collection&lt;/code&gt;&lt;/strike&gt; &lt;code&gt;Mongo::Connection&lt;/code&gt; are hijacked and surrounded by an &lt;code&gt;ActiveSupport::Notifications.instrumenter.instrument&lt;/code&gt; block.  This triggers events which are listened to by the &lt;code&gt;LogSubscriber&lt;/code&gt;, summing the total time spent in Mongo.  The &lt;code&gt;ControllerRuntime&lt;/code&gt; then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:&lt;/p&gt;
+&lt;p&gt;It looks complicated, but it&amp;rsquo;s actually pretty simple.  Data access methods in &lt;strike&gt;&lt;code&gt;Mongo::DB&lt;/code&gt; and &lt;code&gt;Mongo::Collection&lt;/code&gt;&lt;/strike&gt; &lt;code&gt;Mongo::Connection&lt;/code&gt; are hijacked and surrounded by an &lt;code&gt;ActiveSupport::Notifications.instrumenter.instrument&lt;/code&gt; block.  This triggers events which are listened to by the &lt;code&gt;LogSubscriber&lt;/code&gt;, summing the total time spent in Mongo.  The &lt;code&gt;ControllerRuntime&lt;/code&gt; then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    Completed 200 OK in 838ms &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/div&gt;
 
 
-&lt;p&gt;It's just a first stab, so any comments and improvements are more then welcome.  It's &lt;a href=&quot;https://gist.github.com/833444&quot;&gt;here on gist&lt;/a&gt; so please fork away.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s just a first stab, so any comments and improvements are more then welcome.  It&amp;rsquo;s &lt;a href=&quot;https://gist.github.com/833444&quot;&gt;here on gist&lt;/a&gt; so please fork away.&lt;/p&gt;
 
   &lt;/div&gt;
   &lt;footer&gt;
@@ -756,7 +756,7 @@ Update: Changed to instrument methods on the Mongo::Connection
   &lt;div class=&quot;content&quot;&gt;
     &lt;p&gt;&lt;a href=&quot;http://twitter.com/kraykray&quot;&gt;@kraykray&lt;/a&gt; was nice enough to let me know that Rails 3.03 had broken my column-reader code.&lt;/p&gt;
 
-&lt;p&gt;I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ve always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.&lt;/p&gt;
 
 &lt;p&gt;So here it is, as both &lt;a href=&quot;https://github.com/tomafro/rails-activerecord-columnreader&quot;&gt;a github repository&lt;/a&gt; and &lt;a href=&quot;http://rubygems.org/gems/activerecord-column-reader&quot;&gt;a gem&lt;/a&gt;.  Enjoy!&lt;/p&gt;
 

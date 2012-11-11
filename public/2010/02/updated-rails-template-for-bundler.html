@@ -63,7 +63,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you'll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
+<p>On a fresh project, that should be all you need to do.  On an existing that used an older version of bundler, you&rsquo;ll need to remove the old hooks in <code>config/preinitializer.rb</code> and <code>config/environment.rb</code>, and the <code>gems</code> folder.</p>
 
 <h3>Explaining the template, step by step</h3>
 
@@ -83,7 +83,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn't initialise them.</p>
+<p>The next step is get bundler to load correctly.  This is done in two stages.  First, in <code>config\preinitializer.rb</code> bundler needs to be setup.  This adds all the bundled gems to the ruby load path, but doesn&rsquo;t initialise them.</p>
 
 <div class="highlight"><pre>  
 <span class="n">append_file</span> <span class="s1">&#39;/config/preinitializer.rb&#39;</span><span class="p">,</span> <span class="sx">%{</span>
@@ -107,7 +107,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>Second, the rails boot process is modified to start the bundler environment.  This 'requires' all gems in the bundle, letting them run initialisation code.</p>
+<p>Second, the rails boot process is modified to start the bundler environment.  This &lsquo;requires&rsquo; all gems in the bundle, letting them run initialisation code.</p>
 
 <div class="highlight"><pre><span class="n">gsub_file</span> <span class="s1">&#39;config/boot.rb&#39;</span><span class="p">,</span> <span class="s2">&quot;Rails.boot!&quot;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">  </span>
@@ -135,7 +135,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>All that's left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it's added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
+<p>All that&rsquo;s left now is a little cleaning up.  The <code>.bundle</code> folder should never be checked into the code repository as it holds machine-local configuration, so it&rsquo;s added to <code>.gitignore</code>.  Finally, <code>bundle install</code> is run to fetch the bundled gems.</p>
 
 <div class="highlight"><pre><span class="n">append_file</span> <span class="s1">&#39;/.gitignore&#39;</span><span class="p">,</span> <span class="sx">%{</span>
 <span class="sx">/.bundle</span>
@@ -146,7 +146,7 @@ Bundler has changed a lot since I wrote these instructions.  Use them at your ow
 </div>
 
 
-<p>And that's it.  I hope you find it useful.</p>
+<p>And that&rsquo;s it.  I hope you find it useful.</p>
 
   </div>
   <footer>

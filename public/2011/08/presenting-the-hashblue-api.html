@@ -56,7 +56,7 @@
 
 <p>I always prefer to keep my controllers as skinny as possible, so this looks like a great solution.  The <code>respond_with</code> call takes care of converting the message to json and responding with the right <code>Content-Type</code>, all in a simple call.  However it has a number of problems and disadvantages.</p>
 
-<p>The biggest issue for our API is that rather than expose the <code>id</code> of each model, we've tried to encourage the use of the <code>uri</code> instead.  So the <code>json</code> returned for a single contact (for example) looks like this:</p>
+<p>The biggest issue for our API is that rather than expose the <code>id</code> of each model, we&rsquo;ve tried to encourage the use of the <code>uri</code> instead.  So the <code>json</code> returned for a single contact (for example) looks like this:</p>
 
 <div class="highlight"><pre><span class="p">{</span>
   <span class="s2">&quot;contact&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -72,11 +72,11 @@
 </div>
 
 
-<p>It doesn't just have a <code>uri</code> for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute <code>messages_uri</code>).  Models can't generate uris, and shouldn't really be aware of them, so overriding <code>#as_json</code> doesn't work.  In any case, the json structure is really presentation logic, not business logic.  It doesn't belong in the model.</p>
+<p>It doesn&rsquo;t just have a <code>uri</code> for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute <code>messages_uri</code>).  Models can&rsquo;t generate uris, and shouldn&rsquo;t really be aware of them, so overriding <code>#as_json</code> doesn&rsquo;t work.  In any case, the json structure is really presentation logic, not business logic.  It doesn&rsquo;t belong in the model.</p>
 
 <h3>Presenting a single model</h3>
 
-<p>The solution we've used is to build a presenter for each model, solely responsible for building the json.  Here's an example for a contact:</p>
+<p>The solution we&rsquo;ve used is to build a presenter for each model, solely responsible for building the json.  Here&rsquo;s an example for a contact:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactPresenter</span>
   <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
@@ -109,7 +109,7 @@
 </div>
 
 
-<p>It's now simple to rewrite our controller to use the new presenter:</p>
+<p>It&rsquo;s now simple to rewrite our controller to use the new presenter:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
   <span class="n">responds_to</span> <span class="ss">:json</span>
@@ -124,7 +124,7 @@
 
 <h3>Presenting pages of models</h3>
 
-<p>The presenter above works well for a single model, but many of our API calls return a page of results.  The <a href="https://api.hashblue.com/doc/GET%3Acontacts">/contacts</a> for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it's simple to adapt this pattern to present pages like this.  First, we change our original <code>#as_json</code> method slightly:</p>
+<p>The presenter above works well for a single model, but many of our API calls return a page of results.  The <a href="https://api.hashblue.com/doc/GET%3Acontacts">/contacts</a> for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it&rsquo;s simple to adapt this pattern to present pages like this.  First, we change our original <code>#as_json</code> method slightly:</p>
 
 <div class="highlight"><pre><span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
   <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:partial</span><span class="o">]</span>
@@ -196,7 +196,7 @@
 
 <h3>Refactoring common logic</h3>
 
-<p>The code above is a very much simplified version of what we do in <a href="https://hashblue.com">#blue</a>.  We have many controllers, and several different models, so in our actual code we've abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:</p>
+<p>The code above is a very much simplified version of what we do in <a href="https://hashblue.com">#blue</a>.  We have many controllers, and several different models, so in our actual code we&rsquo;ve abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
   <span class="n">before_filter</span> <span class="ss">:find_contact</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">:update</span><span class="o">]</span>
@@ -265,7 +265,7 @@
 
 <p>The <code>#present</code> and <code>#present_page_of</code> methods handle determining the correct presenter to us, as well as paginating the collection where required.  They still use rails build in <code>#respond_with</code> method, which helps provide the correct response headers for each request.  As the ContactPresenter delegates <code>#errors</code> to its subject, if there are validation errors, <code>#respond_with</code> correctly returns a 422.</p>
 
-<p>One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we'll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I'm still pretty happy with it.  I hope you find something useful in it too.</p>
+<p>One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we&rsquo;ll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I&rsquo;m still pretty happy with it.  I hope you find something useful in it too.</p>
 
 <p>Any comments or suggestions, please get in touch with me <a href="http://twitter.com/tomafro">on twitter</a>.</p>
 

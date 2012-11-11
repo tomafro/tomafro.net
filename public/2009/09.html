@@ -41,7 +41,7 @@
     <h1><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h1>
   </header>
   <div class="content">
-    <p>There's one small method I add to every new rails project I work on:</p>
+    <p>There&rsquo;s one small method I add to every new rails project I work on:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">Tomafro::FromParam</span>
   <span class="k">def</span> <span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -58,7 +58,7 @@
 
 <p>All three methods have almost the same behaviour, the only difference being the handling of missing records.  <code>find</code> throws a RecordNotFound, while <code>find_by_id</code> and <code>from_param</code> return nil.  So why use <code>from_param</code> over the others?</p>
 
-<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It's a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
+<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It&rsquo;s a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nf">to_param</span>
@@ -69,7 +69,7 @@
 </div>
 
 
-<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we'd like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I'd then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I've used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
+<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we&rsquo;d like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I&rsquo;d then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I&rsquo;ve used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -84,9 +84,9 @@
 </div>
 
 
-<p>I've been doing this for years, but it's hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There's <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it's been considered too trivial to add.</p>
+<p>I&rsquo;ve been doing this for years, but it&rsquo;s hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There&rsquo;s <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it&rsquo;s been considered too trivial to add.</p>
 
-<p>I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects.</p>
+<p>I disagree &ndash; for me the value comes from having the method from the start, not when you need it.  Luckily it&rsquo;s easy to add to my own projects.</p>
 
   </div>
   <footer>
@@ -106,7 +106,7 @@
     <h1><a href="/2009/09/quickly-list-missing-foreign-key-indexes">Quickly list missing foreign key indexes</a></h1>
   </header>
   <div class="content">
-    <p>Run this code in a rails console to list foreign keys which aren't indexed.</p>
+    <p>Run this code in a rails console to list foreign keys which aren&rsquo;t indexed.</p>
 
 <div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">connection</span>
 <span class="n">c</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">collect</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>  
@@ -143,9 +143,9 @@ taggings: tag_id, taggable_id, user_id
 </div>
 
 
-<p>For each column in the list, ask yourself why you don't need an index.</p>
+<p>For each column in the list, ask yourself why you don&rsquo;t need an index.</p>
 
-<p><em>Update:</em> Andrew Coleman has <a href="http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes">added output in migration format</a>.  If you want to play around with it further, <a href="http://gist.github.com/191181">here's the original code on gist</a>.</p>
+<p><em>Update:</em> Andrew Coleman has <a href="http://penguincoder.org/pages/A_Slightly_Better_Way_To_Find_Missing_Foreign_Key_Indexes">added output in migration format</a>.  If you want to play around with it further, <a href="http://gist.github.com/191181">here&rsquo;s the original code on gist</a>.</p>
 
   </div>
   <footer>

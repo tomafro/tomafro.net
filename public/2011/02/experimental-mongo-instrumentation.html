@@ -46,7 +46,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
+<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We&rsquo;re just starting to get some traffic, and as we do, we&rsquo;re monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
 
 <div class="highlight"><pre>    Completed 200 OK in 6ms <span class="o">(</span>Views 370.5ms | ActiveRecord: 2.3ms<span class="o">)</span>
 </pre>
@@ -137,14 +137,14 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>It looks complicated, but it's actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
+<p>It looks complicated, but it&rsquo;s actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
 
 <div class="highlight"><pre>    Completed 200 OK in 838ms <span class="o">(</span>Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms<span class="o">)</span>
 </pre>
 </div>
 
 
-<p>It's just a first stab, so any comments and improvements are more then welcome.  It's <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
+<p>It&rsquo;s just a first stab, so any comments and improvements are more then welcome.  It&rsquo;s <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
 
   </div>
   <footer>

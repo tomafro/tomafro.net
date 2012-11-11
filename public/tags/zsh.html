@@ -41,9 +41,9 @@
     <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
   </header>
   <div class="content">
-    <p>It's irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
+    <p>It&rsquo;s irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
 
-<p>Here's the function (which I've named <code>be</code>):</p>
+<p>Here&rsquo;s the function (which I&rsquo;ve named <code>be</code>):</p>
 
 <div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> -a Gemfile <span class="o">]]</span>; <span class="k">then</span>
 <span class="k">  </span>bundle <span class="nb">exec</span> <span class="nv">$*</span>
@@ -54,9 +54,9 @@
 </div>
 
 
-<p>It's very simple.  If there's a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
+<p>It&rsquo;s very simple.  If there&rsquo;s a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
 
-<p>I've combined this with some aliases for much less pain and less frustration:</p>
+<p>I&rsquo;ve combined this with some aliases for much less pain and less frustration:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;be rake&#39;</span>
 <span class="nb">alias </span><span class="nv">cap</span><span class="o">=</span><span class="s1">&#39;be cap&#39;</span>
@@ -86,7 +86,7 @@
     <h1><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h1>
   </header>
   <div class="content">
-    <p>This one is just so simple, I can't believe I didn't know about it earlier.</p>
+    <p>This one is just so simple, I can&rsquo;t believe I didn&rsquo;t know about it earlier.</p>
 
 <p>First, setup the cdpath or CDPATH variable:</p>
 
@@ -108,7 +108,7 @@
 </div>
 
 
-<p>I've already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
+<p>I&rsquo;ve already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
 
   </div>
   <footer>
@@ -165,9 +165,9 @@
     <h1><a href="/2009/08/zsh-completion-for-gem-and-gem-open">ZSH Completion for gem and gem open</a></h1>
   </header>
   <div class="content">
-    <p>I've been trying to get my head around the ZSH completion system.  It's not easy, but I'm slowly making progress.</p>
+    <p>I&rsquo;ve been trying to get my head around the ZSH completion system.  It&rsquo;s not easy, but I&rsquo;m slowly making progress.</p>
 
-<p>Here's my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
+<p>Here&rsquo;s my first semi-successful attempt.  It provides command completion for <code>gem</code> (including installed commands) and gem name completion for specific gem commands (<code>update</code>, and <code>open</code> from <a href="http://tomafro.net/2009/05/adam-sandersons-open-gem">Adam Sanderson</a>).</p>
 
 <p>So typing <code>gem &lt;tab&gt;</code> gives a list of possible commands, whilst <code>gem open &lt;tab&gt;</code> will complete with the names of the currently installed gems.</p>
 
@@ -206,7 +206,7 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-<p>As it's a first attempt, it's a long way from perfect.  I've <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I'd appreciate any advice or improvements.  Specifically I'd like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I'd also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
+<p>As it&rsquo;s a first attempt, it&rsquo;s a long way from perfect.  I&rsquo;ve <a href="http://gist.github.com/167309">put it on gist</a>, for other people to play with, and I&rsquo;d appreciate any advice or improvements.  Specifically I&rsquo;d like to know how to avoid the use of both <code>gem_command_array</code> and <code>gem_commands</code>.  I&rsquo;d also like to know a better way to check if the given command is in the list <code>[open, update]</code>.</p>
 
 <p>Please fork the gist, or <a href="http://twitter.com/tomafro">tweet me</a> with your suggestions.</p>
 
@@ -227,7 +227,7 @@ _installed_gems <span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h1>
   </header>
   <div class="content">
-    <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
+    <p>Before my next post on database indexes, here&rsquo;s a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
 
 <div class="highlight"><pre><span class="c"># Create and move to a directory in a single command</span>
 <span class="c"># Usage: take ~/Projects/tools/awesometer</span>
@@ -257,7 +257,7 @@ take<span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h1>
   </header>
   <div class="content">
-    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
+    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I&rsquo;m finding I use it all the time:</p>
 
 <div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
 <span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
@@ -288,13 +288,13 @@ tm<span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h1>
   </header>
   <div class="content">
-    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
+    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I&rsquo;ve added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
 
-<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
+<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn&rsquo;t work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
 <p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
 
-<p>Here's the code:</p>
+<p>Here&rsquo;s the code:</p>
 
 <div class="highlight"><pre><span class="k">case</span> <span class="nv">$system_name</span> in
   Darwin*<span class="o">)</span>

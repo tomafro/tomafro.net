@@ -24,7 +24,7 @@ module Lanyon
     end
 
     def markdown(text)
-      RDiscount.new(render(text)).to_html
+      RDiscount.new(render(text), :smart).to_html
     end
 
     def youtube(video)

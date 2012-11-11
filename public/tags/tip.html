@@ -41,25 +41,25 @@
     <h1><a href="/2012/06/tip-bundler-with-binstubs">Tip: Bundler with --binstubs</a></h1>
   </header>
   <div class="content">
-    <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I'd aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I've started installing all my bundles like this:</p>
+    <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I&rsquo;d aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I&rsquo;ve started installing all my bundles like this:</p>
 
 <div class="highlight"><pre>bundle install --path .bundle/gems --binstubs .bundle/bin
 </pre>
 </div>
 
 
-<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application's gems isolated.  The <code>--path .bundle/gems</code> installs them within an application's <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
+<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application&rsquo;s gems isolated.  The <code>--path .bundle/gems</code> installs them within an application&rsquo;s <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
 
-<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I'm in the application folder.  I never have to type <code>bundle exec</code>!</p>
+<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I&rsquo;m in the application folder.  I never have to type <code>bundle exec</code>!</p>
 
-<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I've aliased it to <code>bi</code>:</p>
+<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I&rsquo;ve aliased it to <code>bi</code>:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">bi</span><span class="o">=</span><span class="s1">&#39;bundle install --path .bundle/gems --binstubs .bundle/bin&#39;</span>
 </pre>
 </div>
 
 
-<p>I've been using these options for a few months, and so far I'm very happy with them.</p>
+<p>I&rsquo;ve been using these options for a few months, and so far I&rsquo;m very happy with them.</p>
 
   </div>
   <footer>
@@ -79,9 +79,9 @@
     <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
   </header>
   <div class="content">
-    <p>It's irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
+    <p>It&rsquo;s irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
 
-<p>Here's the function (which I've named <code>be</code>):</p>
+<p>Here&rsquo;s the function (which I&rsquo;ve named <code>be</code>):</p>
 
 <div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> -a Gemfile <span class="o">]]</span>; <span class="k">then</span>
 <span class="k">  </span>bundle <span class="nb">exec</span> <span class="nv">$*</span>
@@ -92,9 +92,9 @@
 </div>
 
 
-<p>It's very simple.  If there's a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
+<p>It&rsquo;s very simple.  If there&rsquo;s a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
 
-<p>I've combined this with some aliases for much less pain and less frustration:</p>
+<p>I&rsquo;ve combined this with some aliases for much less pain and less frustration:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;be rake&#39;</span>
 <span class="nb">alias </span><span class="nv">cap</span><span class="o">=</span><span class="s1">&#39;be cap&#39;</span>
@@ -133,16 +133,16 @@
 
 <p>Running this file from the <code>/code</code> folder will output <code>examples/path_example.rb</code></p>
 
-<p>This is often used to load files on paths relative to the current file.  The way I've used it before is like this:</p>
+<p>This is often used to load files on paths relative to the current file.  The way I&rsquo;ve used it before is like this:</p>
 
 <div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">))</span>
 </pre>
 </div>
 
 
-<p>This works, but it's a bit clunky.</p>
+<p>This works, but it&rsquo;s a bit clunky.</p>
 
-<p>What I didn't realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
+<p>What I didn&rsquo;t realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument &ndash; a starting directory.  Also, this argument doesn&rsquo;t actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
 
 <div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../config.yml&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
 </pre>
@@ -199,7 +199,7 @@
     <h1><a href="/2009/10/tip-cdpath-am-i-the-last-to-know">Tip: cdpath - Am I the last to know?</a></h1>
   </header>
   <div class="content">
-    <p>This one is just so simple, I can't believe I didn't know about it earlier.</p>
+    <p>This one is just so simple, I can&rsquo;t believe I didn&rsquo;t know about it earlier.</p>
 
 <p>First, setup the cdpath or CDPATH variable:</p>
 
@@ -221,7 +221,7 @@
 </div>
 
 
-<p>I've already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
+<p>I&rsquo;ve already added this to <a href="http://github.com/tomafro/dotfiles">my dotfiles</a>.</p>
 
   </div>
   <footer>
@@ -241,7 +241,7 @@
     <h1><a href="/2009/09/tip-the-case-for-from-param">Tip: The case for from_param</a></h1>
   </header>
   <div class="content">
-    <p>There's one small method I add to every new rails project I work on:</p>
+    <p>There&rsquo;s one small method I add to every new rails project I work on:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">Tomafro::FromParam</span>
   <span class="k">def</span> <span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -258,7 +258,7 @@
 
 <p>All three methods have almost the same behaviour, the only difference being the handling of missing records.  <code>find</code> throws a RecordNotFound, while <code>find_by_id</code> and <code>from_param</code> return nil.  So why use <code>from_param</code> over the others?</p>
 
-<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It's a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
+<p>The answer comes when you want to change <code>to_param</code>, the method rails uses to turn a record into a parameter.  It&rsquo;s a good principal (though often broken) not to expose database ids in urls.  An example might be to use a users nickname rather than their id in user urls, so <code>/users/12452</code> becomes <code>/users/tomafro</code>.  In rails this is easy to achieve, by overriding the <code>to_param</code> method:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nf">to_param</span>
@@ -269,7 +269,7 @@
 </div>
 
 
-<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we'd like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I'd then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I've used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
+<p>Rails will automatically use this method when generating routes, so <code>users_path(@user)</code> will return <code>/users/tomafro</code> as we&rsquo;d like.  If I was using <code>find</code> or <code>find_by_id</code> in my controllers, I&rsquo;d then have to go through each one and change it to <code>find_by_nickname</code>.  Luckily though, I&rsquo;ve used <code>from_param</code>, so whenever I override <code>to_param</code> I just have to remember to provide an equivalent implementation for <code>from_param</code>, and my controllers will work without modification:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">from_param</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
@@ -284,9 +284,9 @@
 </div>
 
 
-<p>I've been doing this for years, but it's hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There's <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it's been considered too trivial to add.</p>
+<p>I&rsquo;ve been doing this for years, but it&rsquo;s hardly a new principle, to provide a <code>from</code> method for every <code>to</code> method.  There&rsquo;s <a href="http://dev.rubyonrails.org/ticket/11505">even an old ticket on trac</a> asking for it, but it&rsquo;s been considered too trivial to add.</p>
 
-<p>I disagree - for me the value comes from having the method from the start, not when you need it.  Luckily it's easy to add to my own projects.</p>
+<p>I disagree &ndash; for me the value comes from having the method from the start, not when you need it.  Luckily it&rsquo;s easy to add to my own projects.</p>
 
   </div>
   <footer>
@@ -343,7 +343,7 @@
     <h1><a href="/2009/08/tip-create-and-move-to-directory">Tip: Create and move to directory</a></h1>
   </header>
   <div class="content">
-    <p>Before my next post on database indexes, here's a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
+    <p>Before my next post on database indexes, here&rsquo;s a useful little function from the <a href="http://peepcode.com/products/advanced-command-line">Advanced Command Line peepcode screencast</a> (which I highly recommend).:</p>
 
 <div class="highlight"><pre><span class="c"># Create and move to a directory in a single command</span>
 <span class="c"># Usage: take ~/Projects/tools/awesometer</span>
@@ -373,7 +373,7 @@ take<span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/08/tip-move-to-directory-and-open-in-textmate">Tip: Move to directory and open in TextMate</a></h1>
   </header>
   <div class="content">
-    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I'm finding I use it all the time:</p>
+    <p>Since adding this to <a href="http://github.com/tomafro/dotfiles/tree/master/zsh">my zsh configuration</a>, I&rsquo;m finding I use it all the time:</p>
 
 <div class="highlight"><pre><span class="c"># Change directory and open TextMate in a single command</span>
 <span class="c"># Usage: tm ~/Projects/sites/tomafro.net</span>
@@ -404,13 +404,13 @@ tm<span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/08/kernel-specific-zsh-dotfiles">Kernel specific ZSH dotfiles</a></h1>
   </header>
   <div class="content">
-    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I've added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
+    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I&rsquo;ve added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
 
-<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn't work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
+<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn&rsquo;t work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
 
 <p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
 
-<p>Here's the code:</p>
+<p>Here&rsquo;s the code:</p>
 
 <div class="highlight"><pre><span class="k">case</span> <span class="nv">$system_name</span> in
   Darwin*<span class="o">)</span>
@@ -443,9 +443,9 @@ tm<span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/06/pimp-my-script-console">Pimp my script/console</a></h1>
   </header>
   <div class="content">
-    <p>For a long time I've had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I'm working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
+    <p>For a long time I&rsquo;ve had <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/irbrc">an .irbrc file</a> and a <a href="http://github.com/tomafro/dotfiles/blob/master/dotfiles/railsrc">.railsrc file</a>, setting up some simple helpers methods in my <code>irb</code> and <code>script/console</code> sessions.  Today though, I wanted to add some more helpers specific to the project I&rsquo;m working on.  Specifically, I wanted to be able to use my <a href="http://github.com/notahat/machinist/tree/master">machinist</a> blueprints, to help me play around with some models.</p>
 
-<p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when <code>.irbrc</code> is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:</p>
+<p>Adding <a href="http://github.com/notahat/machinist/tree/master">machinist</a> isn&rsquo;t as simple as just requiring my blueprints though &mdash; they require my ActiveRecord models, which aren&rsquo;t available when <code>.irbrc</code> is loaded.  Luckily the solution is simple &mdash; just add a couple of lines to the configuration in environment.rb:</p>
 
 <div class="highlight"><pre><span class="no">Rails</span><span class="o">::</span><span class="no">Initializer</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
   <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">IRB</span><span class="p">)</span>
@@ -458,7 +458,7 @@ tm<span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-<p>The key part is the line starting <code>IRB.conf[:IRB_RC]</code>, which tells <code>irb</code> to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I've set it to require <code>config/console.rb</code>, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in <code>script/console</code> sessions where I want these shortcuts, not in my general code.  Here it is:</p>
+<p>The key part is the line starting <code>IRB.conf[:IRB_RC]</code>, which tells <code>irb</code> to run the given when the session starts.  Luckily, this happens after rails has finished initializing.  I&rsquo;ve set it to require <code>config/console.rb</code>, to which I can add all sorts of configuration and helpers, knowing it will only get loaded in <code>script/console</code> sessions where I want these shortcuts, not in my general code.  Here it is:</p>
 
 <div class="highlight"><pre><span class="nb">require</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/../spec/blueprints.rb&quot;</span><span class="p">)</span>
 
@@ -490,7 +490,7 @@ tm<span class="o">()</span> <span class="o">{</span>
     <h1><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h1>
   </header>
   <div class="content">
-    <p>If you're using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
+    <p>If you&rsquo;re using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -515,9 +515,9 @@ tm<span class="o">()</span> <span class="o">{</span>
 </div>
 
 
-<p>This let's us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
+<p>This let&rsquo;s us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
 
-<p>By automatically matching some rails paths.  Here's the code:</p>
+<p>By automatically matching some rails paths.  Here&rsquo;s the code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -550,7 +550,7 @@ tm<span class="o">()</span> <span class="o">{</span>
 
 <p>What it does is pretty simple.  Given a page name <code>the clients page</code> (with no other matches defined) it will try and send <code>clients_path</code>.  If successful, then it returns the result, otherwise nil.</p>
 
-<p>Not the biggest improvement in the world, but it's made my cucumber tests just a little bit easier to write.</p>
+<p>Not the biggest improvement in the world, but it&rsquo;s made my cucumber tests just a little bit easier to write.</p>
 
   </div>
   <footer>
@@ -604,7 +604,7 @@ Open which gem?
 </div>
 
 
-<p>If you're running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let's you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn't work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
+<p>If you&rsquo;re running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let&rsquo;s you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn&rsquo;t work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
 
 <div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">GEM_OPEN_EDITOR</span><span class="o">=</span>mate
 </pre>

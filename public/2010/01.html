@@ -56,7 +56,7 @@ gem install rails --pre
 </div>
 
 
-<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
+<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I&rsquo;ve seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
 
 <p>First, install rails main dependencies:</p>
 
@@ -82,7 +82,7 @@ rake install
 </div>
 
 
-<p>Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
+<p>Your existing projects shouldn&rsquo;t be affected as rails is installed as a prerelease gem, but to be safe I&rsquo;d recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
 
   </div>
   <footer>
@@ -110,16 +110,16 @@ rake install
 
 <p>Running this file from the <code>/code</code> folder will output <code>examples/path_example.rb</code></p>
 
-<p>This is often used to load files on paths relative to the current file.  The way I've used it before is like this:</p>
+<p>This is often used to load files on paths relative to the current file.  The way I&rsquo;ve used it before is like this:</p>
 
 <div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">),</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">))</span>
 </pre>
 </div>
 
 
-<p>This works, but it's a bit clunky.</p>
+<p>This works, but it&rsquo;s a bit clunky.</p>
 
-<p>What I didn't realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument - a starting directory.  Also, this argument doesn't actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
+<p>What I didn&rsquo;t realise until reading the rails source code the other day, is that <code>File.expand_path</code> can take a second argument &ndash; a starting directory.  Also, this argument doesn&rsquo;t actually have to be a path to a directory, it also accepts a path to a file.  With this knowledge we can shorten the above to the following:</p>
 
 <div class="highlight"><pre><span class="n">config_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">expand_path</span><span class="p">(</span><span class="s2">&quot;../config.yml&quot;</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">)</span>
 </pre>

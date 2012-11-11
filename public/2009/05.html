@@ -41,7 +41,7 @@
     <h1><a href="/2009/05/read-active-record-columns-directly-from-the-class">Read ActiveRecord columns directly from the class</a></h1>
   </header>
   <div class="content">
-    <p>Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it's a shame to do away with the nice type conversion <code>ActiveRecord</code> provides.  It'd also be a pity to get rid of find scoping, amongst other goodness.</p>
+    <p>Sometimes you want to read just a single column from a collection of records, without the overhead of instantiating each and every one.  You could just execute raw SQL, but it&rsquo;s a shame to do away with the nice type conversion <code>ActiveRecord</code> provides.  It&rsquo;d also be a pity to get rid of find scoping, amongst other goodness.</p>
 
 <p>Enter <code>Tomafro::ColumnReader</code>:</p>
 
@@ -65,7 +65,7 @@
 </div>
 
 
-<p>Once you've extended <code>ActiveRecord::Base</code> with it, usage is simple.  In your models, declare which columns you want access to:</p>
+<p>Once you&rsquo;ve extended <code>ActiveRecord::Base</code> with it, usage is simple.  In your models, declare which columns you want access to:</p>
 
 <div class="highlight"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="o">.</span><span class="n">extend</span> <span class="no">Tomafro</span><span class="o">::</span><span class="no">ColumnReader</span>
  
@@ -79,7 +79,7 @@
 </div>
 
 
-<p>Once you've done this, you can access values directly from the class, respecting scope, limits and other finder options.</p>
+<p>Once you&rsquo;ve done this, you can access values directly from the class, respecting scope, limits and other finder options.</p>
 
 <div class="highlight"><pre><span class="no">Animal</span><span class="o">.</span><span class="n">names</span> 
 <span class="c1">#=&gt; [&#39;Lion&#39;, &#39;Tiger&#39;, &#39;Zebra&#39;, &#39;Gazelle&#39;]</span>
@@ -113,9 +113,9 @@
     <h1><a href="/2009/05/an-objective-c-implementation-of-active-supports-inflector">An Objective-C implementation of ActiveSupport's Inflector</a></h1>
   </header>
   <div class="content">
-    <p>Over the last week I've been playing with Objective-C, for fun rather than profit.  Here's the first result of this dabbling - <a href="http://github.com/tomafro/ActiveSupportInflector/tree/master">an Objective-C implementation</a> of ActiveSupport's pluralize and singularize methods.</p>
+    <p>Over the last week I&rsquo;ve been playing with Objective-C, for fun rather than profit.  Here&rsquo;s the first result of this dabbling &ndash; <a href="http://github.com/tomafro/ActiveSupportInflector/tree/master">an Objective-C implementation</a> of ActiveSupport&rsquo;s pluralize and singularize methods.</p>
 
-<p>It's my first piece of code in the language, so I'd appreciate comments and feedback.</p>
+<p>It&rsquo;s my first piece of code in the language, so I&rsquo;d appreciate comments and feedback.</p>
 
   </div>
   <footer>
@@ -160,7 +160,7 @@
   <div class="content">
     <p>So we all know that <a href="http://rack.rubyforge.org/">Rack</a> is awesome, and that we can use Rack::Middleware for all sorts of things: <a href="http://github.com/brynary/rack-bug/tree/master">debugging</a>, <a href="http://tomayko.com/src/rack-cache/">caching</a> and a <a href="http://github.com/rack/rack-contrib/tree/master">whole host more</a>.</p>
 
-<p>What all these have in common (apart from maybe <a href="http://github.com/rack/rack-contrib/blob/8b6323c8eecc8279088987c52b27dda5d4cadf7b/lib/rack/contrib/evil.rb">Rack::Evil</a>) is that they're all helpful.  They all make writing Rack applications easier.  Not my Middleware though.</p>
+<p>What all these have in common (apart from maybe <a href="http://github.com/rack/rack-contrib/blob/8b6323c8eecc8279088987c52b27dda5d4cadf7b/lib/rack/contrib/evil.rb">Rack::Evil</a>) is that they&rsquo;re all helpful.  They all make writing Rack applications easier.  Not my Middleware though.</p>
 
 <h3>Introducing Rack::Shuffler</h3>
 
@@ -183,7 +183,7 @@
 </div>
 
 
-<p>I suggest you add it to a colleague's app late on a Friday afternoon, and see how long it takes to drive them to insanity.</p>
+<p>I suggest you add it to a colleague&rsquo;s app late on a Friday afternoon, and see how long it takes to drive them to insanity.</p>
 
   </div>
   <footer>
@@ -203,7 +203,7 @@
     <h1><a href="/2009/05/imitation-is-the-sincerest-form-of-flattery">If imitation is the sincerest form of flattery...</a></h1>
   </header>
   <div class="content">
-    <p><a href="http://www.tiagoluchini.eu/">...consider me flattered</a>.</p>
+    <p><a href="http://www.tiagoluchini.eu/">&hellip;consider me flattered</a>.</p>
 
   </div>
   <footer>
@@ -221,7 +221,7 @@
     <h1><a href="/2009/05/automatching-rails-paths-in-cucumber">Automatching rails paths in cucumber</a></h1>
   </header>
   <div class="content">
-    <p>If you're using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
+    <p>If you&rsquo;re using <a href="http://cukes.info/">cucumber</a> as part of your testing, you probably have a <code>paths.rb</code> file that looks something like this:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -246,9 +246,9 @@
 </div>
 
 
-<p>This let's us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
+<p>This let&rsquo;s us use nice descriptive names in our scenarios, but it starts to become a pain when we add more and more paths.  So how can we make it better?</p>
 
-<p>By automatically matching some rails paths.  Here's the code:</p>
+<p>By automatically matching some rails paths.  Here&rsquo;s the code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">NavigationHelpers</span>
   <span class="k">def</span> <span class="nf">path_to</span><span class="p">(</span><span class="n">page_name</span><span class="p">)</span>
@@ -281,7 +281,7 @@
 
 <p>What it does is pretty simple.  Given a page name <code>the clients page</code> (with no other matches defined) it will try and send <code>clients_path</code>.  If successful, then it returns the result, otherwise nil.</p>
 
-<p>Not the biggest improvement in the world, but it's made my cucumber tests just a little bit easier to write.</p>
+<p>Not the biggest improvement in the world, but it&rsquo;s made my cucumber tests just a little bit easier to write.</p>
 
   </div>
   <footer>
@@ -335,7 +335,7 @@ Open which gem?
 </div>
 
 
-<p>If you're running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let's you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn't work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
+<p>If you&rsquo;re running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let&rsquo;s you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn&rsquo;t work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
 
 <div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">GEM_OPEN_EDITOR</span><span class="o">=</span>mate
 </pre>

@@ -41,25 +41,25 @@
     <h1><a href="/2012/06/tip-bundler-with-binstubs">Tip: Bundler with --binstubs</a></h1>
   </header>
   <div class="content">
-    <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I'd aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I've started installing all my bundles like this:</p>
+    <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I&rsquo;d aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I&rsquo;ve started installing all my bundles like this:</p>
 
 <div class="highlight"><pre>bundle install --path .bundle/gems --binstubs .bundle/bin
 </pre>
 </div>
 
 
-<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application's gems isolated.  The <code>--path .bundle/gems</code> installs them within an application's <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
+<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application&rsquo;s gems isolated.  The <code>--path .bundle/gems</code> installs them within an application&rsquo;s <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
 
-<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I'm in the application folder.  I never have to type <code>bundle exec</code>!</p>
+<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I&rsquo;m in the application folder.  I never have to type <code>bundle exec</code>!</p>
 
-<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I've aliased it to <code>bi</code>:</p>
+<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I&rsquo;ve aliased it to <code>bi</code>:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">bi</span><span class="o">=</span><span class="s1">&#39;bundle install --path .bundle/gems --binstubs .bundle/bin&#39;</span>
 </pre>
 </div>
 
 
-<p>I've been using these options for a few months, and so far I'm very happy with them.</p>
+<p>I&rsquo;ve been using these options for a few months, and so far I&rsquo;m very happy with them.</p>
 
   </div>
   <footer>
@@ -79,7 +79,7 @@
     <h1><a href="/2012/02/working-inside-government">Working inside government</a></h1>
   </header>
   <div class="content">
-    <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We've been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
+    <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We&rsquo;ve been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
 
 <div class="browsershots">
 <a href="https://www.gov.uk/government/organisations/department-for-international-development"><img class="browsershot" src="/images/dfid.thumb.png"/></a>
@@ -88,11 +88,11 @@
 </div>
 
 
-<p>For those who don't know, <a href="https://www.gov.uk">gov.uk</a> is the UK government's attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means <a href="https://www.pivotaltracker.com/projects/367813">public</a>, <a href="https://github.com/alphagov/whitehall">open source</a>, continual delivery and more.</p>
+<p>For those who don&rsquo;t know, <a href="https://www.gov.uk">gov.uk</a> is the UK government&rsquo;s attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means <a href="https://www.pivotaltracker.com/projects/367813">public</a>, <a href="https://github.com/alphagov/whitehall">open source</a>, continual delivery and more.</p>
 
-<p>While the first part of <a href="https://www.gov.uk">gov.uk</a> focussed on helping citizens, <a href="https://www.gov.uk/government">Inside Government</a> is about the business of government.  <a href="https://www.gov.uk/government/policy-topics">What policies</a> the government has, <a href="https://www.gov.uk/government/policies/launching-the-single-domain">how it's implementing them</a>, not to mention the <a href="https://www.gov.uk/government/news-and-speeches">news and speeches</a>, <a href="https://www.gov.uk/government/publications">publications</a>, <a href="https://www.gov.uk/government/consultations">consultations</a> and other things the government does each day.</p>
+<p>While the first part of <a href="https://www.gov.uk">gov.uk</a> focussed on helping citizens, <a href="https://www.gov.uk/government">Inside Government</a> is about the business of government.  <a href="https://www.gov.uk/government/policy-topics">What policies</a> the government has, <a href="https://www.gov.uk/government/policies/launching-the-single-domain">how it&rsquo;s implementing them</a>, not to mention the <a href="https://www.gov.uk/government/news-and-speeches">news and speeches</a>, <a href="https://www.gov.uk/government/publications">publications</a>, <a href="https://www.gov.uk/government/consultations">consultations</a> and other things the government does each day.</p>
 
-<p>It's only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
+<p>It&rsquo;s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
 
   </div>
   <footer>
@@ -111,7 +111,7 @@
     <h1><a href="/2011/09/geohash-toy-code-released">Geohash toy: code released</a></h1>
   </header>
   <div class="content">
-    <p>A couple of weeks ago I <a href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes">wrote about a small toy app</a> I'd written to explore geohashes.  Now I've cleaned the code up a little, upgraded it to rails 3.1 and released it <a href="https://github.com/tomafro/geohash-explorer">here on github</a>.  Enjoy.</p>
+    <p>A couple of weeks ago I <a href="http://tomafro.net/2011/09/a-small-toy-to-explore-geohashes">wrote about a small toy app</a> I&rsquo;d written to explore geohashes.  Now I&rsquo;ve cleaned the code up a little, upgraded it to rails 3.1 and released it <a href="https://github.com/tomafro/geohash-explorer">here on github</a>.  Enjoy.</p>
 
   </div>
   <footer>
@@ -132,13 +132,13 @@
     <h1><a href="/2011/09/a-small-toy-to-explore-geohashes">A small toy to explore geohashes</a></h1>
   </header>
   <div class="content">
-    <p>For an app I've been building, I've been looking into <a href="http://geohash.org/">geohashes</a>.  For those who don't know, the <a href="http://en.wikipedia.org/wiki/Geohash">geohash</a> format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson's Column in London (51.507794, -0.127952) has the geohash <code>gcpvj0dyds</code>.</p>
+    <p>For an app I&rsquo;ve been building, I&rsquo;ve been looking into <a href="http://geohash.org/">geohashes</a>.  For those who don&rsquo;t know, the <a href="http://en.wikipedia.org/wiki/Geohash">geohash</a> format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson&rsquo;s Column in London (51.507794, -0.127952) has the geohash <code>gcpvj0dyds</code>.</p>
 
-<p>Geohashes have a couple of interesting features.  First, as you remove characters, you lose precision. <code>gcpvj0dyds</code> fairly accurately points to Nelson's Column; <code>gcpvj0d</code> represents the South-West of Trafalgar Square and some of the Mall; and <code>gcpvj</code> covers most of Central London, as well as Islington and King's Cross.  A geohash doesn't really represent a point, but rather a bounding area within which a point may lie.  The longer the geohash, the smaller that bounding area.</p>
+<p>Geohashes have a couple of interesting features.  First, as you remove characters, you lose precision. <code>gcpvj0dyds</code> fairly accurately points to Nelson&rsquo;s Column; <code>gcpvj0d</code> represents the South-West of Trafalgar Square and some of the Mall; and <code>gcpvj</code> covers most of Central London, as well as Islington and King&rsquo;s Cross.  A geohash doesn&rsquo;t really represent a point, but rather a bounding area within which a point may lie.  The longer the geohash, the smaller that bounding area.</p>
 
-<p>The other interesting property geohashes have is that nearby locations usually (but not always) share similar prefixes.  So much of North London is in <code>gcpv</code>, while much of South London is in <code>gcpu</code>.  However, due to the <a href="http://en.wikipedia.org/wiki/Prime_Meridian">Prime Meridian</a> passing through Greenwhich, South East London has the geohash <code>u10h</code> - wildly different than the other two.</p>
+<p>The other interesting property geohashes have is that nearby locations usually (but not always) share similar prefixes.  So much of North London is in <code>gcpv</code>, while much of South London is in <code>gcpu</code>.  However, due to the <a href="http://en.wikipedia.org/wiki/Prime_Meridian">Prime Meridian</a> passing through Greenwhich, South East London has the geohash <code>u10h</code> &ndash; wildly different than the other two.</p>
 
-<p>This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I've written a toy app that draws them on a map.  To try it out, go to <a href="http://geohash.gofreerange.com">http://geohash.gofreerange.com</a>, click the map, zoom and play.  If you find it useful, let me know.</p>
+<p>This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I&rsquo;ve written a toy app that draws them on a map.  To try it out, go to <a href="http://geohash.gofreerange.com">http://geohash.gofreerange.com</a>, click the map, zoom and play.  If you find it useful, let me know.</p>
 
 <div class="update">
 Update: This code is now available [on github](https://github.com/tomafro/geohash-explorer).
@@ -161,9 +161,9 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
     <h1><a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a></h1>
   </header>
   <div class="content">
-    <p>It's irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
+    <p>It&rsquo;s irritating to run gem commands like <code>rake</code>, <code>cap</code>, <code>rspec</code> and others, only to find they needed to be executed via <code>bundle exec</code>.  As a simple solution, I use a simple zsh function, combined with aliases for commonly used commands.</p>
 
-<p>Here's the function (which I've named <code>be</code>):</p>
+<p>Here&rsquo;s the function (which I&rsquo;ve named <code>be</code>):</p>
 
 <div class="highlight"><pre><span class="k">if</span> <span class="o">[[</span> -a Gemfile <span class="o">]]</span>; <span class="k">then</span>
 <span class="k">  </span>bundle <span class="nb">exec</span> <span class="nv">$*</span>
@@ -174,9 +174,9 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 </div>
 
 
-<p>It's very simple.  If there's a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
+<p>It&rsquo;s very simple.  If there&rsquo;s a <code>Gemfile</code> in the pwd, it runs commands through bundle exec.  Otherwise it just runs them.</p>
 
-<p>I've combined this with some aliases for much less pain and less frustration:</p>
+<p>I&rsquo;ve combined this with some aliases for much less pain and less frustration:</p>
 
 <div class="highlight"><pre><span class="nb">alias </span><span class="nv">rake</span><span class="o">=</span><span class="s1">&#39;be rake&#39;</span>
 <span class="nb">alias </span><span class="nv">cap</span><span class="o">=</span><span class="s1">&#39;be cap&#39;</span>
@@ -221,7 +221,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 <p>I always prefer to keep my controllers as skinny as possible, so this looks like a great solution.  The <code>respond_with</code> call takes care of converting the message to json and responding with the right <code>Content-Type</code>, all in a simple call.  However it has a number of problems and disadvantages.</p>
 
-<p>The biggest issue for our API is that rather than expose the <code>id</code> of each model, we've tried to encourage the use of the <code>uri</code> instead.  So the <code>json</code> returned for a single contact (for example) looks like this:</p>
+<p>The biggest issue for our API is that rather than expose the <code>id</code> of each model, we&rsquo;ve tried to encourage the use of the <code>uri</code> instead.  So the <code>json</code> returned for a single contact (for example) looks like this:</p>
 
 <div class="highlight"><pre><span class="p">{</span>
   <span class="s2">&quot;contact&quot;</span><span class="o">:</span> <span class="p">{</span>
@@ -237,11 +237,11 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 </div>
 
 
-<p>It doesn't just have a <code>uri</code> for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute <code>messages_uri</code>).  Models can't generate uris, and shouldn't really be aware of them, so overriding <code>#as_json</code> doesn't work.  In any case, the json structure is really presentation logic, not business logic.  It doesn't belong in the model.</p>
+<p>It doesn&rsquo;t just have a <code>uri</code> for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute <code>messages_uri</code>).  Models can&rsquo;t generate uris, and shouldn&rsquo;t really be aware of them, so overriding <code>#as_json</code> doesn&rsquo;t work.  In any case, the json structure is really presentation logic, not business logic.  It doesn&rsquo;t belong in the model.</p>
 
 <h3>Presenting a single model</h3>
 
-<p>The solution we've used is to build a presenter for each model, solely responsible for building the json.  Here's an example for a contact:</p>
+<p>The solution we&rsquo;ve used is to build a presenter for each model, solely responsible for building the json.  Here&rsquo;s an example for a contact:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactPresenter</span>
   <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
@@ -274,7 +274,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 </div>
 
 
-<p>It's now simple to rewrite our controller to use the new presenter:</p>
+<p>It&rsquo;s now simple to rewrite our controller to use the new presenter:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
   <span class="n">responds_to</span> <span class="ss">:json</span>
@@ -289,7 +289,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 <h3>Presenting pages of models</h3>
 
-<p>The presenter above works well for a single model, but many of our API calls return a page of results.  The <a href="https://api.hashblue.com/doc/GET%3Acontacts">/contacts</a> for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it's simple to adapt this pattern to present pages like this.  First, we change our original <code>#as_json</code> method slightly:</p>
+<p>The presenter above works well for a single model, but many of our API calls return a page of results.  The <a href="https://api.hashblue.com/doc/GET%3Acontacts">/contacts</a> for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it&rsquo;s simple to adapt this pattern to present pages like this.  First, we change our original <code>#as_json</code> method slightly:</p>
 
 <div class="highlight"><pre><span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
   <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:partial</span><span class="o">]</span>
@@ -361,7 +361,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 <h3>Refactoring common logic</h3>
 
-<p>The code above is a very much simplified version of what we do in <a href="https://hashblue.com">#blue</a>.  We have many controllers, and several different models, so in our actual code we've abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:</p>
+<p>The code above is a very much simplified version of what we do in <a href="https://hashblue.com">#blue</a>.  We have many controllers, and several different models, so in our actual code we&rsquo;ve abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
   <span class="n">before_filter</span> <span class="ss">:find_contact</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">:update</span><span class="o">]</span>
@@ -430,7 +430,7 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
 <p>The <code>#present</code> and <code>#present_page_of</code> methods handle determining the correct presenter to us, as well as paginating the collection where required.  They still use rails build in <code>#respond_with</code> method, which helps provide the correct response headers for each request.  As the ContactPresenter delegates <code>#errors</code> to its subject, if there are validation errors, <code>#respond_with</code> correctly returns a 422.</p>
 
-<p>One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we'll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I'm still pretty happy with it.  I hope you find something useful in it too.</p>
+<p>One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we&rsquo;ll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I&rsquo;m still pretty happy with it.  I hope you find something useful in it too.</p>
 
 <p>Any comments or suggestions, please get in touch with me <a href="http://twitter.com/tomafro">on twitter</a>.</p>
 

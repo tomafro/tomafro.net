@@ -41,7 +41,7 @@
     <h1><a href="/2011/02/rails-mongo-instrumentation-gem">Mongo instrumentation released as a gem</a></h1>
   </header>
   <div class="content">
-    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I've packaged it up and released it as a gem.</p>
+    <p>Enough people seemed to comment and like the mongo instrumentation code I wrote about yesterday that I&rsquo;ve packaged it up and released it as a gem.</p>
 
 <p>The <a href="http://rubygems.org/gems/mongo-rails-instrumentation">mongo-rails-instrumentation</a> gem is available on rubygems, and the code is <a href="https://github.com/tomafro/mongo-rails-instrumentation">up on github</a>.</p>
 
@@ -77,7 +77,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We're just starting to get some traffic, and as we do, we're monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
+<p>One of our latest rails projects uses <a href="http://mongodb.org">Mongo</a> as a backend.  We&rsquo;re just starting to get some traffic, and as we do, we&rsquo;re monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:</p>
 
 <div class="highlight"><pre>    Completed 200 OK in 6ms <span class="o">(</span>Views 370.5ms | ActiveRecord: 2.3ms<span class="o">)</span>
 </pre>
@@ -168,14 +168,14 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>It looks complicated, but it's actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
+<p>It looks complicated, but it&rsquo;s actually pretty simple.  Data access methods in <strike><code>Mongo::DB</code> and <code>Mongo::Collection</code></strike> <code>Mongo::Connection</code> are hijacked and surrounded by an <code>ActiveSupport::Notifications.instrumenter.instrument</code> block.  This triggers events which are listened to by the <code>LogSubscriber</code>, summing the total time spent in Mongo.  The <code>ControllerRuntime</code> then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:</p>
 
 <div class="highlight"><pre>    Completed 200 OK in 838ms <span class="o">(</span>Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms<span class="o">)</span>
 </pre>
 </div>
 
 
-<p>It's just a first stab, so any comments and improvements are more then welcome.  It's <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
+<p>It&rsquo;s just a first stab, so any comments and improvements are more then welcome.  It&rsquo;s <a href="https://gist.github.com/833444">here on gist</a> so please fork away.</p>
 
   </div>
   <footer>
@@ -197,7 +197,7 @@ Update: Changed to instrument methods on the Mongo::Connection
   <div class="content">
     <p><a href="http://twitter.com/kraykray">@kraykray</a> was nice enough to let me know that Rails 3.03 had broken my column-reader code.</p>
 
-<p>I've always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.</p>
+<p>I&rsquo;ve always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.</p>
 
 <p>So here it is, as both <a href="https://github.com/tomafro/rails-activerecord-columnreader">a github repository</a> and <a href="http://rubygems.org/gems/activerecord-column-reader">a gem</a>.  Enjoy!</p>
 
@@ -219,9 +219,9 @@ Update: Changed to instrument methods on the Mongo::Connection
     <h1><a href="/2010/02/rails-3-direct-column-reader">Rails 3 direct column reader</a></h1>
   </header>
   <div class="content">
-    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it's relationship to ActiveRecord in rails 3, I've updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
+    <p>Whilst trying to get my head around <a href="http://github.com/brynary/arel">arel</a> and it&rsquo;s relationship to ActiveRecord in rails 3, I&rsquo;ve updated the simple ColumnReader class I <a href="http://tomafro.net/2009/05/read-active-record-columns-directly-from-the-class">introduced last year</a>.  It lets you read the (correctly cast) column values for an ActiveRecord class, without the overhead of instantiating each object.</p>
 
-<p>Here's the updated code:</p>
+<p>Here&rsquo;s the updated code:</p>
 
 <div class="highlight"><pre><span class="k">module</span> <span class="nn">ColumnReader</span>
   <span class="k">def</span> <span class="nf">column_reader</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
@@ -245,7 +245,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>The code isn't that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you've got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
+<p>The code isn&rsquo;t that different, though using <code>scoped</code> over <code>construct_finder_sql</code> feels a lot nicer.  If you&rsquo;ve got suggestions for improvement <a href="http://gist.github.com/301420">gist away</a>.</p>
 
 <p>Usage is similar to before, only using the new rails 3 syntax:</p>
 
@@ -271,7 +271,7 @@ Update: Changed to instrument methods on the Mongo::Connection
 </div>
 
 
-<p>I'm still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
+<p>I&rsquo;m still not entirely convinced of the value of this helper, so if you find a good use <a href="http://twitter.com/tomafro">tweet me</a>.  Enjoy!</p>
 
   </div>
   <footer>
@@ -306,7 +306,7 @@ gem install rails --pre
 </div>
 
 
-<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I've seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
+<p>Now that rails 3 is getting closer to release, I wanted to start playing around with it.  I&rsquo;ve seen a few articles on getting it up and running, but they all seemed a little bit complicated.  To use rails 2.3.5 before its release, I just built the gems myself and installed them.  It turns out you can easily do the same with rails 3.</p>
 
 <p>First, install rails main dependencies:</p>
 
@@ -332,7 +332,7 @@ rake install
 </div>
 
 
-<p>Your existing projects shouldn't be affected as rails is installed as a prerelease gem, but to be safe I'd recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
+<p>Your existing projects shouldn&rsquo;t be affected as rails is installed as a prerelease gem, but to be safe I&rsquo;d recommend a tool like <a href="http://rvm.beginrescueend.com/">rvm</a> to switch to a clean set of gems.</p>
 
   </div>
   <footer>
