@@ -39,6 +39,7 @@ GEM
     pygments.rb (0.2.12)
       rubypython (~> 0.5.3)
     rack (1.4.1)
+    rake (0.9.2.2)
     rdiscount (1.6.8)
     recap (1.0.2)
       capistrano (~> 2.9.0)
@@ -64,4 +65,5 @@ PLATFORMS
 DEPENDENCIES
   lanyon!
   rack
+  rake
   recap (~> 1.0.0)
