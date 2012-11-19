@@ -10,6 +10,11 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>http://tomafro.net/2012/11/past-present-future</loc>
+    <lastmod>2012-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>http://tomafro.net/2012/06/tip-bundler-with-binstubs</loc>
     <lastmod>2012-06-21</lastmod>
     <changefreq>monthly</changefreq>

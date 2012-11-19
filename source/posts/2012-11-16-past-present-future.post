@@ -1,0 +1,26 @@
+---
+layout: post
+title: "Past, Present and Future"
+tags: [gds, government, freerange, harmonia]
+---
+For me and the rest of [Go Free Range](https://gofreerange.com), the big event this week was the public launch of [Inside Government](https://www.gov.uk/government), the government focussed part of [GOV.UK](https://www.gov.uk).  Inside Government aims to replace the majority of government department and agency websites with a single place for all news, policies, publications and consultations.  On Wednesday, the first two department websites (for the [Department for Transport](https://www.gov.uk/dft) and the [Department for Communities and Local Government](https://www.gov.uk/dclg)) were moved across.
+
+<div class="browsershots">
+<a href="https://www.gov.uk/government"><img class="browsershot" src="/images/inside-government.png"/></a>
+<a href="https://www.gov.uk/government/organisations/department-for-communities-and-local-government"><img class="browsershot" src="/images/inside-government-dclg.png"/></a>
+<a href="https://www.gov.uk/government/policies/bringing-people-together-in-strong-united-communities"><img class="browsershot" src="/images/inside-government-policy.png"/></a>
+</div>
+
+We've been working on this project for 14 months, from the [initial commit](https://github.com/alphagov/whitehall/commit/8fa2772), through the [beta launch](http://tomafro.net/2012/02/working-inside-government ) right up until today.  I've enjoyed it, but it has been extremely hard work.  And although there are hundreds of things I'd still like to change, there are hundreds more I'm proud of.
+
+### Harmonia
+
+As well as [Inside Government](https://www.gov.uk/government), we've also been slowly inviting people to [Harmonia](https://harmonia.io), our 'virtual office manager'.  In case you haven't read the [Go Free Range blog](http://gofreerange.com/blog), [Harmonia](https://harmonia.io) is a tool we use to assign all the tasks needed to keep our company running.  Rather than use a schedule, each piece of work is assigned in a way designed to be both random and fair.
+
+<div class="browsershots">
+<a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-signup.png"/></a>
+<a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-dashboard.png"/></a>
+<a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-task.png"/></a>
+</div>
+
+One variation or another of [Harmonia](https://harmonia.io) has been helping us for well over a year, but now we've built a web app for everyone to use.  It's still a bit rough around the edges, but we'd love it if people [signed up](https://harmonia.io) and gave us feedback.  We're building this because we want to learn how to build better products, for the future of [Go Free Range](http://gofreerange.com).

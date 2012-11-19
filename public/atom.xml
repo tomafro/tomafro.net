@@ -2,12 +2,67 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2012-11-11T13:54:03+00:00</updated>
+ <updated>2012-11-19T09:08:25+00:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
    <email>tom@popdog.net</email>
  </author>
+ <entry>
+   <id>http://tomafro.net/2012/11/past-present-future</id>
+   <link href="http://tomafro.net/2012/11/past-present-future"/>
+   <title>Past, Present and Future</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;&lt;a href=&quot;/2012/11/past-present-future&quot;&gt;Past, Present and Future&lt;/a&gt;&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;p&gt;For me and the rest of &lt;a href=&quot;https://gofreerange.com&quot;&gt;Go Free Range&lt;/a&gt;, the big event this week was the public launch of &lt;a href=&quot;https://www.gov.uk/government&quot;&gt;Inside Government&lt;/a&gt;, the government focussed part of &lt;a href=&quot;https://www.gov.uk&quot;&gt;GOV.UK&lt;/a&gt;.  Inside Government aims to replace the majority of government department and agency websites with a single place for all news, policies, publications and consultations.  On Wednesday, the first two department websites (for the &lt;a href=&quot;https://www.gov.uk/dft&quot;&gt;Department for Transport&lt;/a&gt; and the &lt;a href=&quot;https://www.gov.uk/dclg&quot;&gt;Department for Communities and Local Government&lt;/a&gt;) were moved across.&lt;/p&gt;
+
+&lt;div class=&quot;browsershots&quot;&gt;
+&lt;a href=&quot;https://www.gov.uk/government&quot;&gt;&lt;img class=&quot;browsershot&quot; src=&quot;/images/inside-government.png&quot;/&gt;&lt;/a&gt;
+&lt;a href=&quot;https://www.gov.uk/government/organisations/department-for-communities-and-local-government&quot;&gt;&lt;img class=&quot;browsershot&quot; src=&quot;/images/inside-government-dclg.png&quot;/&gt;&lt;/a&gt;
+&lt;a href=&quot;https://www.gov.uk/government/policies/bringing-people-together-in-strong-united-communities&quot;&gt;&lt;img class=&quot;browsershot&quot; src=&quot;/images/inside-government-policy.png&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;We&amp;rsquo;ve been working on this project for 14 months, from the &lt;a href=&quot;https://github.com/alphagov/whitehall/commit/8fa2772&quot;&gt;initial commit&lt;/a&gt;, through the &lt;a href=&quot;http://tomafro.net/2012/02/working-inside-government&quot;&gt;beta launch&lt;/a&gt; right up until today.  I&amp;rsquo;ve enjoyed it, but it has been extremely hard work.  And although there are hundreds of things I&amp;rsquo;d still like to change, there are hundreds more I&amp;rsquo;m proud of.&lt;/p&gt;
+
+&lt;h3&gt;Harmonia&lt;/h3&gt;
+
+&lt;p&gt;As well as &lt;a href=&quot;https://www.gov.uk/government&quot;&gt;Inside Government&lt;/a&gt;, we&amp;rsquo;ve also been slowly inviting people to &lt;a href=&quot;https://harmonia.io&quot;&gt;Harmonia&lt;/a&gt;, our &amp;lsquo;virtual office manager&amp;rsquo;.  In case you haven&amp;rsquo;t read the &lt;a href=&quot;http://gofreerange.com/blog&quot;&gt;Go Free Range blog&lt;/a&gt;, &lt;a href=&quot;https://harmonia.io&quot;&gt;Harmonia&lt;/a&gt; is a tool we use to assign all the tasks needed to keep our company running.  Rather than use a schedule, each piece of work is assigned in a way designed to be both random and fair.&lt;/p&gt;
+
+&lt;div class=&quot;browsershots&quot;&gt;
+&lt;a href=&quot;https://harmonia.io&quot;&gt;&lt;img class=&quot;browsershot&quot; src=&quot;/images/harmonia-signup.png&quot;/&gt;&lt;/a&gt;
+&lt;a href=&quot;https://harmonia.io&quot;&gt;&lt;img class=&quot;browsershot&quot; src=&quot;/images/harmonia-dashboard.png&quot;/&gt;&lt;/a&gt;
+&lt;a href=&quot;https://harmonia.io&quot;&gt;&lt;img class=&quot;browsershot&quot; src=&quot;/images/harmonia-task.png&quot;/&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;One variation or another of &lt;a href=&quot;https://harmonia.io&quot;&gt;Harmonia&lt;/a&gt; has been helping us for well over a year, but now we&amp;rsquo;ve built a web app for everyone to use.  It&amp;rsquo;s still a bit rough around the edges, but we&amp;rsquo;d love it if people &lt;a href=&quot;https://harmonia.io&quot;&gt;signed up&lt;/a&gt; and gave us feedback.  We&amp;rsquo;re building this because we want to learn how to build better products, for the future of &lt;a href=&quot;http://gofreerange.com&quot;&gt;Go Free Range&lt;/a&gt;.&lt;/p&gt;
+
+  &lt;/div&gt;
+  &lt;footer&gt;
+    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class='date'&gt;&lt;a href=&quot;/2012/11&quot;&gt;16th November 2012&lt;/a&gt;&lt;/span&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/tags/gds&quot; rel=&quot;tag&quot;&gt;gds&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/tags/government&quot; rel=&quot;tag&quot;&gt;government&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/tags/freerange&quot; rel=&quot;tag&quot;&gt;freerange&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/tags/harmonia&quot; rel=&quot;tag&quot;&gt;harmonia&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;</content>
+   <updated>2012-11-16T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="gds" label="gds" />
+   <category scheme="http://tomafro.net/tags/" term="government" label="government" />
+   <category scheme="http://tomafro.net/tags/" term="freerange" label="freerange" />
+   <category scheme="http://tomafro.net/tags/" term="harmonia" label="harmonia" />
+ </entry>
  <entry>
    <id>http://tomafro.net/2012/06/tip-bundler-with-binstubs</id>
    <link href="http://tomafro.net/2012/06/tip-bundler-with-binstubs"/>
@@ -740,44 +795,5 @@ Update: Changed to instrument methods on the Mongo::Connection
    <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
    <category scheme="http://tomafro.net/tags/" term="mongo" label="mongo" />
    <category scheme="http://tomafro.net/tags/" term="instrumentation" label="instrumentation" />
- </entry>
- <entry>
-   <id>http://tomafro.net/2011/02/rails-3-column-reader-tweak</id>
-   <link href="http://tomafro.net/2011/02/rails-3-column-reader-tweak"/>
-   <title>A home for my Active Record column reader</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;article&gt;
-  &lt;header&gt;
-    &lt;h1&gt;&lt;a href=&quot;/2011/02/rails-3-column-reader-tweak&quot;&gt;A home for my Active Record column reader&lt;/a&gt;&lt;/h1&gt;
-  &lt;/header&gt;
-  &lt;div class=&quot;content&quot;&gt;
-    &lt;p&gt;&lt;a href=&quot;http://twitter.com/kraykray&quot;&gt;@kraykray&lt;/a&gt; was nice enough to let me know that Rails 3.03 had broken my column-reader code.&lt;/p&gt;
-
-&lt;p&gt;I&amp;rsquo;ve always seen it as a toy rather than a serious project, but getting a bug report made me re-evaluate.  If people are using it, even a tiny piece of code like this deserves a proper home.&lt;/p&gt;
-
-&lt;p&gt;So here it is, as both &lt;a href=&quot;https://github.com/tomafro/rails-activerecord-columnreader&quot;&gt;a github repository&lt;/a&gt; and &lt;a href=&quot;http://rubygems.org/gems/activerecord-column-reader&quot;&gt;a gem&lt;/a&gt;.  Enjoy!&lt;/p&gt;
-
-  &lt;/div&gt;
-  &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2011/02&quot;&gt; 8th February 2011&lt;/a&gt;&lt;/span&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/ruby&quot; rel=&quot;tag&quot;&gt;ruby&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/rails&quot; rel=&quot;tag&quot;&gt;rails&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/rails3&quot; rel=&quot;tag&quot;&gt;rails3&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/active-record&quot; rel=&quot;tag&quot;&gt;active-record&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/column-reader&quot; rel=&quot;tag&quot;&gt;column-reader&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/footer&gt;
-&lt;/article&gt;</content>
-   <updated>2011-02-08T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
-   <category scheme="http://tomafro.net/tags/" term="active-record" label="active-record" />
-   <category scheme="http://tomafro.net/tags/" term="column-reader" label="column-reader" />
  </entry>
 </feed>

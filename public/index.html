@@ -38,6 +38,47 @@
 </nav>
   <article>
   <header>
+    <h1><a href="/2012/11/past-present-future">Past, Present and Future</a></h1>
+  </header>
+  <div class="content">
+    <p>For me and the rest of <a href="https://gofreerange.com">Go Free Range</a>, the big event this week was the public launch of <a href="https://www.gov.uk/government">Inside Government</a>, the government focussed part of <a href="https://www.gov.uk">GOV.UK</a>.  Inside Government aims to replace the majority of government department and agency websites with a single place for all news, policies, publications and consultations.  On Wednesday, the first two department websites (for the <a href="https://www.gov.uk/dft">Department for Transport</a> and the <a href="https://www.gov.uk/dclg">Department for Communities and Local Government</a>) were moved across.</p>
+
+<div class="browsershots">
+<a href="https://www.gov.uk/government"><img class="browsershot" src="/images/inside-government.png"/></a>
+<a href="https://www.gov.uk/government/organisations/department-for-communities-and-local-government"><img class="browsershot" src="/images/inside-government-dclg.png"/></a>
+<a href="https://www.gov.uk/government/policies/bringing-people-together-in-strong-united-communities"><img class="browsershot" src="/images/inside-government-policy.png"/></a>
+</div>
+
+
+<p>We&rsquo;ve been working on this project for 14 months, from the <a href="https://github.com/alphagov/whitehall/commit/8fa2772">initial commit</a>, through the <a href="http://tomafro.net/2012/02/working-inside-government">beta launch</a> right up until today.  I&rsquo;ve enjoyed it, but it has been extremely hard work.  And although there are hundreds of things I&rsquo;d still like to change, there are hundreds more I&rsquo;m proud of.</p>
+
+<h3>Harmonia</h3>
+
+<p>As well as <a href="https://www.gov.uk/government">Inside Government</a>, we&rsquo;ve also been slowly inviting people to <a href="https://harmonia.io">Harmonia</a>, our &lsquo;virtual office manager&rsquo;.  In case you haven&rsquo;t read the <a href="http://gofreerange.com/blog">Go Free Range blog</a>, <a href="https://harmonia.io">Harmonia</a> is a tool we use to assign all the tasks needed to keep our company running.  Rather than use a schedule, each piece of work is assigned in a way designed to be both random and fair.</p>
+
+<div class="browsershots">
+<a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-signup.png"/></a>
+<a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-dashboard.png"/></a>
+<a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-task.png"/></a>
+</div>
+
+
+<p>One variation or another of <a href="https://harmonia.io">Harmonia</a> has been helping us for well over a year, but now we&rsquo;ve built a web app for everyone to use.  It&rsquo;s still a bit rough around the edges, but we&rsquo;d love it if people <a href="https://harmonia.io">signed up</a> and gave us feedback.  We&rsquo;re building this because we want to learn how to build better products, for the future of <a href="http://gofreerange.com">Go Free Range</a>.</p>
+
+  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2012/11">16th November 2012</a></span>
+    <ul>
+      <li><a href="/tags/gds" rel="tag">gds</a></li>
+      <li><a href="/tags/government" rel="tag">government</a></li>
+      <li><a href="/tags/freerange" rel="tag">freerange</a></li>
+      <li><a href="/tags/harmonia" rel="tag">harmonia</a></li>
+    </ul>
+  </footer>
+</article>
+<article>
+  <header>
     <h1><a href="/2012/06/tip-bundler-with-binstubs">Tip: Bundler with --binstubs</a></h1>
   </header>
   <div class="content">
@@ -201,255 +242,22 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
     </ul>
   </footer>
 </article>
-<article>
-  <header>
-    <h1><a href="/2011/08/presenting-the-hashblue-api">Presenting the #blue api</a></h1>
-  </header>
-  <div class="content">
-    <p>In building <a href="https://hashblue.com">#blue</a> (sign up now!), one of the problems we faced was how to build <code>json</code> data in response to requests to <a href="https://api.hashblue.com">our API</a>.  The typical rails solution would be to override <code>#as_json</code> in a model class, then write a controller like this:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
-  <span class="n">responds_to</span> <span class="ss">:json</span>
-
-  <span class="k">def</span> <span class="nf">show</span>
-    <span class="n">respond_with</span> <span class="no">Contact</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>I always prefer to keep my controllers as skinny as possible, so this looks like a great solution.  The <code>respond_with</code> call takes care of converting the message to json and responding with the right <code>Content-Type</code>, all in a simple call.  However it has a number of problems and disadvantages.</p>
-
-<p>The biggest issue for our API is that rather than expose the <code>id</code> of each model, we&rsquo;ve tried to encourage the use of the <code>uri</code> instead.  So the <code>json</code> returned for a single contact (for example) looks like this:</p>
-
-<div class="highlight"><pre><span class="p">{</span>
-  <span class="s2">&quot;contact&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;uri&quot;</span><span class="o">:</span> <span class="s2">&quot;https://api.example.com/contacts/ccpwjc&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;George&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;email&quot;</span><span class="o">:</span> <span class="s2">&quot;george@handmade.org&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;msisdn&quot;</span><span class="o">:</span> <span class="s2">&quot;447897897899&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;phone_number&quot;</span><span class="o">:</span> <span class="s2">&quot;07897897899&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;messages&quot;</span><span class="o">:</span> <span class="s2">&quot;https://api.example.com/contacts/ccpwjc/messages&quot;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</pre>
-</div>
-
-
-<p>It doesn&rsquo;t just have a <code>uri</code> for the actual contact, but also for the messages belonging to that contact (and yes, I regret not calling that attribute <code>messages_uri</code>).  Models can&rsquo;t generate uris, and shouldn&rsquo;t really be aware of them, so overriding <code>#as_json</code> doesn&rsquo;t work.  In any case, the json structure is really presentation logic, not business logic.  It doesn&rsquo;t belong in the model.</p>
-
-<h3>Presenting a single model</h3>
-
-<p>The solution we&rsquo;ve used is to build a presenter for each model, solely responsible for building the json.  Here&rsquo;s an example for a contact:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactPresenter</span>
-  <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
-
-  <span class="kp">attr_accessor</span> <span class="ss">:controller</span><span class="p">,</span> <span class="ss">:subject</span>
-  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">:url_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
-  <span class="n">delegate</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:subject</span>
-
-  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-    <span class="vi">@controller</span> <span class="o">=</span> <span class="n">controller</span>
-    <span class="vi">@subject</span> <span class="o">=</span> <span class="n">subject</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
-    <span class="p">{</span><span class="ss">:contact</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="ss">:uri</span> <span class="o">=&gt;</span> <span class="n">uri</span><span class="p">,</span>
-      <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
-      <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-      <span class="ss">:msisdn</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">msisdn</span><span class="p">,</span>
-      <span class="ss">:phone_number</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
-      <span class="ss">:messages</span> <span class="o">=&gt;</span> <span class="n">api_contact_messages_url</span><span class="p">(</span><span class="ss">:contact_id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-    <span class="p">}</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">uri</span>
-    <span class="n">api_contact_url</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>It&rsquo;s now simple to rewrite our controller to use the new presenter:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
-  <span class="n">responds_to</span> <span class="ss">:json</span>
-
-  <span class="k">def</span> <span class="nf">show</span>
-    <span class="n">respond_with</span> <span class="no">ContactPresenter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="no">Contact</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">))</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<h3>Presenting pages of models</h3>
-
-<p>The presenter above works well for a single model, but many of our API calls return a page of results.  The <a href="https://api.hashblue.com/doc/GET%3Acontacts">/contacts</a> for example returns all the contacts belonging to a user (of which there may be hundreds).  Luckily it&rsquo;s simple to adapt this pattern to present pages like this.  First, we change our original <code>#as_json</code> method slightly:</p>
-
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
-  <span class="k">if</span> <span class="n">options</span><span class="o">[</span><span class="ss">:partial</span><span class="o">]</span>
-    <span class="p">{</span>
-      <span class="ss">:uri</span> <span class="o">=&gt;</span> <span class="n">uri</span><span class="p">,</span>
-      <span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
-      <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-      <span class="ss">:msisdn</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">msisdn</span><span class="p">,</span>
-      <span class="ss">:phone_number</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">phone_number</span><span class="p">,</span>
-      <span class="ss">:messages</span> <span class="o">=&gt;</span> <span class="n">api_contact_messages_url</span><span class="p">(</span><span class="ss">:contact_id</span> <span class="o">=&gt;</span> <span class="n">subject</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-    <span class="p">}</span>
-  <span class="k">else</span>
-    <span class="p">{</span><span class="ss">:contact</span> <span class="o">=&gt;</span> <span class="n">as_json</span><span class="p">(</span><span class="ss">:partial</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)}</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>This change allows us to call as_json with the options <code>:partial</code>.  With the option, a hash of data is returned.  Without, the same hash is returned, wrapped in another hash.</p>
-
-<p>Next, add a page presenter:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactPagePresenter</span>
-  <span class="kp">include</span> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">url_helpers</span>
-
-  <span class="kp">attr_accessor</span> <span class="ss">:controller</span><span class="p">,</span> <span class="ss">:subject</span>
-  <span class="n">delegate</span> <span class="ss">:params</span><span class="p">,</span> <span class="ss">:url_options</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:controller</span>
-  <span class="n">delegate</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:to</span> <span class="o">=&gt;</span> <span class="ss">:subject</span>
-
-  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-    <span class="vi">@controller</span> <span class="o">=</span> <span class="n">controller</span>
-    <span class="vi">@subject</span> <span class="o">=</span> <span class="n">subject</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">as_json</span><span class="p">(</span><span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
-    <span class="n">contacts</span> <span class="o">=</span> <span class="n">subject</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">o</span><span class="o">|</span> <span class="no">ContactPresenter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">controller</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span><span class="o">.</span><span class="n">as_json</span><span class="p">(</span><span class="ss">:partial</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">)</span> <span class="p">}</span>
-
-    <span class="p">{</span><span class="ss">:contacts</span> <span class="o">=&gt;</span> <span class="n">contacts</span><span class="p">}</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">result</span><span class="o">|</span>
-      <span class="k">if</span> <span class="n">subject</span><span class="o">.</span><span class="n">previous_page</span>
-        <span class="n">result</span><span class="o">[</span><span class="ss">:previous_page_uri</span><span class="o">]</span> <span class="o">=</span> <span class="n">contacts_url</span><span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">previous_page</span><span class="p">)</span>
-      <span class="k">end</span>
-
-      <span class="k">if</span> <span class="n">subject</span><span class="o">.</span><span class="n">next_page</span>
-        <span class="n">result</span><span class="o">[</span><span class="ss">:next_page_uri</span><span class="o">]</span> <span class="o">=</span> <span class="n">contacts_url</span><span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">next_page</span><span class="p">)</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>Finally, we can add an index action using this presenter:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
-  <span class="n">responds_to</span> <span class="ss">:json</span>
-
-  <span class="k">def</span> <span class="nf">index</span>
-    <span class="n">respond_with</span> <span class="no">ContactPagePresenter</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="no">Contact</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span>
-      <span class="ss">:page</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:page</span><span class="o">]</span><span class="p">,</span> 
-      <span class="ss">:per_page</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">)</span>
-    <span class="p">)</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<h3>Refactoring common logic</h3>
-
-<p>The code above is a very much simplified version of what we do in <a href="https://hashblue.com">#blue</a>.  We have many controllers, and several different models, so in our actual code we&rsquo;ve abstracted out as much common logic as possible.  In reality, our contacts controller looks more like this:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">ContactsController</span> <span class="o">&lt;</span> <span class="no">ApiController</span>
-  <span class="n">before_filter</span> <span class="ss">:find_contact</span><span class="p">,</span> <span class="ss">:only</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">:update</span><span class="o">]</span>
-
-  <span class="k">def</span> <span class="nf">show</span>
-    <span class="n">present</span> <span class="vi">@contact</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">index</span>
-    <span class="n">present_page_of</span> <span class="n">current_account</span><span class="o">.</span><span class="n">contacts</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">create</span>
-    <span class="vi">@contact</span> <span class="o">=</span> <span class="n">current_account</span><span class="o">.</span><span class="n">contacts</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
-    <span class="vi">@contact</span><span class="o">.</span><span class="n">save</span>
-    <span class="n">present</span> <span class="vi">@contact</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">update</span>
-    <span class="vi">@contact</span><span class="o">.</span><span class="n">update_attributes</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
-    <span class="n">present</span> <span class="vi">@contact</span>
-  <span class="k">end</span>
-
-  <span class="kp">private</span>
-
-  <span class="k">def</span> <span class="nf">find_contact</span>
-    <span class="vi">@contact</span> <span class="o">=</span> <span class="n">current_account</span><span class="o">.</span><span class="n">contacts</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">:_id</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
-    <span class="n">head</span> <span class="ss">:status</span> <span class="o">=&gt;</span> <span class="ss">:not_found</span> <span class="k">unless</span> <span class="vi">@contact</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>I think the code looks pretty clean.  The clever stuff happens in the <code>#present</code> and <code>#present_page_of</code> methods, defined in the superclass:</p>
-
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">ApiController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span><span class="o">::</span><span class="no">Base</span>
-  <span class="kp">protected</span>
-
-  <span class="k">def</span> <span class="nf">present</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
-    <span class="n">presenter</span> <span class="o">=</span> <span class="n">presenter_class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span>
-    <span class="n">options</span><span class="o">[</span><span class="ss">:location</span><span class="o">]</span> <span class="o">||=</span> <span class="n">presenter</span><span class="o">.</span><span class="n">uri</span> <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">post?</span> <span class="o">&amp;&amp;</span> <span class="n">subject</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">empty?</span>
-    <span class="n">respond_with</span> <span class="n">presenter</span><span class="p">,</span> <span class="n">options</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">present_page_of</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">options</span> <span class="o">=</span> <span class="p">{})</span>
-    <span class="n">presenter</span> <span class="o">=</span> <span class="n">page_presenter_class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">page_of</span><span class="p">(</span><span class="n">collection</span><span class="p">))</span>
-    <span class="n">respond_with</span> <span class="n">presenter</span><span class="p">,</span> <span class="n">options</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">page_of</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>
-    <span class="n">collection</span><span class="o">.</span><span class="n">paginate</span><span class="p">(</span><span class="ss">:page</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:page</span><span class="o">]</span><span class="p">,</span> <span class="ss">:per_page</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">presenter_class</span>
-    <span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">gsub!</span><span class="p">(</span><span class="s2">&quot;Controller&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">singularize</span> <span class="o">+</span> <span class="s2">&quot;Presenter&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">constantize</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">page_presenter_class</span>
-    <span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">gsub!</span><span class="p">(</span><span class="s2">&quot;Controller&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">singularize</span> <span class="o">+</span> <span class="s2">&quot;PagePresenter&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">constantize</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</pre>
-</div>
-
-
-<p>The <code>#present</code> and <code>#present_page_of</code> methods handle determining the correct presenter to us, as well as paginating the collection where required.  They still use rails build in <code>#respond_with</code> method, which helps provide the correct response headers for each request.  As the ContactPresenter delegates <code>#errors</code> to its subject, if there are validation errors, <code>#respond_with</code> correctly returns a 422.</p>
-
-<p>One further motivation for this pattern (other than moving presentation logic out of the model) is that should we want to release a new version of our API, we&rsquo;ll be able to get a lot of the way there simply by swapping which presenter is used.  We started using this code about 8 months ago, and I&rsquo;m still pretty happy with it.  I hope you find something useful in it too.</p>
-
-<p>Any comments or suggestions, please get in touch with me <a href="http://twitter.com/tomafro">on twitter</a>.</p>
-
-  </div>
-  <footer>
-    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
-    <span class='date'><a href="/2011/08"> 2nd August 2011</a></span>
-    <ul>
-      <li><a href="/tags/hashblue" rel="tag">hashblue</a></li>
-      <li><a href="/tags/gofreerange" rel="tag">gofreerange</a></li>
-      <li><a href="/tags/o2" rel="tag">o2</a></li>
-      <li><a href="/tags/api" rel="tag">api</a></li>
-      <li><a href="/tags/rails" rel="tag">rails</a></li>
-    </ul>
-  </footer>
-</article>
 <section class="related-links">
 <h1>Older posts:</h1>
 <ul>
+<li>
+  <a class='title' href="/2011/08/presenting-the-hashblue-api">Presenting the #blue api</a>
+  <div class='meta'>
+  <span class='date'><a href="/2011/08"> 2nd August 2011</a></span>
+  <ul class='tags'>
+    <li><a href="/tags/hashblue" rel="tag">hashblue</a></li>
+    <li><a href="/tags/gofreerange" rel="tag">gofreerange</a></li>
+    <li><a href="/tags/o2" rel="tag">o2</a></li>
+    <li><a href="/tags/api" rel="tag">api</a></li>
+    <li><a href="/tags/rails" rel="tag">rails</a></li>
+  </ul>
+  </div>
+</li>
 <li>
   <a class='title' href="/2011/03/hashblue-opens-for-business">#blue opens for business</a>
   <div class='meta'>
