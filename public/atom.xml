@@ -2,12 +2,88 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2012-11-19T09:08:25+00:00</updated>
+ <updated>2012-12-27T16:24:49+00:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
    <email>tom@popdog.net</email>
  </author>
+ <entry>
+   <id>http://tomafro.net/2012/12/deploying-harmonia-with-recap</id>
+   <link href="http://tomafro.net/2012/12/deploying-harmonia-with-recap"/>
+   <title>Deploying a rails app from scratch using recap</title>
+   <author>
+     <name>Tom Ward</name>
+     <email>tom@popdog.net</email>
+   </author>
+   <content type="html">&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;&lt;a href=&quot;/2012/12/deploying-harmonia-with-recap&quot;&gt;Deploying a rails app from scratch using recap&lt;/a&gt;&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;p&gt;If you follow &lt;a href=&quot;http://gofreerange.com/blog&quot;&gt;our company blog&lt;/a&gt; you&amp;rsquo;ll know that we&amp;rsquo;re working on &lt;a href=&quot;http://harmonia.io&quot;&gt;Harmonia&lt;/a&gt;, our virtual office manager.  I thought I&amp;rsquo;d explain how we use &lt;a href=&quot;https://github.com/freerange/recap&quot;&gt;recap&lt;/a&gt; to deploy harmonia, to show how easy and fast &lt;a href=&quot;https://github.com/freerange/recap&quot;&gt;recap&lt;/a&gt; makes application deployment.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://harmonia.io&quot;&gt;Harmonia&lt;/a&gt; is a fairly standard rails application.  As well as a web front-end, it has two other processes.  A queue &lt;code&gt;worker&lt;/code&gt; is used to send outgoing emails, whilst the core of the application is the &lt;code&gt;ticker&lt;/code&gt;; a process which &amp;lsquo;ticks&amp;rsquo; every minute, assigning tasks to team members.  We use &lt;a href=&quot;https://github.com/ddollar/foreman&quot;&gt;foreman&lt;/a&gt; to declare these processes in the following &lt;code&gt;Procfile&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;web: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;unicorn -p &lt;span class=&quot;nv&quot;&gt;$PORT&lt;/span&gt; -c unicorn.conf.rb
+ticker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rails runner script/ticker.rb
+worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environment resque:work &lt;span class=&quot;nv&quot;&gt;QUEUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;assignment_emails &lt;span class=&quot;nv&quot;&gt;VVERBOSE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;All of these processes touch application code, so whenever we deploy a new version of the app (which we do frequently) they need to be restarted.  Our app also has a database with associated migrations, uses environment variables like &lt;code&gt;DATABASE_URL&lt;/code&gt; for configuration, and has a number of gem dependencies managed by bundler.&lt;/p&gt;
+
+&lt;p&gt;This is all handled by &lt;a href=&quot;https://github.com/freerange/recap&quot;&gt;recap&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2&gt;Getting started &amp;ndash; adding recap to the project&lt;/h2&gt;
+
+&lt;p&gt;Using recap with a rails project is simple.  First add &lt;code&gt;gem 'recap'&lt;/code&gt; to the &lt;code&gt;Gemfile&lt;/code&gt; and run &lt;code&gt;bundle install&lt;/code&gt;.  Next run &lt;code&gt;bundle exec recap setup&lt;/code&gt;, which will generate a &lt;code&gt;Capfile&lt;/code&gt;, guessing values for the git repository and app name.  You should check these values and change the server to point to your app server.  As an example, the complete &lt;code&gt;Capfile&lt;/code&gt; for harmonia is shown below:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;recap/recipes/rails&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;harmonia&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:repository&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;git@github.com:freerange/harmonia.git&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;bison.harmonia.io&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:app&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Applications deployed with &lt;a href=&quot;https://github.com/freerange/recap&quot;&gt;recap&lt;/a&gt; need their own user, owning all files and processes.  Assuming we can &lt;code&gt;ssh&lt;/code&gt; into our server and are listed as a &lt;code&gt;sudoer&lt;/code&gt;, we can create this user automatically  running &lt;code&gt;cap bootstrap&lt;/code&gt;.  This will also add our own &lt;code&gt;ssh&lt;/code&gt; user to the application group, allowing it to deploy the application.&lt;/p&gt;
+
+&lt;p&gt;Next we can set any environment variables we need for configuration.  These are loaded in the application user&amp;rsquo;s &lt;code&gt;.profile&lt;/code&gt;, so are available to all processes started by &lt;a href=&quot;https://github.com/freerange/recap&quot;&gt;recap&lt;/a&gt;.  In harmonia we set our smtp credentials, the server port, some api keys and more, using commands like &lt;code&gt;cap env:set PORT=7000&lt;/code&gt; and &lt;code&gt;cap env:set SMTP_PASSWORD=secret&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The app is now almost ready to deploy.  We can prepare it for deployment with &lt;code&gt;cap deploy:setup&lt;/code&gt;, which clones the code repository, installs our gem bundle, sets up the database and precompiles our assets.&lt;/p&gt;
+
+&lt;p&gt;Finally, running &lt;code&gt;cap deploy&lt;/code&gt; will start the app for the first time, launching each process defined in the &lt;code&gt;Procfile&lt;/code&gt; with the environment variables we previously set.&lt;/p&gt;
+
+&lt;h2&gt;Really fast deployments&lt;/h2&gt;
+
+&lt;p&gt;While &lt;a href=&quot;https://github.com/freerange/recap&quot;&gt;recap&lt;/a&gt; makes it very easy to get apps up and running the first time, it comes into its doing subsequent deployments.  At &lt;a href=&quot;http://gofreerange.com&quot;&gt;Go Free Range&lt;/a&gt; we like to deploy apps we&amp;rsquo;re working on very frequently.  One thing that helps ensure we do this is making each deployment as fast as it can be.&lt;/p&gt;
+
+&lt;p&gt;Using &lt;code&gt;git&lt;/code&gt; as recap does is already a very quick way to get code changes onto servers, but recap takes things a step further.  By testing to see which files have changed it knows which tasks can be skipped.  For example, database migrations won&amp;rsquo;t be run if &lt;code&gt;db/schema.rb&lt;/code&gt; has not changed; the gem bundle won&amp;rsquo;t be re-installed unless &lt;code&gt;Gemfile.lock&lt;/code&gt; has been updated, and foreman process scripts won&amp;rsquo;t be exported if the &lt;code&gt;Procfile&lt;/code&gt; is unchanged.  In fact, if these files don&amp;rsquo;t exist, these tasks will never run at all.&lt;/p&gt;
+
+&lt;h2&gt;The future&lt;/h2&gt;
+
+&lt;p&gt;Using &lt;a href=&quot;https://github.com/freerange/recap&quot;&gt;recap&lt;/a&gt; with &lt;a href=&quot;https://harmonia.io&quot;&gt;Harmonia&lt;/a&gt; has made our deployment process very fast and simple.  When the main harmonia server became over-burdened and we decided to commission a new machine dedicated to harmonia, recap made that process quick and painless.  As well as harmonia, recap is also used to deploy &lt;a href=&quot;http://gofreerange.com&quot;&gt;the Go Free Range website&lt;/a&gt;, &lt;a href=&quot;http://tomafro.net&quot;&gt;this blog&lt;/a&gt;, and a number of other small sites and projects where it has proven itself well.  For larger projects, there are some features (such as more control as to what processes run where) that are missing, but I plan to add these in the next release.  For all other sites, recap has proven itself a lightweight and capable alternative to the standard Capistrano deployment recipes.&lt;/p&gt;
+
+  &lt;/div&gt;
+  &lt;footer&gt;
+    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class='date'&gt;&lt;a href=&quot;/2012/12&quot;&gt;27th December 2012&lt;/a&gt;&lt;/span&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/tags/recap&quot; rel=&quot;tag&quot;&gt;recap&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/tags/harmonia&quot; rel=&quot;tag&quot;&gt;harmonia&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/tags/deployment&quot; rel=&quot;tag&quot;&gt;deployment&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;</content>
+   <updated>2012-12-27T00:00:00+00:00</updated>
+   <category scheme="http://tomafro.net/tags/" term="recap" label="recap" />
+   <category scheme="http://tomafro.net/tags/" term="harmonia" label="harmonia" />
+   <category scheme="http://tomafro.net/tags/" term="deployment" label="deployment" />
+ </entry>
  <entry>
    <id>http://tomafro.net/2012/11/past-present-future</id>
    <link href="http://tomafro.net/2012/11/past-present-future"/>
@@ -652,144 +728,6 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
   &lt;/footer&gt;
 &lt;/article&gt;</content>
    <updated>2011-02-19T00:00:00+00:00</updated>
-   <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
-   <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
-   <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />
-   <category scheme="http://tomafro.net/tags/" term="mongo" label="mongo" />
-   <category scheme="http://tomafro.net/tags/" term="instrumentation" label="instrumentation" />
- </entry>
- <entry>
-   <id>http://tomafro.net/2011/02/experimental-mongo-instrumentation</id>
-   <link href="http://tomafro.net/2011/02/experimental-mongo-instrumentation"/>
-   <title>Experimental Mongo instrumentation (for Rails 3)</title>
-   <author>
-     <name>Tom Ward</name>
-     <email>tom@popdog.net</email>
-   </author>
-   <content type="html">&lt;article&gt;
-  &lt;header&gt;
-    &lt;h1&gt;&lt;a href=&quot;/2011/02/experimental-mongo-instrumentation&quot;&gt;Experimental Mongo instrumentation (for Rails 3)&lt;/a&gt;&lt;/h1&gt;
-  &lt;/header&gt;
-  &lt;div class=&quot;content&quot;&gt;
-    &lt;div class=&quot;update&quot;&gt;
-Update: Changed to instrument methods on the Mongo::Connection
-&lt;/div&gt;
-
-
-&lt;p&gt;One of our latest rails projects uses &lt;a href=&quot;http://mongodb.org&quot;&gt;Mongo&lt;/a&gt; as a backend.  We&amp;rsquo;re just starting to get some traffic, and as we do, we&amp;rsquo;re monitoring the logs for slow requests.  When using ActiveRecord, rails splits out the recorded request time like so:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    Completed 200 OK in 6ms &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Views 370.5ms | ActiveRecord: 2.3ms&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;We wanted to do the same for our Mongo accesses, just to give a rough idea as to what our requests were doing.  Luckily Rails 3 makes this relatively straightforward, providing hooks to instrument methods, subscribe to log messages and add information to the request log.  Here, then, is my first stab (mainly harvested from ActiveRecord):&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Mongo&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Instrumentation&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;instrument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;clazz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module_eval&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;methods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;each&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-          &lt;span class=&quot;nb&quot;&gt;class_eval&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%{def &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;_with_instrumentation(*args, &amp;amp;block)&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;            ActiveSupport::Notifications.instrumenter.instrument &amp;quot;mongo.mongo&amp;quot;, :name =&amp;gt; &amp;quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;&amp;quot; do&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;              &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;_without_instrumentation(*args, &amp;amp;block)&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;            end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;          end&lt;/span&gt;
-&lt;span class=&quot;sx&quot;&gt;          }&lt;/span&gt;
-
-          &lt;span class=&quot;n&quot;&gt;alias_method_chain&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:instrumentation&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Railtie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Railtie&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;initializer&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;mongo.instrumentation&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-        &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;instrument&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:send_message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:send_message_with_safe_check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:receive_message&lt;/span&gt;
-
-        &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on_load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:action_controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-          &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ControllerRuntime&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-        &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;LogSubscriber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attach_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:mongo&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ControllerRuntime&lt;/span&gt;
-      &lt;span class=&quot;kp&quot;&gt;extend&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Concern&lt;/span&gt;
-
-      &lt;span class=&quot;kp&quot;&gt;protected&lt;/span&gt;
-
-      &lt;span class=&quot;n&quot;&gt;attr_internal&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:mongo_runtime&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cleanup_view_runtime&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;mongo_rt_before_render&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;LogSubscriber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reset_runtime&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;mongo_rt_after_render&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Mongo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Instrumentation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;LogSubscriber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reset_runtime&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_rt_before_render&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_rt_after_render&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_rt_after_render&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;append_info_to_payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:mongo_runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ClassMethods&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;log_process_action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:mongo_runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Mongo: %.1fms&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo_runtime&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LogSubscriber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;LogSubscriber&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;no&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;mongo_mongo_runtime&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;
-        &lt;span class=&quot;no&quot;&gt;Thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;mongo_mongo_runtime&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reset_runtime&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;rt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;rt&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-
-      &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mongo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runtime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;duration&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;It looks complicated, but it&amp;rsquo;s actually pretty simple.  Data access methods in &lt;strike&gt;&lt;code&gt;Mongo::DB&lt;/code&gt; and &lt;code&gt;Mongo::Collection&lt;/code&gt;&lt;/strike&gt; &lt;code&gt;Mongo::Connection&lt;/code&gt; are hijacked and surrounded by an &lt;code&gt;ActiveSupport::Notifications.instrumenter.instrument&lt;/code&gt; block.  This triggers events which are listened to by the &lt;code&gt;LogSubscriber&lt;/code&gt;, summing the total time spent in Mongo.  The &lt;code&gt;ControllerRuntime&lt;/code&gt; then collects this count to be displayed, and resets the sum to zero ready for the next request.  The output looks like this:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;    Completed 200 OK in 838ms &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Views: 370.5ms | ActiveRecord: 2.3ms | Mongo: 441.5ms&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-
-&lt;p&gt;It&amp;rsquo;s just a first stab, so any comments and improvements are more then welcome.  It&amp;rsquo;s &lt;a href=&quot;https://gist.github.com/833444&quot;&gt;here on gist&lt;/a&gt; so please fork away.&lt;/p&gt;
-
-  &lt;/div&gt;
-  &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2011/02&quot;&gt;18th February 2011&lt;/a&gt;&lt;/span&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/ruby&quot; rel=&quot;tag&quot;&gt;ruby&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/rails&quot; rel=&quot;tag&quot;&gt;rails&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/rails3&quot; rel=&quot;tag&quot;&gt;rails3&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/mongo&quot; rel=&quot;tag&quot;&gt;mongo&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;/tags/instrumentation&quot; rel=&quot;tag&quot;&gt;instrumentation&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/footer&gt;
-&lt;/article&gt;</content>
-   <updated>2011-02-18T00:00:00+00:00</updated>
    <category scheme="http://tomafro.net/tags/" term="ruby" label="ruby" />
    <category scheme="http://tomafro.net/tags/" term="rails" label="rails" />
    <category scheme="http://tomafro.net/tags/" term="rails3" label="rails3" />

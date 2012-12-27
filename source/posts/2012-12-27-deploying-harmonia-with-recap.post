@@ -1,0 +1,49 @@
+---
+layout: post
+title: "Deploying a rails app from scratch using recap"
+tags: [recap, harmonia, deployment]
+---
+If you follow [our company blog](http://gofreerange.com/blog) you'll know that we're working on [Harmonia](http://harmonia.io), our virtual office manager.  I thought I'd explain how we use [recap](https://github.com/freerange/recap) to deploy harmonia, to show how easy and fast [recap](https://github.com/freerange/recap) makes application deployment.
+
+[Harmonia](https://harmonia.io) is a fairly standard rails application.  As well as a web front-end, it has two other processes.  A queue `worker` is used to send outgoing emails, whilst the core of the application is the `ticker`; a process which 'ticks' every minute, assigning tasks to team members.  We use [foreman](https://github.com/ddollar/foreman) to declare these processes in the following `Procfile`:
+
+{{#shell}}
+web: bundle exec unicorn -p $PORT -c unicorn.conf.rb
+ticker: bundle exec rails runner script/ticker.rb
+worker: bundle exec rake environment resque:work QUEUE=assignment_emails VVERBOSE=1
+{{/shell}}
+
+All of these processes touch application code, so whenever we deploy a new version of the app (which we do frequently) they need to be restarted.  Our app also has a database with associated migrations, uses environment variables like `DATABASE_URL` for configuration, and has a number of gem dependencies managed by bundler.
+
+This is all handled by [recap](https://github.com/freerange/recap).
+
+## Getting started - adding recap to the project
+
+Using recap with a rails project is simple.  First add `gem 'recap'` to the `Gemfile` and run `bundle install`.  Next run `bundle exec recap setup`, which will generate a `Capfile`, guessing values for the git repository and app name.  You should check these values and change the server to point to your app server.  As an example, the complete `Capfile` for harmonia is shown below:
+
+{{#ruby}}
+require 'recap/recipes/rails'
+
+set :application, 'harmonia'
+set :repository, 'git@github.com:freerange/harmonia.git'
+
+server 'bison.harmonia.io', :app
+{{/ruby}}
+
+Applications deployed with [recap](https://github.com/freerange/recap) need their own user, owning all files and processes.  Assuming we can `ssh` into our server and are listed as a `sudoer`, we can create this user automatically  running `cap bootstrap`.  This will also add our own `ssh` user to the application group, allowing it to deploy the application.
+
+Next we can set any environment variables we need for configuration.  These are loaded in the application user's `.profile`, so are available to all processes started by [recap](https://github.com/freerange/recap).  In harmonia we set our smtp credentials, the server port, some api keys and more, using commands like `cap env:set PORT=7000` and `cap env:set SMTP_PASSWORD=secret`.
+
+The app is now almost ready to deploy.  We can prepare it for deployment with `cap deploy:setup`, which clones the code repository, installs our gem bundle, sets up the database and precompiles our assets.
+
+Finally, running `cap deploy` will start the app for the first time, launching each process defined in the `Procfile` with the environment variables we previously set.
+
+## Really fast deployments ##
+
+While [recap](https://github.com/freerange/recap) makes it very easy to get apps up and running the first time, it comes into its doing subsequent deployments.  At [Go Free Range](http://gofreerange.com) we like to deploy apps we're working on very frequently.  One thing that helps ensure we do this is making each deployment as fast as it can be.
+
+Using `git` as recap does is already a very quick way to get code changes onto servers, but recap takes things a step further.  By testing to see which files have changed it knows which tasks can be skipped.  For example, database migrations won't be run if `db/schema.rb` has not changed; the gem bundle won't be re-installed unless `Gemfile.lock` has been updated, and foreman process scripts won't be exported if the `Procfile` is unchanged.  In fact, if these files don't exist, these tasks will never run at all.
+
+## The future ##
+
+Using [recap](https://github.com/freerange/recap) with [Harmonia](https://harmonia.io) has made our deployment process very fast and simple.  When the main harmonia server became over-burdened and we decided to commission a new machine dedicated to harmonia, recap made that process quick and painless.  As well as harmonia, recap is also used to deploy [the Go Free Range website](http://gofreerange.com), [this blog](http://tomafro.net), and a number of other small sites and projects where it has proven itself well.  For larger projects, there are some features (such as more control as to what processes run where) that are missing, but I plan to add these in the next release.  For all other sites, recap has proven itself a lightweight and capable alternative to the standard Capistrano deployment recipes.
