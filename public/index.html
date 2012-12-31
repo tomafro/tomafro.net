@@ -38,6 +38,219 @@
 </nav>
   <article>
   <header>
+    <h1><a href="/2012/12/infinite-sequences-in-ruby">Infinite sequences in ruby</a></h1>
+  </header>
+  <div class="content">
+    <p>One feature of <a href="https://harmonia.io">harmonia</a> is tasks that recur on a schedule, e.g. every Thursday, or on the 30th day of each month.  For these tasks we need to know not just when they&rsquo;ll next occur, but also things like the next 4 occurrences, or all occurrences this month.</p>
+
+<p>To do this we&rsquo;ve used a technique more common in <a href="http://clojure.org/">clojure</a>: using an infinite sequence.</p>
+
+<h2>Defining simple infinite sequences</h2>
+
+<p>Ruby 1.9 and above let us define infinite sequences using the <code>Enumerator</code> class.  A simple example is the sequence of integers:</p>
+
+<div class="highlight"><pre><span class="n">integers</span> <span class="o">=</span> <span class="no">Enumerator</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="kp">loop</span> <span class="k">do</span>
+    <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">n</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">integers</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="o">]</span>
+<span class="o">&gt;&gt;</span> <span class="n">integers</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="o">]</span>
+</pre>
+</div>
+
+
+<p>Here&rsquo;s how this works.  The block passed to <code>Enumerator.new</code> defines our sequence.  It takes a <code>yielder</code> argument with a special method <code>#yield</code>, used to return elements in the sequence.  Whenever <code>#yield</code> is called, execution of the block stops.  Execution only restarts <em>if</em> more elements are needed, making the sequence <em>lazy</em>.  The <code>Enumerator</code> class handles this stopping and starting execution &mdash; we only need to worry about how to generate each element.</p>
+
+<p>Most of the code above is concerned with looping and yielding values, not generating them.  We can factor this out, giving us a method that makes it trivial to define new sequences:</p>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">sequence</span><span class="p">(</span><span class="o">&amp;</span><span class="n">generator</span><span class="p">)</span>
+  <span class="no">Enumerator</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="kp">loop</span> <span class="k">do</span>
+      <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">generator</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">integers</span> <span class="o">=</span> <span class="n">sequence</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">integers</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="o">]</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">squares</span> <span class="o">=</span> <span class="n">sequence</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">squares</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="o">]</span>
+</pre>
+</div>
+
+
+<p>When using infinite sequences laziness is extremely important, as it&rsquo;s impossible to generate all members of an infinite list in anything less than infinite time.  A sequence that outputs whenever a new value is calculated shows this laziness in action:</p>
+
+<div class="highlight"><pre><span class="n">integers</span> <span class="o">=</span> <span class="n">sequence</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="nb">puts</span> <span class="s2">&quot;Calculating result </span><span class="si">#{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="n">n</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">integers</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="no">Calculating</span> <span class="n">result</span> <span class="mi">0</span>
+<span class="no">Calculating</span> <span class="n">result</span> <span class="mi">1</span>
+<span class="no">Calculating</span> <span class="n">result</span> <span class="mi">2</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">]</span>
+</pre>
+</div>
+
+
+<p>Now we can define sequences, how can we use them?  We&rsquo;ve already seen that we can <code>#take</code> any number of elements from our sequence.  We can also use <code>#take_while</code> to take elements until a condition is met, such as finding all square numbers under 250:</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;</span> <span class="n">squares</span><span class="o">.</span><span class="n">take_while</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">250</span><span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">144</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">196</span><span class="p">,</span> <span class="mi">225</span><span class="o">]</span>
+</pre>
+</div>
+
+
+<p>In fact all <code>Enumerable</code> methods are available, but we have to take care in using them.  As our sequences are infinite, any method that iterates over all members has the potential to take an infinite amount of time.  For example calling <code>#any?</code> will either return true (if a matching element exists) or never return.</p>
+
+<p>Another big drawback is that when we call <code>Enumerable</code> methods, laziness isn&rsquo;t preserved.  Suppose we want the first 5 odd square numbers.  We might try the following:</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;</span> <span class="n">squares</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">}</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre>
+</div>
+
+
+<p>Unfortunately this will never return.  Even though we only want a finite set of results, the call to <code>#select</code> operates on the full infinite sequence before it returns.  <code>#take(5)</code> is never called.  The same problem exists with <code>#map</code>, <code>#drop</code>, <code>#reject</code> and more.</p>
+
+<h2>Preserving laziness across derived sequences</h2>
+
+<p>Without laziness preservation, our sequences seem of limited use.  In ruby 2.0 we can use <code>#lazy</code> to make our sequences lazier, but in 1.9 this isn&rsquo;t available to us.  Thankfully we can get around this by generating lazy versions of Enumerable methods ourselves.  Let&rsquo;s take the previous example, finding the first 5 odd square numbers.  We hit a roadblock because <code>#select</code> never returned.  If instead of using <code>#select</code> we use a new <code>Enumerator</code> to do our selecting, we can work around this:</p>
+
+<div class="highlight"><pre><span class="n">odd_squares</span> <span class="o">=</span> <span class="no">Enumerator</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+  <span class="n">squares</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">square</span><span class="o">|</span>
+    <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">square</span> <span class="k">if</span> <span class="p">(</span><span class="n">square</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">odd_squares</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">81</span><span class="o">]</span>
+<span class="o">&gt;&gt;</span> <span class="n">odd_squares</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">121</span><span class="p">,</span> <span class="mi">169</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mi">289</span><span class="p">,</span> <span class="mi">361</span><span class="o">]</span>
+</pre>
+</div>
+
+
+<p>Our new <code>Enumerator</code> iterates <em>lazily</em> through our original sequence, yielding only odd values.  We&rsquo;ve chained two enumerators together to preserve laziness.</p>
+
+<p>This is all a bit cumbersome as is, but we can turn this into a &lsquo;#select&rsquo; method on a new <code>LazyEnumerator</code> class:</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">LazyEnumerator</span> <span class="o">&lt;</span> <span class="no">Enumerator</span>
+  <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+      <span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">value</span><span class="o">|</span>
+        <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">value</span> <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">lazy_sequence</span><span class="p">(</span><span class="o">&amp;</span><span class="n">generator</span><span class="p">)</span>
+  <span class="no">LazyEnumerator</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="kp">loop</span> <span class="k">do</span>
+      <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">generator</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">lazy_squares</span> <span class="o">=</span> <span class="n">lazy_sequence</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">lazy_squares</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">}</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">81</span><span class="o">]</span>
+</pre>
+</div>
+
+
+<p><code>#reject</code> and <code>#map</code> can be chained in a similar way to <code>#select</code>:</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">LazyEnumerator</span> <span class="o">&lt;</span> <span class="no">Enumerator</span>
+  <span class="k">def</span> <span class="nf">reject</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+      <span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">value</span><span class="o">|</span>
+        <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">value</span> <span class="k">unless</span> <span class="n">block</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+      <span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">value</span><span class="o">|</span>
+        <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">block</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p><code>#drop</code> and <code>#drop_while</code> are slightly more complicated, but follow a similar pattern.  The main difference being that they need to keep trap of how much to drop:</p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">LazyEnumerator</span> <span class="o">&lt;</span> <span class="no">Enumerator</span>
+  <span class="k">def</span> <span class="nf">drop</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+      <span class="n">dropped_enough</span> <span class="o">=</span> <span class="kp">false</span>
+      <span class="n">dropped</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">element</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
+        <span class="n">dropped_enough</span> <span class="o">||=</span> <span class="n">dropped</span> <span class="o">&gt;=</span> <span class="n">n</span>
+        <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">element</span> <span class="k">if</span> <span class="n">dropped_enough</span>
+        <span class="n">dropped</span> <span class="o">=</span> <span class="n">dropped</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">drop_while</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">yielder</span><span class="o">|</span>
+      <span class="n">match_found</span> <span class="o">=</span> <span class="kp">false</span>
+      <span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">element</span><span class="o">|</span>
+        <span class="n">match_found</span> <span class="o">||=</span> <span class="o">!</span><span class="n">block</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+        <span class="n">yielder</span><span class="o">.</span><span class="n">yield</span> <span class="n">element</span> <span class="k">if</span> <span class="n">match_found</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Together, these methods give us a <code>LazyEnumerator</code> that can be chained in a great number of ways, giving our sequences a lot of power.  <code>#take</code> and <code>#drop</code> let us select which members of a sequence we&rsquo;re interested, while <code>#select</code>, <code>#reject</code> and <code>#map</code> allow us to build new sequences from existing ones:</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;</span> <span class="n">integers</span> <span class="o">=</span> <span class="n">lazy_sequence</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">squares</span> <span class="o">=</span> <span class="n">integers</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span> <span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">odd_squares</span> <span class="o">=</span> <span class="n">squares</span><span class="o">.</span><span class="n">select</span> <span class="p">{</span><span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">}</span>
+<span class="o">&gt;&gt;</span> <span class="n">odd_squares</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="mi">441</span><span class="p">,</span> <span class="mi">529</span><span class="p">,</span> <span class="mi">625</span><span class="p">,</span> <span class="mi">729</span><span class="p">,</span> <span class="mi">841</span><span class="p">,</span> <span class="mi">961</span><span class="p">,</span> <span class="mi">1089</span><span class="p">,</span> <span class="mi">1225</span><span class="p">,</span> <span class="mi">1369</span><span class="p">,</span> <span class="mi">1521</span><span class="o">]</span>
+</pre>
+</div>
+
+
+<p>Using only a few simple methods, we&rsquo;ve been able to answer a complicated (though contrived) question, what are the second ten odd square numbers?  This particular answer may not be interesting, but the technique of defining and deriving infinite sequences is much more general and useful.  This is only a small sample of what you can do with them.</p>
+
+  </div>
+  <footer>
+    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
+    <span class='date'><a href="/2012/12">31st December 2012</a></span>
+    <ul>
+      <li><a href="/tags/ruby" rel="tag">ruby</a></li>
+      <li><a href="/tags/sequence" rel="tag">sequence</a></li>
+      <li><a href="/tags/enumerator" rel="tag">enumerator</a></li>
+      <li><a href="/tags/lazy-enumerator" rel="tag">lazy-enumerator</a></li>
+      <li><a href="/tags/infinite" rel="tag">infinite</a></li>
+    </ul>
+  </footer>
+</article>
+<article>
+  <header>
     <h1><a href="/2012/12/deploying-harmonia-with-recap">Deploying a rails app from scratch using recap</a></h1>
   </header>
   <div class="content">
@@ -231,38 +444,20 @@ worker: bundle <span class="nb">exec </span>rake environment resque:work <span c
     </ul>
   </footer>
 </article>
-<article>
-  <header>
-    <h1><a href="/2011/09/a-small-toy-to-explore-geohashes">A small toy to explore geohashes</a></h1>
-  </header>
-  <div class="content">
-    <p>For an app I&rsquo;ve been building, I&rsquo;ve been looking into <a href="http://geohash.org/">geohashes</a>.  For those who don&rsquo;t know, the <a href="http://en.wikipedia.org/wiki/Geohash">geohash</a> format is a simple way to encode latitude and longitude into a single string.  As an example, Nelson&rsquo;s Column in London (51.507794, -0.127952) has the geohash <code>gcpvj0dyds</code>.</p>
-
-<p>Geohashes have a couple of interesting features.  First, as you remove characters, you lose precision. <code>gcpvj0dyds</code> fairly accurately points to Nelson&rsquo;s Column; <code>gcpvj0d</code> represents the South-West of Trafalgar Square and some of the Mall; and <code>gcpvj</code> covers most of Central London, as well as Islington and King&rsquo;s Cross.  A geohash doesn&rsquo;t really represent a point, but rather a bounding area within which a point may lie.  The longer the geohash, the smaller that bounding area.</p>
-
-<p>The other interesting property geohashes have is that nearby locations usually (but not always) share similar prefixes.  So much of North London is in <code>gcpv</code>, while much of South London is in <code>gcpu</code>.  However, due to the <a href="http://en.wikipedia.org/wiki/Prime_Meridian">Prime Meridian</a> passing through Greenwhich, South East London has the geohash <code>u10h</code> &ndash; wildly different than the other two.</p>
-
-<p>This probably sounds a bit complicated.  I was having trouble getting my head around the concept, so to try and get to grips with geohashes I&rsquo;ve written a toy app that draws them on a map.  To try it out, go to <a href="http://geohash.gofreerange.com">http://geohash.gofreerange.com</a>, click the map, zoom and play.  If you find it useful, let me know.</p>
-
-<div class="update">
-Update: This code is now available [on github](https://github.com/tomafro/geohash-explorer).
-</div>
-
-
-  </div>
-  <footer>
-    <span class='author'><a rel='author' href='http://tomafro.net'>Tom Ward</a></span>
-    <span class='date'><a href="/2011/09">15th September 2011</a></span>
-    <ul>
-      <li><a href="/tags/geohash" rel="tag">geohash</a></li>
-      <li><a href="/tags/toy" rel="tag">toy</a></li>
-      <li><a href="/tags/app" rel="tag">app</a></li>
-    </ul>
-  </footer>
-</article>
 <section class="related-links">
 <h1>Older posts:</h1>
 <ul>
+<li>
+  <a class='title' href="/2011/09/a-small-toy-to-explore-geohashes">A small toy to explore geohashes</a>
+  <div class='meta'>
+  <span class='date'><a href="/2011/09">15th September 2011</a></span>
+  <ul class='tags'>
+    <li><a href="/tags/geohash" rel="tag">geohash</a></li>
+    <li><a href="/tags/toy" rel="tag">toy</a></li>
+    <li><a href="/tags/app" rel="tag">app</a></li>
+  </ul>
+  </div>
+</li>
 <li>
   <a class='title' href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">Tip: Automatic bundle exec for rake and other gems</a>
   <div class='meta'>

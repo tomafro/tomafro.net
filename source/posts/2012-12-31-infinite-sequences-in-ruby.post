@@ -1,0 +1,189 @@
+---
+layout: post
+title: "Infinite sequences in ruby"
+tags: [ruby, sequence, enumerator, "lazy-enumerator", infinite]
+---
+One feature of [harmonia](https://harmonia.io) is tasks that recur on a schedule, e.g. every Thursday, or on the 30th day of each month.  For these tasks we need to know not just when they'll next occur, but also things like the next 4 occurrences, or all occurrences this month.
+
+To do this we've used a technique more common in [clojure](http://clojure.org/): using an infinite sequence.
+
+## Defining simple infinite sequences ##
+
+Ruby 1.9 and above let us define infinite sequences using the `Enumerator` class.  A simple example is the sequence of integers:
+
+{{#ruby}}
+integers = Enumerator.new do |yielder|
+  n = 0
+  loop do
+    yielder.yield n
+    n = n + 1
+  end
+end
+
+>> integers.take(5)
+=> [0, 1, 2, 3, 4]
+>> integers.take(10)
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+{{/ruby}}
+
+Here's how this works.  The block passed to `Enumerator.new` defines our sequence.  It takes a `yielder` argument with a special method `#yield`, used to return elements in the sequence.  Whenever `#yield` is called, execution of the block stops.  Execution only restarts *if* more elements are needed, making the sequence *lazy*.  The `Enumerator` class handles this stopping and starting execution -- we only need to worry about how to generate each element.
+
+Most of the code above is concerned with looping and yielding values, not generating them.  We can factor this out, giving us a method that makes it trivial to define new sequences:
+
+{{#ruby}}
+def sequence(&generator)
+  Enumerator.new do |yielder|
+    n = 0
+    loop do
+      yielder.yield generator.call(n)
+      n = n + 1
+    end
+  end
+end
+
+>> integers = sequence {|n| n}
+>> integers.take(10)
+=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+>> squares = sequence {|n| n * n}
+>> squares.take(10)
+=> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+{{/ruby}}
+
+When using infinite sequences laziness is extremely important, as it's impossible to generate all members of an infinite list in anything less than infinite time.  A sequence that outputs whenever a new value is calculated shows this laziness in action:
+
+{{#ruby}}
+integers = sequence {|n| puts "Calculating result #{n}"; n}
+
+>> integers.take(3)
+Calculating result 0
+Calculating result 1
+Calculating result 2
+=> [1, 2, 3]
+{{/ruby}}
+
+Now we can define sequences, how can we use them?  We've already seen that we can `#take` any number of elements from our sequence.  We can also use `#take_while` to take elements until a condition is met, such as finding all square numbers under 250:
+
+{{#ruby}}
+>> squares.take_while {|n| n < 250}
+=> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225]
+{{/ruby}}
+
+In fact all `Enumerable` methods are available, but we have to take care in using them.  As our sequences are infinite, any method that iterates over all members has the potential to take an infinite amount of time.  For example calling `#any?` will either return true (if a matching element exists) or never return.
+
+Another big drawback is that when we call `Enumerable` methods, laziness isn't preserved.  Suppose we want the first 5 odd square numbers.  We might try the following:
+
+{{#ruby}}
+>> squares.select {|n| n % 2 == 1}.take(5)
+{{/ruby}}
+
+Unfortunately this will never return.  Even though we only want a finite set of results, the call to `#select` operates on the full infinite sequence before it returns.  `#take(5)` is never called.  The same problem exists with `#map`, `#drop`, `#reject` and more.
+
+## Preserving laziness across derived sequences ##
+
+Without laziness preservation, our sequences seem of limited use.  In ruby 2.0 we can use `#lazy` to make our sequences lazier, but in 1.9 this isn't available to us.  Thankfully we can get around this by generating lazy versions of Enumerable methods ourselves.  Let's take the previous example, finding the first 5 odd square numbers.  We hit a roadblock because `#select` never returned.  If instead of using `#select` we use a new `Enumerator` to do our selecting, we can work around this:
+
+{{#ruby}}
+odd_squares = Enumerator.new do |yielder|
+  squares.each do |square|
+    yielder.yield square if (square % 2 == 1)
+  end
+end
+
+>> odd_squares.take(5)
+=> [1, 9, 25, 49, 81]
+>> odd_squares.take(10)
+=> [1, 9, 25, 49, 81, 121, 169, 225, 289, 361]
+{{/ruby}}
+
+Our new `Enumerator` iterates *lazily* through our original sequence, yielding only odd values.  We've chained two enumerators together to preserve laziness.
+
+This is all a bit cumbersome as is, but we can turn this into a '#select' method on a new `LazyEnumerator` class:
+
+{{#ruby}}
+class LazyEnumerator < Enumerator
+  def select(&block)
+    self.class.new do |yielder|
+      each do |value|
+        yielder.yield value if block.call(value)
+      end
+    end
+  end
+end
+
+def lazy_sequence(&generator)
+  LazyEnumerator.new do |yielder|
+    n = 0
+    loop do
+      yielder.yield generator.call(n)
+      n = n + 1
+    end
+  end
+end
+
+>> lazy_squares = lazy_sequence {|n| n * n}
+>> lazy_squares.select {|n| n % 2 == 1}.take(5)
+=> [1, 9, 25, 49, 81]
+{{/ruby}}
+
+`#reject` and `#map` can be chained in a similar way to `#select`:
+
+{{#ruby}}
+class LazyEnumerator < Enumerator
+  def reject(&block)
+    self.class.new do |yielder|
+      each do |value|
+        yielder.yield value unless block.call(value)
+      end
+    end
+  end
+
+  def map(&block)
+    self.class.new do |yielder|
+      each do |value|
+        yielder.yield block.call(value)
+      end
+    end
+  end
+end
+{{/ruby}}
+
+`#drop` and `#drop_while` are slightly more complicated, but follow a similar pattern.  The main difference being that they need to keep trap of how much to drop:
+
+{{#ruby}}
+class LazyEnumerator < Enumerator
+  def drop(n)
+    self.class.new do |yielder|
+      dropped_enough = false
+      dropped = 0
+      each do |element, index|
+        dropped_enough ||= dropped >= n
+        yielder.yield element if dropped_enough
+        dropped = dropped + 1
+      end
+    end
+  end
+
+  def drop_while(&block)
+    self.class.new do |yielder|
+      match_found = false
+      each do |element|
+        match_found ||= !block.call(element)
+        yielder.yield element if match_found
+      end
+    end
+  end
+end
+{{/ruby}}
+
+Together, these methods give us a `LazyEnumerator` that can be chained in a great number of ways, giving our sequences a lot of power.  `#take` and `#drop` let us select which members of a sequence we're interested, while `#select`, `#reject` and `#map` allow us to build new sequences from existing ones:
+
+{{#ruby}}
+>> integers = lazy_sequence {|n| n}
+>> squares = integers.map {|n| n * n }
+>> odd_squares = squares.select {|n| n % 2 == 1}
+>> odd_squares.drop(10).take(10)
+=> [441, 529, 625, 729, 841, 961, 1089, 1225, 1369, 1521]
+{{/ruby}}
+
+Using only a few simple methods, we've been able to answer a complicated (though contrived) question, what are the second ten odd square numbers?  This particular answer may not be interesting, but the technique of defining and deriving infinite sequences is much more general and useful.  This is only a small sample of what you can do with them.
