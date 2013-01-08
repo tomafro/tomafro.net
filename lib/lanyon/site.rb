@@ -47,7 +47,8 @@ module Lanyon
     def import
       @pages = Dir['**/**'].inject({}) do |contents, path|
         unless File.directory?(path) || path.starts_with?('_')
-          contents[path] = load_template(path)
+          template = load_template(path)
+          contents[path] = template unless template.respond_to?(:draft?) && template.draft?
         end
         contents
       end

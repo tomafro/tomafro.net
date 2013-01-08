@@ -70,6 +70,10 @@ module Lanyon
       @config[:destination_path] || path
     end
 
+    def draft?
+      @config.has_key?(:draft) && @config[:draft]
+    end
+
     def respond_to?(method)
       @config.has_key?(method) || super
     end
