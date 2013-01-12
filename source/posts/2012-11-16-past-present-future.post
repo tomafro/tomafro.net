@@ -13,7 +13,7 @@ For me and the rest of [Go Free Range](https://gofreerange.com), the big event t
 
 We've been working on this project for 14 months, from the [initial commit](https://github.com/alphagov/whitehall/commit/8fa2772), through the [beta launch](http://tomafro.net/2012/02/working-inside-government ) right up until today.  I've enjoyed it, but it has been extremely hard work.  And although there are hundreds of things I'd still like to change, there are hundreds more I'm proud of.
 
-### Harmonia
+## Harmonia
 
 As well as [Inside Government](https://www.gov.uk/government), we've also been slowly inviting people to [Harmonia](https://harmonia.io), our 'virtual office manager'.  In case you haven't read the [Go Free Range blog](http://gofreerange.com/blog), [Harmonia](https://harmonia.io) is a tool we use to assign all the tasks needed to keep our company running.  Rather than use a schedule, each piece of work is assigned in a way designed to be both random and fair.
 

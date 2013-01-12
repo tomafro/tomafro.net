@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
   <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
-  <link rel="stylesheet" href="/css/style-46755c2c67dacf9e187fa6d64411afe6.css" type="text/css" />
+  <link rel="stylesheet" href="/css/style-b3fa15dce221ff2373344e23bec3febe.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="http://tomafro.net/atom.xml" />
   <link rel="canonical" href="http://tomafro.net/tags/harmonia"/>
   <script type="text/javascript" src="http://use.typekit.com/brv6igt.js"></script>
@@ -30,7 +30,7 @@
 <body>
   <nav>
   <ul>
-    <li><a href='/'>tomafro.net</a><span class='byline'>, a blog by Tom Ward</span></li>
+    <li><a href='/'>tomafro.net</a><span class='byline'> &ndash; a blog by Tom Ward</span></li>
     <li><a href='/about'>about</a></li>
     <li><a href='https://github.com/tomafro'>github</a></li>
     <li><a href='https://twitter.com/tomafro'>twitter</a></li>
@@ -47,7 +47,7 @@
 
 <div class="highlight"><pre>web: bundle <span class="nb">exec </span>unicorn -p <span class="nv">$PORT</span> -c unicorn.conf.rb
 ticker: bundle <span class="nb">exec </span>rails runner script/ticker.rb
-worker: bundle <span class="nb">exec </span>rake environment resque:work <span class="nv">QUEUE</span><span class="o">=</span>assignment_emails <span class="nv">VVERBOSE</span><span class="o">=</span>1
+worker: bundle <span class="nb">exec </span>rake environment resque:work <span class="nv">QUEUE</span><span class="o">=</span>assignments <span class="nv">VVERBOSE</span><span class="o">=</span>1
 </pre>
 </div>
 
@@ -115,7 +115,7 @@ worker: bundle <span class="nb">exec </span>rake environment resque:work <span c
 
 <p>We&rsquo;ve been working on this project for 14 months, from the <a href="https://github.com/alphagov/whitehall/commit/8fa2772">initial commit</a>, through the <a href="http://tomafro.net/2012/02/working-inside-government">beta launch</a> right up until today.  I&rsquo;ve enjoyed it, but it has been extremely hard work.  And although there are hundreds of things I&rsquo;d still like to change, there are hundreds more I&rsquo;m proud of.</p>
 
-<h3>Harmonia</h3>
+<h2>Harmonia</h2>
 
 <p>As well as <a href="https://www.gov.uk/government">Inside Government</a>, we&rsquo;ve also been slowly inviting people to <a href="https://harmonia.io">Harmonia</a>, our &lsquo;virtual office manager&rsquo;.  In case you haven&rsquo;t read the <a href="http://gofreerange.com/blog">Go Free Range blog</a>, <a href="https://harmonia.io">Harmonia</a> is a tool we use to assign all the tasks needed to keep our company running.  Rather than use a schedule, each piece of work is assigned in a way designed to be both random and fair.</p>
 

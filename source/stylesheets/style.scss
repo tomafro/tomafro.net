@@ -1,25 +1,36 @@
-$grey: #dfdaef;
+$highlight: rgb(174, 196, 235);
+$complement: rgb(235, 235, 235);
+$black: rgb(0, 0, 0);
+
+$light-complement: fade-out(complement($highlight), 0.85);
+$lighter-complement: fade-out(complement($highlight), 0.97);
+
 $lightgrey: #fdfcf9;
 $darkgrey: #cfcabf;
 $darkergrey: #4f4a40;
-$black: #0a0600;
-$blue: #004491;
+
+$base-size: 23px;
+$line-height-ratio: 1.7;
+$line-height: ($line-height-ratio * 1em);
+$ratio: 1.12;
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   background: white;
-  font: 16px "ff-dagny-web-pro-1", "ff-dagny-web-pro-2";
-  line-height: 1.7em;
+  font: $base-size "ff-dagny-web-pro-1", "ff-dagny-web-pro-2";
   color: $black;
-  padding-left: 8px;
-  padding-right: 8px;
+  line-height: $line-height;
+  margin-bottom: $line-height;
+}
+
+a, a:hover {
+  text-decoration: none;
+  color: $black;
 }
 
 h1, h2, h3, h4, h5 {
@@ -27,35 +38,91 @@ h1, h2, h3, h4, h5 {
   font-weight: normal;
 }
 
-a {
-  color: $blue;
-  text-decoration: none;
-  border-bottom: 1px dotted #ccf;
+h1 {
+  font-size: ($base-size * $ratio * $ratio * $ratio * $ratio * $ratio);
+  line-height: ($line-height / ($ratio * $ratio * $ratio * $ratio * $ratio));
+  padding-bottom: ($line-height / ($ratio * $ratio * $ratio * $ratio * $ratio * 4));
+  margin-bottom: ($line-height * 3 / ($ratio * $ratio * $ratio * $ratio * $ratio * 4));
+  border-bottom: 2px solid $complement;
 }
 
-a:hover {
-  border-bottom: 1px solid #ccf;
+h2, .related-links h1 {
+  font-size: ($base-size * $ratio * $ratio);
+  padding-bottom: ($line-height / ($ratio * $ratio * 4));
+  margin-bottom: ($line-height * 3 / ($ratio * $ratio * 4));
+  border-bottom: 2px solid $complement;
+}
+
+h3 {
+  font-size: ($base-size * $ratio);
+  line-height: ($line-height / $ratio);
+  margin-bottom: ($line-height / $ratio);
+}
+
+p {
+  line-height: $line-height;
+  margin-bottom: $line-height;
+}
+
+p a, nav a, footer a, .meta a {
+  color: darken($highlight, 40);
+  text-decoration: none;
+  border-bottom: 2px solid fade-out($highlight, 0.6);
+
+  &:hover {
+    color: fade-out($highlight, 0.3);
+    border-bottom: 2px solid fade-out($highlight, 0.8);
+  }
+}
+
+header {
+  h1 {
+    a {
+      text-decoration: none;
+      color: $black;
+      border-bottom: none;
+    }
+
+    a:hover {
+      border-bottom: none;
+    }
+  }
+}
+
+nav {
+  margin-bottom: ($base-size * $line-height-ratio * 2);
+
+  ul li:first-child a {
+    margin-left: 0;
+  }
+
+  .byline {
+    color: $black;
+    margin-right: 0.1em;
+  }
 }
 
 article footer, nav {
-  padding-top: 0.4em;
   font-family: "adelle-1", "adelle-2";
-  font-size: 0.9em;
+  font-size: 0.85em;
   color: $darkgrey;
 
   a {
-    margin-left: 0.2em;
-    margin-right: 0.2em;
+    margin-left: 0.1em;
+    margin-right: 0.1em;
   }
 
   ul {
     display: inline;
+
     li {
       display: inline;
     }
+
     li:after {
       content:" · ";
     }
+
     li:last-child:after {
       content:"";
     }
@@ -63,93 +130,38 @@ article footer, nav {
 }
 
 article footer {
-  border-top: 1px solid $grey;
+  border-top: 2px solid $complement;
+  padding-top: (0.1em / 0.9);
+  span.author:after, span.date:after { content:" · ";}
+  span.author a { margin-left: 0 }
 }
 
 article {
-  margin-top: 3em;
-  margin-bottom: 3em;
-  width: 100%;
+  margin-bottom: ($line-height * 2);
 
-  p {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    code {
-      border: 1px solid $grey;
-      border-radius: 0.2em;
-      padding: 0.0em 0.1em;
-      background: $lightgrey;
-      font: 0.8em droid-sans-mono-1, droid-sans-mono-2, monospace;
-    }
+  code {
+    font: 0.8em droid-sans-mono-1, droid-sans-mono-2, monospace;
+    border: 1px solid $light-complement;
+    border-radius: 0.2em;
+    padding: 0.0em 0.1em;
+    background: $lighter-complement;
   }
 
-  img {
-    width: 100%;
-    text-align: center;
-  }
+  .highlight {
+    background: #ffb;
+    border-radius: 0.3em;
+    padding: 0.8em;
 
-  header {
-    h1 {
-      font-size: 1.8em;
-      padding-bottom: 0.2em;
-      line-height: 1.5em;
-      border-bottom: 1px solid $grey;
-    }
+    color: white;
+    background: #222;
 
-    a {
-      color: black;
-      border: none;
-    }
-
-    a:hover {
-      border: none;
-    }
-  }
-
-  div.content {
-    margin-top: 1em;
-    margin-bottom: 1.2em;
-
-    h2, h3 {
-      font-size: 1.4em;
-      padding-top: 0.4em;
-      margin-top: 0.4em;
-      margin-bottom: 0.4em;
-      padding-bottom: 0.2em;
-      border-bottom: 1px solid $grey;
-      border-top: 1px solid $grey;
-    }
-
-    .browsershots {
-      margin-left: -12px;
-      margin-right: -12px;
-      text-align: center;
-
-      a {
-        border: none;
-      }
-
-      a:hover {
-        opacity: 0.5;
-      }
-
-      img {
-        width: 300px;
-        margin-left: 9px;
-        margin-right: 9px;
-      }
-    }
+    margin-top: -0.8em;
+    margin-bottom: 0.9em;
 
     pre {
-      margin-top: 1em;
-      margin-bottom: 1.4em;
       font: 0.8em droid-sans-mono-1, droid-sans-mono-2, monospace;
-      line-height: 1.4em;
-      border-radius: 0.3em;
+      line-height: 1.25em;
       display: block;
-      color: white;
-      background: #222;
-      padding: 0.8em;
 
       .s1, .s2, .sx, .mi {
         color: rgb(174, 196, 235);
@@ -176,47 +188,31 @@ article {
       }
     }
   }
-
-  footer span.author:after, footer span.date:after { content:" · ";}
 }
 
-section.related-links {
+.related-links {
   font-family: "adelle-1", "adelle-2";
-  padding-bottom: 2em;
 
-  h1 {
-    font-size: 1.2em;
-    padding-bottom: 0.1em;
-    line-height: 1.5em;
-    border-bottom: 1px solid $grey;
+  a.title {
+    color: $black;
   }
 
-  .date:after {
-    content:" · ";
-  }
-
-  .title {
-    font-size: 1.2em;
+  a.title:hover {
+    color: $highlight;
   }
 
   .meta {
-    font-size: 0.8em;
-    margin-top: -0.2em;
+    font-size: 0.85em;
 
-    a {
-      color: $black;
-      border-bottom: 1px dotted #ccc;
-    }
-
-    a:hover {
-      border-bottom: 1px solid #ccc;
+    .date:after {
+      content:" · ";
     }
   }
 
   ul li {
     color: $darkgrey;
-    padding-top: 1em;
     list-style-type: none;
+    margin-bottom: 1.7em;
 
     ul.tags, ul.tags li {
       display: inline;
@@ -232,26 +228,33 @@ section.related-links {
   }
 }
 
-nav .byline {
-  display: none;
-  color: black;
-}
-
 @media (min-width:560px) {
-  body {
-    font: 21px "ff-dagny-web-pro-1", "ff-dagny-web-pro-2";
-    line-height: 1.7em;
-  }
-
   nav .byline {
     display: inline;
   }
 }
 
-@media (min-width:960px) {
+@media (min-width:900px) {
   body {
-    width: 960px;
+    width: 900px;
     margin-left: auto;
     margin-right: auto;
   }
 }
+
+.browsershots {
+  font-size: 0px;
+  line-height: 0px;
+
+  .browsershot {
+    width: 300px;
+  }
+
+  a:hover {
+    opacity: 0.5;
+  }
+
+  margin-top: (-$base-size * 0.9);
+  padding-bottom: ($base-size * 0.9);
+}
+

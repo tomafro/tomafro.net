@@ -10,7 +10,7 @@ If you follow [our company blog](http://gofreerange.com/blog) you'll know that w
 {{#shell}}
 web: bundle exec unicorn -p $PORT -c unicorn.conf.rb
 ticker: bundle exec rails runner script/ticker.rb
-worker: bundle exec rake environment resque:work QUEUE=assignment_emails VVERBOSE=1
+worker: bundle exec rake environment resque:work QUEUE=assignments VVERBOSE=1
 {{/shell}}
 
 All of these processes touch application code, so whenever we deploy a new version of the app (which we do frequently) they need to be restarted.  Our app also has a database with associated migrations, uses environment variables like `DATABASE_URL` for configuration, and has a number of gem dependencies managed by bundler.

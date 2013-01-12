@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="http://tomafro.net/atom.xml" rel="self"/>
- <updated>2012-12-31T14:00:52+00:00</updated>
+ <updated>2013-01-12T19:34:27+00:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
@@ -255,7 +255,7 @@
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;web: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;unicorn -p &lt;span class=&quot;nv&quot;&gt;$PORT&lt;/span&gt; -c unicorn.conf.rb
 ticker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rails runner script/ticker.rb
-worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environment resque:work &lt;span class=&quot;nv&quot;&gt;QUEUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;assignment_emails &lt;span class=&quot;nv&quot;&gt;VVERBOSE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environment resque:work &lt;span class=&quot;nv&quot;&gt;QUEUE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;assignments &lt;span class=&quot;nv&quot;&gt;VVERBOSE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
 &lt;/pre&gt;
 &lt;/div&gt;
 
@@ -336,7 +336,7 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
 &lt;p&gt;We&amp;rsquo;ve been working on this project for 14 months, from the &lt;a href=&quot;https://github.com/alphagov/whitehall/commit/8fa2772&quot;&gt;initial commit&lt;/a&gt;, through the &lt;a href=&quot;http://tomafro.net/2012/02/working-inside-government&quot;&gt;beta launch&lt;/a&gt; right up until today.  I&amp;rsquo;ve enjoyed it, but it has been extremely hard work.  And although there are hundreds of things I&amp;rsquo;d still like to change, there are hundreds more I&amp;rsquo;m proud of.&lt;/p&gt;
 
-&lt;h3&gt;Harmonia&lt;/h3&gt;
+&lt;h2&gt;Harmonia&lt;/h2&gt;
 
 &lt;p&gt;As well as &lt;a href=&quot;https://www.gov.uk/government&quot;&gt;Inside Government&lt;/a&gt;, we&amp;rsquo;ve also been slowly inviting people to &lt;a href=&quot;https://harmonia.io&quot;&gt;Harmonia&lt;/a&gt;, our &amp;lsquo;virtual office manager&amp;rsquo;.  In case you haven&amp;rsquo;t read the &lt;a href=&quot;http://gofreerange.com/blog&quot;&gt;Go Free Range blog&lt;/a&gt;, &lt;a href=&quot;https://harmonia.io&quot;&gt;Harmonia&lt;/a&gt; is a tool we use to assign all the tasks needed to keep our company running.  Rather than use a schedule, each piece of work is assigned in a way designed to be both random and fair.&lt;/p&gt;
 
