@@ -11,7 +11,9 @@ $darkergrey: #4f4a40;
 
 $base-size: 23px;
 $line-height-ratio: 1.7;
+$reduced-line-height-ratio: 1.5;
 $line-height: ($line-height-ratio * 1em);
+$reduced-line-height: ($reduced-line-height-ratio * 1em);
 $ratio: 1.12;
 
 * {
@@ -24,8 +26,14 @@ body {
   background: white;
   font: $base-size "ff-dagny-web-pro-1", "ff-dagny-web-pro-2";
   color: $black;
-  line-height: $line-height;
-  margin-bottom: $line-height;
+  padding-left: 8px;
+  padding-right: 8px;
+  line-height: $reduced-line-height;
+  margin-bottom: $reduced-line-height;
+}
+
+p {
+  margin-bottom: $reduced-line-height;
 }
 
 a, a:hover {
@@ -40,28 +48,23 @@ h1, h2, h3, h4, h5 {
 
 h1 {
   font-size: ($base-size * $ratio * $ratio * $ratio * $ratio * $ratio);
-  line-height: ($line-height / ($ratio * $ratio * $ratio * $ratio * $ratio));
-  padding-bottom: ($line-height / ($ratio * $ratio * $ratio * $ratio * $ratio * 4));
-  margin-bottom: ($line-height * 3 / ($ratio * $ratio * $ratio * $ratio * $ratio * 4));
+  line-height: ($reduced-line-height / ($ratio * $ratio * $ratio * $ratio * $ratio));
+  padding-bottom: ($reduced-line-height / ($ratio * $ratio * $ratio * $ratio * $ratio * 4));
+  margin-bottom: ($reduced-line-height * 3 / ($ratio * $ratio * $ratio * $ratio * $ratio * 4));
   border-bottom: 2px solid $complement;
 }
 
 h2, .related-links h1 {
   font-size: ($base-size * $ratio * $ratio);
-  padding-bottom: ($line-height / ($ratio * $ratio * 4));
-  margin-bottom: ($line-height * 3 / ($ratio * $ratio * 4));
+  padding-bottom: ($reduced-line-height / ($ratio * $ratio * 4));
+  margin-bottom: ($reduced-line-height * 3 / ($ratio * $ratio * 4));
   border-bottom: 2px solid $complement;
 }
 
 h3 {
   font-size: ($base-size * $ratio);
-  line-height: ($line-height / $ratio);
-  margin-bottom: ($line-height / $ratio);
-}
-
-p {
-  line-height: $line-height;
-  margin-bottom: $line-height;
+  line-height: ($reduced-line-height / $ratio);
+  margin-bottom: ($reduced-line-height / $ratio);
 }
 
 p a, nav a, footer a, .meta a {
@@ -90,7 +93,7 @@ header {
 }
 
 nav {
-  margin-bottom: ($base-size * $line-height-ratio * 2);
+  margin-bottom: ($base-size * $reduced-line-height-ratio * 2);
 
   ul li:first-child a {
     margin-left: 0;
@@ -137,7 +140,7 @@ article footer {
 }
 
 article {
-  margin-bottom: ($line-height * 2);
+  margin-bottom: ($reduced-line-height * 2);
 
   code {
     font: 0.8em droid-sans-mono-1, droid-sans-mono-2, monospace;
@@ -228,23 +231,10 @@ article {
   }
 }
 
-@media (min-width:560px) {
-  nav .byline {
-    display: inline;
-  }
-}
-
-@media (min-width:900px) {
-  body {
-    width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
 .browsershots {
   font-size: 0px;
   line-height: 0px;
+  text-align: center;
 
   .browsershot {
     width: 300px;
@@ -256,5 +246,21 @@ article {
 
   margin-top: (-$base-size * 0.9);
   padding-bottom: ($base-size * 0.9);
+}
+
+@media (min-width:560px) {
+  nav .byline {
+    display: inline;
+  }
+}
+
+@media (min-width:916px) {
+  body {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
