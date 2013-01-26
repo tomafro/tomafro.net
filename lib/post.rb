@@ -10,7 +10,7 @@ class Page < Lanyon::Template
   end
 
   def url
-    @path.to(@path.size - 6)
+    "/" + @path.to(@path.size - 6)
   end
 
   def layout
