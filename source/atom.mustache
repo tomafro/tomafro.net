@@ -4,7 +4,7 @@ destination_path: atom.xml
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
- <link href="http://tomafro.net/atom.xml" rel="self"/>
+ <link href="https://tomafro.net/atom.xml" rel="self"/>
  <updated>{{ site.updated_date_xml }}</updated>
  <id>http://tomafro.net/</id>
  <author>
@@ -14,7 +14,7 @@ destination_path: atom.xml
  {{#site.recent_posts}}
  <entry>
    <id>http://tomafro.net{{ url }}</id>
-   <link href="http://tomafro.net{{ url }}"/>
+   <link href="https://tomafro.net{{ url }}"/>
    <title>{{ title }}</title>
    <author>
      <name>Tom Ward</name>
@@ -22,7 +22,7 @@ destination_path: atom.xml
    </author>
    <content type="html">{{ article }}</content>
    <updated>{{ date_xml }}</updated>{{#tags}}
-   <category scheme="http://tomafro.net/tags/" term="{{ . }}" label="{{ . }}" />{{/tags}}
+   <category scheme="https://tomafro.net/tags/" term="{{ . }}" label="{{ . }}" />{{/tags}}
  </entry>
  {{/site.recent_posts}}
 </feed>
