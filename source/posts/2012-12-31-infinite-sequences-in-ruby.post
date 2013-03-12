@@ -148,7 +148,7 @@ class LazyEnumerator < Enumerator
 end
 {{/ruby}}
 
-`#drop` and `#drop_while` are slightly more complicated, but follow a similar pattern.  The main difference being that they need to keep trap of how much to drop:
+`#drop` and `#drop_while` are slightly more complicated, but follow a similar pattern.  The main difference being that they need to keep track of how much to drop:
 
 {{#ruby}}
 class LazyEnumerator < Enumerator
