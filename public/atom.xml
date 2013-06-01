@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="https://tomafro.net/atom.xml" rel="self"/>
- <updated>2013-01-27T21:57:25+00:00</updated>
+ <updated>2013-06-01T09:16:02+01:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
@@ -218,8 +218,8 @@
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2012/12&quot;&gt;31st December 2012&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/12&quot;&gt;31st December 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/ruby&quot; rel=&quot;tag&quot;&gt;ruby&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/sequence&quot; rel=&quot;tag&quot;&gt;sequence&lt;/a&gt;&lt;/li&gt;
@@ -266,7 +266,7 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
 &lt;h2&gt;Getting started &amp;ndash; adding recap to the project&lt;/h2&gt;
 
-&lt;p&gt;Using recap with a rails project is simple.  First add &lt;code&gt;gem 'recap'&lt;/code&gt; to the &lt;code&gt;Gemfile&lt;/code&gt; and run &lt;code&gt;bundle install&lt;/code&gt;.  Next run &lt;code&gt;bundle exec recap setup&lt;/code&gt;, which will generate a &lt;code&gt;Capfile&lt;/code&gt;, guessing values for the git repository and app name.  You should check these values and change the server to point to your app server.  As an example, the complete &lt;code&gt;Capfile&lt;/code&gt; for harmonia is shown below:&lt;/p&gt;
+&lt;p&gt;Using recap with a rails project is simple.  First add &lt;code&gt;gem &#39;recap&#39;&lt;/code&gt; to the &lt;code&gt;Gemfile&lt;/code&gt; and run &lt;code&gt;bundle install&lt;/code&gt;.  Next run &lt;code&gt;bundle exec recap setup&lt;/code&gt;, which will generate a &lt;code&gt;Capfile&lt;/code&gt;, guessing values for the git repository and app name.  You should check these values and change the server to point to your app server.  As an example, the complete &lt;code&gt;Capfile&lt;/code&gt; for harmonia is shown below:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;recap/recipes/rails&amp;#39;&lt;/span&gt;
 
@@ -298,8 +298,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2012/12&quot;&gt;27th December 2012&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/12&quot;&gt;27th December 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/recap&quot; rel=&quot;tag&quot;&gt;recap&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/harmonia&quot; rel=&quot;tag&quot;&gt;harmonia&lt;/a&gt;&lt;/li&gt;
@@ -351,8 +351,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2012/11&quot;&gt;16th November 2012&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/11&quot;&gt;16th November 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/gds&quot; rel=&quot;tag&quot;&gt;gds&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/government&quot; rel=&quot;tag&quot;&gt;government&lt;/a&gt;&lt;/li&gt;
@@ -402,8 +402,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2012/06&quot;&gt;21st June 2012&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/06&quot;&gt;21st June 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/ruby&quot; rel=&quot;tag&quot;&gt;ruby&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/gem&quot; rel=&quot;tag&quot;&gt;gem&lt;/a&gt;&lt;/li&gt;
@@ -450,8 +450,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2012/02&quot;&gt;29th February 2012&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/02&quot;&gt;29th February 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/gds&quot; rel=&quot;tag&quot;&gt;gds&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/government&quot; rel=&quot;tag&quot;&gt;government&lt;/a&gt;&lt;/li&gt;
@@ -483,8 +483,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2011/09&quot;&gt;24th September 2011&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/09&quot;&gt;24th September 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/geohash&quot; rel=&quot;tag&quot;&gt;geohash&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/toy&quot; rel=&quot;tag&quot;&gt;toy&lt;/a&gt;&lt;/li&gt;
@@ -531,8 +531,8 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2011/09&quot;&gt;15th September 2011&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/09&quot;&gt;15th September 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/geohash&quot; rel=&quot;tag&quot;&gt;geohash&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/toy&quot; rel=&quot;tag&quot;&gt;toy&lt;/a&gt;&lt;/li&gt;
@@ -586,8 +586,8 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2011/09&quot;&gt; 1st September 2011&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/09&quot;&gt; 1st September 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/zsh&quot; rel=&quot;tag&quot;&gt;zsh&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/ruby&quot; rel=&quot;tag&quot;&gt;ruby&lt;/a&gt;&lt;/li&gt;
@@ -849,8 +849,8 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2011/08&quot;&gt; 2nd August 2011&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/08&quot;&gt; 2nd August 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/hashblue&quot; rel=&quot;tag&quot;&gt;hashblue&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/gofreerange&quot; rel=&quot;tag&quot;&gt;gofreerange&lt;/a&gt;&lt;/li&gt;
@@ -902,8 +902,8 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class='author'&gt;&lt;a rel='author' href='http://tomafro.net'&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
-    &lt;span class='date'&gt;&lt;a href=&quot;/2011/03&quot;&gt; 3rd March 2011&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
+    &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/03&quot;&gt; 3rd March 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/hashblue&quot; rel=&quot;tag&quot;&gt;hashblue&lt;/a&gt;&lt;/li&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/gofreerange&quot; rel=&quot;tag&quot;&gt;gofreerange&lt;/a&gt;&lt;/li&gt;

@@ -122,8 +122,8 @@ taggings: tag_id, taggable_id, user_id
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">Conversation</span>
   <span class="n">belongs_to</span> <span class="ss">:user</span>
   <span class="n">belongs_to</span> <span class="ss">:subject</span><span class="p">,</span> <span class="ss">:polymorphic</span> <span class="o">=&gt;</span> <span class="kp">true</span>
-  
-  <span class="n">named_scope</span> <span class="ss">:in_language</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">language</span><span class="o">|</span> 
+
+  <span class="n">named_scope</span> <span class="ss">:in_language</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">language</span><span class="o">|</span>
     <span class="p">{</span> <span class="ss">:conditions</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:language_code</span> <span class="o">=&gt;</span> <span class="n">language</span><span class="p">}}</span>
   <span class="p">}</span>
 <span class="k">end</span>
@@ -140,7 +140,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | NULL          | NULL    | NULL  | 1000111 | Using where | 
+| SIMPLE      | ref  | NULL          | NULL    | NULL  | 1000111 | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -155,7 +155,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 +-------------+------+---------------+---------+-------+---------+-------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra       |
 +-------------+------+---------------+---------+-------+---------+-------------+
-| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where | 
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where |
 +-------------+------+---------------+---------+-------+---------+-------------+
 1 row in set (0.00 sec)
 </pre>
@@ -165,7 +165,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en';
 
 <p>In a real app we&rsquo;re unlikely to want to read all these rows at once, so let&rsquo;s do another quick comparison limiting the query to the first 100 rows:</p>
 
-<pre>Without the index:  
+<pre>Without the index:
 
 mysql> SELECT * FROM conversations WHERE language_code = 'en' LIMIT 100;
 100 rows in set (1.32 sec)
@@ -190,7 +190,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY c
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra                       |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
-| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort | 
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 1 row in set (0.00 sec)
 </pre>
@@ -207,7 +207,7 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY c
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra                       |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
-| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort | 
+| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 1 row in set (0.00 sec)
 </pre>
@@ -215,18 +215,18 @@ mysql> EXPLAIN SELECT * FROM conversations WHERE language_code = 'en' ORDER BY c
 
 <p>It&rsquo;s pretty much exactly the same &ndash; still almost 4.5 seconds.  This is because MySQL can only use one index per table in a query.  It has to choose between the index on <code>language_code</code> and the one on <code>created_at</code>, and in this case chooses the language code index.  We can force it to use our other index for comparison:</p>
 
-<pre>mysql> SELECT * FROM conversations 
-       USE INDEX(created_ix) WHERE language_code = 'en' 
+<pre>mysql> SELECT * FROM conversations
+       USE INDEX(created_ix) WHERE language_code = 'en'
        ORDER BY created_at DESC LIMIT 100;
 100 rows in set (0.02 sec)
 
-mysql> EXPLAIN SELECT * FROM conversations 
-       USE INDEX(created_ix) WHERE language_code = 'en' 
+mysql> EXPLAIN SELECT * FROM conversations
+       USE INDEX(created_ix) WHERE language_code = 'en'
        ORDER BY created_at DESC LIMIT 100;
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 | select_type | type | key           | key_len | ref   | rows    | Extra                       |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
-| SIMPLE      | ref  | created_ix    | 8       | const | 9903411 | Using where                 | 
+| SIMPLE      | ref  | created_ix    | 8       | const | 9903411 | Using where                 |
 +-------------+------+---------------+---------+-------+---------+-----------------------------+
 1 row in set (0.00 sec)
 </pre>
@@ -234,7 +234,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <p>Using a trick stolen from <a href="http://m.onkey.org/2009/8/6/use-index-with-active-record-finders">Pratik Naik (in the comments of his article)</a> we can force the use of a particular index in rails with a special named scope, and perform our query:</p>
 
-<div class="highlight"><pre><span class="no">Conversation</span><span class="o">.</span><span class="n">named_scope</span> <span class="ss">:use_index</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">index</span><span class="o">|</span> 
+<div class="highlight"><pre><span class="no">Conversation</span><span class="o">.</span><span class="n">named_scope</span> <span class="ss">:use_index</span><span class="p">,</span> <span class="nb">lambda</span> <span class="p">{</span><span class="o">|</span><span class="n">index</span><span class="o">|</span>
   <span class="p">{</span><span class="ss">:from</span> <span class="o">=&gt;</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">quoted_table_name</span><span class="si">}</span><span class="s2"> USE INDEX(</span><span class="si">#{</span><span class="n">index</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -247,24 +247,24 @@ mysql> EXPLAIN SELECT * FROM conversations
 
 <h3>Using compound indexes</h3>
 
-<p>A compound index indexes across two or more columns.  When defining a compound index, the order of the columns is significant, as the database reduces the set of candidate rows by comparing the columns in turn.  So an index created with <code>add_index :conversations, [language_code, created_at]</code> will compare <code>created_at</code> first, then <code>language_code</code>.</p>
+<p>A compound index indexes across two or more columns.  When defining a compound index, the order of the columns is significant, as the database reduces the set of candidate rows by comparing the columns in turn.  So an index created with <code>add_index :conversations, [:language_code, :created_at]</code> will compare <code>language_code</code> first, then <code>created_at</code>.</p>
 
 <p>Because of this, we need to take some care in choosing the order of our columns.  In general, the rule is to specify the most selective column first.  That is, the column with the most unique values.  So for our query, we&rsquo;ll add the following:</p>
 
-<div class="highlight"><pre><span class="n">add_index</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="o">[</span><span class="n">created_at</span><span class="p">,</span> <span class="n">language_code</span><span class="o">]</span>
+<div class="highlight"><pre><span class="n">add_index</span> <span class="ss">:conversations</span><span class="p">,</span> <span class="o">[</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:language_code</span><span class="o">]</span>
 </pre>
 </div>
 
 
 <p>If we explain the query without forcing the index we find it is still efficient:</p>
 
-<pre>mysql> EXPLAIN SELECT * FROM conversations 
-       WHERE language_code = 'en' 
+<pre>mysql> EXPLAIN SELECT * FROM conversations
+       WHERE language_code = 'en'
        ORDER BY created_at DESC LIMIT 100;
 +-------------+------+----------------+---------+-------+---------+-----------------------------+
 | select_type | type | key            | key_len | ref   | rows    | Extra                       |
 +-------------+------+----------------+---------+-------+---------+-----------------------------+
-| SIMPLE      | ref  | lang_and_ca_ix |      48 | const |  640231 | Using where                 | 
+| SIMPLE      | ref  | lang_and_ca_ix |      48 | const |  640231 | Using where                 |
 +-------------+------+----------------+---------+-------+---------+-----------------------------+
 1 row in set (0.00 sec)
 </pre>
@@ -279,7 +279,7 @@ mysql> EXPLAIN SELECT * FROM conversations
 +-------------------------------+----------------------------+
 | count(distinct language_code) | count(distinct created_at) |
 +-------------------------------+----------------------------+
-|                            21 |                     584089 | 
+|                            21 |                     584089 |
 +-------------------------------+----------------------------+
 1 row in set (1.90 sec)
 </pre>
