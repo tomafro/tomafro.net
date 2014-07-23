@@ -4,8 +4,8 @@ require File.expand_path('../lib/lanyon/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Tom Ward"]
   gem.email         = ["tom@popdog.net"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Static generator for tomafro.net}
+  gem.summary       = %q{Generates tomafro.net}
   gem.homepage      = ""
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }

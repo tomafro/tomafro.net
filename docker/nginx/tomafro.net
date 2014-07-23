@@ -1,0 +1,32 @@
+server {
+  server_name tomafro.net;
+  return 301 https://$host$request_uri;
+}
+
+server {
+  listen 443 ssl;
+  server_name tomafro.net;
+  root /var/www/tomafro.net;
+
+  ssl_certificate /private/ssl/tomafro.net.crt;
+  ssl_certificate_key /private/ssl/tomafro.net.key;
+
+  add_header Strict-Transport-Security max-age=31536000;
+  add_header X-Frame-Options SAMEORIGIN;
+
+  error_page 404 /404.html;
+
+  location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+    expires 90d;
+    add_header Pragma public;
+    add_header Cache-Control "public";
+  }
+
+  location / {
+    expires 10m;
+    add_header Pragma public;
+    add_header Cache-Control "public";
+
+    try_files $uri $uri/index.html $uri.html =404;
+  }
+}

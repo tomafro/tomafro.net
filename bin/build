@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+docker_root=${0%/*}/../docker
+
+cd $docker_root && docker build -t tomafro/tomafro.net .
+docker push tomafro/tomafro.net
+

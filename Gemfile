@@ -1,7 +1,6 @@
-source :rubygems
+source 'https://rubygems.org'
 
 gemspec
 
-gem 'recap'
 gem 'rake'
 gem 'rack'

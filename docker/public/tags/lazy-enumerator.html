@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
   <link rel="stylesheet" href="/css/style-db97c835f88a11034a9bb34f063ff69a.css" type="text/css" />
   <link rel="alternate" type="application/atom+xml" href="https://tomafro.net/atom.xml" />
-  <link rel="canonical" href="https://tomafro.net/tags/sequence"/>
+  <link rel="canonical" href="https://tomafro.net/tags/lazy-enumerator"/>
   <script type="text/javascript" src="//use.typekit.com/brv6igt.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-  <title>Posts tagged with sequence &middot; tomafro.net</title>
+  <title>Posts tagged with lazy-enumerator &middot; tomafro.net</title>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-1103395-2']);
@@ -194,7 +194,7 @@
 </div>
 
 
-<p><code>#drop</code> and <code>#drop_while</code> are slightly more complicated, but follow a similar pattern.  The main difference being that they need to keep trap of how much to drop:</p>
+<p><code>#drop</code> and <code>#drop_while</code> are slightly more complicated, but follow a similar pattern.  The main difference being that they need to keep track of how much to drop:</p>
 
 <div class="highlight"><pre><span class="k">class</span> <span class="nc">LazyEnumerator</span> <span class="o">&lt;</span> <span class="no">Enumerator</span>
   <span class="k">def</span> <span class="nf">drop</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>

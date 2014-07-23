@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="https://tomafro.net/atom.xml" rel="self"/>
- <updated>2013-06-01T09:16:02+01:00</updated>
+ <updated>2014-06-25T10:09:47+01:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
@@ -174,7 +174,7 @@
 &lt;/div&gt;
 
 
-&lt;p&gt;&lt;code&gt;#drop&lt;/code&gt; and &lt;code&gt;#drop_while&lt;/code&gt; are slightly more complicated, but follow a similar pattern.  The main difference being that they need to keep trap of how much to drop:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#drop&lt;/code&gt; and &lt;code&gt;#drop_while&lt;/code&gt; are slightly more complicated, but follow a similar pattern.  The main difference being that they need to keep track of how much to drop:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LazyEnumerator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Enumerator&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;

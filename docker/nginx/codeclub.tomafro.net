@@ -1,0 +1,18 @@
+server {
+  server_name codeclub.tomafro.net;
+  root /var/www/codeclub.tomafro.net;
+
+  location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+    expires 90d;
+    add_header Pragma public;
+    add_header Cache-Control "public";
+  }
+
+  location / {
+    expires 10m;
+    add_header Pragma public;
+    add_header Cache-Control "public";
+
+    try_files $uri $uri/index.html $uri.html =404;
+  }
+}
