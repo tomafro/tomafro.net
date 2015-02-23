@@ -1,11 +1,11 @@
 server {
-  server_name tomafro.net;
+  server_name tomafro.net tomafro.net.local localhost;
   return 301 https://$host$request_uri;
 }
 
 server {
   listen 443 ssl;
-  server_name tomafro.net;
+  server_name tomafro.net tomafro.net.local localhost;
   root /var/www/tomafro.net;
 
   ssl_certificate /private/ssl/tomafro.net.crt;
