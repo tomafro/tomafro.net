@@ -6,7 +6,7 @@ task :generate do
 
   begin
     time "complete site" do
-      Lanyon::Site.new('source', 'docker/public').generate
+      Lanyon::Site.new('source', 'public').generate
     end
   rescue Object => e
     puts e.message

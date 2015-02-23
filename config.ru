@@ -1,7 +1,7 @@
 module Tomafro
   class Server
     def call(env)
-      path = ::File.join("docker/public", env["PATH_INFO"])
+      path = ::File.join("public", env["PATH_INFO"])
       path = path + "index.html" if path[/\/\Z/]
       path = path + ".html" unless path[/[^\/]+\..*\Z/]
       if ::File.exist?(path)
