@@ -3,17 +3,11 @@ layout: "_layouts/default.mustache"
 title: About Tom Ward
 hide-meta: true
 ---
-I'm a London based software developer, passionate about building and improving the web.
+I'm a London based software developer, passionate about building and improving the web.  I work as a programmer for [Basecamp](http://basecamp.com).
 
-I'm a member of [FreeRange](http://gofreerange.com), a small collective of talented, like-minded developers.  If you're interested on having us work on a project with you, get in touch at [lets@gofreerange.com](mailto:lets@gofreerange.com).  We've worked on sites including [Chromaroma](http://www.chromaroma.com/), [hashblue.com](https://hashblue.com), and [www.gov.uk](https://www.gov.uk).
+Previously I was a member of [FreeRange](http://gofreerange.com), a small collective of talented, like-minded developers.  We worked on sites including [FutureLearn](https://www.futurelearn.com/), [www.gov.uk](https://www.gov.uk), [MUBI](https://mubi.com/), and many more.
 
-<div class="browsershots">
-<a href="http://www.chromaroma.com"><img class="browsershot" src="/images/chromaroma.thumb.png"/></a>
-<a href="https://hashblue.com"><img class="browsershot" src="/images/hashblue.thumb.png"/></a>
-<a href="https://www.gov.uk/government/organisations"><img class="browsershot" src="/images/departments.thumb.png"/></a>
-</div>
-
-You can see some of the code I've written on github, both on [my own account](http://github.com/tomafro) and [our company account](http://github.com/freerange).
+You can see code I've written on github, mainly on [my account](https://github.com/tomafro), [FreeRange's account](https://github.com/freerange) or [Basecamp's](https://github.com/basecamp).
 
 <h2 style="padding-top:2em;">About tomafro.net</h2>
-This site is built using my own hacked together static site generator.  The full source to my site is available [here in github](http://github.com/tomafro/tomafro.net/tree/master).  It's deployed using [recap](http://github.com/freerange/recap), our simple capistrano recipes for deploying static sites, ruby apps and more.
+This site is built using my own hacked together static site generator.  The full source to my site is available [here in github](http://github.com/tomafro/tomafro.net/tree/master).
