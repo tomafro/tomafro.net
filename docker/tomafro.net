@@ -1,10 +1,5 @@
-map $http_dpr $dpr {
-  default "1";
-  ~1\.[01234] "1";
-  ~1\.[56789] "2";
-  ~2\.[01234] "2";
-  ~2\.[56789] "3";
-  ~3\.[0123456789] "3";
+map $http_width $width {
+  '' "-";
 }
 
 server {
@@ -15,15 +10,19 @@ server {
 
   error_page 404 /404.html;
 
-  location ~* /images/(?<name>.*)\.(?<ext>.*)$ {
-    add_header Content-DPR $dpr;
-    add_header Vary DPR;
+  location ~* /images/* {
     add_header Pragma public;
     add_header Cache-Control "public";
 
-    expires 90d;
+    if ($http_width) {
+      image_filter resize 10 -;
+      add_header Vary Width;
+      add_header Content-Width $http_width
+      image_filter resize $http_width -;
+    }
 
-    try_files /images/$name@${dpr}x.$ext $uri =404;
+    expires 90d;
+    try_files  $uri =404;
   }
 
   location / {

@@ -1,4 +1,4 @@
-FROM tomafro/nginx:latest
+FROM tomafro/nginx
 
 MAINTAINER Tom Ward (tom@popdog.net)
 

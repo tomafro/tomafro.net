@@ -1,4 +1,4 @@
-$highlight: rgb(174, 196, 235);
+$highlight: rgb(0, 120, 190);
 $complement: rgb(235, 235, 235);
 $black: rgb(0, 0, 0);
 
@@ -68,13 +68,13 @@ h3 {
 }
 
 p a, nav a, footer a, .meta a {
-  color: darken($highlight, 40);
+  color: $highlight;
   text-decoration: none;
-  border-bottom: 2px solid fade-out($highlight, 0.6);
+  border-bottom: 2px solid $highlight;
 
   &:hover {
-    color: fade-out($highlight, 0.3);
-    border-bottom: 2px solid fade-out($highlight, 0.8);
+    color: mix($highlight, white, 50);
+    border-bottom: 2px solid mix($highlight, white, 50);
   }
 }
 
@@ -198,6 +198,7 @@ article {
 
   a.title {
     color: $black;
+    font-size: 1.15em;
   }
 
   a.title:hover {
@@ -205,10 +206,17 @@ article {
   }
 
   .meta {
+    color: blue;
+
     font-size: 0.85em;
 
+    .date a {
+      color: blue;
+    }
+
     .date:after {
-      content:" · ";
+      color: $darkgrey;
+      content: "     in     ";
     }
   }
 

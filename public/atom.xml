@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  <title>Tom Ward</title>
  <link href="https://tomafro.net/atom.xml" rel="self"/>
- <updated>2016-01-13T11:01:38+00:00</updated>
+ <updated>2016-05-23T09:04:01+01:00</updated>
  <id>http://tomafro.net/</id>
  <author>
    <name>Tom Ward</name>
@@ -218,7 +218,6 @@
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/12&quot;&gt;31st December 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/ruby&quot; rel=&quot;tag&quot;&gt;ruby&lt;/a&gt;&lt;/li&gt;
@@ -228,7 +227,8 @@
       &lt;li&gt;&lt;a href=&quot;/tags/infinite&quot; rel=&quot;tag&quot;&gt;infinite&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2012-12-31T00:00:00+00:00</updated>
    <category scheme="https://tomafro.net/tags/" term="ruby" label="ruby" />
    <category scheme="https://tomafro.net/tags/" term="sequence" label="sequence" />
@@ -298,7 +298,6 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/12&quot;&gt;27th December 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/recap&quot; rel=&quot;tag&quot;&gt;recap&lt;/a&gt;&lt;/li&gt;
@@ -306,7 +305,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
       &lt;li&gt;&lt;a href=&quot;/tags/deployment&quot; rel=&quot;tag&quot;&gt;deployment&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2012-12-27T00:00:00+00:00</updated>
    <category scheme="https://tomafro.net/tags/" term="recap" label="recap" />
    <category scheme="https://tomafro.net/tags/" term="harmonia" label="harmonia" />
@@ -351,7 +351,6 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/11&quot;&gt;16th November 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/gds&quot; rel=&quot;tag&quot;&gt;gds&lt;/a&gt;&lt;/li&gt;
@@ -360,7 +359,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
       &lt;li&gt;&lt;a href=&quot;/tags/harmonia&quot; rel=&quot;tag&quot;&gt;harmonia&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2012-11-16T00:00:00+00:00</updated>
    <category scheme="https://tomafro.net/tags/" term="gds" label="gds" />
    <category scheme="https://tomafro.net/tags/" term="government" label="government" />
@@ -402,7 +402,6 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/06&quot;&gt;21st June 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/ruby&quot; rel=&quot;tag&quot;&gt;ruby&lt;/a&gt;&lt;/li&gt;
@@ -412,7 +411,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
       &lt;li&gt;&lt;a href=&quot;/tags/tip&quot; rel=&quot;tag&quot;&gt;tip&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2012-06-21T00:00:00+01:00</updated>
    <category scheme="https://tomafro.net/tags/" term="ruby" label="ruby" />
    <category scheme="https://tomafro.net/tags/" term="gem" label="gem" />
@@ -450,7 +450,6 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2012/02&quot;&gt;29th February 2012&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/gds&quot; rel=&quot;tag&quot;&gt;gds&lt;/a&gt;&lt;/li&gt;
@@ -459,7 +458,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
       &lt;li&gt;&lt;a href=&quot;/tags/freerange&quot; rel=&quot;tag&quot;&gt;freerange&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2012-02-29T00:00:00+00:00</updated>
    <category scheme="https://tomafro.net/tags/" term="gds" label="gds" />
    <category scheme="https://tomafro.net/tags/" term="government" label="government" />
@@ -483,7 +483,6 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/09&quot;&gt;24th September 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/geohash&quot; rel=&quot;tag&quot;&gt;geohash&lt;/a&gt;&lt;/li&gt;
@@ -494,7 +493,8 @@ worker: bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;rake environme
       &lt;li&gt;&lt;a href=&quot;/tags/tiny&quot; rel=&quot;tag&quot;&gt;tiny&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2011-09-24T00:00:00+01:00</updated>
    <category scheme="https://tomafro.net/tags/" term="geohash" label="geohash" />
    <category scheme="https://tomafro.net/tags/" term="toy" label="toy" />
@@ -531,7 +531,6 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/09&quot;&gt;15th September 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/geohash&quot; rel=&quot;tag&quot;&gt;geohash&lt;/a&gt;&lt;/li&gt;
@@ -539,7 +538,8 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
       &lt;li&gt;&lt;a href=&quot;/tags/app&quot; rel=&quot;tag&quot;&gt;app&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2011-09-15T00:00:00+01:00</updated>
    <category scheme="https://tomafro.net/tags/" term="geohash" label="geohash" />
    <category scheme="https://tomafro.net/tags/" term="toy" label="toy" />
@@ -586,7 +586,6 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/09&quot;&gt; 1st September 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/zsh&quot; rel=&quot;tag&quot;&gt;zsh&lt;/a&gt;&lt;/li&gt;
@@ -597,7 +596,8 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
       &lt;li&gt;&lt;a href=&quot;/tags/tip&quot; rel=&quot;tag&quot;&gt;tip&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2011-09-01T00:00:00+01:00</updated>
    <category scheme="https://tomafro.net/tags/" term="zsh" label="zsh" />
    <category scheme="https://tomafro.net/tags/" term="ruby" label="ruby" />
@@ -849,7 +849,6 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/08&quot;&gt; 2nd August 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/hashblue&quot; rel=&quot;tag&quot;&gt;hashblue&lt;/a&gt;&lt;/li&gt;
@@ -859,7 +858,8 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
       &lt;li&gt;&lt;a href=&quot;/tags/rails&quot; rel=&quot;tag&quot;&gt;rails&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2011-08-02T00:00:00+01:00</updated>
    <category scheme="https://tomafro.net/tags/" term="hashblue" label="hashblue" />
    <category scheme="https://tomafro.net/tags/" term="gofreerange" label="gofreerange" />
@@ -902,7 +902,6 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
 
   &lt;/div&gt;
   &lt;footer&gt;
-    &lt;span class=&#39;author&#39;&gt;&lt;a rel=&#39;author&#39; href=&#39;http://tomafro.net&#39;&gt;Tom Ward&lt;/a&gt;&lt;/span&gt;
     &lt;span class=&#39;date&#39;&gt;&lt;a href=&quot;/2011/03&quot;&gt; 3rd March 2011&lt;/a&gt;&lt;/span&gt;
     &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;/tags/hashblue&quot; rel=&quot;tag&quot;&gt;hashblue&lt;/a&gt;&lt;/li&gt;
@@ -910,7 +909,8 @@ Update: This code is now available [on github](https://github.com/tomafro/geohas
       &lt;li&gt;&lt;a href=&quot;/tags/o2&quot; rel=&quot;tag&quot;&gt;o2&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/footer&gt;
-&lt;/article&gt;</content>
+&lt;/article&gt;
+</content>
    <updated>2011-03-03T00:00:00+00:00</updated>
    <category scheme="https://tomafro.net/tags/" term="hashblue" label="hashblue" />
    <category scheme="https://tomafro.net/tags/" term="gofreerange" label="gofreerange" />
